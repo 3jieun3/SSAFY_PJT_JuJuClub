@@ -66,7 +66,7 @@ while True:
     sleep(2)
     while True: #한페이지에 20개의 리뷰, 마지막 리뷰에서 error발생
         try:
-            star=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/ul/li[1]/div[1]/span[1]').text
+            star=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/ul/li['+str(j)+']/div[1]/span[1]').text
             stars.append(star)
             review=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/ul/li['+str(j)+']/div[2]/div[1]').text
             reviews.append(review)

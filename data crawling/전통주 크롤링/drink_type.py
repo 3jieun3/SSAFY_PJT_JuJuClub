@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 
 # '더 술' 전통주 정보
 for num in range(1, 6):
-    drink_type = ['탁주', '양주, 청주', '과실주', '증류주', '리큐르, 기타주류']
+    drink_type = ['탁주', '약주, 청주', '과실주', '증류주', '리큐르, 기타주류']
     type = drink_type[num-1]
     ns_address = "https://thesool.com/front/find/M00000008"+str(num+2)+"/list.do?kind=CD0000014"+ str(num)
     #xpath

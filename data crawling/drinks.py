@@ -88,30 +88,20 @@ while True:
         except: break
 
     sleep(2)
-    try: #리뷰의 마지막 페이지에서 error발생
-        page +=1
-        if (page+1) % 5 == 0:
-            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[5]/a').click() 
-        elif (page+1) % 5 == 1:
-            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[6]/a').click() 
-        else:
-            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click() 
 
-    except: break #리뷰의 마지막 페이지에서 process 종료
-    # if page<11:#page10
-    #     try: #리뷰의 마지막 페이지에서 error발생
-    #         page +=1
-    #         next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click() 
-    #     except: break #리뷰의 마지막 페이지에서 process 종료
+    if page<6:    #page5
+        try: #리뷰의 마지막 페이지에서 error발생
+            page +=1
+            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str(page+1)+']/a').click() 
+        except: break #리뷰의 마지막 페이지에서 process 종료
         
-    # else : 
-    #     try: #page11부터
-    #         page+=1
-    #         # if page%10==0: next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/div[3]/a[11]').click()
-    #         # else : 
-    #         next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click()
-            
-    #     except: break
+    else : 
+        try: #page6부터
+            page+=1
+            if page%5==1: next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[7]/a').click()
+            else: 
+                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click()
+        except: break
 
 df4=add_dataframe(names,ingredients,abvs,volumes,descriptions,imageURLs,cnt)
 

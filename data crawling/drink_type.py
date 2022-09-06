@@ -11,8 +11,7 @@ warnings.filterwarnings('ignore')
 for num in range(1, 6):
     drink_type = ['탁주', '양주, 청주', '과실주', '증류주', '리큐르, 기타주류']
     type = drink_type[num-1]
-    # ns_address="https://thesool.com/front/find/M000000082/list.do"
-    ns_address = "https://thesool.com/front/find/M000000083/list.do?kind=CD0000014"+ str(num)
+    ns_address = "https://thesool.com/front/find/M00000008"+str(num+2)+"/list.do?kind=CD0000014"+ str(num)
     #xpath
     drinks = "/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul"
 
@@ -62,7 +61,7 @@ for num in range(1, 6):
     cnt=1   #술 index
     page=1
 
-
+    
     while True:
         j=1
         print ("페이지", page ,"\n") 
@@ -70,7 +69,7 @@ for num in range(1, 6):
         while True: #한페이지에 20개의 리뷰, 마지막 리뷰에서 error발생
             try:
                 name = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dt/div[1]/div').text
-                ingredient = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li[1]/dl/dd/ul/li[2]/div[2]').text
+                ingredient = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[2]/div[2]').text
                 volume, abv = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[3]/div[2]').text.replace(" ", "").split('/')
                 description = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span').text
                 imageURL = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/div/div/span/img').get_attribute('src')
@@ -84,7 +83,7 @@ for num in range(1, 6):
 
 
                 if j%11==0: #화면에 2개씩 보이도록 스크롤
-                    ELEMENT = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span').text
+                    ELEMENT = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span')
                     d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
                 j+=1
                 print(cnt, name, type_, ingredient, abv, volume, description, imageURL, "\n")
@@ -92,17 +91,26 @@ for num in range(1, 6):
             except: break
 
         sleep(2)
-        try: #리뷰의 마지막 페이지에서 error발생
-            page +=1
-            if (page+1) % 5 == 0:
-                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[5]/a').click() 
-            elif (page+1) % 5 == 1:
-                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[6]/a').click() 
-            else:
-                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click() 
-        except: break #리뷰의 마지막 페이지에서 process 종료
+
+        if page<6:    #page5
+            try: #리뷰의 마지막 페이지에서 error발생
+                page +=1
+                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str(page+1)+']/a').click() 
+            except: break #리뷰의 마지막 페이지에서 process 종료
+            
+        else : 
+            try: #page6부터
+                page+=1
+                if page%5==1:   # 6, 11, 16 page...
+                    next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[7]/a').click()
+                else:
+                    if (page+1)%5 < 2: # (9, 10), (14, 15), (19, 20)page...
+                        next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1)%5+5)+']/a').click()
+                    else:   # (7, 8), (12, 13), (17, 18) page...
+                        next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1)%5)+']/a').click()
+            except: break
 
 
     df4=add_dataframe(names, type_, ingredients,abvs,volumes,descriptions,imageURLs,cnt)
 
-    df4.to_csv('./type.csv', encoding='utf-8-sig', mode='w')
+    df4.to_csv('./type.csv', encoding='utf-8-sig', mode='a')

@@ -66,7 +66,7 @@ while True:
     while True: #한페이지에 20개의 리뷰, 마지막 리뷰에서 error발생
         try:
             name = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dt/div[1]/div').text
-            ingredient = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li[1]/dl/dd/ul/li[2]/div[2]').text
+            ingredient = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[2]/div[2]').text
             volume, abv = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[3]/div[2]').text.replace(" ", "").split('/')
             description = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span').text
             imageURL = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/div/div/span/img').get_attribute('src')
@@ -79,10 +79,11 @@ while True:
             imageURLs.append(imageURL)
 
 
-            if j%11==0: #화면에 2개씩 보이도록 스크롤
-                ELEMENT = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span').text
-                d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
+            # if j%11==0: #화면에 2개씩 보이도록 스크롤
+            #     ELEMENT = d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul/li['+str(j)+']/dl/dd/ul/li[4]/div[2]/span').text
+            #     d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
             j+=1
+            d.execute_script("window.scrollTo(0, document.body.scrollHeight)")
             print(cnt, name, ingredient, abv, volume, description, imageURL, "\n")
             cnt+=1
         except: break

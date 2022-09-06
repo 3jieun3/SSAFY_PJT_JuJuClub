@@ -87,7 +87,7 @@ while True:
             cnt+=1
         except: break
 
-    sleep(2)
+    sleep(3)
 
     if page<6:    #page5
         try: #리뷰의 마지막 페이지에서 error발생
@@ -98,9 +98,13 @@ while True:
     else : 
         try: #page6부터
             page+=1
-            if page%5==1: next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[7]/a').click()
-            else: 
-                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click()
+            if page%5==1:   # 6, 11, 16 page...
+                next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[7]/a').click()
+            else:
+                if (page+1)%5 < 2: # (9, 10), (14, 15), (19, 20)page...
+                    next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1)%5+5)+']/a').click()
+                else:   # (7, 8), (12, 13), (17, 18) page...
+                    next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1)%5)+']/a').click()
         except: break
 
 df4=add_dataframe(names,ingredients,abvs,volumes,descriptions,imageURLs,cnt)

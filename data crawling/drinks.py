@@ -10,7 +10,6 @@ warnings.filterwarnings('ignore')
 # '더 술' 전통주 정보
 ns_address="https://thesool.com/front/find/M000000082/list.do"
 #xpath
-# shoppingmall_review="/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/ul"
 drinks = "/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[1]/ul"
 
 
@@ -85,25 +84,34 @@ while True:
                 d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
             j+=1
             print(cnt, name, ingredient, abv, volume, description, imageURL, "\n")
-            cnt+=1 
+            cnt+=1
         except: break
 
     sleep(2)
-    
-    if page<11:#page10
-        try: #리뷰의 마지막 페이지에서 error발생
-            page +=1
+    try: #리뷰의 마지막 페이지에서 error발생
+        page +=1
+        if (page+1) % 5 == 0:
+            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[5]/a').click() 
+        elif (page+1) % 5 == 1:
+            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li[6]/a').click() 
+        else:
             next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click() 
-        except: break #리뷰의 마지막 페이지에서 process 종료
+
+    except: break #리뷰의 마지막 페이지에서 process 종료
+    # if page<11:#page10
+    #     try: #리뷰의 마지막 페이지에서 error발생
+    #         page +=1
+    #         next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click() 
+    #     except: break #리뷰의 마지막 페이지에서 process 종료
         
-    else : 
-        try: #page11부터
-            page+=1
-            # if page%10==0: next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/div[3]/a[11]').click()
-            # else : 
-            next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click()
+    # else : 
+    #     try: #page11부터
+    #         page+=1
+    #         # if page%10==0: next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[6]/div[3]/a[11]').click()
+    #         # else : 
+    #         next_page=d.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div/div[2]/ul/li['+str((page+1) % 5)+']/a').click()
             
-        except: break
+    #     except: break
 
 df4=add_dataframe(names,ingredients,abvs,volumes,descriptions,imageURLs,cnt)
 

@@ -95,7 +95,7 @@ while True:
             nickname = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/strong').text
 
             top_review = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
-            review = top_review.find_element_by_css_selector('div.YEtwtZFLDz > span._3QDEeS6NLn').text
+            review = top_review.find_element_by_css_selector('div.YEtwtZFLDz > span._3QDEeS6NLn').text.strip().replace("\n", " ")
             
             datetime_date = datetime.strptime(date, '%y.%m.%d.')
             dateDict = {0: '월요일', 1:'화요일', 2:'수요일', 3:'목요일', 4:'금요일', 5:'토요일', 6:'일요일'}

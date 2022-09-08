@@ -15,8 +15,8 @@ name=['DOK막걸리']  # 전통주명
 idx = [4]   # 인덱스 번호(전통주 데이터 기준)
 abv = [6]   # 도수
 genders = ['m', 'f']    # 성별 m(남성), f(여성)
-gender = random.choice(genders) # 성별
-age = int(random.randrange(20, 70)) # 나이
+member_id = 1
+
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
@@ -45,17 +45,17 @@ d.execute_script("arguments[0].click();", element)
 sleep(2)
 
 
-def add_dataframe(name, idx, abv, dates, weekdays, age, gender, scores, nicknames, reviews, cnt):  #데이터 프레임에 저장
+def add_dataframe(name, idx, abv, dates, weekdays, age, gender, scores, nicknames, reviews, member_id, cnt):  #데이터 프레임에 저장
     #데이터 프레임생성
-    df1=pd.DataFrame(columns=['name', 'idx', 'abv', 'date', 'weekday', 'age', 'gender', 'score', 'nickname', 'review'])
+    df1=pd.DataFrame(columns=['name', 'idx', 'abv', 'date', 'weekday', 'age', 'gender', 'score', 'nickname', 'review', 'member_id'])
     n=1
     if (cnt>0):
         for i in range(0,cnt-1):
-            df1.loc[n]=[name, idx, abv, dates[i], weekdays[i], age, gender, scores[i], nicknames[i], reviews[i]] #해당 행에 저장
+            df1.loc[n]=[name, idx, abv, dates[i], weekdays[i], age, gender, scores[i], nicknames[i], reviews[i], member_id] #해당 행에 저장
             i+=1
             n+=1
     else:
-        df1.loc[n]=[name, idx, abv, 'null', 'null', age, gender, 'null', 'null', 'null']
+        df1.loc[n]=[name, idx, abv, 'null', 'null', age, gender, 'null', 'null', 'null', member_id]
         n+=1    
     return df1
 
@@ -65,8 +65,7 @@ d.find_element_by_xpath(shoppingmall_review).click() #스크롤 건드리면 안
 name_= name[0]
 idx_ = idx[0]
 abv_ = abv[0]
-age_ = age
-gender_ = gender
+member_id_ = member_id
 
 dates = []
 weekdays = []
@@ -84,12 +83,17 @@ while True:
     sleep(2)
     while True: #한페이지에 20개의 리뷰, 마지막 리뷰에서 error발생
         try:
-            top_review = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
+            gender = random.choice(genders) # 성별
+            age = int(random.randrange(20, 70)) # 나이
+            age_ = age
+            gender_ = gender
+            
             date = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/span').text
             # date = d.find_element_by_css_selector('div._2FmJXrTVEX > span._3QDEeS6NLn').text
             score = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/em').text
             nickname = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/strong').text
 
+            top_review = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
             review = top_review.find_element_by_css_selector('div.YEtwtZFLDz > span._3QDEeS6NLn').text
             
             datetime_date = datetime.strptime(date, '%y.%m.%d.')
@@ -107,7 +111,7 @@ while True:
                 ELEMENT = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[2]/div/span')
                 d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
             j+=1
-            print(cnt, abv_, date, weekday, age, gender, score, nickname, review, "\n")
+            print(cnt, abv_, date, weekday, age, gender, score, nickname, review, member_id_, "\n")
             cnt+=1 
         except: break
             
@@ -142,6 +146,6 @@ while True:
     #     except: break
 
 
-df4=add_dataframe(name_, idx_, abv_, dates, weekdays, age_, gender_, scores, nicknames, reviews, cnt)
+df4=add_dataframe(name_, idx_, abv_, dates, weekdays, age_, gender_, scores, nicknames, reviews, member_id_, cnt)
 
 df4.to_csv('./reviews.csv', encoding='utf-8-sig', mode='a')

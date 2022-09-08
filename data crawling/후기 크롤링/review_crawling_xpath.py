@@ -67,7 +67,6 @@ idx_ = idx[0]
 abv_ = abv[0]
 member_id_ = member_id
 
-
 dates = []
 weekdays = []
 scores = []

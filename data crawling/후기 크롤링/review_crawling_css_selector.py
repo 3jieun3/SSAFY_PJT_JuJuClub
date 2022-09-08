@@ -14,9 +14,8 @@ warnings.filterwarnings('ignore')
 name=['DOK막걸리']  # 전통주명
 idx = [4]   # 인덱스 번호(전통주 데이터 기준)
 abv = [6]   # 도수
-genders = ['m', 'f']    # 성별 m(남성), f(여성)
+gender_type = ['m', 'f']    # 성별 m(남성), f(여성)
 member_id = 1
-
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
@@ -45,17 +44,17 @@ d.execute_script("arguments[0].click();", element)
 sleep(2)
 
 
-def add_dataframe(name, idx, abv, dates, weekdays, age, gender, scores, nicknames, reviews, member_id, cnt):  #데이터 프레임에 저장
+def add_dataframe(name, idx, abv, dates, weekdays, ages, genders, scores, nicknames, reviews, member_id, cnt):  #데이터 프레임에 저장
     #데이터 프레임생성
     df1=pd.DataFrame(columns=['name', 'idx', 'abv', 'date', 'weekday', 'age', 'gender', 'score', 'nickname', 'review', 'member_id'])
     n=1
     if (cnt>0):
         for i in range(0,cnt-1):
-            df1.loc[n]=[name, idx, abv, dates[i], weekdays[i], age, gender, scores[i], nicknames[i], reviews[i], member_id] #해당 행에 저장
+            df1.loc[n]=[name, idx, abv, dates[i], weekdays[i], ages[i], genders[i], scores[i], nicknames[i], reviews[i], member_id] #해당 행에 저장
             i+=1
             n+=1
     else:
-        df1.loc[n]=[name, idx, abv, 'null', 'null', age, gender, 'null', 'null', 'null', member_id]
+        df1.loc[n]=[name, idx, abv, 'null', 'null', 'null', 'null', 'null', 'null', 'null', member_id]
         n+=1    
     return df1
 
@@ -67,6 +66,8 @@ idx_ = idx[0]
 abv_ = abv[0]
 member_id_ = member_id
 
+ages = []
+genders = []
 dates = []
 weekdays = []
 scores = []
@@ -83,11 +84,11 @@ while True:
     sleep(2)
     while True: #한페이지에 20개의 리뷰, 마지막 리뷰에서 error발생
         try:
-            gender = random.choice(genders) # 성별
             age = int(random.randrange(20, 70)) # 나이
-            age_ = age
-            gender_ = gender
-            
+            gender = random.choice(gender_type) # 성별
+            ages.append(age)
+            genders.append(gender)
+
             date = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/span').text
             # date = d.find_element_by_css_selector('div._2FmJXrTVEX > span._3QDEeS6NLn').text
             score = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/em').text
@@ -146,6 +147,6 @@ while True:
     #     except: break
 
 
-df4=add_dataframe(name_, idx_, abv_, dates, weekdays, age_, gender_, scores, nicknames, reviews, member_id_, cnt)
+df4=add_dataframe(name_, idx_, abv_, dates, weekdays, ages, genders, scores, nicknames, reviews, member_id, cnt)
 
 df4.to_csv('./reviews.csv', encoding='utf-8-sig', mode='a')

@@ -19,9 +19,9 @@ member_id = 1
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
-ns_address="https://smartstore.naver.com/sanmakgeolli/products/2934598785?NaPm=ct%3Dl7sw4udk%7Cci%3Dd42e603138d964e3f1868d92c26be6131961122a%7Ctr%3Dslsl%7Csn%3D707331%7Chk%3D8f0495d840b4136f033a9748624ec311647ccfba"
+ns_address="https://search.shopping.naver.com/catalog/19092758909?cat_id=50006350&frm=NVSCPRO&query=%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1+%EB%A7%89%EA%B1%B8%EB%A6%AC&NaPm=ct%3Dl7stw6ts%7Cci%3D68a969d8afe86addfc8a6dd2e43f12b4fa0560a5%7Ctr%3Dsls%7Csn%3D95694%7Chk%3D829ea131d840e8598c0dadfbdd5f64ae0efdf491"
 #xpath (각자에 맞게 변경)
-shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul"
+shoppingmall_review="/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul"
 
 
 # 코드 변경 불필요 -----------------------------------------------------------
@@ -78,7 +78,7 @@ page=1
 # --------------------------------------------------------------------------
 
 
-while True:
+while page < 100:
     j=1
     print ("페이지", page ,"\n") 
     sleep(2)
@@ -89,12 +89,12 @@ while True:
             ages.append(age)
             genders.append(gender)
 
-            date = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/span').text
-            score = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/em').text
-            nickname = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/strong').text
+            date = d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul/li['+str(j)+']/div[1]/span[4]').text
+            score = d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul/li['+str(j)+']/div[1]/span[1]').text
+            nickname = d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul/li['+str(j)+']/div[1]/span[3]').text
 
-            top_review = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
-            review = top_review.find_element_by_css_selector('div.YEtwtZFLDz > span._3QDEeS6NLn').text.strip().replace("\n", " ")
+            top_review = d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul/li['+str(j)+']')
+            review = top_review.find_element_by_css_selector('div.reviewItems_review_text__dq0kE > p.reviewItems_text__XrSSf').text.strip().replace("\n", " ")
             
             datetime_date = datetime.strptime(date, '%y.%m.%d.')
             dateDict = {0: '월요일', 1:'화요일', 2:'수요일', 3:'목요일', 4:'금요일', 5:'토요일', 6:'일요일'}
@@ -106,9 +106,8 @@ while True:
             nicknames.append(nickname)
             reviews.append(review)
 
-
             if j%2==0: #화면에 2개씩 보이도록 스크롤
-                ELEMENT = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
+                ELEMENT = top_review.find_element_by_css_selector('div.reviewItems_review_text__dq0kE > p.reviewItems_text__XrSSf')
                 d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
             j+=1
             print(cnt, idx_, abv_, date, weekday, age, gender, score, nickname, review, member_id_, "\n")
@@ -116,12 +115,23 @@ while True:
         except: break
             
     sleep(2)
-    
-    try:
-        page += 1
-        next_page=d.find_element_by_css_selector('a.fAUKm1ewwo._2Ar8-aEUTq').click()
-    except:
-        break
+
+    if page<11:#page10
+        try: #리뷰의 마지막 페이지에서 error발생
+            page +=1
+            next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/div[3]/a['+str(page)+']').click() 
+        except: break #리뷰의 마지막 페이지에서 process 종료
+        
+    else : 
+        try: #page11부터
+            page+=1
+            if page%10==0:
+                next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/div[3]/a[11]').click()
+            elif page%10==1:
+                next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/div[3]/a[12]').click()
+            else:
+                next_page=d.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/div[3]/a['+str(page%10+1)+']').click()
+        except: break
 
 df4=add_dataframe(name_, idx_, abv_, dates, weekdays, ages, genders, scores, nicknames, reviews, member_id, cnt)
 

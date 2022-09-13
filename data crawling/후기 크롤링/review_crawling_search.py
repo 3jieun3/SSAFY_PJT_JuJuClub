@@ -11,15 +11,15 @@ warnings.filterwarnings('ignore')
 
 # 전통주명, 인덱스 번호, 도수는 직접 입력 (각자에 맞게 변경)
 # 나이, 성별은 무작위 선택
-name=['금정산성막걸리']  # 전통주명
-idx = [20]   # 인덱스 번호(전통주 데이터 기준)
-abv = [8]   # 도수
+name=['붉은 원숭이']  # 전통주명
+idx = [75]   # 인덱스 번호(전통주 데이터 기준)
+abv = [10.8]   # 도수
 gender_type = ['m', 'f']    # 성별 m(남성), f(여성)
 member_id = 1
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
-ns_address="https://search.shopping.naver.com/catalog/19092758909?cat_id=50006350&frm=NVSCPRO&query=%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1+%EB%A7%89%EA%B1%B8%EB%A6%AC&NaPm=ct%3Dl7stw6ts%7Cci%3D68a969d8afe86addfc8a6dd2e43f12b4fa0560a5%7Ctr%3Dsls%7Csn%3D95694%7Chk%3D829ea131d840e8598c0dadfbdd5f64ae0efdf491"
+ns_address="https://search.shopping.naver.com/catalog/12196950265?query=%EB%B6%89%EC%9D%80%EC%9B%90%EC%88%AD%EC%9D%B4%20%EB%A7%89%EA%B1%B8%EB%A6%AC&NaPm=ct%3Dl7trgtmo%7Cci%3Db658f00ba2d614c311aff087dc9292542b9b0f4e%7Ctr%3Dslsl%7Csn%3D95694%7Chk%3D622baeadf122b35e3a93c7cb901a476d936229dc"
 #xpath (각자에 맞게 변경)
 shoppingmall_review="/html/body/div/div/div[2]/div[2]/div[2]/div[3]/div[5]/ul"
 
@@ -78,7 +78,7 @@ page=1
 # --------------------------------------------------------------------------
 
 
-while page < 100:
+while page < 101:
     j=1
     print ("페이지", page ,"\n") 
     sleep(2)

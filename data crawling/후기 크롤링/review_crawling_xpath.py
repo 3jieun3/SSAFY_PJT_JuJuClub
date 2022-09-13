@@ -11,17 +11,17 @@ warnings.filterwarnings('ignore')
 
 # 전통주명, 인덱스 번호, 도수는 직접 입력 (각자에 맞게 변경)
 # 나이, 성별은 무작위 선택
-name=['금정산성막걸리']  # 전통주명
-idx = [20]   # 인덱스 번호(전통주 데이터 기준)
-abv = [8]   # 도수
+name=['붉은 원숭이']  # 전통주명
+idx = [75]   # 인덱스 번호(전통주 데이터 기준)
+abv = [10.8]   # 도수
 gender_type = ['m', 'f']    # 성별 m(남성), f(여성)
 member_id = 1
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
-ns_address="https://smartstore.naver.com/sanmakgeolli/products/2934598785?NaPm=ct%3Dl7sw4udk%7Cci%3Dd42e603138d964e3f1868d92c26be6131961122a%7Ctr%3Dslsl%7Csn%3D707331%7Chk%3D8f0495d840b4136f033a9748624ec311647ccfba"
+ns_address="https://smartstore.naver.com/wooridoga/products/4620010100?NaPm=ct%3Dl7t6r4q0%7Cci%3D1ce9240c8ecbecebe06fa5d4255ddc3f3fdfe3d9%7Ctr%3Dslsl%7Csn%3D576325%7Chk%3D2be664d761dd38738757968add5d91c5207b5c27"
 #xpath (각자에 맞게 변경)
-shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul"
+shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[7]/div/div[3]/div[2]/ul"
 
 
 # 코드 변경 불필요 -----------------------------------------------------------

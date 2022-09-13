@@ -11,15 +11,15 @@ warnings.filterwarnings('ignore')
 
 # 전통주명, 인덱스 번호, 도수는 직접 입력 (각자에 맞게 변경)
 # 나이, 성별은 무작위 선택
-name=['우리밀 막걸리 향수']  # 전통주명
-idx = [129]   # 인덱스 번호(전통주 데이터 기준)
-abv = [9]   # 도수
+name=['면천두견주']  # 전통주명
+idx = [228]   # 인덱스 번호(전통주 데이터 기준)
+abv = [18]   # 도수
 gender_type = ['m', 'f']    # 성별 m(남성), f(여성)
 member_id = 1
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
-ns_address="https://smartstore.naver.com/iwonwine/products/5576153633?NaPm=ct%3Dl7scbu60%7Cci%3Dff28a6a01d884980e4035b1851858b0b1edf1115%7Ctr%3Dsls%7Csn%3D912326%7Chk%3Dff636e697c1bbe30f53794efed2a094f68ed067d"
+ns_address="https://smartstore.naver.com/ycbrewery/products/5436874157?"
 # xpath (각자에 맞게 변경)
 shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul"
 
@@ -89,10 +89,10 @@ while True:
             ages.append(age)
             genders.append(gender)
 
-            date = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/span').text
+            date = d.find_element_by_xpath(shoppingmall_review + '/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/span').text
             # date = d.find_element_by_css_selector('div._2FmJXrTVEX > span._3QDEeS6NLn').text
-            score = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/em').text
-            nickname = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/strong').text
+            score = d.find_element_by_xpath(shoppingmall_review + '/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/em').text
+            nickname = d.find_element_by_xpath(shoppingmall_review + '/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[1]/div[2]/div[2]/strong').text
 
             top_review = d.find_element_by_css_selector('ul.TsOLil1PRz > li:nth-child('+str(j)+')')
             review = top_review.find_element_by_css_selector('div.YEtwtZFLDz > span._3QDEeS6NLn').text.strip().replace("\n", " ")
@@ -109,7 +109,7 @@ while True:
 
 
             if j%2==0: # 화면에 2개씩 보이도록 스크롤
-                ELEMENT = d.find_element_by_xpath('/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[2]/div/span')
+                ELEMENT = d.find_element_by_xpath(shoppingmall_review + '/li['+str(j)+']/div/div/div/div[1]/div/div[1]/div[2]/div/span')
                 d.execute_script("arguments[0].scrollIntoView(true);", ELEMENT)       
             j+=1
             print(cnt, abv_, date, weekday, age, gender, score, nickname, review, member_id_, "\n")
@@ -117,7 +117,7 @@ while True:
         except: break
             
     sleep(2)
-
+    
     page_list = d.find_elements_by_css_selector("#REVIEW > div > div._180GG7_7yx > div.cv6id6JEkg > div > div > a")
     if page_list[-2].text != f'{page}':
         try:

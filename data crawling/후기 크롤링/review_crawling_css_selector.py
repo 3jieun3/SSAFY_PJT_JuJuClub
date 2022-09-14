@@ -11,17 +11,17 @@ warnings.filterwarnings('ignore')
 
 # 전통주명, 인덱스 번호, 도수는 직접 입력 (각자에 맞게 변경)
 # 나이, 성별은 무작위 선택
-name=['면천두견주']  # 전통주명
-idx = [228]   # 인덱스 번호(전통주 데이터 기준)
-abv = [18]   # 도수
+name=['오계리 아이스와인']  # 전통주명
+idx = [386]   # 인덱스 번호(전통주 데이터 기준)
+abv = [14]   # 도수
 gender_type = ['m', 'f']    # 성별 m(남성), f(여성)
 member_id = 1
 
 
 # 전통주 후기 사이트 주소 (각자에 맞게 변경)
-ns_address="https://smartstore.naver.com/ycbrewery/products/5436874157?"
+ns_address="https://smartstore.naver.com/ogyeri/products/6118339856?NaPm=ct%3Dl7zlc220%7Cci%3D3d97618e46918967bb1921df578ab61a72135b23%7Ctr%3Dslsl%7Csn%3D661173%7Chk%3D418c7e2c6560900ba594ddbb419aa91ffe8107b5"
 # xpath (각자에 맞게 변경)
-shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[6]/div/div[3]/div[2]/ul"
+shoppingmall_review="/html/body/div/div/div[3]/div[2]/div[2]/div/div[3]/div[5]/div/div[3]/div[2]/ul"
 
 
 # 코드 변경 불필요 -----------------------------------------------------------

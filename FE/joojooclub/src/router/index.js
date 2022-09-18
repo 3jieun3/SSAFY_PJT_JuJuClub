@@ -1,25 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import MainView from '@/views/MainView'
+import RecommendView from '@/views/RecommendView'
+import RecommendResultView from '@/views/RecommendResultView'
+
 // import store from '@/store'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'main',
-  //   component: MainView
-  // },
-  // {
-  //   path: '/recommend',
-  //   name: 'recommend',
-  //   component: RecommendView
-  // },
-  // {
-  //   path: '/recommend/result',
-  //   name: 'recommend',
-  //   component: RecommendResultView
-  // },
+  {
+    path: '/',
+    name: 'main',
+    component: MainView
+  },
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: RecommendView
+  },
+  {
+    path: '/recommend/result',
+    name: 'recommend',
+    component: RecommendResultView
+  },
   // {
   //   path: '/drinks',
   //   name: 'drinks',

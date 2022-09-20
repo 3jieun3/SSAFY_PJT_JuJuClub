@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import MainView from '@/views/MainView'
 import RecommendView from '@/views/RecommendView'
 import RecommendResultView from '@/views/RecommendResultView'
+import DrinksView from '@/views/DrinksView'
 
 // import store from '@/store'
 
@@ -21,14 +22,14 @@ const routes = [
   },
   {
     path: '/recommend/result',
-    name: 'recommend',
+    name: 'recommendResult',
     component: RecommendResultView
   },
-  // {
-  //   path: '/drinks',
-  //   name: 'drinks',
-  //   component: DrinksView
-  // },
+  {
+    path: '/drinks',
+    name: 'drinks',
+    component: DrinksView
+  },
   // {
   //   path: '/drinks/:drinkPK',
   //   name: 'drink',

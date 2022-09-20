@@ -1,3 +1,5 @@
+import router from "@/router"
+
 export default {
   namespaced: true,
   state: {
@@ -44,37 +46,31 @@ export default {
         answers: ['그렇다', '아니다']
       },
     ],
-    recommendResults: [
-      {
-        drinkIndex: 0,
-        drinkName: '걍즐겨',
-        tags: ['탁주', '선물', '혼술'],
-        drinkKind: '탁주',
-        drinkImg: '',
-      },
-      {
-        drinkIndex: 1,
-        drinkName: '딸깅',
-        tags: ['과일', '달달', '탁주'],
-        drinkKind: '탁주',
-        drinkImg: '',
-      },
-      {
-        drinkIndex: 2,
-        drinkName: '복순도가',
-        tags: ['탁주', '인기', '선물'],
-        drinkKind: '탁주',
-        drinkImg: '',
-      }
-    ]
+    questionEtc: {
+      questionCount: 0,
+      choose: [],
+    },
   },
   getters: {
-    getQuestionByIndex(state) {
+    getQuestion(state) {
       return state.questions
     }
   },
   mutations: {
+    CHOOSE_ANSWER(state, answerStr) {
+      const ques = state.questionEtc
+      ques.choose.push(answerStr)
+      ques.questionCount += 1
+      if (ques.questionCount == 5) {
+        router.push({ name: 'recommendResult' })
+        ques.questionCount = 0
+        ques.choose = []
+      }
+    }
   },
   actions: {
+    chooseAnswer({ commit }, answerStr) {
+      commit('CHOOSE_ANSWER', answerStr)
+    }
   }
 }

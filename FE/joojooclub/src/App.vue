@@ -3,7 +3,8 @@
     <nav>
       <router-link to="/">Main</router-link> |
       <router-link to="/recommend">Recommend</router-link> |
-      <router-link to="/drinks">Drinks</router-link>
+      <router-link to="/drinks">Drinks</router-link> |
+      <router-link :to="{ name: 'feed' }">Feed</router-link>
     </nav>
     <router-view/>
   </div>

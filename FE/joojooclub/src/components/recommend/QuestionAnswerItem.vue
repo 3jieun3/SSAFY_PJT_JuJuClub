@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <button class="btn btn-warning">
-    {{ answer }}
-    </button>
-  </div>
+  <button @click="chooseAnswer(answer)" class="btn btn-warning col-2 mx-5">
+  {{ answer }}
+  </button>
 </template>
 
 <script>
@@ -14,11 +12,13 @@ export default {
     answer: String
   },
   methods: {
-    ...mapActions
+    ...mapActions('drinks', ['chooseAnswer'])
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+  button {
+    width: auto;
+  }
 </style>

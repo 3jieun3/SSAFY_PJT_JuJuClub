@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import MainView from '@/views/MainView'
 import RecommendView from '@/views/RecommendView'
 import RecommendResultView from '@/views/RecommendResultView'
 import DrinksView from '@/views/DrinksView'
-
-// import store from '@/store'
+import FeedView from '@/views/FeedView'
 
 Vue.use(VueRouter)
 
@@ -35,11 +35,11 @@ const routes = [
   //   name: 'drink',
   //   component: DrinkDetailView
   // },
-  // {
-  //   path: '/feed',
-  //   name: 'feed',
-  //   component: FeedView
-  // },
+  {
+    path: '/feed',
+    name: 'feed',
+    component: FeedView
+  },
   // {
   //   path: '/feed/new',
   //   name: 'feedNew',

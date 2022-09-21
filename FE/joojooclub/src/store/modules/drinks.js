@@ -50,6 +50,11 @@ export default {
       questionCount: 0,
       choose: [],
     },
+    basicTagList:{
+        sweetSelect: ['낮음', '보통', '높음'],
+        percentSelect: ['5% 미만', '6 - 10%', '11 - 20%', '21 - 34%', '35% 이상'],
+        kindSelect: ['탁주', '약주/청주', '과실주', '증류주', '기타 주류']
+      },
   },
   getters: {
     getQuestion(state) {

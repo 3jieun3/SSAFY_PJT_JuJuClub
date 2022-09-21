@@ -1,9 +1,7 @@
 <template>
-  <div class="container-bg">
-    <div class="container">
-      <basic-tag-list></basic-tag-list>
-      <custom-tag-list></custom-tag-list>
-    </div>
+  <div class="container">
+    <basic-tag-list></basic-tag-list>
+    <custom-tag-list></custom-tag-list>
   </div>
 </template>
 
@@ -21,8 +19,8 @@ export default {
 </script>
 
 <style>
-  .container-bg {
+  .container {
     margin-top: 100px;
-    background-color: rgb(rgb(255, 217, 159));
+    background-color:bisque;
   }
 </style>

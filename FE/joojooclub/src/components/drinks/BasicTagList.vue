@@ -2,33 +2,33 @@
   <div>
     <div class="d-flex align-items-center">
       <h4>당도</h4>
-      <button class="btn btn-white">낮음</button>
-      <button class="btn btn-white">보통</button>
-      <button class="btn btn-white">높음</button>
+      <button class="btn btn-light"
+      v-for="sweetTag in basicTagList.sweetSelect"
+      :key="sweetTag">{{ sweetTag }}</button>
     </div>
     <div class="d-flex align-items-center">
       <h4>도수</h4>
-      <button class="btn btn-white">5% 미만</button>
-      <button class="btn btn-white">6 - 10%</button>
-      <button class="btn btn-white">11 - 20%</button>
-      <button class="btn btn-white">21 - 34%</button>
-      <button class="btn btn-white">35% 이상</button>
+      <button class="btn btn-light"
+      v-for="percentTag in basicTagList.percentSelect"
+      :key="percentTag">{{ percentTag }}</button>
     </div>
     <div class="d-flex align-items-center">
       <h4>주종</h4>
-      <button class="btn btn-white">탁주</button>
-      <button class="btn btn-white">약주 / 청주</button>
-      <button class="btn btn-white">과실주</button>
-      <button class="btn btn-white">증류주</button>
-      <button class="btn btn-white">기타 주류</button>
+      <button class="btn btn-light"
+      v-for="kindTag in basicTagList.kindSelect"
+      :key="kindTag">{{ kindTag }}</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 
-  name: 'BasicTagList'
+  name: 'BasicTagList',
+  computed: {
+    ...mapState('drinks', ['basicTagList'])
+  }
 }
 </script>
 

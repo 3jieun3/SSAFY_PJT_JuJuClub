@@ -22,7 +22,6 @@ public class MemberServiceImpl implements MemberService{
 
     //중복 id 검출
     @Override
-    @Transactional
     public boolean checkId(String id) {
         if(memberRepository.findById(id).isEmpty()){ //중복되는 id가 없으면 true return
             return true;
@@ -33,7 +32,6 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
-    @Transactional
     public boolean joinMember(RegistMember registMember){
         try {
             memberRepository.save(registMember.toEntity());
@@ -46,7 +44,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    @Transactional
     public Member login(LoginMember loginMember) {
         List<Member> memberList = memberRepository.findById(loginMember.getId());
         for (Member member : memberList) {

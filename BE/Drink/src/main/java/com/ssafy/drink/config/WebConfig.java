@@ -24,6 +24,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/member/**")
                 .addPathPatterns("/api/review/**")
                 .addPathPatterns("/api/info/*")
-                .addPathPatterns("/api/feed/**");
+                .addPathPatterns("/api/feed/person/**");
     }
 }

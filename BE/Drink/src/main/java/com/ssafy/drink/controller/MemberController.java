@@ -64,7 +64,7 @@ public class MemberController {
     }
 
     @ApiOperation(value = "로그인", notes = "id와 pwd를 받아서 로그인진행 성공시 token에 JWT를 넘겨줌, message : success of fail return", response = Map.class)
-    @PutMapping("login")
+    @PostMapping("login")
     public ResponseEntity<Map<String,Object>> loginMember(@RequestBody @ApiParam(value = "필요한정보(id, password)",required = true)LoginMember loginMember){
         Map<String, Object> resultMap = new HashMap<>();
 

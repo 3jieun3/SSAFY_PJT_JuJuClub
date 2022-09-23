@@ -1,17 +1,23 @@
 package com.ssafy.drink.service;
 
+import com.ssafy.drink.domain.Feed;
 import com.ssafy.drink.domain.Member;
+import com.ssafy.drink.domain.Review;
 import com.ssafy.drink.dto.LoginMember;
 import com.ssafy.drink.dto.RegistMember;
 import com.ssafy.drink.dto.UpdateMember;
+import com.ssafy.drink.repository.FeedRepository;
 import com.ssafy.drink.repository.MemberRepository;
+import com.ssafy.drink.repository.ReviewRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -19,6 +25,12 @@ public class MemberServiceImpl implements MemberService{
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    FeedRepository feedRepository;
+
+    @Autowired
+    ReviewRepository reviewRepository;
 
     //중복 id 검출
     @Override
@@ -73,16 +85,28 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean deleteMember(String id) {
-        List<Member> memberList = memberRepository.findById(id);
-        for(Member member : memberList){
+    public boolean deleteMember(Long id) {
+        Member member = memberRepository.findById(id).orElseThrow(RuntimeException::new);
             try {
                 memberRepository.delete(member);
             }catch (Exception e) {
                 return false;
             }
-        }
+
         return true;
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> memberInfo(Long memberId) {
+        Map<String,Object> map = new HashMap<>();
+        Member member = memberRepository.findById(memberId).orElseThrow(RuntimeException::new);
+        map.put("member",member); //member 정보 input
+        List<Review> reviewList = reviewRepository.findByMember(member);
+        map.put("reviews",reviewList); //member의 모든 리뷰를 리스트로 input
+        List<Feed> feedList = feedRepository.findByMemberIndex(memberId);
+        map.put("feeds",feedList); //memberId(pk)를 사용해서 모든 feed를 리스트로 input
+        return map;
     }
 
 

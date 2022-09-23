@@ -37,19 +37,21 @@ class LikeServiceImplTest {
         Member member = Member.builder().id("aa").password("bb").build();
         memberRepository.save(member);
         memberRepository.flush();
-        List<Member> membera = memberRepository.findById("aa");
-        membera.forEach(System.out::println);
-//        DrinkType drinkType = DrinkType.builder().drinkType("탁주").build();
-//        drinkTypeRepository.save(drinkType);
-//        drinkRepository.flush();
-//        DrinkType tak = drinkTypeRepository.findById(1L).orElseThrow(RuntimeException::new);
-//        Drink drink = Drink.builder().drinkName("복순도가").drinkType(tak).abv(13).ingredient("쌀").volume("13L").build();
-//        drinkRepository.save(drink);
-//        drinkRepository.flush();
-//        Drink boksun = drinkRepository.findById(1L).orElseThrow(RuntimeException::new);
-//        Feed feed = Feed.builder().drink(boksun).title("맜있어요").content("복순도가맛있어요").memberIndex(1L).likeCount(2).build();
-//        feedRepository.save(feed);
-//        feedRepository.flush();
+//        List<Member> membera = memberRepository.findById("aa");
+//        membera.forEach(System.out::println);
+        DrinkType drinkType = DrinkType.builder().drinkType("탁주").build();
+        drinkTypeRepository.save(drinkType);
+        drinkRepository.flush();
+        DrinkType tak = drinkTypeRepository.findById(1L).orElseThrow(RuntimeException::new);
+        Drink drink = Drink.builder().drinkName("복순도가").drinkType(tak).abv(13).ingredient("쌀").volume("13L").build();
+        drinkRepository.save(drink);
+        drinkRepository.flush();
+        Drink boksun = drinkRepository.findById(1L).orElseThrow(RuntimeException::new);
+        Member member1 = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        Feed feed = Feed.builder().drink(boksun).title("맜있어요").content("복순도가맛있어요").member(member1).likeCount(2).build();
+        feedRepository.save(feed);
+        feedRepository.flush();
+        feedRepository.findByDrink(boksun).forEach(System.out::println);
 //
 //        // 멤버정보, 피드 정보가 주어진다.
 //        feedRepository.findAll().forEach(System.out::println);

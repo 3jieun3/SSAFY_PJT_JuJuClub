@@ -21,8 +21,8 @@ public class JwtToken {
         this.validityInMilliseconds = validityInMilliseconds;
     }
 
-    public String createToken(String subject){
-        Claims claims = Jwts.claims().setSubject(subject);
+    public String createToken(Long subject){
+        Claims claims = Jwts.claims().setSubject(subject.toString());
 
         Date now = new Date();
 
@@ -32,7 +32,7 @@ public class JwtToken {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.ES256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
     

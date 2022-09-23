@@ -27,7 +27,9 @@ public class Feed {
 
     private String content;
 
-    private Long memberIndex;
+    @ManyToOne
+    @JoinColumn(name = "memberIndex")
+    private Member member;
 
     private int likeCount;
 

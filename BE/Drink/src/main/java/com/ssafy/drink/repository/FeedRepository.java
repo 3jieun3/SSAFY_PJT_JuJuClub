@@ -1,5 +1,6 @@
 package com.ssafy.drink.repository;
 
+import com.ssafy.drink.domain.Drink;
 import com.ssafy.drink.domain.Feed;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,10 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     //피드 전체조회 좋아요 많은 순으로
     @Query(value = "select * from Feed order by likeCount desc", nativeQuery = true)
     List<Feed> selectAllLikeDesc();
+
+    //memberIndex가 동일한 피드 전체 찾기
+    List<Feed> findByMemberIndex(Long memberIndex);
+
+    //test
+    List<Feed> findByDrink(Drink drink);
 }

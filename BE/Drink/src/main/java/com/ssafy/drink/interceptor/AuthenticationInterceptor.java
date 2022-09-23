@@ -34,8 +34,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return false;
         }
         if (StringUtils.hasLength(token)){
-            String Id = jwtToken.getSubject(token);
-            request.setAttribute("id",Id);
+            Long memberIndex = Long.parseLong(jwtToken.getSubject(token));
+            request.setAttribute("memberIndex",memberIndex);
             return true;
         }else{
             return false;

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +39,10 @@ public class MemberController {
     JwtToken jwtToken;
 
     @ApiOperation(value = "id중복체크", notes = "api요청시 동일한 id가 있는지 체크 success or fail return", response = String.class)
-    @PostMapping("checkid")
-    public ResponseEntity<String> checkId(@RequestBody @ApiParam(value = "String으로 id body에 담아서 request",required = true) String Id ){
+    @PostMapping("{id}}")
+    public ResponseEntity<String> checkId(@PathVariable @ApiParam(value = "String으로 id body에 담아서 request",required = true) String id ){
         //중복 id 검출
-        if(!memberService.checkId(Id)){ //아이디가 중복되면
+        if(!memberService.checkId(id)){ //아이디가 중복되면
             return new ResponseEntity<String>(FAIL+":id중복입니다.", HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(FAIL,HttpStatus.FORBIDDEN);
@@ -70,13 +71,14 @@ public class MemberController {
 
         HttpStatus status;
         Member member = memberService.login(loginMember);
+
         try {
             if (member != null){
-                resultMap.put("token", jwtToken.createToken(loginMember.getId()));
+                resultMap.put("token", jwtToken.createToken(member.getMemberIndex()));
                 resultMap.put("message",SUCCESS);
                 status = HttpStatus.OK;
             }else{
-                resultMap.put("message",FAIL);
+                resultMap.put("message",FAIL+"비밀번호가 틀렸습니다.");
                 status = HttpStatus.FORBIDDEN;
             }
         }catch (Exception e){
@@ -96,14 +98,24 @@ public class MemberController {
         return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
     }
 
-    @ApiOperation(value = "회원탈퇴",notes = "id받아서 회원탈퇴",response = String.class)
+    @ApiOperation(value = "회원탈퇴",notes = "필요한 정보 없음",response = String.class)
     @DeleteMapping
-    public ResponseEntity<String> deleteMember(@RequestBody @ApiParam(value = "필요한정보(id)",required = true) String id){
+    public ResponseEntity<String> deleteMember(HttpServletRequest request){
+        Long id = (Long) request.getAttribute("id");
         if(memberService.deleteMember(id)){
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
         }
+    }
+
+    @ApiOperation(value = "내 정보, 내 피드, 내 후기 가져오기",notes = "필요한 정보 없음",response = Map.class)
+    @GetMapping
+    public ResponseEntity<Map<String,Object>> memberInfo(HttpServletRequest request){
+        Map<String,Object> map = new HashMap<>();
+        Long memberId = Long.valueOf((String) request.getAttribute("id"));
+        map = memberService.memberInfo(memberId);
+        return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
 

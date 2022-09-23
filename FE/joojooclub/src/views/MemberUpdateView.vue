@@ -1,28 +1,33 @@
+# MemberUpdateView.vue
 <template>
   <div>
-    <signup-form :credentials="credentials" :check="check" :f_check="f_check" :m_check="m_check" action="update"></signup-form>
+    <signup-form v-if="isCurrentUser" :currentUser="currentUser" :f_check="f_check" :m_check="m_check" :id_dup="id_dup" action="update"></signup-form>
   </div>
 </template>
 
 <script>
-// import { mapActions, mapGetters } from "vuex"
 import SignupForm from '@/components/accounts/SingupForm.vue'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: "MemberUpdateView",
   components: {SignupForm},
   data() {
     return {
-      credentials: {
-        id: '',
-        password: '',
-        birth: '',
-        gender: ''
-      },
-      check: 'm',
+      id_dup: true,
       f_check: false,
-      m_check: true,
+      m_check: false,
     }
-  }
+  },
+  methods: {
+    ...mapActions(['fetchCurrentUser'])
+  },
+  computed: {
+    ...mapGetters(['currentUser', 'isCurrentUser']),
+  },
+  created() {
+    this.fetchCurrentUser()
+  },
 }
 </script>
 

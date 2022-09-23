@@ -1,24 +1,26 @@
+# SignupView.vue
 <template>
   <div>
-    <signup-form :credentials="credentials" :check="check" :f_check="f_check" :m_check="m_check" action="create"></signup-form>
+    <signup-form :currentUser="currentUser" :f_check="f_check" :m_check="m_check" :id_dup="id_dup" action="create"></signup-form>
   </div>
 </template>
 
 <script>
-// import { mapActions, mapGetters } from "vuex"
 import SignupForm from '@/components/accounts/SingupForm.vue'
 export default {
   name: "SignupView",
   components: {SignupForm},
   data() {
     return {
-      credentials: {
-        id: '',
-        password: '',
-        birth: '',
-        gender: ''
+      currentUser: {
+        member: {
+          id: null,
+          password: null,
+          birthYear: null,
+          gender: null,
+        }
       },
-      check: '',
+      id_dup: false,
       f_check: false,
       m_check: false,
     }

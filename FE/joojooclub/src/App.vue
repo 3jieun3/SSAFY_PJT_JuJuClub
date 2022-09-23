@@ -6,12 +6,33 @@
       <router-link to="/drinks">Drinks</router-link> |
       <router-link :to="{ name: 'feed' }">Feed</router-link> |
       <router-link :to="{ name: 'profile', params: { userPK: 1 } }">My Profile</router-link> | 
-      <router-link  to="/signup">Sign Up</router-link> | 
+      <router-link to="/signup">Sign Up</router-link> | 
+      <router-link to="/login">Login</router-link> | 
+      <router-link to="/member/update">회원정보 수정</router-link> | 
+      <a href="" @click="logout">로그아웃</a> | 
       <router-link :to="{ name: 'drink', params: { drinkPK: 1 } }">Drink Detail</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  name: 'App',
+  methods: {
+  ...mapActions(['logout', 'fetchCurrentUser',])
+  },
+  created() {
+    this.fetchCurrentUser()
+  },
+  updated() {
+    this.fetchCurrentUser()
+  }
+}
+</script>
+
 
 <style>
 #app {

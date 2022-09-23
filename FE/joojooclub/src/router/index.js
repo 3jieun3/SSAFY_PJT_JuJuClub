@@ -10,6 +10,7 @@ import FeedView from '@/views/FeedView'
 import ProfileView from '@/views/ProfileView'
 import SignupView from '@/views/SignupView'
 import MemberUpdateView from '@/views/MemberUpdateView'
+import LoginView from '@/views/LoginView'
 
 Vue.use(VueRouter)
 
@@ -59,16 +60,16 @@ const routes = [
     name: 'profile',
     component: ProfileView
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: LoginView
-  // },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: LogoutView
-  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    // component: LogoutView
+  },
   {
     path: '/signup',
     name: 'signup',

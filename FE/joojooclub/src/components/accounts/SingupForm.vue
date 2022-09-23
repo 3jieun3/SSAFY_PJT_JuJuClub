@@ -1,44 +1,50 @@
 <template>
   <div class="container my-5 p-5 signup-box border">
     <!-- title -->
-    <h3 v-if="action==='create'" class="mb-4">회원가입</h3>
-    <h3 v-if="action==='update'" class="mb-4">회원정보 수정</h3>
+    <h2 v-if="action==='create'" class="mb-4">회원가입</h2>
+    <h2 v-if="action==='update'" class="mb-4">회원정보 수정</h2>
     <!-- form -->
-    <form @submit.prevent="">
+    <form @submit.prevent="onSubmit">
       <div>
         <!-- member id -->
-        <div class="d-flex flex-column align-items-start">
-          <label for="user-id">ID</label>
-          <div class="input-group mb-4">
-            <input type="text" id="user-id" class="form-control" placeholder="ID / Nickname">
-            <button v-if="action === 'create'" class="btn btn-secondary m-0" type="button">중복검사</button>
+        <div class="d-flex flex-column align-items-start mb-4">
+          <label for="user-id">아이디</label>
+          <div class="input-group">
+            <input v-model="newCredentials.id" type="text" id="user-id" class="form-control" placeholder="ID / Nickname">
+            <button v-if="action ==='create'" @click="checkID" class="btn btn-secondary m-0" type="button">중복검사</button>
           </div>
+          <p v-if="idError" class="sub-error">아이디를 입력해주세요</p>
         </div>
         <!-- year of birth -->
         <div class="d-flex flex-column align-items-start mb-4">
           <label for="birth-year">출생년도</label>
           <select name="year" id="birth-year" class="form-select select-birth" @change="getYear($event)">
-            <option selected>출생년도를 선택하세요</option>
+            <option v-if="action==='create'" selected>출생년도를 선택하세요</option>
+            <option v-if="action==='update'" selected>{{ newCredentials.birthYear }}</option>
             <option v-for="n in get_years()" v-bind:key="n">{{ n }}</option>
           </select>
+          <p v-if="birthError" class="sub-error">출생년도를 선택해주세요</p>
         </div>
         <!-- gender -->
         <div class="d-flex flex-column align-items-start mb-4">
           <label for="gender">성별</label>
           <div>
-            <button :class="{clicked: signup_m_check & signup_check==='m'}" @click="mDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">남</button>
-            <button :class="{clicked: signup_f_check & signup_check==='f'}" @click="fDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">여</button>
+            <button :class="{clicked: newCredentials.gender==='m'}" @click="mDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">남</button>
+            <button :class="{clicked: newCredentials.gender==='f'}" @click="fDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">여</button>
           </div>
+          <p v-if="genderError" class="sub-error">성별을 선택해주세요</p>
         </div>
         <!-- password -->
         <div class="d-flex flex-column align-items-start mb-4">
           <label for="password1">비밀번호</label>
-          <input type="password" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
+          <input v-model="newCredentials.password" type="password" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
+          <p v-if="pwError" class="sub-error">비밀번호를 입력해 주세요</p>
         </div>
         <!-- confirm password -->
         <div class="d-flex flex-column align-items-start mb-5">
-          <label for="password2">비밀번호 확인</label>
-          <input type="password" id="password2" class="form-control" placeholder="비밀번호를 한 번 더 입력하세요">
+          <label for="password2">비밀번호 재확인</label>
+          <input v-model="passwordConfirm" type="password" id="password2" class="form-control" placeholder="비밀번호를 한 번 더 입력하세요">
+          <p v-if="pwConfirmError" class="sub-error">비밀번호를 정확하게 입력해주세요</p>
         </div>
       </div>
       <button class="btn btn-warning">가입하기</button>
@@ -47,12 +53,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapActions } from 'vuex'
+import joojooclub from '@/api/joojooclub'
+
 export default {
   name: "SignupForm",
   props: {
-    credentials: Object,
+    currentUser: Object,
+    // credentials: Object,
+    id_dup: Boolean,
     action: String,
-    check: String,
     f_check: Boolean,
     m_check: Boolean,
   },
@@ -64,41 +75,154 @@ export default {
         var i = this.now_year-120;
         for (i; i < this.now_year+1; i++) {
           list.push(i)
-      }
-      return list
+        }
+        return list
       },
-      signup_check: this.check,
       signup_f_check: this.f_check,
       signup_m_check: this.m_check,
+      newCredentials: {
+        id: this.currentUser?.member.id,
+        password: this.currentUser?.member.password,
+        birthYear: this.currentUser?.member.birthYear,
+        gender: this.currentUser?.member.gender,
+      },
+      passwordConfirm: null,
+      // 아이디 중복검사
+      idDuplicate: this.id_dup,
+      // 에러처리
+      idError: false,
+      pwError: false,
+      pwConfirmError: false,
+      birthError: false,
+      genderError: false,
     }
   },
+  watch: {
+    // ...mapGetters(['authError'])
+    id(val) {
+      if (val.length > 0) {
+        this.idError = false
+      }
+    },
+    password(val) {
+      if (val.length > 0) {
+        this.pwError = false
+      }
+    },
+    passwordConfirm(val) {
+      if (val === this.newCredentials?.password) {
+        this.pwConfirmError = false
+      }
+    },
+    birthYear(val) {
+      if (val) {
+        this.birthError = false
+      }
+    },
+    gender(val) {
+      if (val) {
+        this.genderError = false
+      }
+    }
+  },
+  // computed: {
+  // ...mapGetters(['currentUser']),
+  // },
   methods: {
     // 생년월일 선택
+    ...mapActions(['signup', 'updateMember', 'fetchCurrentUser']),
+    checkID() {
+      if (this.action === "create"){
+        if (this.newCredentials.id !== null) {
+          axios({
+            url: joojooclub.accounts.idCheck(this.newCredentials.id),
+            method: 'post',
+          }).then((res) => {
+            console.log(res)
+            this.idDuplicate = true
+            alert('사용가능한 아이디입니다')
+          }).catch((err) => {
+            console.log(err)
+            this.idDuplicate = false
+            alert('이미 존재하는 아이디입니다')
+          })
+        }
+      }
+    },
+    onSubmit() {
+      // 에러 처리
+      if(this.isBlank(this.newCredentials?.id)){
+        this.idError = true
+      } else {this.idError = false}
+      if(this.isBlank(this.newCredentials?.password)){
+        this.pwError = true
+      } else {this.pwError = false}
+      if(this.isBlank(this.passwordConfirm) || this.passwordConfirm !== this.newCredentials?.password){
+        this.pwConfirmError = true
+      } else {this.pwConfirmError = false}
+      if(this.isBlank(this.newCredentials?.birthYear)){
+        this.birthError = true
+      } else {this.birthError = false}
+      if(this.isBlank(this.newCredentials?.gender)){
+        this.genderError = true
+      } else {this.genderError = false}
+      // 에러가 없다면 axios 처리
+      if (this.newCredentials?.id && !this.idDuplicate) {
+        alert('아이디 중복체크를 해주십시오.')
+      } else {
+        if (!this.idError & !this.pwError & !this.pwConfirmError & !this.birthError & !this.genderError) {
+          if (this.action === 'create') {
+            this.signup(this.newCredentials)
+          } else if (this.action === 'update') {
+            const data = {
+              birthYear: this.newCredentials?.birthYear,
+              gender: this.newCredentials?.gender,
+              password: this.newCredentials?.password
+            }
+            console.log(data)
+            this.updateMember({
+              birthYear: this.newCredentials?.birthYear,
+              gender: this.newCredentials?.gender,
+              password: this.newCredentials?.password
+            })
+          }
+        }
+      }
+    },
+    isBlank(val) {
+      if (val === undefined) return true
+      else if(val === null) return true
+      else if(val === '') return true
+      else return false
+    },
     getYear: function(event) {
-      console.log(event.target.value)
+      this.newCredentials.birthYear = event.target.value;
     },
     // 성별 선택
     fDisabled: function() {
       this.signup_f_check = !this.signup_f_check
       if (this.signup_f_check) {
         this.signup_m_check = false
-        this.signup_check='f'
+        this.newCredentials.gender='f'
       }
     },
     mDisabled: function() {
       this.signup_m_check = !this.signup_m_check
       if (this.signup_m_check) {
         this.signup_f_check = false
-        this.signup_check='m'
+        this.newCredentials.gender='m'
       }
     }
   },
-  computed: {
-    
-  },
   created() {
     this.now_year = new Date().getFullYear();
-    // console.log(this.credentials);
+    this.fetchCurrentUser();
+  },
+  mounted() {
+    this.fetchCurrentUser()
+  },
+  updated() {
+    this.fetchCurrentUser()
   }
 }
 </script>
@@ -113,5 +237,8 @@ export default {
 .clicked {
   background-color: #6b747c;
   color: white;
+}
+.sub-error {
+  color: red;
 }
 </style>

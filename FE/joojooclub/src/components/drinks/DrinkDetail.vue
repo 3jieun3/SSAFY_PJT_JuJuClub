@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<div class="card-image">
+		<div class="card-image image-fluid">
 			<img :src="require(`@/assets/makgeoli.jpeg`)" alt="drink image">
 		</div>
 		<div class="card-body">
@@ -27,12 +27,17 @@ export default {
 <style scoped>
 .card {
 	flex-direction: row;
-	width: 100%;
+	flex-wrap: wrap;
+}
+.card-image {
+	flex: 1 1 0;
 }
 .card-body {
 	text-align: start;
+	flex: 2 0 0;
 }
 img {
-	object-fit: contain;
+	object-fit: cover;
+	width: 20rem;
 }
 </style>

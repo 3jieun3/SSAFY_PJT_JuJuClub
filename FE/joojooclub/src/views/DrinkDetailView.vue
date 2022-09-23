@@ -8,8 +8,8 @@
 			<food-list :foods="foods"></food-list>
 			<h4>후기</h4>
 			<hr>
-			<!-- <comment-form></comment-form>
-			<comment-list :comments="comments"></comment-list> -->
+			<!-- <comment-form></comment-form> -->
+			<comment-list :comments="comments"></comment-list>
 		</div>
 	</div>
 </template>
@@ -17,8 +17,8 @@
 <script>
 import DrinkDetail from '@/components/drinks/DrinkDetail'
 import FoodList from '@/components/drinks/FoodList'
-// import CommentForm from '@/components/CommentForm'
-// import CommentList from '@/components/CommentList'
+// import CommentForm from '@/components/drinks/CommentForm'
+import CommentList from '@/components/drinks/CommentList'
 import { mapState } from 'vuex'
 
 export default {
@@ -27,7 +27,7 @@ export default {
 		DrinkDetail,
 		FoodList,
 		// CommentForm,
-		// CommentList,
+		CommentList,
 	},
 	data() {
 		return {

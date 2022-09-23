@@ -44,9 +44,9 @@ public class MemberController {
     public ResponseEntity<String> checkId(@PathVariable @ApiParam(value = "String으로 id body에 담아서 request",required = true) String id ){
         //중복 id 검출
         if(!memberService.checkId(id)){ //아이디가 중복되면
-            return new ResponseEntity<String>(FAIL+":id중복입니다.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>("중복검사"+FAIL, HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(FAIL,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(SUCCESS,HttpStatus.OK);
     }
 
 

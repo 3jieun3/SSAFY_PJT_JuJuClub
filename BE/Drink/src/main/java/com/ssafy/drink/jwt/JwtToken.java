@@ -16,7 +16,7 @@ public class JwtToken {
 
     private long validityInMilliseconds;
 
-    public JwtToken(@Value("secret") String secretKey, @Value("360000") long validityInMilliseconds){
+    public JwtToken(@Value("secret") String secretKey, @Value("3600000") long validityInMilliseconds){
         this.secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         this.validityInMilliseconds = validityInMilliseconds;
     }

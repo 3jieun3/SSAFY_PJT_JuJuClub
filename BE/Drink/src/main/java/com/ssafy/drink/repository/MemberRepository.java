@@ -14,4 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Transactional
     List<Member> findById(String id);
 
+    Member findByMemberIndex(Long memberIndex);
+
 }

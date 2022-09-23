@@ -56,7 +56,8 @@
 
 ### 2. data
 
-* testutf8.csv: step1_space_split.py에서 사용한 csv
+* testutf8.csv: step1_space_split.py에서 사용한 csv로, 원본 csv를 utf8로 변환시킨 것
+* 0922.csv: step4~6에서 사용한 csv로, 원본 csv를 sqoop을 통해 옮기고 utf8로 변환시켜 가져온 것
 * tag table for hadoop.csv
   * tagIndex, tagName, stopwords, add_dictionary, mappingList
   * hadoop 처리를 위해 정리한 테이블로, 각 태그에 대해 <u>형태소 분석을 위해 필요한 stopwords, add_dictionary 정보</u>와 <u>태그 개수를 셀 때 필요한 mappingList 정보</u>가 들어있다.

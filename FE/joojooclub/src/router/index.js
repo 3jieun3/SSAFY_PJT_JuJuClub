@@ -8,6 +8,8 @@ import DrinksView from '@/views/DrinksView'
 import DrinkDetailView from '@/views/DrinkDetailView'
 import FeedView from '@/views/FeedView'
 import ProfileView from '@/views/ProfileView'
+import SignupView from '@/views/SignupView'
+import MemberUpdateView from '@/views/MemberUpdateView'
 
 Vue.use(VueRouter)
 
@@ -67,11 +69,16 @@ const routes = [
   //   name: 'logout',
   //   component: LogoutView
   // },
-  // {
-  //   path: '/signup',
-  //   name: 'signup',
-  //   component: SignUpView
-  // },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
+  },
+  {
+    path: '/member/update',
+    name: 'update',
+    component: MemberUpdateView
+  },
   // {
   //   path: '/signout',
   //   name: 'signout',

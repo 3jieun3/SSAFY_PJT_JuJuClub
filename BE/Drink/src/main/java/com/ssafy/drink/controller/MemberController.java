@@ -40,7 +40,7 @@ public class MemberController {
     JwtToken jwtToken;
 
     @ApiOperation(value = "id중복체크", notes = "api요청시 동일한 id가 있는지 체크 success or fail return", response = String.class)
-    @PostMapping("{id}")
+    @PostMapping("/checkid/{id}")
     public ResponseEntity<String> checkId(@PathVariable @ApiParam(value = "String으로 id body에 담아서 request",required = true) String id ){
         //중복 id 검출
         if(!memberService.checkId(id)){ //아이디가 중복되면

@@ -13,18 +13,12 @@
 
 <script>
 import MyProfile from '@/components/accounts/MyProfile'
-// import MyFeedList from '@/components/accounts/MyFeedList'
-// import LikeFeedList from '@/components/accounts/LikeFeedList'
-// import CommentList from '@/components/CommentList'
 import { mapState } from 'vuex'
 
 export default {
 	name: "ProfileView",
 	components: {
 		MyProfile,
-		// MyFeedList,
-		// LikeFeedList,
-		// CommentList,
 	},
 	computed: {
 		...mapState('accounts', ['profile', 'comments']),

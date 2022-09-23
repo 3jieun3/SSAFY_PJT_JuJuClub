@@ -4,7 +4,7 @@
 			<my-profile :profile="profile"></my-profile>
 		</div>
 		<div class="mypage-content">
-			<!-- <comment-list :comments="comments"></comment-list> -->
+			<comment-list :comments="comments"></comment-list>
 			<my-feed-list :profile="profile"></my-feed-list>
 			<like-feed-list :profile="profile"></like-feed-list>
 		</div>
@@ -13,6 +13,7 @@
 
 <script>
 import MyProfile from '@/components/accounts/MyProfile'
+import CommentList from '@/components/drinks/CommentList'
 import MyFeedList from '@/components/accounts/MyFeedList'
 import LikeFeedList from '@/components/accounts/LikeFeedList'
 import { mapState } from 'vuex'
@@ -21,6 +22,7 @@ export default {
 	name: "ProfileView",
 	components: {
 		MyProfile,
+		CommentList,
 		MyFeedList,
 		LikeFeedList,
 	},

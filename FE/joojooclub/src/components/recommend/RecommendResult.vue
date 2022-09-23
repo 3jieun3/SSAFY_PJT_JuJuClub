@@ -1,12 +1,21 @@
 <template>
   <div class="container">
     <div class="row">
-      <h2>당신에게 어울리는 술은</h2>
-      <carousel-3d :width="300" :height="400">
-        <slide v-for="result in recommendResults"
-          :index="result.drinkIndex"
+      <h3 class="recommendTitle">당신에게 어울리는 술은</h3>
+      <carousel-3d :width="300" :height="600">
+        <slide v-for="(result, index) in recommendResults"
+          :index="index"
           :key="result.drinkIndex">
           <img class="slideImg" :src="result.drinkImg" alt="recommendImg">
+          <div class="recommendInfo mt-5">
+            <span class="drinkName"> {{ result.drinkName }} </span>
+            <span class="drinkType"> | {{ result.drinkKind }}</span>
+            <div class="tags d-flex mt-4">
+              <p class="tag" v-for="(tag, index) in result.tags"
+              :key="index">#{{ tag }}</p>
+            </div>
+            <a href="">자세히 보기</a>
+          </div>
         </slide>
       </carousel-3d>
     </div>
@@ -62,10 +71,40 @@ export default {
   .carousel-3d-slide {
       border: none;
       text-align: center;
+      background-color: white;
   }
 
   .slideImg {
-    height: 100%;
+    height: 60%;
+  }
+
+  .recommendTitle {
+    font-weight: bold;
+  }
+
+  .recommendInfo {
+    color: black;
+    justify-content: center;
+    align-items: end;
+    /* display: none; */
+  }
+
+  .drinkName {
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .drinkType {
+    font-size: smaller;
+    color: gray;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  .tag {
+    margin: 0px 10px 20px 10px;
   }
 
 

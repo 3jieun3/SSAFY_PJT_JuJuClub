@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .drinkImg {
     background: url(@/assets/recommendPage.jpeg) no-repeat center;
     background-size: 100%;

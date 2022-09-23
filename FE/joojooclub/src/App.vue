@@ -4,7 +4,8 @@
       <router-link to="/">Main</router-link> |
       <router-link to="/recommend">Recommend</router-link> |
       <router-link to="/drinks">Drinks</router-link> |
-      <router-link :to="{ name: 'feed' }">Feed</router-link>
+      <router-link :to="{ name: 'feed' }">Feed</router-link> |
+      <router-link :to="{ name: 'profile', params: { userPK: 1 } }">My Profile</router-link>
     </nav>
     <router-view/>
   </div>

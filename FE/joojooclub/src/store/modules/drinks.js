@@ -157,7 +157,23 @@ export default {
         drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
         tags: ['탁주', '혼술'],
       },
-    ]
+    ],
+    drink: {
+      index: 1,
+      name: '딸링 막걸리',
+      abv: 5.5,
+      volume: '650ml',
+      ingredient: '물, 쌀, 올리고당, 딸기, 누룩, 조제종국, 효모, 아스파탐(감미료, 페닐알라닌 함유)',
+      description: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
+      imageUrl: 'https://thesool.com/common/imageView.do?targetId=PR00000817&targetNm=PRODUCT',
+      drinkType: '탁주',
+      tags: ['딸기', '저도수', '선물용', '혼술'],
+    },
+    foods: [
+      { index: 1, name: '곱창', imageUrl: '' },
+      { index: 2, name: '피시앤칩스', imageUrl: '' },
+      { index: 3, name: '연어사시미', imageUrl: '' },
+    ],
   },
   getters: {
     getQuestion(state) {

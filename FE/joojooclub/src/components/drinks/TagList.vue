@@ -18,9 +18,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .container {
     margin-top: 100px;
-    background-color:bisque;
+    border: 4px solid lightcoral;
+    /* color: bisque; */
+    padding: 2vw;
+    border-radius: 1rem;
   }
 </style>

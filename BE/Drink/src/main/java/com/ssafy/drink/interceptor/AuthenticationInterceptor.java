@@ -23,23 +23,26 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+        System.out.println("인터셉터 시작");
         // preflight요청은 OPTIONS를 가지고있다 preflight요청이면 일단 보내고 filter에서 respose할때 다시 검사해서 필요조건을 채워주자
         if (HttpMethod.OPTIONS.matches(request.getMethod())){
             return true;
         }
 
         String token = authorizationExtractor.extract(request, "Bearer");
-        if (!jwtToken.checkValidate(token)){
-//            throw new IllegalArgumentException("유효하지 않은 토큰");
-            return false;
-        }
+        System.out.println("결과" + token);
+
         if (StringUtils.hasLength(token)){
-            Long memberIndex = Long.parseLong(jwtToken.getSubject(token));
-            request.setAttribute("memberIndex",memberIndex);
-            return true;
-        }else{
-            return false;
+            System.out.println("성공");
         }
+        if (!jwtToken.checkValidate(token)){
+            throw new IllegalArgumentException("유효하지 않은 토큰");
+//            return false;
+        }
+        Long memberIndex = Long.parseLong(jwtToken.getSubject(token));
+        System.out.println(memberIndex);
+        request.setAttribute("memberIndex",memberIndex);
+        return true;
     }
 
 

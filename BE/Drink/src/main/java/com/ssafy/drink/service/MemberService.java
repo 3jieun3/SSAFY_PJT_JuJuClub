@@ -13,7 +13,7 @@ public interface MemberService {
     boolean checkId(String id);
     boolean joinMember(RegistMember registMember);
     Member login(LoginMember loginMember);
-    boolean update(UpdateMember updateMember);
+    boolean update(UpdateMember updateMember,Long memberIndex);
     boolean deleteMember(Long id);
     Map<String,Object> memberInfo(Long id);
 }

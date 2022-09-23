@@ -22,7 +22,7 @@ public class JwtToken {
     }
 
     public String createToken(Long subject){
-        Claims claims = Jwts.claims().setSubject(subject.toString());
+        Claims claims = Jwts.claims().setSubject(Long.toString(subject));
 
         Date now = new Date();
 
@@ -38,6 +38,7 @@ public class JwtToken {
     
     //token을 받아서 id를 추출
     public String getSubject(String token){
+        System.out.println(token);
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 

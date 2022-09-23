@@ -14,12 +14,13 @@ public class AuthorizationExtractor {
 
     public String extract(HttpServletRequest request, String type){
         Enumeration<String> headers = request.getHeaders(AUTHORIZATION);
+        System.out.println(headers);
         while (headers.hasMoreElements()){
             String value = headers.nextElement();
             if (value.toLowerCase().startsWith(type.toLowerCase())){
                 return value.substring(type.length()).trim();//token에서 bearer이후로 잘라냄, 공백제거
             }
         }
-        return ""; // return Strings.EMPTY;와 동일
+        return Strings.EMPTY;// "" 와 동일
     }
 }

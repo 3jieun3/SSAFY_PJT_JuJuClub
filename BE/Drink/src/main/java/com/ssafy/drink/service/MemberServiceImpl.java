@@ -67,20 +67,17 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean update(UpdateMember updateMember) {
-        List<Member> memberList = memberRepository.findById(updateMember.getId());
-        for(Member member : memberList){
+    public boolean update(UpdateMember updateMember, Long memberIndex) {
+        Member member = memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
+            member.setPassword(updateMember.getPassword());
             member.setBirthYear(updateMember.getBirthYear());
             member.setGender(updateMember.getGender());
             try {
                 memberRepository.save(member);
                 memberRepository.flush();
-//                break;
             }catch (Exception e){
                 return false;
             }
-
-        }
         return true;
     }
 

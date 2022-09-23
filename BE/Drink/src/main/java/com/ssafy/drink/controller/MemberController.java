@@ -1,5 +1,6 @@
 package com.ssafy.drink.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ssafy.drink.domain.Member;
 import com.ssafy.drink.dto.LoginMember;
 import com.ssafy.drink.dto.RegistMember;
@@ -52,7 +53,7 @@ public class MemberController {
 
 
     @ApiOperation(value = "화원가입", notes = "회원 정보를 받아 회원가입, success of fail return // fail 이유는 fail:reason", response = String.class)
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<String> registMember(@RequestBody @ApiParam(value = "필요한 정보(id, password, birthYear, gender)",required = true) RegistMember rMember){
         logger.debug("화원가입api호출:{}", rMember);
 
@@ -91,8 +92,9 @@ public class MemberController {
 
     @ApiOperation(value = "회원정보수정",notes = "필요한 정보를 받아서 회원을 찾은뒤 정보 수정(birthYear과 gender만 수정가능)",response = String.class)
     @PutMapping
-    public ResponseEntity<String> updateMember(@RequestBody @ApiParam(value = "필요한정보(id, birthYear, gender)",required = true)UpdateMember updateMember){
-        if(memberService.update(updateMember)){
+    public ResponseEntity<String> updateMember(HttpServletRequest request , @RequestBody @ApiParam(value = "필요한정보(id, birthYear, gender)",required = true)UpdateMember updateMember){
+       Long memberIndex = Long.parseLong(String.valueOf(request.getAttribute("memberIndex")));
+        if(memberService.update(updateMember, memberIndex)){
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
@@ -101,7 +103,7 @@ public class MemberController {
     @ApiOperation(value = "회원탈퇴",notes = "필요한 정보 없음",response = String.class)
     @DeleteMapping
     public ResponseEntity<String> deleteMember(HttpServletRequest request){
-        Long id = (Long) request.getAttribute("id");
+        Long id = (Long) request.getAttribute("memberIndex");
         if(memberService.deleteMember(id)){
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }else{
@@ -113,7 +115,9 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<Map<String,Object>> memberInfo(HttpServletRequest request){
         Map<String,Object> map = new HashMap<>();
-        Long memberId = Long.valueOf((String) request.getAttribute("id"));
+        Long memberId = Long.parseLong(String.valueOf(request.getAttribute("memberIndex")));
+        //test JWT 에서 뽑아온 memberIndex
+        System.out.println(memberId);
         map = memberService.memberInfo(memberId);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }

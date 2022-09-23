@@ -16,12 +16,13 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     public void addInterceptors(InterceptorRegistry registry){
+        System.out.println("인터셉터 등록");
         registry.addInterceptor(authenticationInterceptor)
-                .excludePathPatterns("/api/member/signup/**")
-                .excludePathPatterns("/api/member/checkid/**")
-                .excludePathPatterns("/api/member/login/**")
-                .addPathPatterns("/api/member/**")
-                .addPathPatterns("/api/review/**")
-                .addPathPatterns("/api/feed/person/**");
+                .excludePathPatterns("/member/signup/**")
+                .excludePathPatterns("/member/checkid/**")
+                .excludePathPatterns("/member/login/**")
+                .addPathPatterns("/member/**")
+                .addPathPatterns("/review/**")
+                .addPathPatterns("/feed/person/**");
     }
 }

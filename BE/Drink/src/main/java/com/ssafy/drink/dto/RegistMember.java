@@ -6,7 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,8 +21,11 @@ public class RegistMember {
     private int birthYear;
     private char gender;
 
+
+
     public Member toEntity(){
-     return Member.builder()
+
+        return Member.builder()
              .id(id)
              .password(password)
              .birthYear(birthYear)

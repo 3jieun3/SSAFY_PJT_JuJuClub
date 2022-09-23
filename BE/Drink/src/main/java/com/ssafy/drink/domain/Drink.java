@@ -24,7 +24,7 @@ public class Drink {
     @JoinColumn(name = "drinkTypeIndex")
     private DrinkType drinkType;
 
-    private int abv;
+    private double abv;
 
     @Column(length = 1024)
     private String ingredient;

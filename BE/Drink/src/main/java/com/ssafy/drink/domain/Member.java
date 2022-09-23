@@ -1,10 +1,14 @@
 package com.ssafy.drink.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div class="container justify-content-center">
-      <div class="text-on-img">
-        <div class="background-wrap">
-          <div class="content">
-            <p id="welcomeMent" class="animationTarget">한국 전통의 맛을 경험해보세요</p>
-            <button class="btn btn-warning mx-5">전통주 맞춤추천</button>
-            <button class="btn btn-warning mx-5">전통주 검색하기</button>
+    <div class="container">
+      <div class="background-wrap">
+        <div class="content">
+          <div id="welcomeMent" class="animationTarget">
+            <p>한국 전통의 맛을</p>
+            <p>경험해보세요</p>
           </div>
+          <button class="btn btn-warning mx-5">전통주 맞춤추천</button>
+          <button class="btn btn-warning mx-5">전통주 검색하기</button>
         </div>
       </div>
     </div>
@@ -39,21 +40,22 @@ export default {
 
   #welcomeMent {
     color: white;
-    font-size: 70px;
+    font-size: 65px;
+    width: auto;
   }
 
   .background-wrap {
-  background-image: url(@/assets/mainImage.jpg);
-  background-size: 1280px 720px;
-  width: 1280px;
-  height: 720px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background: url(@/assets/mainImage.jpg) no-repeat center;
+    position: relative;
+    height: 100vh;
   }
 
   .content {
-    margin-top: 10px;
     height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
   }
 </style>

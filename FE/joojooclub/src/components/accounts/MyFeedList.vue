@@ -33,6 +33,7 @@ export default {
 	overflow: auto;
 }
 .feed-item {
+	width: 25rem;
 	flex: 0 0 auto;
 }
 </style>

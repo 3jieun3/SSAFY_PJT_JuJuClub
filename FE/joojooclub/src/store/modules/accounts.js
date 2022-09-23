@@ -1,6 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
+import _ from 'lodash'
 
 export default {
   // namespaced: true,
@@ -178,6 +179,7 @@ export default {
     profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
+    isCurrentUser: state => !_.isEmpty(state.currentUser),
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
@@ -217,14 +219,12 @@ export default {
           // 메인페이지로 이동
           router.push({ name: 'login'})
         })
-        .catch((err) => {
-          console.log(credentials)
-          console.log(err)
+        .catch(() => {
           alert('회원가입에 실패했습니다')
         })
     },
 
-    login({ dispatch }, credentials) {
+    login({ dispatch, commit }, credentials) {
       axios({
         // 사용자 입력정보를 login URL로 post 보내기
         url: joojooclub.accounts.login(),
@@ -236,6 +236,7 @@ export default {
           const accessToken = res.data.token;
           axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
           dispatch('saveToken', accessToken)
+          commit('SET_CURRENT_USER', {})
           // 메인페이지(HomeView)로 이동
           router.push({ name: 'main' })
         })
@@ -260,12 +261,10 @@ export default {
         })
           // state.currentUser에 저장
           .then(res => {
-            // console.log(res)
             commit('SET_CURRENT_USER', res.data)
           })
           .catch(err => {
             // 토큰이 잘못되면(401)
-            console.log(err)
             if (err.response.status === 401) {
               // 기존 토큰 삭제 후 loginView로 이동
               dispatch('removeToken')
@@ -286,13 +285,12 @@ export default {
         })
           // state.currentUser에 저장
           .then(res => {
-            // console.log(res.data)
             commit('SET_CURRENT_USER', res.data)
-            console.log(res)
+            alert('회원정보가 수정되었습니다')
+            router.push({ name: 'main' })
           })
           .catch(err => {
             // 토큰이 잘못되면(401)
-            console.log(err)
             if (err.response.status === 401) {
               // 기존 토큰 삭제 후 loginView로 이동
               dispatch('removeToken')

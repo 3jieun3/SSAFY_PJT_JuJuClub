@@ -61,7 +61,6 @@ export default {
   name: "SignupForm",
   props: {
     currentUser: Object,
-    // credentials: Object,
     id_dup: Boolean,
     action: String,
     f_check: Boolean,
@@ -69,6 +68,12 @@ export default {
   },
   data() {
     return {
+      newCredentials: {
+        id: this.currentUser.member.id,
+        password: this.currentUser.member.password,
+        birthYear: this.currentUser.member.birthYear,
+        gender: this.currentUser.member.gender
+      },
       now_year: null,
       get_years: function () {
         var list = []
@@ -80,12 +85,6 @@ export default {
       },
       signup_f_check: this.f_check,
       signup_m_check: this.m_check,
-      newCredentials: {
-        id: this.currentUser?.member.id,
-        password: this.currentUser?.member.password,
-        birthYear: this.currentUser?.member.birthYear,
-        gender: this.currentUser?.member.gender,
-      },
       passwordConfirm: null,
       // 아이디 중복검사
       idDuplicate: this.id_dup,
@@ -125,24 +124,19 @@ export default {
       }
     }
   },
-  // computed: {
-  // ...mapGetters(['currentUser']),
-  // },
   methods: {
     // 생년월일 선택
-    ...mapActions(['signup', 'updateMember', 'fetchCurrentUser']),
+    ...mapActions(['signup', 'updateMember']),
     checkID() {
       if (this.action === "create"){
         if (this.newCredentials.id !== null) {
           axios({
             url: joojooclub.accounts.idCheck(this.newCredentials.id),
             method: 'post',
-          }).then((res) => {
-            console.log(res)
+          }).then(() => {
             this.idDuplicate = true
             alert('사용가능한 아이디입니다')
-          }).catch((err) => {
-            console.log(err)
+          }).catch(() => {
             this.idDuplicate = false
             alert('이미 존재하는 아이디입니다')
           })
@@ -151,23 +145,23 @@ export default {
     },
     onSubmit() {
       // 에러 처리
-      if(this.isBlank(this.newCredentials?.id)){
+      if(this.isBlank(this.newCredentials.id)){
         this.idError = true
       } else {this.idError = false}
-      if(this.isBlank(this.newCredentials?.password)){
+      if(this.isBlank(this.newCredentials.password)){
         this.pwError = true
       } else {this.pwError = false}
-      if(this.isBlank(this.passwordConfirm) || this.passwordConfirm !== this.newCredentials?.password){
+      if(this.isBlank(this.passwordConfirm) || this.passwordConfirm !== this.newCredentials.password){
         this.pwConfirmError = true
       } else {this.pwConfirmError = false}
-      if(this.isBlank(this.newCredentials?.birthYear)){
+      if(this.isBlank(this.newCredentials.birthYear)){
         this.birthError = true
       } else {this.birthError = false}
-      if(this.isBlank(this.newCredentials?.gender)){
+      if(this.isBlank(this.newCredentials.gender)){
         this.genderError = true
       } else {this.genderError = false}
       // 에러가 없다면 axios 처리
-      if (this.newCredentials?.id && !this.idDuplicate) {
+      if (this.newCredentials.id && !this.idDuplicate) {
         alert('아이디 중복체크를 해주십시오.')
       } else {
         if (!this.idError & !this.pwError & !this.pwConfirmError & !this.birthError & !this.genderError) {
@@ -175,16 +169,11 @@ export default {
             this.signup(this.newCredentials)
           } else if (this.action === 'update') {
             const data = {
-              birthYear: this.newCredentials?.birthYear,
-              gender: this.newCredentials?.gender,
-              password: this.newCredentials?.password
+              birthYear: this.newCredentials.birthYear,
+              gender: this.newCredentials.gender,
+              password: this.newCredentials.password
             }
-            console.log(data)
-            this.updateMember({
-              birthYear: this.newCredentials?.birthYear,
-              gender: this.newCredentials?.gender,
-              password: this.newCredentials?.password
-            })
+            this.updateMember(data)
           }
         }
       }
@@ -216,14 +205,7 @@ export default {
   },
   created() {
     this.now_year = new Date().getFullYear();
-    this.fetchCurrentUser();
   },
-  mounted() {
-    this.fetchCurrentUser()
-  },
-  updated() {
-    this.fetchCurrentUser()
-  }
 }
 </script>
 

@@ -6,6 +6,7 @@ import RecommendView from '@/views/RecommendView'
 import RecommendResultView from '@/views/RecommendResultView'
 import DrinksView from '@/views/DrinksView'
 import FeedView from '@/views/FeedView'
+import ProfileView from '@/views/ProfileView'
 
 Vue.use(VueRouter)
 
@@ -50,11 +51,11 @@ const routes = [
   //   name: 'feedEdit',
   //   component: PostingEditView
   // },
-  // {
-  //   path: '/profile/:userPK',
-  //   name: 'profile',
-  //   component: ProfileView
-  // },
+  {
+    path: '/profile/:userPK',
+    name: 'profile',
+    component: ProfileView
+  },
   // {
   //   path: '/login',
   //   name: 'login',

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="recommendItem row">
       <h3 class="recommendTitle">당신에게 어울리는 술은</h3>
-      <carousel-3d :width="300" :height="600">
+      <carousel-3d class="carousel3d" :width="300" :height="600">
         <slide v-for="(result, index) in recommendResults"
           :index="index"
           :key="result.drinkIndex">
@@ -80,6 +80,11 @@ export default {
 
   .recommendTitle {
     font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .recommendInfo {
@@ -106,6 +111,5 @@ export default {
   .tag {
     margin: 0px 10px 20px 10px;
   }
-
 
 </style>

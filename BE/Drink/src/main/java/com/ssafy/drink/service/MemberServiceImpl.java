@@ -104,7 +104,7 @@ public class MemberServiceImpl implements MemberService{
         map.put("member",member); //member 정보 input
         List<Review> reviewList = reviewRepository.findByMember(member);
         map.put("reviews",reviewList); //member의 모든 리뷰를 리스트로 input
-        List<Feed> feedList = feedRepository.findByMemberIndex(memberId);
+        List<Feed> feedList = feedRepository.findByMember(member);
         map.put("feeds",feedList); //memberId(pk)를 사용해서 모든 feed를 리스트로 input
         return map;
     }

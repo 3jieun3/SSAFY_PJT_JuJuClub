@@ -21,16 +21,16 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  #  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://j7d106.p.ssafy.io:3306/test?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#    username: hive
-#    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: jdbc:h2:mem:test db;MODE=MySQL;DATABASE_TO_UPPER=FALSE;
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://j7d106.p.ssafy.io:3306/doseok?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: hive
+    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:mem:test db;MODE=MySQL;DATABASE_TO_UPPER=FALSE;
 
 logging:
   level:

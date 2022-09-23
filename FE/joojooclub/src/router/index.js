@@ -50,11 +50,11 @@ const routes = [
   //   name: 'feedEdit',
   //   component: PostingEditView
   // },
-  // {
-  //   path: '/profile/:userPK',
-  //   name: 'profile',
-  //   component: ProfileView
-  // },
+  {
+    path: '/profile/:userPK',
+    name: 'profile',
+    component: ProfileView
+  },
   // {
   //   path: '/login',
   //   name: 'login',

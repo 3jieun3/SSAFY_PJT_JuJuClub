@@ -3,22 +3,24 @@
 		<div class="mypage-header">
 			<my-profile :profile="profile"></my-profile>
 		</div>
-		<!-- <div class="mypage-content">
-			<comment-list :comments="comments"></comment-list>
+		<div class="mypage-content">
+			<!-- <comment-list :comments="comments"></comment-list> -->
 			<my-feed-list :profile="profile"></my-feed-list>
-			<like-feed-list :profile="profile"></like-feed-list>
-		</div> -->
+			<!-- <like-feed-list :profile="profile"></like-feed-list> -->
+		</div>
 	</div>
 </template>
 
 <script>
 import MyProfile from '@/components/accounts/MyProfile'
+import MyFeedList from '@/components/accounts/MyFeedList'
 import { mapState } from 'vuex'
 
 export default {
 	name: "ProfileView",
 	components: {
 		MyProfile,
+		MyFeedList,
 	},
 	computed: {
 		...mapState('accounts', ['profile', 'comments']),

@@ -5,6 +5,7 @@ import MainView from '@/views/MainView'
 import RecommendView from '@/views/RecommendView'
 import RecommendResultView from '@/views/RecommendResultView'
 import DrinksView from '@/views/DrinksView'
+import DrinkDetailView from '@/views/DrinkDetailView'
 import FeedView from '@/views/FeedView'
 import ProfileView from '@/views/ProfileView'
 
@@ -31,11 +32,11 @@ const routes = [
     name: 'drinks',
     component: DrinksView
   },
-  // {
-  //   path: '/drinks/:drinkPK',
-  //   name: 'drink',
-  //   component: DrinkDetailView
-  // },
+  {
+    path: '/drinks/:drinkPK',
+    name: 'drink',
+    component: DrinkDetailView
+  },
   {
     path: '/feed',
     name: 'feed',

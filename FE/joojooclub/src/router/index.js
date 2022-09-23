@@ -1,40 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import store from '@/store'
+
+import MainView from '@/views/MainView'
+import RecommendView from '@/views/RecommendView'
+import RecommendResultView from '@/views/RecommendResultView'
+import DrinksView from '@/views/DrinksView'
+import FeedView from '@/views/FeedView'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'main',
-  //   component: MainView
-  // },
-  // {
-  //   path: '/recommend',
-  //   name: 'recommend',
-  //   component: RecommendView
-  // },
-  // {
-  //   path: '/recommend/result',
-  //   name: 'recommend',
-  //   component: RecommendResultView
-  // },
-  // {
-  //   path: '/drinks',
-  //   name: 'drinks',
-  //   component: DrinksView
-  // },
+  {
+    path: '/',
+    name: 'main',
+    component: MainView
+  },
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: RecommendView
+  },
+  {
+    path: '/recommend/result',
+    name: 'recommendResult',
+    component: RecommendResultView
+  },
+  {
+    path: '/drinks',
+    name: 'drinks',
+    component: DrinksView
+  },
   // {
   //   path: '/drinks/:drinkPK',
   //   name: 'drink',
   //   component: DrinkDetailView
   // },
-  // {
-  //   path: '/feed',
-  //   name: 'feed',
-  //   component: FeedView
-  // },
+  {
+    path: '/feed',
+    name: 'feed',
+    component: FeedView
+  },
   // {
   //   path: '/feed/new',
   //   name: 'feedNew',

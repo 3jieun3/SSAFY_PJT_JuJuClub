@@ -6,7 +6,7 @@
           <div class="content">
             <p id="welcomeMent" class="animationTarget">한국 전통의 맛을 경험해보세요</p>
             <button class="btn btn-warning mx-5">전통주 맞춤추천</button>
-            <button class="btn btn-warning ">전통주 검색하기</button>
+            <button class="btn btn-warning mx-5">전통주 검색하기</button>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
   #welcomeMent {
     color: white;
@@ -53,6 +53,7 @@ export default {
   }
 
   .content {
-    margin-top: 50px;
+    margin-top: 10px;
+    height: 30px;
   }
 </style>

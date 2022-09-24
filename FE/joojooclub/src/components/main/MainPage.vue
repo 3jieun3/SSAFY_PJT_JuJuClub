@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MainImage></MainImage>
-    <TodaysDrinkList></TodaysDrinkList>
+    <main-image></main-image>
+    <todays-drink-list></todays-drink-list>
   </div>
 </template>
 
@@ -14,6 +14,6 @@ export default {
   components : {
     MainImage,
     TodaysDrinkList,
-}
+},
 }
 </script>

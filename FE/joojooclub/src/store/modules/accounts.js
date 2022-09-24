@@ -6,6 +6,5 @@ export default {
   mutations: {
   },
   actions: {
-    
   }
 }

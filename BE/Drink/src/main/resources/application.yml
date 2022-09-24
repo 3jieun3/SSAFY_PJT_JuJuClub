@@ -1,11 +1,11 @@
 server:
-  config:
-    activate:
-      on-profile: set1
   servlet:
     context-path: /api
   port: 8081
 spring:
+  config:
+    activate:
+      on-profile: set1
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -41,13 +41,13 @@ logging:
 
 ---
 server:
-  config:
-    activate:
-      on-profile: set2
   servlet:
     context-path: /api
   port: 8082
 spring:
+  config:
+    activate:
+      on-profile: set2
   jpa:
     defer-datasource-initialization: true
     show-sql: true

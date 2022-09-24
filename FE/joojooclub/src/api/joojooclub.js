@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8090/api/"
+const HOST = "http://j7d106.p.ssagy.io/api/"
 
 // const MAIN = "main/"
 // const RECOMMEND = "recommend/"

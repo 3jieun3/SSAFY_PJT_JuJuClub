@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
   button {
     margin: 10px;
   }

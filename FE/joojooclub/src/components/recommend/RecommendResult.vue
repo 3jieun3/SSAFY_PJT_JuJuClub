@@ -107,5 +107,38 @@ export default {
     margin: 0px 10px 20px 10px;
   }
 
+  .recommendTitle {
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recommendInfo {
+    color: black;
+    justify-content: center;
+    align-items: end;
+    /* display: none; */
+  }
+
+  .drinkName {
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .drinkType {
+    font-size: smaller;
+    color: gray;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  .tag {
+    margin: 0px 10px 20px 10px;
+  }
 
 </style>

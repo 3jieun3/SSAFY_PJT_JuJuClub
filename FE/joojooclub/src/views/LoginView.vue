@@ -1,27 +1,30 @@
 <template>
-  <div class="container my-5 p-5 signup-box border">
-    <!-- title -->
-    <h2 class="mb-4">로그인</h2>
-    <!-- form -->
-    <form @submit.prevent="onSubmit">
-      <div>
-        <!-- member id -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="user-id">아이디</label>
-          <div class="input-group">
-            <input v-model="credentials.id" type="text" id="user-id" class="form-control" placeholder="ID / Nickname">
+  <div>
+    <div class="container mt-5 mb-2 p-5 signup-box border">
+      <!-- title -->
+      <h2 class="mb-4">로그인</h2>
+      <!-- form -->
+      <form @submit.prevent="onSubmit">
+        <div>
+          <!-- member id -->
+          <div class="d-flex flex-column align-items-start mb-4">
+            <label for="user-id">아이디</label>
+            <div class="input-group">
+              <input v-model="credentials.id" type="text" id="user-id" class="form-control" placeholder="ID / Nickname">
+            </div>
+            <p v-if="idError" class="sub-error">아이디를 입력해주세요</p>
           </div>
-          <p v-if="idError" class="sub-error">아이디를 입력해주세요</p>
+          <!-- password -->
+          <div class="d-flex flex-column align-items-start mb-4">
+            <label for="password1">비밀번호</label>
+            <input v-model="credentials.password" type="password" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
+            <p v-if="pwError" class="sub-error">비밀번호를 입력해 주세요</p>
+          </div>
         </div>
-        <!-- password -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="password1">비밀번호</label>
-          <input v-model="credentials.password" type="password" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
-          <p v-if="pwError" class="sub-error">비밀번호를 입력해 주세요</p>
-        </div>
-      </div>
-      <button class="btn btn-warning">로그인</button>
-    </form>
+        <button class="btn btn-warning">로그인</button>
+      </form>
+    </div>
+    <p class="position-relative text-muted fs-6 end-0 mb-3">아직 회원이 아니신가요? <router-link to="/signup">회원가입</router-link></p>
   </div>
 </template>
 

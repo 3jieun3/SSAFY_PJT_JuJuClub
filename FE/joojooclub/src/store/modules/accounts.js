@@ -198,7 +198,7 @@ export default {
       localStorage.setItem('token', '') // localstorage에 빈 token 추가
     },
 
-    signup(credentials) {
+    signup({ dispatch }, credentials) {
       axios({
         url: joojooclub.accounts.signup(),
         method: 'post',
@@ -206,9 +206,11 @@ export default {
       })
         .then(() => {
           alert('회원가입 되었습니다')
+          dispatch('fetchCurrentUser')
           router.push({ name: 'login'})
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err)
           alert('회원가입에 실패했습니다')
         })
     },

@@ -9,7 +9,7 @@
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
 	name: "LikeFeedList",
@@ -17,11 +17,21 @@ export default {
 		FeedListItem,
 	},
 	props: {
-		profile: Object,
+		currentUser: Object,
+	},
+	data() {
+		return {
+			feeds: this.currentUser.feeds,	// feeds: Array([])
+			likeFeedsCount: this.currentUser.feeds.likeCount,	// 좋아요 한 피드 개수
+			likedFeeds: [],	// api 확인 필요
+		}
 	},
 	computed: {
-		...mapState('accounts', ['likedFeeds']),
-	}
+		// ...mapState('accounts', ['likedFeeds']),
+	},
+	created() {
+		// console.log(this.currentUser)
+	},
 }
 </script>
 

@@ -10,10 +10,10 @@
         <div class="d-flex flex-column align-items-start mb-4">
           <label for="user-id">아이디</label>
           <div class="input-group">
-            <input v-model="newCredentials.id" type="text" id="user-id" class="form-control" placeholder="ID / Nickname">
+            <input :disabled="action ==='update'" v-model="newCredentials.id" type="text" id="user-id" class="form-control" placeholder="8글자 이상 입력해주세요">
             <button v-if="action ==='create'" @click="checkID" class="btn btn-secondary m-0" type="button">중복검사</button>
           </div>
-          <p v-if="idError" class="sub-error">아이디를 입력해주세요</p>
+          <p v-if="idError" class="sub-error">아이디를 8글자 이상 입력해주세요</p>
         </div>
         <!-- year of birth -->
         <div class="d-flex flex-column align-items-start mb-4">
@@ -37,8 +37,8 @@
         <!-- password -->
         <div class="d-flex flex-column align-items-start mb-4">
           <label for="password1">비밀번호</label>
-          <input v-model="newCredentials.password" type="password" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
-          <p v-if="pwError" class="sub-error">비밀번호를 입력해 주세요</p>
+          <input v-model="newCredentials.password" type="password" id="password1" class="form-control" placeholder="영문, 숫자, 특수문자 조합 8-16자">
+          <p v-if="pwError" class="sub-error">영문, 숫자, 특수문자를 조합하여 입력해주세요 (8-16자)</p>
         </div>
         <!-- confirm password -->
         <div class="d-flex flex-column align-items-start mb-5">
@@ -99,11 +99,13 @@ export default {
   watch: {
     // ...mapGetters(['authError'])
     id(val) {
-      if (val.length > 0) {
+      // 8자 글자 이상 입력 필수
+      if (val.length > 7) {
         this.idError = false
       }
     },
     password(val) {
+      // this.checkPassword(val)
       if (val.length > 0) {
         this.pwError = false
       }
@@ -127,6 +129,13 @@ export default {
   methods: {
     // 생년월일 선택
     ...mapActions(['signup', 'updateMember']),
+    checkPassword(value) {
+      // 비밀번호 형식 검사(영문, 숫자, 특수문자)
+      const regex = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+      if (regex.test(value) === true) {
+        return true
+      } return false
+    },
     checkID() {
       if (this.action === "create"){
         if (this.newCredentials.id !== null) {
@@ -145,10 +154,10 @@ export default {
     },
     onSubmit() {
       // 에러 처리
-      if(this.isBlank(this.newCredentials.id)){
+      if(this.isBlank(this.newCredentials.id) || this.newCredentials.id.length < 8){
         this.idError = true
       } else {this.idError = false}
-      if(this.isBlank(this.newCredentials.password)){
+      if(this.isBlank(this.newCredentials.password) || !this.checkPassword(this.newCredentials.password)){
         this.pwError = true
       } else {this.pwError = false}
       if(this.isBlank(this.passwordConfirm) || this.passwordConfirm !== this.newCredentials.password){

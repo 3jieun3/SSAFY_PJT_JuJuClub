@@ -11,6 +11,7 @@ import ProfileView from '@/views/ProfileView'
 import SignupView from '@/views/SignupView'
 import MemberUpdateView from '@/views/MemberUpdateView'
 import LoginView from '@/views/LoginView'
+import SignOutView from '@/views/SignOutView'
 // import store from '@/store'
 
 Vue.use(VueRouter)
@@ -66,11 +67,11 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-  {
-    path: '/logout',
-    name: 'logout',
-    // component: LogoutView
-  },
+  // {
+  //   path: '/logout',
+  //   name: 'logout',
+  //   component: LogoutView
+  // },
   {
     path: '/signup',
     name: 'signup',
@@ -81,11 +82,11 @@ const routes = [
     name: 'update',
     component: MemberUpdateView
   },
-  // {
-  //   path: '/signout',
-  //   name: 'signout',
-  //   component: SignOutView
-  // },
+  {
+    path: '/signout',
+    name: 'signout',
+    component: SignOutView
+  },
   // {
   //   path: '/404',
   //   name: 'NotFound404',

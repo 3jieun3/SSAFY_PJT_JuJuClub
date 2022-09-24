@@ -189,34 +189,23 @@ export default {
   },
   actions: {
     saveToken({ commit }, token) {
-      // state.token 추가
-      commit('SET_TOKEN', token)
-      // localStorage에 token 추가
-      localStorage.setItem('token', token)
+      commit('SET_TOKEN', token)  // state.token 추가
+      localStorage.setItem('token', token)  // localStorage에 token 추가
     },
 
     removeToken({ commit }) {
-      // state.token 삭제
-      commit('SET_TOKEN', '')
-      // localstorage에 빈 token 추가
-      localStorage.setItem('token', '')
+      commit('SET_TOKEN', '') // state.token 삭제
+      localStorage.setItem('token', '') // localstorage에 빈 token 추가
     },
 
-    signup({ dispatch }, credentials) {
+    signup(credentials) {
       axios({
-        // 사용자 입력정보를 signup URL로 post 요청보내기
         url: joojooclub.accounts.signup(),
         method: 'post',
         data: credentials,
       })
         .then(() => {
-          // 응답 토큰 저장
-          // const token = res.data.key
-          // dispatch('saveToken', token)
           alert('회원가입 되었습니다')
-          // 현재 사용자 정보 받기
-          dispatch('fetchCurrentUser')
-          // 메인페이지로 이동
           router.push({ name: 'login'})
         })
         .catch(() => {
@@ -224,20 +213,17 @@ export default {
         })
     },
 
-    login({ dispatch, commit }, credentials) {
+    login({ dispatch }, credentials) {
       axios({
-        // 사용자 입력정보를 login URL로 post 보내기
         url: joojooclub.accounts.login(),
         method: 'post',
         data: credentials,
       })
-        .then(res => {
-          // 응답 토큰 저장
-          const accessToken = res.data.token;
+        .then((res) => {
+          const accessToken = res.data.token; // 응답 토큰 저장
           axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
           dispatch('saveToken', accessToken)
-          commit('SET_CURRENT_USER', {})
-          // 메인페이지(HomeView)로 이동
+          dispatch('fetchCurrentUser')
           router.push({ name: 'main' })
         })
         .catch(() => {
@@ -245,58 +231,83 @@ export default {
         })
     },
 
-    logout({ dispatch }) {
-      dispatch('removeToken')
-      router.push({ name: 'main' })
+    logout({ dispatch, getters, commit }) {
+      if (getters.isLoggedIn){
+        dispatch('removeToken')
+        commit('SET_CURRENT_USER', {})
+        router.push({ name: 'main' })
+      } else {
+        alert('로그인이 필요한 페이지입니다')
+        router.push({ name: 'login' })
+      }
     },
 
     fetchCurrentUser({ commit, getters, dispatch }) {
-      // 사용자가 로그인했다면(토큰이 있다면)
+      // 사용자가 로그인한 경우 (token 존재)
       if (getters.isLoggedIn) {
         axios({
-          // currentUserInfo URL로 get 요청보내기
           url: joojooclub.accounts.info(),
           method: 'get',
           headers: getters.authHeader,
+        }).then((res) => {
+          commit('SET_CURRENT_USER', res.data)
+        }).catch((err) => {
+          // 토큰이 잘못된 경우(만료 등)
+          if (err.response.status === 401) {
+            // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
         })
-          // state.currentUser에 저장
-          .then(res => {
-            commit('SET_CURRENT_USER', res.data)
-          })
-          .catch(err => {
-            // 토큰이 잘못되면(401)
-            if (err.response.status === 401) {
-              // 기존 토큰 삭제 후 loginView로 이동
-              dispatch('removeToken')
-              router.push({ name: 'login' })
-            }
-          })
       }
     },
 
     updateMember({ dispatch, getters, commit }, credentials) {
       if (getters.isLoggedIn) {
         axios({
-          // currentUserInfo URL로 get 요청보내기
           url: joojooclub.accounts.info(),
           method: 'put',
           data: credentials,
           headers: getters.authHeader,
+        }).then((res) => {
+          commit('SET_CURRENT_USER', res.data)
+          alert('회원정보가 수정되었습니다')
+          router.push({ name: 'main' })
+        }).catch((err) => {
+          // 토큰이 잘못된 경우(만료 등)
+          if (err.response.status === 401) {
+            // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
         })
-          // state.currentUser에 저장
-          .then(res => {
-            commit('SET_CURRENT_USER', res.data)
-            alert('회원정보가 수정되었습니다')
-            router.push({ name: 'main' })
-          })
-          .catch(err => {
-            // 토큰이 잘못되면(401)
-            if (err.response.status === 401) {
-              // 기존 토큰 삭제 후 loginView로 이동
-              dispatch('removeToken')
-              router.push({ name: 'login' })
-            }
-          })
+      }
+    },
+
+    signout({ dispatch, getters, commit }){
+      if (getters.isLoggedIn) {
+      axios({
+        url: joojooclub.accounts.info(),
+        method: 'delete',
+        headers: getters.authHeader,
+      })
+        .then(() => {
+          dispatch('removeToken')
+          commit('SET_CURRENT_USER', {})
+          alert('정상적으로 탈퇴되었습니다')
+          router.push({ name: 'main' })
+        })
+        .catch(err => {
+          // 토큰이 잘못된 경우(만료 등)
+          if (err.response.status === 401) {
+            // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+        })
       }
     }
   }

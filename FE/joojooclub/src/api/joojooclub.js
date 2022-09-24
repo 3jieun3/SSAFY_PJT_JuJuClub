@@ -1,4 +1,4 @@
-const HOST = "http://j7d106.p.ssagy.io/api/"
+const HOST = "http://j7d106.p.ssafy.io/api/"
 
 // const MAIN = "main/"
 // const RECOMMEND = "recommend/"

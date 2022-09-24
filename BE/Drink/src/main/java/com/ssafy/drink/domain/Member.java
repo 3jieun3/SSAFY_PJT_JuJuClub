@@ -32,6 +32,6 @@ public class Member {
     private char gender;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime cratedAt;
+    private LocalDateTime createdAt;
 
 }

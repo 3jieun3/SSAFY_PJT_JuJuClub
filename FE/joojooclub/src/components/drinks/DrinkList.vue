@@ -1,14 +1,25 @@
 <template>
-  <div class="list container" @scroll="handleNotificationListScroll">
-    <drink-list-item
-    v-for="(drink, index) in drinks"
-    :key="index"
-    :drink="drink"></drink-list-item>
+  <div class="d-flex flex-column align-items-center">
+    <hr>
+    <div class="list container">
+      <drink-list-item
+      v-for="(drink, index) in showPage"
+      :key="index"
+      :drink="drink"></drink-list-item>
+    </div>
+    <ul class="pagination">
+      <li class="page-item"><a @click="goPrevPage()" class="page-link">Previous</a></li>
+      <li class="page-item"
+      :class="{'active': paging.currentPage === index+1}"
+      v-for="(n, index) in totalPage"
+      :key="index"><a @click="goSpecPage(index+1)" class="page-link">{{ index+1 }}</a></li>
+      <li class="page-item"><a @click="goNextPage()" class="page-link">Next</a></li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import DrinkListItem from './DrinkListItem.vue';
 
 export default {
@@ -17,30 +28,23 @@ export default {
     DrinkListItem
   },
   computed: {
-    ...mapState('drinks', ['drinks'])
+    ...mapState('drinks', ['drinks', 'paging']),
+    ...mapGetters('drinks', ['totalPage', 'showPage'])
   },
   methods: {
-    handleNotificationListScroll(e) {
-      const { scrollHeight, scrollTop, clientHeight } = e.target;
-      const isAtTheBottom = scrollHeight === scrollTop + clientHeight;
-      if(isAtTheBottom) {
-        setTimeout(() => this.handleLoadMore(), 1000)
-      }
-    },
-    handleLoadMore() {
-      console.log("리스트 추가")
-      // api를 호출하여 리스트 추가하면 됨, 현재는 pushList에 1개의 index 추가
-      this.pushList.push(2)
-    }
+    ...mapActions('drinks', ['goPrevPage', 'goNextPage', 'goSpecPage'])
   }
 }
 </script>
 
 <style scoped>
 
-  .list{
-    height: calc(100vh - 70px);
-    overflow: auto;
+  .pagination {
+    margin-top: 50px;
+  }
+
+  .page-link {
+    border: none;
   }
 
 </style>

@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center flex-wrap mt-3">
       <custom-tag-list-item
       class="btn btn-light"
-      v-for="(customTag, index) in tagList.customTagList"
+      v-for="(customTag, index) in customTagList"
       :key="index"
       :customTag="customTag"
       :index="index"></custom-tag-list-item>
@@ -22,7 +22,7 @@ export default {
     CustomTagListItem,
   },
   computed: {
-    ...mapState('drinks', ['tagList']),
+    ...mapState('drinks', ['customTagList']),
   },
 }
 </script>

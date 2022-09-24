@@ -1,39 +1,27 @@
 <template>
   <button
-  :class="{ 'selected' : isClicked }"
-  @click="setClicked()">
-  #{{ customTag }}
+  :class="{ 'selected' : customTag.isClicked }"
+  @click="tagClicked([6, index, customTag])">
+  #{{ customTag.tagName }}
   </button>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'CustomTagListItem',
   props: {
-    customTag: String,
+    customTag: Object,
     index: Number,
-  },
-  data() {
-    return {
-      isClicked: false,
-    }
-  },
-  computed: {
-    ...mapState('drinks', ['tagList']),
-    ...mapGetters('drinks', ['getCustomClicked']),
   },
   methods: {
     ...mapActions('drinks', ['tagClicked']),
-    setClicked() {
-      this.isClicked = !this.isClicked
-    }
   },
 }
 </script>
 
-<style scoped>
+<style>
 
   .selected {
     background-color: bisque;

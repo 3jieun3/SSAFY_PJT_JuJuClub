@@ -5,7 +5,12 @@ server:
 spring:
   config:
     activate:
-      on-profile: set1
+      on-profile: production-set1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://j7d106.p.ssafy.io:3306/doseok?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: hive
+    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -16,7 +21,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -24,11 +28,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j7d106.p.ssafy.io:3306/doseok?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: hive
-    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
+
 #  h2:
 #    console:
 #      enabled: true
@@ -40,6 +40,7 @@ logging:
     org.hibernate.sql: debug
 
 ---
+
 server:
   servlet:
     context-path: /api
@@ -47,7 +48,12 @@ server:
 spring:
   config:
     activate:
-      on-profile: set2
+      on-profile: production-set2
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://j7d106.p.ssafy.io:3306/doseok?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: hive
+    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -58,7 +64,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -66,11 +71,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j7d106.p.ssafy.io:3306/doseok?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: hive
-    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
+
 #  h2:
 #    console:
 #      enabled: true
@@ -80,5 +81,3 @@ spring:
 logging:
   level:
     org.hibernate.sql: debug
-
----

@@ -30,7 +30,7 @@ public class RegistMember {
              .password(password)
              .birthYear(birthYear)
              .gender(gender)
-             .cratedAt(LocalDateTime.now())
+             .createdAt(LocalDateTime.now())
              .build();
     }
 }

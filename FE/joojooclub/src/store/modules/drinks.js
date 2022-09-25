@@ -471,7 +471,18 @@ export default {
     paging:{
         totalPage: 25,
         currentPage: 1,
-    }
+    },
+    drink: {
+      drinkIndex: 1,
+      drinkName: '장수 생막걸리',
+      description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+      drinkType: '탁주',
+      ingredient: '원료, 원료, 원료',
+      abv: 7,
+      volume: '350ml',
+      imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+      tags: ['탁주', '혼술'],
+    },
   },
   getters: {
     getQuestion: (state) => {
@@ -493,7 +504,7 @@ export default {
     showPage: (state) => {
       const a = state.drinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12)
       return a
-    }
+    },
   },
   mutations: {
     CHOOSE_ANSWER(state, answerStr) {

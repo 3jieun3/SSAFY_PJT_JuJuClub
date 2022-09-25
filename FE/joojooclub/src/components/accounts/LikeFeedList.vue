@@ -21,13 +21,10 @@ export default {
 	},
 	data() {
 		return {
-			feeds: this.currentUser.feeds,	// feeds: Array([])
-			likeFeedsCount: this.currentUser.feeds.likeCount,	// 좋아요 한 피드 개수
-			likedFeeds: [],	// api 확인 필요
+			// feeds: this.currentUser.feeds,	// feeds: Array([])
+			// likeFeedsCount: this.currentUser.feeds.likeCount,	// 좋아요 한 피드 개수
+			likedFeeds: this.currentUser.likedFeeds,	// api 확인 필요
 		}
-	},
-	computed: {
-		// ...mapState('accounts', ['likedFeeds']),
 	},
 	created() {
 		// console.log(this.currentUser)

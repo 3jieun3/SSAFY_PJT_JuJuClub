@@ -14,6 +14,7 @@ export default {
 		CommentListItem,
 	},
 	props: {
+		currentUser: Object,
 		comments: Array,
 	},
 }

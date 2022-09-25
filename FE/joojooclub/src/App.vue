@@ -26,10 +26,10 @@ export default {
   ...mapActions(['logout', 'fetchCurrentUser', 'signout'])
   },
   created() {
-    this.fetchCurrentUser()
+    // this.fetchCurrentUser()
   },
   updated() {
-    this.fetchCurrentUser()
+    // this.fetchCurrentUser()
   }
 }
 </script>

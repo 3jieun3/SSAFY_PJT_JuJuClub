@@ -4,6 +4,7 @@ import com.ssafy.drink.domain.Drink;
 import com.ssafy.drink.domain.Member;
 import com.ssafy.drink.domain.Review;
 import com.ssafy.drink.dto.RegistReview;
+import com.ssafy.drink.dto.UpdateReview;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.MemberRepository;
 import com.ssafy.drink.repository.ReviewRepository;
@@ -19,7 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Service
-@Slf4j
 public class ReviewServiceImpl implements ReviewService{
 
     public static final Logger logger = LoggerFactory.getLogger(ReviewServiceImpl.class);
@@ -37,10 +37,10 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public boolean registReview(RegistReview registReview, Long memberIndex) {
 
-        Drink drink = drinkRepository.findByDrinkIndex(registReview.getDrinkIndex());
+        Drink drink = drinkRepository.findById(registReview.getDrinkIndex()).orElseThrow(RuntimeException::new);
         logger.info("작성한 리뷰에 해당하는 술 : {}", drink);
 
-        Member member = memberRepository.findByMemberIndex(memberIndex);
+        Member member = memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
         logger.info("리뷰를 작성한 사용자 : {} ", member);
 
         // 현재 요일 구하기
@@ -72,6 +72,36 @@ public class ReviewServiceImpl implements ReviewService{
             reviewRepository.save(review);
             reviewRepository.flush();
         } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateReview(UpdateReview updateReview) {
+        Review review = reviewRepository.findById(updateReview.getReviewIndex()).orElseThrow(RuntimeException::new);
+        // 리뷰 내용, 평점, 업데이트 시간 수정
+        review.setReview(updateReview.getReview());
+        review.setScore(updateReview.getScore());
+        review.setUpdatedAt(LocalDateTime.now());
+
+        try {
+            reviewRepository.save(review);
+            reviewRepository.flush();
+        } catch(Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteReview(Long reviewIndex) {
+
+        Review review = reviewRepository.findById(reviewIndex).orElseThrow(RuntimeException::new);
+        try {
+            reviewRepository.delete(review);
+        } catch(Exception e) {
             return false;
         }
         return true;

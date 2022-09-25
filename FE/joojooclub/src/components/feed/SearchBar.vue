@@ -1,7 +1,10 @@
 <template>
-	<div class="drink-search-bar">
-		<input type="text" v-model.trim="drinkName" @keyup.enter="searchDrink" placeholder="전통주명 검색">
-		<button @click="searchDrink">검색</button>
+	<div class="ui search search-bar">
+		<div class="ui icon fluid input">
+			<input class="prompt" type="text" id="drinkSearch" v-model.trim="drinkName" @keyup.enter="searchDrink" placeholder="전통주명 검색">
+			<i class="search link icon" @click="searchDrink"></i>
+		</div>
+		<div class="results"></div>
 	</div>
 </template>
 
@@ -13,13 +16,16 @@ export default {
 			drinkName: '',
 		}
 	},
+	computed: {
+	},
 	methods: {
 		searchDrink() {
 			this.drinkName = ''	// drinkName 초기화
-		}
+		},
 	}
 }
 </script>
 
 <style>
+
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div class="catalog container">
     <div class="btnWrapper d-flex justify-content-end">
-      <button class="changeBtn" @click="changeCards">card</button>
-      <button class="changeBtn" @click="changeList">list</button>
+      <button class="changeToCardBtn btn btn-white" @click="changeCards">
+        <img src="https://img.icons8.com/ios/30/000000/thumbnail-view.png"/>
+      </button>
+      <button class="changeToListBtn btn btn-white" @click="changeList">
+        <img src="https://img.icons8.com/ios-glyphs/30/000000/list--v1.png"/>
+      </button>
     </div>
     <component :is="getIsCards ? 'DrinkCards' : 'DrinkList'"></component>
   </div>
@@ -34,7 +38,15 @@ export default {
   }
 
   .btnWrapper {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  .changeToCardBtn {
+    margin: 0px;
+  }
+
+  .changeToListBtn {
+    margin: 0px;
   }
 
 </style>

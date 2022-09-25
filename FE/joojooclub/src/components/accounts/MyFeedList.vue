@@ -9,7 +9,6 @@
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
-import { mapState } from 'vuex'
 
 export default {
 	name: "MyFeedList",
@@ -17,12 +16,16 @@ export default {
 		FeedListItem,
 	},
 	props: {
-		profile: Object,
+		currentUser: Object,
+	},
+	data() {
+		return {
+			feeds: this.currentUser.feeds,	// feeds: Array([])
+		}
 	},
 	computed: {
-		...mapState('accounts', ['feeds']),
-	}
-
+		// ...mapState('accounts', ['feeds']),
+	},
 }
 </script>
 

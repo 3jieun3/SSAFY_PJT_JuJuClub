@@ -3,11 +3,11 @@
 		<div class="summary-box">
 			<div>
 				<span>💜</span>
-				<span>{{ profile.id }}</span>
+				<span>{{ memberId }}</span>
 			</div>
 			<div>
-				<button class="btn btn-warning">총 10건의 후기</button>
-				<button class="btn btn-warning">총 3건의 피드</button>
+				<button class="btn btn-warning">총 {{ reviewCount }}건의 후기</button>
+				<button class="btn btn-warning">총 {{ feedCount }}건의 피드</button>
 				<button class="btn btn-warning">+</button>
 			</div>
 		</div>
@@ -19,7 +19,14 @@
 export default {
 	name: "MyProfile",
 	props: {
-		profile: Object,
+		currentUser: Object,
+	},
+	data() {
+		return {
+			memberId: this.currentUser.member.id,
+			feedCount: this.currentUser.feeds.length,
+			reviewCount: this.currentUser.reviews.length,
+		}
 	},
 }
 </script>

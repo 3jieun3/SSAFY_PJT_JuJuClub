@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "webpack",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "package.json": "^2.0.1",
     "v-rating": "^1.1.2",

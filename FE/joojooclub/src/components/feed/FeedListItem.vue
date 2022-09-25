@@ -10,6 +10,9 @@
 			<div class="card-footer">
 				<span v-for="tag in feed.customTags" :key="tag">{{ tag }}</span>
 				<small class="text-muted">{{ feed.createdAt }}</small>
+				<router-link :to="{ name: 'feedEdit', params: feedId }">
+					<button class="btn">수정</button>
+				</router-link>
 			</div>
 		</div>
 	</div>

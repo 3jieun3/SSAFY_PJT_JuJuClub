@@ -8,6 +8,7 @@ import DrinksView from '@/views/DrinksView'
 import DrinkDetailView from '@/views/DrinkDetailView'
 import FeedView from '@/views/FeedView'
 import PostingNewView from '@/views/PostingNewView'
+import PostingEditView from '@/views/PostingEditView'
 import ProfileView from '@/views/ProfileView'
 import SignupView from '@/views/SignupView'
 import MemberUpdateView from '@/views/MemberUpdateView'
@@ -53,11 +54,11 @@ const routes = [
     name: 'feedNew',
     component: PostingNewView
   },
-  // {
-  //   path: '/feed/:feedPK/edit',
-  //   name: 'feedEdit',
-  //   component: PostingEditView
-  // },
+  {
+    path: '/feed/:feedPK/edit',
+    name: 'feedEdit',
+    component: PostingEditView
+  },
   {
     path: '/profile/:userPK',
     name: 'profile',

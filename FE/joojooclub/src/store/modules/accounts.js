@@ -170,6 +170,8 @@ export default {
         createdAt: new Date(),
       },
     ],
+    // 개인 피드
+    feed : {},
   },
   getters: {
     // 로그인 했니?: state에 token값이 있으면 (true) 로그인 한 것
@@ -180,12 +182,14 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
+    feed: state => state.feed,
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
     SET_CURRENT_USER: ( state, user ) => state.currentUser = user,
     SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
+    SET_FEED: ( state, feed ) => state.feed = feed,
   },
   actions: {
     saveToken({ commit }, token) {
@@ -311,6 +315,32 @@ export default {
           }
         })
       }
-    }
+    },
+
+    fetchFeed({ commit, getters }, feedIndex) {
+      axios({
+        url: joojooclub.feed.info(feedIndex),
+        method: 'get',
+        headers: getters.authHeader
+      })
+      .then(res => commit('SET_FEED', res.data))
+      .catch(err => console.err(err.response))
+    },
+    
+    createFeed({ commit, /* getters */ }, feed) {
+      commit('SET_FEED', feed)
+      router.push({
+        name: 'feed',
+        // name: 'profile',
+        // params: { userPK: getters.feed.memberIndex }
+      })
+    },
+
+    // updateFeed({ commit }, { feedIndex, feed }) {
+    //   commit('SET_FEED', feed)
+    //   router.push({
+    //     name: 'feed',
+    //   })
+    // }
   }
 }

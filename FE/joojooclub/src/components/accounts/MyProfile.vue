@@ -6,7 +6,7 @@
 				<span>{{ memberId }}</span>
 			</div>
 			<div>
-				<button class="btn btn-warning">총 {{ commentCount }}건의 후기</button>
+				<button class="btn btn-warning">총 {{ reviewCount }}건의 후기</button>
 				<button class="btn btn-warning">총 {{ feedCount }}건의 피드</button>
 				<button class="btn btn-warning" @click="createFeed()">+</button>
 			</div>
@@ -26,7 +26,7 @@ export default {
 	data() {
 		return {
 			memberId: this.currentUser.member.id,
-			commentCount: this.currentUser.comments.length,
+			reviewCount: this.currentUser.reviews.length,
 			feedCount: this.currentUser.feeds.length,
 		}
 	},

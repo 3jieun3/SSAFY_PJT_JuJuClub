@@ -130,16 +130,7 @@ public class FeedController {
         Feed feed = feedService.retrieveFeed(feedIndex);
 
         if(feed != null) {
-            Long memberIndex = (Long)request.getAttribute("memberIndex");
-            String message = "readonly";
-
-            // 피드를 조회한 사용자와 피드의 작성자가 동일하다면
-            logger.info("feed's memeberIndex | memberIndex : {} {}", feed.getMember().getMemberIndex(), memberIndex);
-            if(feed.getMember().getMemberIndex().equals(memberIndex)) {
-                message = "modifiable";
-            }
             map.put("feed", feed);
-            map.put("message", message);
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
 

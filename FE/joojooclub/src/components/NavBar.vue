@@ -37,7 +37,7 @@
               </li>
               <li class="nav-item">
                 <!-- <a v-if="currentUser.member.memberIndex" class="nav-link" :href="getLink('profile/')+currentUser.member.memberIndex+'/'" >My Profile</a> -->
-                <router-link v-if="currentUser" :to="{ name: 'profile', params: { userPK: 1 } }" class="nav-link">My Profile</router-link>
+                <!-- <router-link v-if="currentUser" :to="{ name: 'profile', params: { userPK: 1 } }" class="nav-link">My Profile</router-link> -->
               </li>
             </div>
           </ul>

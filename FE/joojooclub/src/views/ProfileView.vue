@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!isCurrentUser">
+	<div v-if="isCurrentUser">
 		<div class="mypage-body">
 			<div class="mypage-header">
 				<my-profile :currentUser="currentUser"></my-profile>
@@ -39,6 +39,7 @@ export default {
 		this.fetchCurrentUser()
 	},
 	updated() {
+		this.fetchCurrentUser()
 	}
 }
 </script>

@@ -3,14 +3,18 @@ package com.ssafy.drink.service;
 import com.ssafy.drink.domain.Drink;
 import com.ssafy.drink.domain.Food;
 import com.ssafy.drink.domain.FoodDrinkType;
+import com.ssafy.drink.domain.TagDrink;
+import com.ssafy.drink.dto.ResponseDrinkTag;
 import com.ssafy.drink.mapping.ReviewMapping;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.FoodDrinkTypeRepository;
 import com.ssafy.drink.repository.ReviewRepository;
+import com.ssafy.drink.repository.TagDrinkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.swing.BakedArrayList;
 
 import java.util.*;
 
@@ -25,13 +29,29 @@ public class DrinkServiceImpl implements DrinkService{
     @Autowired
     ReviewRepository reviewRepository;
 
+    @Autowired
+    TagDrinkRepository tagDrinkRepository;
 
     @Autowired
     FoodDrinkTypeRepository foodDrinkTypeRepository;
 
     @Override
-    public List<Drink> retrieveDrinks() {
-        return drinkRepository.findAll();
+    public List<ResponseDrinkTag> retrieveDrinks() {
+        List<Drink> drinks = drinkRepository.findAll();
+        List<ResponseDrinkTag> drinkTags = new ArrayList<>();
+
+        for(int i = 0; i < drinks.size(); i++) {
+            Drink drink = drinks.get(i);
+            List<String> tags = new ArrayList<>();
+
+            List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+            for(int j = 0; j < tagList.size(); j++) {
+                tags.add(tagList.get(j).getTag().getTagName());
+            }
+            drinkTags.add(new ResponseDrinkTag(drink, tags));
+        }
+
+        return drinkTags;
     }
 
     @Override
@@ -41,6 +61,12 @@ public class DrinkServiceImpl implements DrinkService{
         Drink drink = drinkRepository.findById(drinkIndex).orElseThrow(RuntimeException::new); // 술 상세정보
         List<ReviewMapping> reviewList = reviewRepository.findByDrink(drink);
         List<FoodDrinkType> foodDrinkList = foodDrinkTypeRepository.findByDrinkType(drink.getDrinkType());
+        List<String> tags = new ArrayList<>();
+
+        List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+        for(int j = 0; j < tagList.size(); j++) {
+            tags.add(tagList.get(j).getTag().getTagName());
+        }
 
         int numbers[] = new int[3];
         Random rand = new Random();
@@ -65,6 +91,7 @@ public class DrinkServiceImpl implements DrinkService{
         map.put("drink", drink);
         map.put("reviews", reviewList);
         map.put("foods", foodList);
+        map.put("tags", tags);
 
         return map;
 

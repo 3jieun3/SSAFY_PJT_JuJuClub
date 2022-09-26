@@ -1,6 +1,7 @@
 package com.ssafy.drink.controller;
 
 import com.ssafy.drink.domain.Drink;
+import com.ssafy.drink.dto.ResponseDrinkTag;
 import com.ssafy.drink.service.DrinkService;
 import com.ssafy.drink.service.FoodService;
 import io.swagger.annotations.Api;
@@ -39,7 +40,7 @@ public class DrinkController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> retrieveDrinks() {
         Map<String, Object> map = new HashMap<>();
-        List<Drink> drinks = drinkService.retrieveDrinks();
+        List<ResponseDrinkTag> drinks = drinkService.retrieveDrinks();
         map.put("drinks", drinks);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
@@ -50,8 +51,6 @@ public class DrinkController {
     public ResponseEntity<Map<String, Object>> retrieveDrink(@PathVariable @ApiParam(value = "필요한 정보(drinkIndex)", required = true) Long drinkIndex) {
         Map<String, Object> map = new HashMap<>();
         map = drinkService.retrieveDrinkInfo(drinkIndex);
-//        map.put("drink", drink);
-
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

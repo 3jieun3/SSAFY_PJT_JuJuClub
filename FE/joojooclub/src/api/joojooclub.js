@@ -2,7 +2,7 @@ const HOST = "http://j7d106.p.ssafy.io/api/"
 
 // const MAIN = "main/"
 // const RECOMMEND = "recommend/"
-// const INFO = "info/"
+const INFO = "info/"
 const MEMBER = 'member/'
 const FEED = 'feed/'
 // const REVIEW = 'review/'
@@ -16,6 +16,7 @@ export default {
     // logout: () => HOST + MEMBER + 'logout/',  // fe에서 jwt token 폐기
   },
   drinks: {
+    info: () => HOST + INFO
   },
   feed: {
     info: (feedIndex) => HOST + FEED + `${feedIndex}/` // 피드 정보 GET

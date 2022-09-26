@@ -41,6 +41,12 @@ export default {
 
   .page-item {
     border: none;
+    background-color: bisque;
+  }
+
+  .page-item.active > .page-link {
+    background-color: bisque;
+    color: black;
   }
 
   .pagination {
@@ -49,5 +55,7 @@ export default {
 
   .page-link {
     border: none;
+    color: black;
+    font-weight: bold;
   }
 </style>

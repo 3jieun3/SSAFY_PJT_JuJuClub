@@ -1,7 +1,7 @@
 <template>
   <button
   :class="{ 'selected' : customTag.isClicked }"
-  @click="tagClicked([6, index, customTag])">
+  @click="customTagClicked([6, index, customTag])">
   #{{ customTag.tagName }}
   </button>
 </template>
@@ -16,7 +16,7 @@ export default {
     index: Number,
   },
   methods: {
-    ...mapActions('drinks', ['tagClicked']),
+    ...mapActions('drinks', ['customTagClicked']),
   },
 }
 </script>

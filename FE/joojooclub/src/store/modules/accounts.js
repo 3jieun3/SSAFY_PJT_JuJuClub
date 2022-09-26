@@ -241,7 +241,7 @@ export default {
       if (getters.isLoggedIn){
         dispatch('removeToken')
         commit('SET_CURRENT_USER', {})
-        router.push({ name: 'main' })
+        // router.push({ name: 'main' })
       } else {
         alert('로그인이 필요한 페이지입니다')
         router.push({ name: 'login' })

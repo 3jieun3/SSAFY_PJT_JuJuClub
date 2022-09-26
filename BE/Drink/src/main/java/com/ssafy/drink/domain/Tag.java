@@ -17,5 +17,5 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagIndex;
 
-    private Long tagName;
+    private String tagName;
 }

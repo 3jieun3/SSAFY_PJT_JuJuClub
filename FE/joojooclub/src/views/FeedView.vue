@@ -25,11 +25,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .feed-body {
 	margin: 5vh 5vw;
 }
 .feed-header {
 	margin-bottom: 5vh;
+}
+.search-bar {
+	padding: 0 20vw;
+}
+#drinkSearch {
+	border-color: black;
 }
 </style>

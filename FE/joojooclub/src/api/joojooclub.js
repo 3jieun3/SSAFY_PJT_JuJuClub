@@ -4,7 +4,7 @@ const HOST = "http://j7d106.p.ssafy.io/api/"
 // const RECOMMEND = "recommend/"
 // const INFO = "info/"
 const MEMBER = 'member/'
-// const FEED = 'feed/'
+const FEED = 'feed/'
 // const REVIEW = 'review/'
 
 export default {
@@ -18,5 +18,6 @@ export default {
   drinks: {
   },
   feed: {
+    info: (feedIndex) => HOST + FEED + `${feedIndex}/` // 피드 정보 GET
   },
 }

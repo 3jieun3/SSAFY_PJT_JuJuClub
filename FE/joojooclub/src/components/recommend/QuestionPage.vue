@@ -1,7 +1,9 @@
 <template>
   <div class="recommendImg">
     <div class="que row row-cols-1"> 
-      <p class="col" id="question">{{ getQuestion[questionEtc.questionCount].question }}</p>
+      <div class="question">
+        <h1 class="col" id="question">{{ getQuestion[questionEtc.questionCount].question }}</h1>
+      </div>
       <div class="ansButton col row row-cols-1 row-cols-sm-3 row-cols-md-5">
         <question-answer-item
         v-for="answer in getQuestion[questionEtc.questionCount].answers"
@@ -32,7 +34,7 @@ export default {
   .recommendImg {
     background: url(@/assets/recommendPage.jpeg) no-repeat center;
     position: relative;
-    height: 100vh;
+    height: 80vh;
   }
 
   .que {
@@ -43,8 +45,13 @@ export default {
     justify-content: center;
   }
 
+  .question {
+    padding-bottom: 50px;
+  }
+
   .ansButton {
     justify-content: space-evenly;
+    padding-top: 50px;
   }
 
   #question {

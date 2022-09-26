@@ -6,7 +6,7 @@
         <button class="btn btn-light"
         v-for="(typeTag, index) in typeTagList"
         :key="index"
-        @click="tagClicked(typeTag)"
+        @click="basicTagClicked([0, typeTag])"
         :class="{'selected' : typeTag.isClicked}">{{ typeTag.tagName }}</button>
       </div>
     </div>
@@ -17,7 +17,7 @@
         <button class="btn btn-light"
         v-for="(percentTag, index) in percentTagList"
         :key="index"
-        @click="tagClicked(percentTag)"
+        @click="basicTagClicked([1, percentTag])"
         :class="{'selected' : percentTag.isClicked}">{{ percentTag.tagName }}</button>
       </div>
     </div>
@@ -28,7 +28,7 @@
         <button class="btn btn-light"
         v-for="(acidTag, index) in acidTagList"
         :key="index"
-        @click="tagClicked(acidTag)"
+        @click="basicTagClicked([2, acidTag])"
         :class="{'selected' : acidTag.isClicked}">{{ acidTag.tagName }}</button>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <button class="btn btn-light"
         v-for="(sweetTag, index) in sweetTagList"
         :key="index"
-        @click="tagClicked(sweetTag)"
+        @click="basicTagClicked([3, sweetTag])"
         :class="{'selected' : sweetTag.isClicked}">{{ sweetTag.tagName }}</button>
       </div>
     </div>
@@ -50,7 +50,7 @@
         <button class="btn btn-light"
         v-for="(fruitTag, index) in fruitTagList"
         :key="index"
-        @click="tagClicked(fruitTag)"
+        @click="basicTagClicked([4, fruitTag])"
         :class="{'selected' : fruitTag.isClicked}">{{ fruitTag.tagName }}</button>
       </div>
     </div>
@@ -61,7 +61,7 @@
         <button class="btn btn-light"
         v-for="(bodyTag, index) in bodyTagList"
         :key="index"
-        @click="tagClicked(bodyTag)"
+        @click="basicTagClicked([5, bodyTag])"
         :class="{'selected' : bodyTag.isClicked}">{{ bodyTag.tagName }}</button>
       </div>
     </div>
@@ -78,7 +78,7 @@ export default {
     ...mapState('drinks', ['typeTagList', 'percentTagList', 'acidTagList', 'sweetTagList', 'fruitTagList', 'bodyTagList'])
   },
   methods: {
-    ...mapActions('drinks', ['tagClicked'])
+    ...mapActions('drinks', ['basicTagClicked'])
   }
 }
 </script>
@@ -89,7 +89,7 @@ export default {
   }
 
   h4 {
-    margin-top: 8px;
+    margin-top: 15px !important;
     margin-right: 10px;
   }
 

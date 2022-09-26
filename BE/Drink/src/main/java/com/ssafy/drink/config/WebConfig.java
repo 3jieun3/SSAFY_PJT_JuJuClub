@@ -23,6 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/member/login/**")
                 .addPathPatterns("/member/**")
                 .addPathPatterns("/review/**")
-                .addPathPatterns("/feed/person/**");
+                .addPathPatterns("/feed/valid/**");
     }
 }

@@ -88,6 +88,7 @@ export default {
       passwordConfirm: null,
       // 아이디 중복검사
       idDuplicate: this.id_dup,
+      nowId: '',
       // 에러처리
       idError: false,
       pwError: false,
@@ -144,6 +145,7 @@ export default {
             method: 'post',
           }).then(() => {
             this.idDuplicate = true
+            this.nowId = this.newCredentials.id
             alert('사용가능한 아이디입니다')
           }).catch(() => {
             this.idDuplicate = false
@@ -170,7 +172,7 @@ export default {
         this.genderError = true
       } else {this.genderError = false}
       // 에러가 없다면 axios 처리
-      if (this.newCredentials.id && !this.idDuplicate) {
+      if (this.newCredentials.id && !this.idDuplicate || this.newCredentials.id !== this.nowId) {
         alert('아이디 중복체크를 해주십시오.')
       } else {
         if (!this.idError & !this.pwError & !this.pwConfirmError & !this.birthError & !this.genderError) {

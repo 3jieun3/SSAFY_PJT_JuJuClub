@@ -1,35 +1,29 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Main</router-link> |
-      <router-link to="/recommend">Recommend</router-link> |
-      <router-link to="/drinks">Drinks</router-link> |
-      <router-link :to="{ name: 'feed' }">Feed</router-link> |
-      <router-link :to="{ name: 'profile', params: { userPK: 1 } }">My Profile</router-link> | 
-      <router-link to="/signup">Sign Up</router-link> | 
-      <router-link to="/login">Login</router-link> | 
-      <router-link to="/member/update">회원정보 수정</router-link> | 
-      <a href="" @click="logout">로그아웃</a> | 
-      <router-link to="/signout">회원탈퇴</router-link> | 
-      <router-link :to="{ name: 'drink', params: { drinkPK: 1 } }">Drink Detail</router-link>
-    </nav>
+    <nav-bar :currentUser="currentUser"></nav-bar>
     <router-view/>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import NavBar from '@/components/NavBar.vue'
 
 export default {
   name: 'App',
+  components: { NavBar },
+  computed: {
+    ...mapGetters(['currentUser'])
+  },
   methods: {
   ...mapActions(['logout', 'fetchCurrentUser', 'signout'])
   },
   created() {
-    // this.fetchCurrentUser()
+    this.fetchCurrentUser()
+    console.log(this.currentUser)
   },
   updated() {
-    // this.fetchCurrentUser()
+    this.fetchCurrentUser()
   }
 }
 </script>

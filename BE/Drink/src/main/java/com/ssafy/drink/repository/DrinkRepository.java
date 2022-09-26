@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface DrinkRepository extends JpaRepository<Drink, Long> {
     List<Drink> findByDrinkName(String name);//술 이름으로 찾기
-    Drink findByDrinkIndex(Long drinkIndex); // 술 인덱스로 찾기
 }

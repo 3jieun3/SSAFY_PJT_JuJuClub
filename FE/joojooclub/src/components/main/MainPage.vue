@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <main-image></main-image>
     <todays-drink-list></todays-drink-list>
   </div>

@@ -23,17 +23,20 @@ export default {
 			// feeds: this.currentUser.feeds,	// feeds: Array([])
 			feeds: [
         {
-          index: 1,
-          memberPK: 1,
+          feedIndex: 1,
           title: '피드 1',
           content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
           likeCount: 3333,
           createdAt: '2022.03.03',
           customTags: ['#막걸리', '#피쉬앤칩스', '#혼막', '#퓨전'],
+					member: {
+						memberIndex: 1,
+						id: 'jetest1212',										
+					},
           imageUrl: 'ryan1.jpg'
         },
         { 
-          feedId: 2,
+          index: 2,
           memberId: 1,
           title: '피드 2',
           content: '어제 곱창전골로 유명한 \'새가덕 순대\'를 다녀왔어요!!!! 곱창두개 삼겹하나 주문했다가 주위사람들이 모듬구이 먹길래 저도 변경해서 주문했어요. 청주랑 먹으니까 더 맛있네요. 다들 소곱말고 청곱 시도해보세요!',

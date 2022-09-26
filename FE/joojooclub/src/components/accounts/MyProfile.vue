@@ -11,7 +11,7 @@
 				<button class="btn btn-warning" @click="createFeed()">+</button>
 			</div>
 		</div>
-		<button class="btn btn-warning">내 정보 편집</button>
+		<button class="btn btn-warning" @click="updateProfile()">내 정보 편집</button>
 	</div>
 </template>
 
@@ -25,20 +25,21 @@ export default {
 	},
 	data() {
 		return {
-			memberId: '',
-			commentCount: 0,
-			feedCount: 0,
+			memberId: this.currentUser.member.id,
+			commentCount: this.currentUser.comments.length,
+			feedCount: this.currentUser.feeds.length,
 		}
 	},
 	methods: {
 		createFeed() {
 			router.push({ name: 'feedNew' })
 		},
+		updateProfile() {
+			router.push({ name: 'update' })
+		},
 	},
 	created() {
-		this.memberId = this.currentUser.member.id
-		this.commentCount = this.currentUser.comments.length
-		this.feedCount = this.currentUser.feeds.length
+		console.log(this.currentUser)
 	},
 }
 </script>

@@ -1,6 +1,5 @@
 <template>
-	<div>
-	<!-- <div v-if="!isCurrentUser"> -->
+	<div v-if="!isCurrentUser">
 		<div class="mypage-body">
 			<div class="mypage-header">
 				<my-profile :currentUser="currentUser"></my-profile>
@@ -37,7 +36,7 @@ export default {
     ...mapActions(['fetchCurrentUser'])
   },
 	created() {
-		// this.fetchCurrentUser()
+		this.fetchCurrentUser()
 	},
 	updated() {
 	}

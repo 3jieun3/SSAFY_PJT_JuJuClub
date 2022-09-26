@@ -1,11 +1,12 @@
 import router from "@/router"
+// import { _ } from "core-js"
 
 export default {
   namespaced: true,
   state: {
     todayDrinks: [
       {
-        drinkIndex: 0,
+        todayDrinkIndex: 0,
         ment: '비 오는 날에는 막걸리 한 잔 어때요?',
         drink: '국순당 쌀 막걸리',
         info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
@@ -54,22 +55,27 @@ export default {
     },
     typeTagList: [
       {
+        tagIndex: 1,
         tagName: '탁주',
         isClicked: false
       },
       {
+        tagIndex: 2,
         tagName: '약주 / 청주',
         isClicked: false
       },
       {
+        tagIndex: 3,
         tagName: '과실주',
         isClicked: false
       },
       {
+        tagIndex: 4,
         tagName: '증류주',
         isClicked: false
       },
       {
+        tagIndex: 5,
         tagName: '기타 주류',
         isClicked: false
       },
@@ -270,204 +276,355 @@ export default {
     isCards: true,
     drinks: [
       {
-        drinkName: '장수 생막걸리',
-        drinkInfo: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        drinkType: '탁주',
-        drinkPercent: '7%',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '2',
-        drinkInfo: '2',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJU7IGny3SvV9TdLy2d2G1hfx2CYCA32pLw&usqp=CAU',
-        tags: ['인기', '혼술', '사과'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '3',
-        drinkInfo: '3',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '선물'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '4',
-        drinkInfo: '4',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['사과', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '5',
-        drinkInfo: '5',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['인삼', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '6',
-        drinkInfo: '6',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '7',
-        drinkInfo: '7',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '8',
-        drinkInfo: '8',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '9',
-        drinkInfo: '9',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '10',
-        drinkInfo: '10',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '11',
-        drinkInfo: '11',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '12',
-        drinkInfo: '12',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
       {
-        drinkName: '장수 생막걸리',
-        drinkInfo: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        drinkType: '탁주',
-        drinkPercent: '7%',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '14',
-        drinkInfo: '14',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJU7IGny3SvV9TdLy2d2G1hfx2CYCA32pLw&usqp=CAU',
-        tags: ['인기', '혼술', '사과'],
-      },
-      {
-        drinkName: '15',
-        drinkInfo: '15',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '선물'],
-      },
-      {
-        drinkName: '16',
-        drinkInfo: '16',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['사과', '혼술'],
-      },
-      {
-        drinkName: '17',
-        drinkInfo: '17',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['인삼', '혼술'],
-      },
-      {
-        drinkName: '6',
-        drinkInfo: '6',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '7',
-        drinkInfo: '7',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '8',
-        drinkInfo: '8',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '9',
-        drinkInfo: '9',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '10',
-        drinkInfo: '10',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '11',
-        drinkInfo: '11',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: '12',
-        drinkInfo: '12',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
-      },
-      {
-        drinkName: 'end',
-        drinkInfo: '12',
-        drinkType: '탁주',
-        drinkPercent: '7',
-        drinkImg: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: ['탁주', '혼술'],
+        index : 0,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
       },
     ],
     filteringDrinks: [],
@@ -475,17 +632,7 @@ export default {
         totalPage: 25,
         currentPage: 1,
     },
-    drink: {
-      drinkIndex: 1,
-      drinkName: '장수 생막걸리',
-      description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-      drinkType: '탁주',
-      ingredient: '원료, 원료, 원료',
-      abv: 7,
-      volume: '350ml',
-      imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-      tags: ['탁주', '혼술'],
-    },
+    drink: []
   },
   getters: {
     getFilteringDrinks: (state) => {
@@ -513,6 +660,16 @@ export default {
     },
   },
   mutations: {
+    TAG_SEARCH(state) {
+      for (let i=0; i < state.choosedTagList.length; i++) {
+        var a = state.choosedTagList[i]
+        if (a == '탁주' || a == '약주 / 청주' || a == '과실주' || a == '증류주' || a == '기타 주류') {
+          console.log('gg')
+          let tmpList = state.drinks.filter(drink => drink.type.drinkType == a)
+          console.log(tmpList)
+        }
+      }
+    },
     CHOOSE_ANSWER(state, answerStr) {
       const ques = state.questionEtc
       ques.choose.push(answerStr)
@@ -523,22 +680,6 @@ export default {
         ques.choose = []
       }
     },
-    // SEARCH_DRINKS(state) {
-    //   state.filteringDrinks = []
-    //   for (let i=0; i < state.choosedTagList.length; i++) {
-    //     if (choosedTagList[i] in state.typeTagList) {
-    //       const typeIdx = state.typeTagList.indexOf(choosedTagList[i])
-    //       const typeFilter = 0
-    //     }
-    //     else {
-    //       const tag = state.choosedTagList[i]
-    //       for (let j=0; j < state.drinks.length; j++) {
-    //         const drink = state.drinks[j]
-    //         const filtering = state.drinks.filter(state.drinks.tags)
-    //       }
-    //     }
-    //   }
-    // },
     BASIC_TAG_CLICKED(state, [tagOrder, tag]) {
       // 태그 타입 확인
       if ( tagOrder === 0) {
@@ -674,6 +815,9 @@ export default {
     },
     goSpecPage({ commit }, pageNum) {
       commit('GO_SPEC_PAGE', pageNum)
+    },
+    tagSearch({ commit }) {
+      commit('TAG_SEARCH')
     }
   }
 }

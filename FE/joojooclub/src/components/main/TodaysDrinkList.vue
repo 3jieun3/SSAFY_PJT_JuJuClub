@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="container justify-content-center align-items-center">
+  <div class="container mt-5">
+    <div class="justify-content-center align-items-center">
       <div class="wrapToday">
         <div class="content">
-          <p>오늘의 술</p>
+          <h1>오늘의 술</h1>
         </div>
       </div>
     </div>
-    <div class="container col">
+    <div class="todayItems row">
       <todays-drink-list-item
-      class="today"
+      class="today my-5 align-items-center"
       v-for="todayDrink in todayDrinks"
       :key="todayDrink.drink"
       :todayDrink="todayDrink">
@@ -36,7 +36,6 @@ export default {
 <style>
 
   .wrapToday {
-    width: 1280px;
     height: 50px;
     display: flex;
     justify-content: center;

@@ -2,6 +2,10 @@
   <div class="container">
     <basic-tag-list></basic-tag-list>
     <custom-tag-list></custom-tag-list>
+    <hr>
+    <div class="searchBtn">
+      <button class="btn btn-warning justify-content-end">조회하기</button>
+    </div>
   </div>
 </template>
 
@@ -25,5 +29,11 @@ export default {
     /* color: bisque; */
     padding: 2vw;
     border-radius: 1rem;
+  }
+
+  .searchBtn {
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
   }
 </style>

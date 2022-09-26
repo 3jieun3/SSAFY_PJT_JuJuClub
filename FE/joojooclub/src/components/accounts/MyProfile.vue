@@ -8,7 +8,7 @@
 			<div>
 				<button class="btn btn-warning">총 {{ reviewCount }}건의 후기</button>
 				<button class="btn btn-warning">총 {{ feedCount }}건의 피드</button>
-				<button class="btn btn-warning">+</button>
+				<button class="btn btn-warning" @click="createFeed()">+</button>
 			</div>
 		</div>
 		<button class="btn btn-warning">내 정보 편집</button>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import router from '@/router'
+
 export default {
 	name: "MyProfile",
 	props: {
@@ -27,6 +29,11 @@ export default {
 			feedCount: this.currentUser.feeds.length,
 			reviewCount: this.currentUser.reviews.length,
 		}
+	},
+	methods: {
+		createFeed() {
+			router.push({ name: 'feedNew' })
+		},
 	},
 }
 </script>

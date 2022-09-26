@@ -3,7 +3,6 @@
     <div class="comment-box">
       <p class="info-row">
         <span>
-          <strong>{{ comment.nickname }}</strong>
           <strong>{{ comment.drinkName }}</strong>
           <span>{{ comment.score }}</span>
         </span>

@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class updateReview {
+public class RegistFeed {
 
-    Long reviewIndex;
-    Long drinkIndex;
+    private String title;
+    private String content;
+    private Long drinkIndex;
+    private String customTags;
 
 }

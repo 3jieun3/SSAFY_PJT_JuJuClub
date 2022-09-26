@@ -1,12 +1,14 @@
 package com.ssafy.drink.service;
 
 import com.ssafy.drink.domain.Feed;
+import com.ssafy.drink.domain.LikeFeed;
 import com.ssafy.drink.domain.Member;
 import com.ssafy.drink.domain.Review;
 import com.ssafy.drink.dto.LoginMember;
 import com.ssafy.drink.dto.RegistMember;
 import com.ssafy.drink.dto.UpdateMember;
 import com.ssafy.drink.repository.FeedRepository;
+import com.ssafy.drink.repository.LikeFeedRepository;
 import com.ssafy.drink.repository.MemberRepository;
 import com.ssafy.drink.repository.ReviewRepository;
 import org.slf4j.Logger;
@@ -31,6 +33,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Autowired
     ReviewRepository reviewRepository;
+
+    @Autowired
+    LikeFeedRepository likeFeedRepository;
 
     //중복 id 검출
     @Override
@@ -103,6 +108,8 @@ public class MemberServiceImpl implements MemberService{
         map.put("reviews",reviewList); //member의 모든 리뷰를 리스트로 input
         List<Feed> feedList = feedRepository.findByMember(member);
         map.put("feeds",feedList); //memberId(pk)를 사용해서 모든 feed를 리스트로 input
+        List<LikeFeed> likeFeedList = likeFeedRepository.findByMember(member);
+        map.put("likeFeeds", likeFeedList);
         return map;
     }
 

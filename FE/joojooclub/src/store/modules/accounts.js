@@ -10,8 +10,8 @@ export default {
     // 서버에서 받은 토큰, localStorage에서 가져오기, 없으면 ''
     token: localStorage.getItem('token') || '',
     // dj_rest_auth accounts/user/
-    // currentUser: {},
-    profile: {},
+    currentUser: {},
+    // profile: {},
     // signup, login할 때 오류 메세지
     authError: null,
     // 개인 피드 상세
@@ -230,7 +230,7 @@ export default {
     isLoggedIn: state => !!state.token,
     token: state => state.token,
     currentUser: state => state.currentUser,
-    profile: state => state.profile,
+    // profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
@@ -241,7 +241,7 @@ export default {
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
     SET_CURRENT_USER: ( state, user ) => state.currentUser = user,
-    SET_PROFILE: ( state, profile ) => state.profile = profile,
+    // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
     SET_FEED: ( state, feed ) => state.feed = feed,
     SET_COMMENT_PAGE: ( state, commentPage ) => state.commentPage = commentPage,

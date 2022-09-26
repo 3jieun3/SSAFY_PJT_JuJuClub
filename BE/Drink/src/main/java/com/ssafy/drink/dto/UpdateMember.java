@@ -17,11 +17,7 @@ import java.util.Date;
 @Data
 @Builder
 public class UpdateMember {
-    private String password;
     private int birthYear;
     private char gender;
-
-
-
 
 }

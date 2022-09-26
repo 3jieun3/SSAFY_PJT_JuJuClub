@@ -1,24 +1,28 @@
 <template>
   <div>
     <div class="card" style="width: 18rem;">
-      <img :src="drink.drinkImg" class="card-img-top" alt="drinkCard">
+      <img :src="drink.imageUrl" class="card-img-top" alt="drinkCard">
       <div class="card-body">
-      <h5 class="card-title">{{ drink.drinkName }}</h5>
-      <p class="card-text">{{ drink.drinkType }} | {{ drink.drinkPercent }}</p>
+      <h5 class="card-title">{{ drink.name }}</h5>
+      <p class="card-text">{{ typeTagList[drink.type.drinkTypeIndex-1].tagName }} | {{ drink.abv }}</p>
       <button class="drinkTag btn btn-sm btn-warning"
       v-for="(tag, index) in drink.tags"
-      :key="index"> #{{ tag }}</button>
+      :key="index"> #{{ tag.tagName }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'DrinkCardItem',
   props: {
     drink: Object
   },
+  computed: {
+    ...mapState('drinks', ['typeTagList'])
+  }
 }
 </script>
 

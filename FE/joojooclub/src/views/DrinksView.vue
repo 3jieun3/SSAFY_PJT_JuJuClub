@@ -20,6 +20,9 @@ export default {
     TagList,
     DrinkCatalog
   },
+  created() {
+    
+  }
 }
 </script>
 

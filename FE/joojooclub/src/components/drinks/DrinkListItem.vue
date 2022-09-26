@@ -2,14 +2,14 @@
   <ul class="list-group">
     <li class="list-group-item">
       <div class="row align-items-center">
-        <img class="img-fluid col-4" :src="drink.drinkImg" alt="drinkImg">
+        <img class="img-fluid col-4" :src="drink.imageUrl" alt="drinkImg">
         <div class="drinkinfo col-8 flex-wrap">
-          <h4 class="drinkName col-12">{{ drink.drinkName }}</h4>
-          <p class="smallInfo">{{ drink.drinkType }} | {{ drink.drinkPercent }}</p>
-          <p>{{ drink.drinkInfo }}</p>
+          <h4 class="drinkName col-12">{{ drink.name }}</h4>
+          <p class="smallInfo">{{ typeTagList[drink.type.drinkTypeIndex-1].tagName }} | {{ drink.abv }}</p>
+          <p>{{ drink.description }}</p>
           <button class="drinkTag btn btn-sm btn-warning"
           v-for="(tag, index) in drink.tags"
-          :key="index"> #{{ tag }}</button>
+          :key="index"> #{{ tag.tagName }}</button>
         </div>
       </div>
     </li>
@@ -18,10 +18,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'DrinkListItem',
   props: {
     drink: Object,
+  },
+  computed: {
+    ...mapState('drinks', ['typeTagList'])
   }
 }
 </script>

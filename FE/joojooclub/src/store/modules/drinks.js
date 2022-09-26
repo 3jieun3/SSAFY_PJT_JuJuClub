@@ -303,11 +303,173 @@ export default {
         ]
       },
       {
-        index : 0,
+        index : 1,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '증류주'
+        },
+        abv : '11%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
+      },
+      {
+        index : 2,
         name : '장수 생막걸리',
         type : {
           drinkTypeIndex: 1,
           drinkType: '탁주'
+        },
+        abv : '22%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
+      },
+      {
+        index : 3,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '과실주'
+        },
+        abv : '34%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
+      },
+      {
+        index : 4,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '46%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
+      },
+      {
+        index : 5,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '기타 주류'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 4,
+            tagName: '산미'
+          },
+        ]
+      },
+      {
+        index : 6,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '32%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 3,
+            tagName: '히히'
+          },
+        ]
+      },
+      {
+        index : 7,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '약주 / 청주'
         },
         abv : '7%',
         ingredient: '',
@@ -330,7 +492,7 @@ export default {
         ]
       },
       {
-        index : 0,
+        index : 8,
         name : '장수 생막걸리',
         type : {
           drinkTypeIndex: 1,
@@ -345,6 +507,60 @@ export default {
           {
             tagIndex: 1,
             tagName: '혼술'
+          },
+          {
+            tagIndex: 2,
+            tagName: '인기'
+          },
+          {
+            tagIndex: 5,
+            tagName: '달달함'
+          },
+        ]
+      },
+      {
+        index : 9,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '44%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 1,
+            tagName: '혼술'
+          },
+          {
+            tagIndex: 10,
+            tagName: '가성비'
+          },
+          {
+            tagIndex: 11,
+            tagName: '가벼움'
+          },
+        ]
+      },
+      {
+        index : 10,
+        name : '장수 생막걸리',
+        type : {
+          drinkTypeIndex: 1,
+          drinkType: '탁주'
+        },
+        abv : '7%',
+        ingredient: '',
+        volume: '',
+        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
+        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
+        tags: [
+          {
+            tagIndex: 9,
+            tagName: '고소함'
           },
           {
             tagIndex: 2,
@@ -357,7 +573,7 @@ export default {
         ]
       },
       {
-        index : 0,
+        index : 11,
         name : '장수 생막걸리',
         type : {
           drinkTypeIndex: 1,
@@ -374,17 +590,17 @@ export default {
             tagName: '혼술'
           },
           {
-            tagIndex: 2,
-            tagName: '인기'
+            tagIndex: 6,
+            tagName: '유자'
           },
           {
-            tagIndex: 3,
-            tagName: '히히'
+            tagIndex: 7,
+            tagName: '가정용'
           },
         ]
       },
       {
-        index : 0,
+        index : 12,
         name : '장수 생막걸리',
         type : {
           drinkTypeIndex: 1,
@@ -401,224 +617,8 @@ export default {
             tagName: '혼술'
           },
           {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
-          },
-          {
-            tagIndex: 3,
-            tagName: '히히'
-          },
-        ]
-      },
-      {
-        index : 0,
-        name : '장수 생막걸리',
-        type : {
-          drinkTypeIndex: 1,
-          drinkType: '탁주'
-        },
-        abv : '7%',
-        ingredient: '',
-        volume: '',
-        description: '장수(長壽) 생막걸리는 효모균이 그대로 살아있습니다. 백미를 사용해 장기저온숙성 방식으로 만들어져 영양이 풍부하고 자연발효에 의한 탄산과 어울려 감칠맛과 청량감이 일품입니다. 또한 고품격 전통 막걸리의 대명사로서 트림과 숙취도 거의 없어 오랜시간 동안 사랑을 받고 있습니다.',
-        imageUrl: 'https://image.ajunews.com/content/image/2022/02/03/20220203093355761859.jpg',
-        tags: [
-          {
-            tagIndex: 1,
-            tagName: '혼술'
-          },
-          {
-            tagIndex: 2,
-            tagName: '인기'
+            tagIndex: 8,
+            tagName: '밤'
           },
           {
             tagIndex: 3,
@@ -628,6 +628,7 @@ export default {
       },
     ],
     filteringDrinks: [],
+    setFilteringDrinks: [],
     paging:{
         totalPage: 25,
         currentPage: 1,
@@ -655,18 +656,57 @@ export default {
       }
     },
     showPage: (state) => {
-      const a = state.drinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12)
+      const a = state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12)
       return a
     },
   },
   mutations: {
     TAG_SEARCH(state) {
+      state.filteringDrinks = []
+      state.setFilteringDrinks = []
       for (let i=0; i < state.choosedTagList.length; i++) {
-        var a = state.choosedTagList[i]
-        if (a == '탁주' || a == '약주 / 청주' || a == '과실주' || a == '증류주' || a == '기타 주류') {
-          console.log('gg')
-          let tmpList = state.drinks.filter(drink => drink.type.drinkType == a)
-          console.log(tmpList)
+        let choosedTag = state.choosedTagList[i]
+        if (choosedTag == '탁주' || choosedTag == '약주 / 청주' || choosedTag == '과실주' || choosedTag == '증류주' || choosedTag == '기타 주류') {
+          state.filteringDrinks.push(...state.drinks.filter(drink => drink.type.drinkType === choosedTag))
+        }
+        else if (choosedTag == '8% 이하' || choosedTag == '35% 이상') {
+          if (choosedTag == '8% 이하') {
+            state.filteringDrinks.push(...state.drinks.filter(drink => parseInt(drink.abv.split('%')[0]) <= parseInt(choosedTag.split('%')[0])))
+          }
+          else {
+            state.filteringDrinks.push(...state.drinks.filter(drink => parseInt(drink.abv.split('%')[0]) >= parseInt(choosedTag.split('%')[0])))
+          }
+        }
+        else if (choosedTag == '9 - 15%' || choosedTag == '16 - 25%' || choosedTag == '26 - 34%') {
+          const little = parseInt(choosedTag.split(' ')[0])
+          const large = parseInt(choosedTag.split(' ')[2].substr(0, 2))
+          state.filteringDrinks.push(...state.drinks.filter(drink => little <= parseInt(drink.abv.split('%')[0]) && parseInt(drink.abv.split('%')[0]) <= large))
+        }
+        else if (choosedTag == '있음' || choosedTag == '없음') {
+          if (choosedTag == '있음') {
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == '산미')))
+          }
+          else {
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.every(tag => tag.tagName != '산미')))
+          }
+        }
+        else if (choosedTag == '달달함' || choosedTag == '달지 않음') {
+          if (choosedTag == '달달함') {
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == '달달함')))
+          }
+          else {
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.every(tag => tag.tagName != '달달함')))
+          }
+        }
+        else {
+          state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == choosedTag)))
+        }
+      }
+      for (let k=0; k < state.filteringDrinks.length; k++) {
+        const Idx = state.drinks.indexOf(state.filteringDrinks[k])
+        if (state.setFilteringDrinks.every(drink => drink.index != Idx)) {
+          console.log(Idx)
+          state.setFilteringDrinks.push(state.filteringDrinks[k])
         }
       }
     },

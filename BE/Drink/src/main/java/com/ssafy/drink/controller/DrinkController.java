@@ -48,10 +48,9 @@ public class DrinkController {
     @GetMapping("{drinkIndex}")
     public ResponseEntity<Map<String, Object>> retrieveDrink(@PathVariable @ApiParam(value = "필요한 정보(drinkIndex)", required = true) Long drinkIndex) {
         Map<String, Object> map = new HashMap<>();
-        Drink drink = drinkService.retrieveDrink(drinkIndex);
-        map.put("drink", drink);
+        map = drinkService.retrieveDrinkInfo(drinkIndex);
+//        map.put("drink", drink);
 
-        Food food = foodService.getFoods(drink.getDrinkType());
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

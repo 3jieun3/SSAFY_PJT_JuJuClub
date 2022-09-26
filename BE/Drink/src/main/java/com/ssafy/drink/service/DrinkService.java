@@ -3,9 +3,9 @@ package com.ssafy.drink.service;
 import com.ssafy.drink.domain.Drink;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DrinkService {
     List<Drink> retrieveDrinks();
-
-    Drink retrieveDrink(Long drinkIndex);
+    Map<String, Object> retrieveDrinkInfo(Long drinkIndex);
 }

@@ -5,7 +5,7 @@
 				<my-profile :currentUser="currentUser"></my-profile>
 			</div>
 			<div class="mypage-content">
-				<!-- <comment-list :comments="comments"></comment-list> -->
+				<my-comment-list :currentUser="currentUser"></my-comment-list>
 				<my-feed-list :currentUser="currentUser"></my-feed-list>
 				<like-feed-list :currentUser="currentUser"></like-feed-list>
 			</div>
@@ -15,7 +15,7 @@
 
 <script>
 import MyProfile from '@/components/accounts/MyProfile'
-// import CommentList from '@/components/drinks/CommentList'
+import MyCommentList from '@/components/accounts/MyCommentList'
 import MyFeedList from '@/components/accounts/MyFeedList'
 import LikeFeedList from '@/components/accounts/LikeFeedList'
 import { mapGetters, mapActions } from 'vuex'
@@ -24,14 +24,13 @@ export default {
 	name: "ProfileView",
 	components: {
 		MyProfile,
-		// CommentList,
+		MyCommentList,
 		MyFeedList,
 		LikeFeedList,
 	},
 	computed: {
 		// isCurrentUser: rednering 전 변수 undefined 문제 해결 위해 사용
 		...mapGetters(['currentUser', 'isCurrentUser']),
-		// ...mapState('accounts', ['profile', 'comments']),
 	},
 	methods: {
     ...mapActions(['fetchCurrentUser'])

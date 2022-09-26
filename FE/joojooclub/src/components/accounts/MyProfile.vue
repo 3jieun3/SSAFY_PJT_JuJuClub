@@ -6,12 +6,12 @@
 				<span>{{ memberId }}</span>
 			</div>
 			<div>
-				<button class="btn btn-warning">총 {{ reviewCount }}건의 후기</button>
+				<button class="btn btn-warning">총 {{ commentCount }}건의 후기</button>
 				<button class="btn btn-warning">총 {{ feedCount }}건의 피드</button>
 				<button class="btn btn-warning" @click="createFeed()">+</button>
 			</div>
 		</div>
-		<button class="btn btn-warning">내 정보 편집</button>
+		<button class="btn btn-warning" @click="updateProfile()">내 정보 편집</button>
 	</div>
 </template>
 
@@ -26,14 +26,20 @@ export default {
 	data() {
 		return {
 			memberId: this.currentUser.member.id,
+			commentCount: this.currentUser.comments.length,
 			feedCount: this.currentUser.feeds.length,
-			reviewCount: this.currentUser.reviews.length,
 		}
 	},
 	methods: {
 		createFeed() {
 			router.push({ name: 'feedNew' })
 		},
+		updateProfile() {
+			router.push({ name: 'update' })
+		},
+	},
+	created() {
+		console.log(this.currentUser)
 	},
 }
 </script>

@@ -1,10 +1,8 @@
 package com.ssafy.drink.service;
 
-import com.ssafy.drink.controller.FeedController;
 import com.ssafy.drink.domain.Drink;
 import com.ssafy.drink.domain.Food;
 import com.ssafy.drink.domain.FoodDrinkType;
-import com.ssafy.drink.domain.Review;
 import com.ssafy.drink.mapping.ReviewMapping;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.FoodDrinkTypeRepository;
@@ -70,6 +68,18 @@ public class DrinkServiceImpl implements DrinkService{
 
         return map;
 
+    }
+
+    @Override
+    public List<String> retrieveDrinkName() {
+        List<Drink> drinkList = drinkRepository.findAll();
+
+        List<String> drinkNameList = new ArrayList<>();
+        for(int i = 0; i < drinkList.size(); i++) {
+            drinkNameList.add(drinkList.get(i).getDrinkName());
+        }
+
+        return drinkNameList;
     }
 
 

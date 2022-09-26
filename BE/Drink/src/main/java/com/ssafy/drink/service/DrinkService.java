@@ -8,4 +8,6 @@ import java.util.Map;
 public interface DrinkService {
     List<Drink> retrieveDrinks();
     Map<String, Object> retrieveDrinkInfo(Long drinkIndex);
+
+    List<String> retrieveDrinkName();
 }

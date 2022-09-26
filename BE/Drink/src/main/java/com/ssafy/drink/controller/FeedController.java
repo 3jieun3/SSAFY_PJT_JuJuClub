@@ -4,6 +4,7 @@ import com.ssafy.drink.domain.Feed;
 import com.ssafy.drink.dto.RegistFeed;
 import com.ssafy.drink.dto.UpdateFeed;
 import com.ssafy.drink.service.FeedService;
+import com.ssafy.drink.service.LikeFeedService;
 import com.ssafy.drink.service.LikeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,9 @@ public class FeedController {
 
     @Autowired
     LikeService likeService;
+
+    @Autowired
+    LikeFeedService likeFeedService;
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
@@ -105,11 +109,20 @@ public class FeedController {
         return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
     }
 
+    // feedIndex를 좋아요 한 memberIndex 리스트
+    @GetMapping("like/{feedIndex}")
+    public ResponseEntity<Map<String, Object>> likeMemberList(@PathVariable Long feedIndex) {
 
+        List<Long> memberIndexList = likeFeedService.likeMemberList(feedIndex);
+        logger.info("memberIndexList : {}", memberIndexList);
+        Map<String, Object> map = new HashMap<>();
+        map.put("likeList", memberIndexList);
 
-    // ====================================== 수정 필요 =============================================
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "피드 상세 정보", notes = "{feedIndex}를 받아 피드의 상세 정보를 확인한다.")
-    @GetMapping("valid/{feedIndex}")
+    @GetMapping("{feedIndex}")
     public ResponseEntity<Map<String, Object>> retrieveFeed(@PathVariable Long feedIndex, HttpServletRequest request) {
         logger.debug("피드 상세보기 API 호출 : {}", feedIndex);
 

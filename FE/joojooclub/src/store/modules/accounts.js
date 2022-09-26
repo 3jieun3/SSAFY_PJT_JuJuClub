@@ -78,7 +78,7 @@ export default {
       })
         .then((res) => {
           const accessToken = res.data.token; // 응답 토큰 저장
-          axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+          // axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
           dispatch('saveToken', accessToken)
           dispatch('fetchCurrentUser')
           router.push({ name: 'main' })

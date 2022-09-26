@@ -26,5 +26,5 @@ public class FoodDrinkType {
     @ManyToOne
     @MapsId("drinkTypeIndex")
     @JoinColumn(name = "drinkTypeIndex")
-    private Drink drink;
+    private DrinkType drinkType;
 }

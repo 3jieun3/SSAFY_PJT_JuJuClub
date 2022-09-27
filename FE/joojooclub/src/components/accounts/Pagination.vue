@@ -3,15 +3,15 @@
 		<nav class="pagination-outer">
 			<ul class="pagination">
 				<li class="page-item">
-					<a class="page-link" @click="goPrevPage()">
+					<a class="page-link" @click="goPage(currentPage - 1)" v-if="!(currentPage === pageList.at(0))">
 						<span>«</span>
 					</a>
 				</li>
 				<li class="page-item" v-for="page in pageList" :key="page" :class="{ 'active': page === currentPage }">
-					<a @click="goSpecPage(page)" class="page-link">{{ page }}</a>
+					<a @click="goPage(page)" class="page-link">{{ page }}</a>
 				</li>
 				<li class="page-item">
-					<a @click="goNextPage()" class="page-link">
+					<a class="page-link" @click="goPage(currentPage + 1)" v-if="!(currentPage === pageList.at(-1))">
 						<span>»</span>
 					</a>
 				</li>
@@ -21,24 +21,28 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'PaginationNav',
 	props: {
 		currentPage: Number,
-		pageList: Array,
+	},
+	computed: {
+		...mapGetters(['pageList'])
 	},
 	methods: {
-		...mapActions(['goSpecPage'])
+		...mapActions(['goPage'])
 	},
+	created() {
+		this.goPage(1)
+	}
 }
 </script>
 
 <style scoped>
 .pagination-outer{ text-align: center; }
 .pagination{
-	/* font-family: 'Rubik', sans-serif; */
 	padding: 0 30px;
 	display: inline-flex;
 	position: relative;
@@ -46,7 +50,7 @@ export default {
 .pagination li a.page-link{
 	color: #909090;
 	background-color: transparent;
-	font-size: 22px;
+	font-size: 1.2rem;
 	line-height: 35px;
 	height: 45px;
 	width: 40px;
@@ -60,7 +64,7 @@ export default {
 .pagination li.active a.page-link,
 .pagination li a.page-link:hover,
 .pagination li.active a.page-link:hover{
-	color: #006266;
+	color: black;
 	background-color: transparent;
 }
 .pagination li a.page-link span{
@@ -71,7 +75,7 @@ export default {
 .pagination li a.page-link:before,
 .pagination li a.page-link:after{
 	content: "";
-	background-color: #006266;
+	background-color: black;
 	height: 3px;
 	width: 0;
 	opacity: 1;
@@ -82,9 +86,9 @@ export default {
 	transition: all 0.3s;
 }
 .pagination li a.page-link:before{
-	background: linear-gradient(135deg,transparent 49%, #006266 50%);
-	height: 15px;
-	width: 15px;
+	background: linear-gradient(135deg,transparent 49%, black 50%);
+	height: 1rem;
+	width: 1rem;
 	transform: translateX(-50%) rotate(45deg);
 	bottom: auto;
 	top: -20px;

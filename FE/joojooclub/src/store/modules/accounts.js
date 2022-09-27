@@ -15,11 +15,212 @@ export default {
     // signup, login할 때 오류 메세지
     authError: null,
     // 개인 피드 상세
-    feed : {},
-    
-    commentPage: {},
+    feed: {},
+    // 후기 pagination
     currentPage: 1,
-    pageList: [1, 2, 3]
+    pageList: [],
+    pageReviews: [],
+    // dummy
+    reviews: [
+      {
+        reviewIndex: 1,
+        score: 5,
+        review: '1 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 2,
+        score: 5,
+        review: '2 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 3,
+        score: 5,
+        review: '3 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 4,
+        score: 5,
+        review: '4 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      }, 
+      {
+        reviewIndex: 5,
+        score: 5,
+        review: '5 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 6,
+        score: 5,
+        review: '6 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 7,
+        score: 5,
+        review: '7 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 8,
+        score: 5,
+        review: '8 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 9,
+        score: 5,
+        review: '9 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+      {
+        reviewIndex: 10,
+        score: 5,
+        review: '10 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      }, 
+      {
+        reviewIndex: 11,
+        score: 5,
+        review: '11 안녕하세요.\n 오늘은  코로나19 여파로 인해서 외식보다는 아무래도 집에서 먹는날이 많아졌는데요. 오늘은 엄마랑 같이 이마트가서 꼬막도 사고, 계란도 사고 야채도 사고 신나게 장보기 하고 오늘 당장 이걸로 먹자! 싶어서 사온 메뉴가 있어서 소개해드리려고합니다. 바로바로 연어사시미! 어릴때 신촌현대백화점가면 맨날 이거 사먹었는데..ㅎ\n 한동안 안먹다가.. ㅎ 추억의 맛으로 이걸 먹기로했어요. 마침 집에 아이스와인도 있었죠 ㅎ',
+        createdAt: "2022-09-26T11:14:29",
+        member: {
+          memberIndex: 11,
+          id: "jetest1212",
+        },
+        drink: {
+          drinkIndex: 4,
+          drinkName: "DOK막걸리",
+          drinkType: {
+            drinkTypeIndex: 1,
+            drinkType: "탁주"
+          },
+        },
+      },
+    ],
   },
   getters: {
     // 로그인 했니?: state에 token값이 있으면 (true) 로그인 한 것
@@ -33,6 +234,7 @@ export default {
     feed: state => state.feed,
     currentPage: state => state.currentPage,
     pageList: state => state.pageList,
+    pageReviews: state => state.pageReviews,
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
@@ -40,7 +242,14 @@ export default {
     // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
     SET_FEED: ( state, feed ) => state.feed = feed,
-    SET_COMMENT_PAGE: ( state, commentPage ) => state.commentPage = commentPage,
+    GO_PAGE( state, page ) {
+      // 현재 페이지를 선택된 페이지로 변경
+      state.currentPage = page
+      // pagination nav에 보여줄 page list 변경
+      let fromPage = (page - 1 === 0) ? 1 : page - 1
+      state.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, Math.ceil(state.reviews.length / 3) + 1))
+      state.pageReviews = state.reviews.slice((page - 1) * 3, page * 3)
+    },
   },
   actions: {
     saveToken({ commit }, token) {
@@ -213,15 +422,8 @@ export default {
     //   })
     // },
 
-    fetchCommentPage({ commit, getters }, { currentPage, firstPage, lastPage }) {
-      const commentPage = {
-        totalPage: Math.ceil(getters.commentsCount / 3),
-        currentPage: currentPage,
-        firstPage: firstPage,
-        lastPage: lastPage,
-        // pageList: Range(firstPage, lastPage),
-      }
-      commit('SET_COMMENT_PAGE', commentPage)
-    }
+    goPage({ commit }, page) {
+      commit('GO_PAGE', page)
+    },
   }
 }

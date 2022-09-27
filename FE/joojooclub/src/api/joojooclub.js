@@ -13,6 +13,7 @@ export default {
     login: () => HOST + MEMBER + 'login/',      // 로그인, POST
     idCheck: (id) => HOST + MEMBER + 'checkid/' + `${id}/`,  // id 중복체크, POST
     info: () => HOST + MEMBER,  // (회원정보 GET), (수정, PUT), (탈퇴, DELETE)
+    checkpw: () => HOST + MEMBER + 'checkpw/',  // pw 일치 확인, GET
     // logout: () => HOST + MEMBER + 'logout/',  // fe에서 jwt token 폐기
   },
   drinks: {

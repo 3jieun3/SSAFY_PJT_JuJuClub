@@ -92,7 +92,7 @@ export default {
       if (getters.isLoggedIn){
         dispatch('removeToken')
         commit('SET_CURRENT_USER', {})
-        // router.push({ name: 'main' })
+        router.push({ name: 'main' })
       } else {
         alert('로그인이 필요한 페이지입니다')
         router.push({ name: 'login' })
@@ -222,6 +222,19 @@ export default {
         // pageList: Range(firstPage, lastPage),
       }
       commit('SET_COMMENT_PAGE', commentPage)
-    }
+    },
+
+    checkPassword({ getters }, password) {
+      axios({
+        url: joojooclub.accounts.checkpw(),
+        method: 'post',
+        data: password,
+        headers: getters.authHeader,
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
   }
 }

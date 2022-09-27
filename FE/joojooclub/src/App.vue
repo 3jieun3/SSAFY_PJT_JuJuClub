@@ -37,7 +37,7 @@ export default {
     this.fetchCurrentUser()
   },
   updated() {
-    this.fetchCurrentUser()
+    // this.fetchCurrentUser()
   }
 }
 </script>

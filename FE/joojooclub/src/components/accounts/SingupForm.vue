@@ -1,54 +1,61 @@
 <template>
-  <div class="container my-5 p-5 signup-box border">
-    <!-- title -->
-    <h2 v-if="action==='create'" class="mb-4">회원가입</h2>
-    <h2 v-if="action==='update'" class="mb-4">회원정보 수정</h2>
-    <!-- form -->
-    <form @submit.prevent="onSubmit">
-      <div>
-        <!-- member id -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="user-id">아이디</label>
-          <div class="input-group">
-            <input :disabled="action ==='update'" v-model="newCredentials.id" type="text" id="user-id" class="form-control" placeholder="8글자 이상 입력해주세요">
-            <button v-if="action ==='create'" @click="checkID" class="btn btn-secondary m-0" type="button">중복검사</button>
+  <div class="container mt-5 d-flex flex-column">
+    <div class="container p-5 signup-box border">
+      <!-- title -->
+      <h2 v-if="action==='create'" class="mb-4">회원가입</h2>
+      <h2 v-if="action==='update'" class="mb-4">회원정보 수정</h2>
+      <!-- form -->
+      <form @submit.prevent="onSubmit">
+        <div>
+          <!-- member id -->
+          <div class="d-flex flex-column align-items-start mb-4">
+            <label for="user-id">아이디</label>
+            <div class="input-group">
+              <input :disabled="action ==='update'" v-model="newCredentials.id" type="text" id="user-id" class="form-control" placeholder="8글자 이상 입력해주세요">
+              <button v-if="action ==='create'" @click="checkID" class="btn btn-secondary m-0" type="button">중복검사</button>
+            </div>
+            <p v-if="idError" class="sub-error">아이디를 8글자 이상 입력해주세요</p>
           </div>
-          <p v-if="idError" class="sub-error">아이디를 8글자 이상 입력해주세요</p>
-        </div>
-        <!-- year of birth -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="birth-year">출생년도</label>
-          <select name="year" id="birth-year" class="form-select select-birth" @change="getYear($event)">
-            <option v-if="action==='create'" selected>출생년도를 선택하세요</option>
-            <option v-if="action==='update'" selected>{{ newCredentials.birthYear }}</option>
-            <option v-for="n in get_years()" v-bind:key="n">{{ n }}</option>
-          </select>
-          <p v-if="birthError" class="sub-error">출생년도를 선택해주세요</p>
-        </div>
-        <!-- gender -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="gender">성별</label>
-          <div>
-            <button :class="{clicked: newCredentials.gender==='m'}" @click="mDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">남</button>
-            <button :class="{clicked: newCredentials.gender==='f'}" @click="fDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">여</button>
+          <!-- year of birth -->
+          <div class="d-flex flex-column align-items-start mb-4">
+            <label for="birth-year">출생년도</label>
+            <select name="year" id="birth-year" class="form-select select-birth" @change="getYear($event)">
+              <option v-if="action==='create'" selected>출생년도를 선택하세요</option>
+              <option v-if="action==='update'" selected>{{ newCredentials.birthYear }}</option>
+              <option v-for="n in get_years()" v-bind:key="n">{{ n }}</option>
+            </select>
+            <p v-if="birthError" class="sub-error">출생년도를 선택해주세요</p>
           </div>
-          <p v-if="genderError" class="sub-error">성별을 선택해주세요</p>
+          <!-- gender -->
+          <div class="d-flex flex-column align-items-start mb-4">
+            <label for="gender">성별</label>
+            <div>
+              <button :class="{clicked: newCredentials.gender==='m'}" @click="mDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">남</button>
+              <button :class="{clicked: newCredentials.gender==='f'}" @click="fDisabled" class="btn btn-outline-secondary m-0 px-5" type="button">여</button>
+            </div>
+            <p v-if="genderError" class="sub-error">성별을 선택해주세요</p>
+          </div>
+          <!-- password -->
+          <div v-if="action==='create'" class="d-flex flex-column align-items-start mb-4">
+            <label for="password1">비밀번호</label>
+            <input v-model="newCredentials.password" type="password" id="password1" class="form-control" placeholder="영문, 숫자, 특수문자 조합 8-16자">
+            <p v-if="pwError" class="sub-error">영문, 숫자, 특수문자를 조합하여 입력해주세요 (8-16자)</p>
+          </div>
+          <!-- confirm password -->
+          <div v-if="action==='create'" class="d-flex flex-column align-items-start mb-5">
+            <label for="password2">비밀번호 재확인</label>
+            <input v-model="passwordConfirm" type="password" id="password2" class="form-control" placeholder="비밀번호를 한 번 더 입력하세요">
+            <p v-if="pwConfirmError" class="sub-error">비밀번호를 정확하게 입력해주세요</p>
+          </div>
         </div>
-        <!-- password -->
-        <div class="d-flex flex-column align-items-start mb-4">
-          <label for="password1">비밀번호</label>
-          <input v-model="newCredentials.password" type="password" id="password1" class="form-control" placeholder="영문, 숫자, 특수문자 조합 8-16자">
-          <p v-if="pwError" class="sub-error">영문, 숫자, 특수문자를 조합하여 입력해주세요 (8-16자)</p>
-        </div>
-        <!-- confirm password -->
-        <div class="d-flex flex-column align-items-start mb-5">
-          <label for="password2">비밀번호 재확인</label>
-          <input v-model="passwordConfirm" type="password" id="password2" class="form-control" placeholder="비밀번호를 한 번 더 입력하세요">
-          <p v-if="pwConfirmError" class="sub-error">비밀번호를 정확하게 입력해주세요</p>
-        </div>
-      </div>
-      <button class="btn btn-warning">가입하기</button>
-    </form>
+        <button v-if="action==='create'" class="btn btn-warning">가입하기</button>
+        <button v-if="action==='update'" class="btn btn-warning">수정하기</button>
+      </form>
+    </div>
+    <div class="container signup-box d-flex justify-content-end mt-1 p-0">
+      <router-link :to="{ name: 'changePw'}" class="me-4">비밀번호 변경</router-link>
+      <router-link to="/signout">회원탈퇴</router-link>
+    </div>
   </div>
 </template>
 
@@ -172,20 +179,22 @@ export default {
         this.genderError = true
       } else {this.genderError = false}
       // 에러가 없다면 axios 처리
-      if (this.newCredentials.id && !this.idDuplicate || this.newCredentials.id !== this.nowId) {
+      if (this.action === 'create') {
+        if (this.newCredentials.id && !this.idDuplicate || this.newCredentials.id !== this.nowId) {
         alert('아이디 중복체크를 해주십시오.')
-      } else {
-        if (!this.idError & !this.pwError & !this.pwConfirmError & !this.birthError & !this.genderError) {
-          if (this.action === 'create') {
+        } else {
+          if (!this.idError & !this.pwError & !this.pwConfirmError & !this.birthError & !this.genderError) {
             this.signup(this.newCredentials)
-          } else if (this.action === 'update') {
-            const data = {
-              birthYear: this.newCredentials.birthYear,
-              gender: this.newCredentials.gender,
-              password: this.newCredentials.password
-            }
-            this.updateMember(data)
           }
+        }
+      } else {
+        if (!this.birthError & !this.genderError) {
+          const data = {
+            id: this.newCredentials.id,
+            birthYear: this.newCredentials.birthYear,
+            gender: this.newCredentials.gender,
+          }
+          this.updateMember(data)
         }
       }
     },
@@ -217,6 +226,9 @@ export default {
   created() {
     this.now_year = new Date().getFullYear();
   },
+  updated() {
+    console.log(this.passwordConfirm)
+  }
 }
 </script>
 

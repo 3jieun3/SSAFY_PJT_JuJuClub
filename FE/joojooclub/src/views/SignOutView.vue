@@ -8,11 +8,6 @@ import SignoutForm from '@/components/accounts/SignoutForm.vue'
 export default {
   name: 'SignOutView',
   components: {SignoutForm},
-  data() {
-    return {
-      origin_pw: this.currentUser?.member.password,
-    }
-  },
   computed: {
     ...mapGetters(['currentUser', 'isCurrentUser'])
   },

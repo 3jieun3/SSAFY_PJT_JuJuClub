@@ -16,4 +16,8 @@ public interface MemberService {
     boolean update(UpdateMember updateMember,Long memberIndex);
     boolean deleteMember(Long id);
     Map<String,Object> memberInfo(Long id);
+
+    Member getMember(Long memberIndex);
+
+    boolean updatePassword(Long memberIndex, String password);
 }

@@ -8,19 +8,21 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
 @NoArgsConstructor
-@Service
+@Component("S3Setup")
 public class S3SetClientServiceImpl implements S3SetClientService {
     private AmazonS3 s3Client;
 
-    @Value("${cloud.aws.credentials.accessKey}")
+    @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
-    @Value("${cloud.aws.credentials.secretKey}")
+    @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
     @Value("${cloud.aws.region.static}")

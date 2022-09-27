@@ -34,6 +34,7 @@ spring:
 #  datasource:
 #    url: jdbc:h2:mem:test db;MODE=MySQL;DATABASE_TO_UPPER=FALSE;
 
+
 logging:
   level:
     org.hibernate.sql: debug
@@ -43,9 +44,12 @@ cloud:
       access-key: AKIAUBFKRXNYJ266HFAM
       secret-key: 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
     s3:
-      bucket= ssafyd106
+      bucket: ssafyd106
     region:
       static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
 ---
 
 server:
@@ -94,6 +98,9 @@ cloud:
       access-key: AKIAUBFKRXNYJ266HFAM
       secret-key: 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
     s3:
-        bucket= ssafyd106
+        bucket: ssafyd106
     region:
       static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

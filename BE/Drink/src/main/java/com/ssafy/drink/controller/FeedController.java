@@ -70,7 +70,7 @@ public class FeedController {
 
     @ApiOperation(value = "피드 수정", notes = "feedIndex, title, content, drinkIndex, customTags를 받아 피드를 수정한다.")
     @PutMapping("valid")
-    public ResponseEntity<String> updateFeed(@RequestBody @ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed) {
+    public ResponseEntity<String> updateFeed(@RequestBody @ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed) throws IOException {
         logger.info("피드 수정 API 호출 : {}", updateFeed);
         if(feedService.updateFeed(updateFeed)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

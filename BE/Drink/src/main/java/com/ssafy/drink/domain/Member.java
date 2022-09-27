@@ -1,6 +1,7 @@
 package com.ssafy.drink.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,7 +25,9 @@ public class Member {
 
     @NonNull
     private String id;
+
     @NonNull
+//    @JsonIgnore // JSON으로 리턴 시 값 제외 -> 나중에 수정하기
     private String password;
 
     private int birthYear;

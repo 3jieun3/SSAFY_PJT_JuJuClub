@@ -15,16 +15,18 @@
       <router-link :to="{ name: 'drink', params: { drinkPK: 1 } }">Drink Detail</router-link>
     </div> -->
     <router-view/>
+    <footer-com></footer-com>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import NavBar from '@/components/NavBar.vue'
+import FooterCom from './components/FooterCom.vue'
 
 export default {
   name: 'App',
-  components: { NavBar },
+  components: { NavBar, FooterCom },
   computed: {
     ...mapGetters(['currentUser'])
   },

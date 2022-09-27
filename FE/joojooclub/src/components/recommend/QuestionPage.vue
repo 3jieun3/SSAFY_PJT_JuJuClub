@@ -34,7 +34,7 @@ export default {
   .recommendImg {
     background: url(@/assets/recommendPage.png) no-repeat center;
     position: relative;
-    height: 80vh;
+    height: 80vh; 
   }
 
   .que {

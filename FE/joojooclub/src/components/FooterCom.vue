@@ -1,9 +1,9 @@
 <template>
   <footer class="footer row align-items-start justify-content-around mx-0">
-    <div class="footerImg col-4 px-5">
+    <div class="container-fluid footerImg col-4 px-5">
       <img class="footerImg" src="@/assets/logo_sample2.png" alt="joojooclub">
     </div>
-    <div class="footerCenter d-flex justify-content-around col-6">
+    <div class="container footerCenter d-flex justify-content-around col-6">
       <div class="info1 mx-5">
         <p class="title">Community</p>
         <p><a class="link" href="https://www.notion.so/2-e109b4c80a8d4fddaec3810e9735adb3">NOTION</a></p>
@@ -11,11 +11,11 @@
       </div>
       <div class="info2">
         <p class="title">Developers</p>
-        <p>Samsung SW Academy For Youth</p>
-        <p>정종일, 김민정, 박지은, 오도석, 최연지</p>
+        <p><a class="link" href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">Samsung SW Academy For Youth</a></p>
+        <p class="info">정종일, 김민정, 박지은, 오도석, 최연지</p>
       </div>
     </div>
-    <div class="footerRight col-2">
+    <div class="container footerRight col-2">
       <p class="title">Copyright @ 2022 by D106</p>
     </div>
   </footer>
@@ -30,12 +30,16 @@ export default {
 <style scoped>
 
   .footerImg {
-    width: 11vw;
+    width: 7vw;
   }
 
   .footerCenter {
     text-align: left;
     margin-left: 40px;
+  }
+
+  .footerRight {
+    margin-right: 20px;
   }
 
   .info2 {
@@ -49,7 +53,14 @@ export default {
 
   .title {
     font-weight: bold;
-    font-size: larger;
+  }
+
+  .link {
+    font-size: smaller;
+  }
+
+  .info {
+    font-size: smaller;
   }
 
   a { color: rgb(0, 0, 0); }

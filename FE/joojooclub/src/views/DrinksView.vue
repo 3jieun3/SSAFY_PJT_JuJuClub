@@ -10,6 +10,7 @@
 import DrinkImage from '@/components/drinks/DrinkImage.vue'
 import TagList from '@/components/drinks/TagList.vue'
 import DrinkCatalog from '@/components/drinks/DrinkCatalog.vue'
+import { mapActions } from 'vuex'
 
 
 export default {
@@ -20,8 +21,11 @@ export default {
     TagList,
     DrinkCatalog
   },
+  methods: {
+    ...mapActions('drinks', ['getDrinks'])
+  },
   created() {
-    
+    this.getDrinks()
   }
 }
 </script>

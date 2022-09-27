@@ -28,7 +28,6 @@ export default {
   },
   data() {
     return {
-      origin_pw: this.currentUser.member.password,
       password: '',
       pwError: false,
       pwConfirmError: false,

@@ -135,11 +135,13 @@ export default {
           data: credentials,
           headers: getters.authHeader,
         }).then((res) => {
+          console.log(res)
           commit('SET_CURRENT_USER', res.data)
           alert('회원정보가 수정되었습니다')
           router.push({ name: 'main' })
         }).catch((err) => {
           // 토큰이 잘못된 경우
+          console.log(err)
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')

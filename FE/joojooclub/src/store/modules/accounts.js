@@ -109,9 +109,16 @@ export default {
         }).then((res) => {
           commit('SET_CURRENT_USER', res.data)
         }).catch((err) => {
-          // 토큰이 잘못된 경우(만료 등)
+          // 토큰이 잘못된 경우
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+          // 토큰 만료
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })
@@ -132,9 +139,15 @@ export default {
           alert('회원정보가 수정되었습니다')
           router.push({ name: 'main' })
         }).catch((err) => {
-          // 토큰이 잘못된 경우(만료 등)
+          // 토큰이 잘못된 경우
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })
@@ -157,9 +170,15 @@ export default {
           router.push({ name: 'main' })
         })
         .catch(err => {
-          // 토큰이 잘못된 경우(만료 등)
+          // 토큰이 잘못된 경우
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })

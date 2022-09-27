@@ -404,14 +404,29 @@ export default {
       .catch(err => console.err(err.response))
     },
     
-    createFeed({ commit, /* getters */ }, feed) {
+    createFeed({ commit, getters }, { drinkIndex, feed }) {
+      // axios({
+      //   url: joojooclub.feed.info(feed),
+      //   method: 'post',
+      //   headers: getters.authHeader,
+      //   data: feed
+      // }).then((res) => {
+      //   commit('SET_FEED', res.data)
+      //   router.push({
+      //     name: 'profile',
+      //     params: { userPK: getters.feed.memberIndex }
+      //   })       
+      // }).catch((err) => {
+      //   console.log(err.response)
+      //   router.push({
+      //     name: 'profile',
+      //     params: { userPK: getters.feed.memberIndex }
+      //   })
+      // })
       commit('SET_FEED', feed)
-      router.push({
-        name: 'feed',
-        // name: 'profile',
-        // params: { userPK: getters.feed.memberIndex }
-      })
+      router.push({ name: 'feed' })
     },
+
 
     // updateFeed({ commit }, { feedIndex, feed }) {
     //   commit('SET_FEED', feed)

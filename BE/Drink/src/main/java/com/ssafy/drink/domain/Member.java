@@ -27,7 +27,7 @@ public class Member {
     private String id;
 
     @NonNull
-//    @JsonIgnore // JSON으로 리턴 시 값 제외 -> 나중에 수정하기
+    @JsonIgnore // JSON으로 리턴 시 값 제외 
     private String password;
 
     private int birthYear;

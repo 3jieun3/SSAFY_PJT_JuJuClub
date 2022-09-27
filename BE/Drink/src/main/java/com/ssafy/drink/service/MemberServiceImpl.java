@@ -74,15 +74,14 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean update(UpdateMember updateMember, Long memberIndex) {
         Member member = memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
-            member.setPassword(updateMember.getPassword());
-            member.setBirthYear(updateMember.getBirthYear());
-            member.setGender(updateMember.getGender());
-            try {
-                memberRepository.save(member);
-                memberRepository.flush();
-            }catch (Exception e){
-                return false;
-            }
+        member.setBirthYear(updateMember.getBirthYear());
+        member.setGender(updateMember.getGender());
+        try {
+            memberRepository.save(member);
+            memberRepository.flush();
+        }catch (Exception e){
+            return false;
+        }
         return true;
     }
 
@@ -111,6 +110,25 @@ public class MemberServiceImpl implements MemberService{
         List<LikeFeed> likeFeedList = likeFeedRepository.findByMember(member);
         map.put("likeFeeds", likeFeedList);
         return map;
+    }
+
+    @Override
+    public Member getMember(Long memberIndex) {
+        return  memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public boolean updatePassword(Long memberIndex, String password) {
+        Member member = memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
+        member.setPassword(password);
+
+        try {
+            memberRepository.save(member);
+            memberRepository.flush();
+        } catch(Exception e) {
+            return false;
+        }
+        return true;
     }
 
 

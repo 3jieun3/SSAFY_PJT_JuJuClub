@@ -64,9 +64,8 @@ public class FeedController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> retrieveFeedList() {
         logger.info("피드 전체보기 API 호출");
-        List<Feed> feeds = feedService.retrieveFeedList();
-        Map<String, Object> map = new HashMap<>();
-        map.put("feeds", feeds);
+        Map<String, Object>  map = feedService.retrieveFeedList();
+
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

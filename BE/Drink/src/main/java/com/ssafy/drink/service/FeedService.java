@@ -5,13 +5,14 @@ import com.ssafy.drink.dto.RegistFeed;
 import com.ssafy.drink.dto.UpdateFeed;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FeedService {
     Long registFeed(RegistFeed registFeed, Long memberIndex);
 
     Feed retrieveFeed(Long feedIndex);
 
-    List<Feed> retrieveFeedList();
+    Map<String, Object> retrieveFeedList();
 
     boolean updateFeed(UpdateFeed updateFeed);
 

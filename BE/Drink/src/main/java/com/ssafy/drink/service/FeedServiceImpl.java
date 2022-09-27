@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FeedServiceImpl implements FeedService{
@@ -68,8 +70,15 @@ public class FeedServiceImpl implements FeedService{
 
     // 피드 전체 리스트 조회
     @Override
-    public List<Feed> retrieveFeedList() {
-        return feedRepository.findAll();
+    public Map<String, Object>  retrieveFeedList() {
+        List<Feed> bestFeeds = feedRepository.selectAllLike3();
+        List<Feed> feeds = feedRepository.findAll();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("bestfeeds", bestFeeds);
+        map.put("feeds", feeds);
+
+        return map;
     }
 
     // 피드 수정

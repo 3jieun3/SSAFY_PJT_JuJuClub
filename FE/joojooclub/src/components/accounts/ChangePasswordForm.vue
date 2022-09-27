@@ -34,6 +34,7 @@
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
 import { mapGetters } from 'vuex'
+// import router from '@/router'
 
 export default {
   name: 'ChangePasswordView',
@@ -42,6 +43,7 @@ export default {
   },
   data() {
     return {
+      memberIndex: this.currentUser.member.memberIndex,
       password: '', // 기존 비밀번호 입력
       newPassword: '',  // 새 비밀번호 입력
       passwordConfirm: '',  // 새 비밀번호 재입력
@@ -109,16 +111,16 @@ export default {
 
       // 모든 에러가 없다면 비밀번호 변경 axios 보내기
       if (!this.pwError && !this.isOriginError && !this.newPwError && !this.newPwConfirmError) {
-        const pw = {password: this.password}
+        const pw = {password: this.newPassword}
         axios({
           url: joojooclub.accounts.changepw(),
           method: 'put',
           data: pw,
           headers: this.authHeader,
-        }).then((res) => {
-          console.log(res)
-        }).catch((err) => {
-          console.log(err)
+        }).then(() => {
+          // router.push({ name: 'login' })
+          this.$router.push({name: 'profile', params: {userPK: this.memberIndex}})
+        }).catch(() => {
         })
       }
     },
@@ -130,7 +132,6 @@ export default {
         headers: this.authHeader,
       }).then(() => {
         this.isOriginError = false
-        console.log(this.isOriginError)
       }).catch((err) => {
         if (err.response.data === 'mismatch') {
           this.isOriginError = true

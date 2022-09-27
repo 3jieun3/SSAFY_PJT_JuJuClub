@@ -195,6 +195,7 @@ export default {
             gender: this.newCredentials.gender,
           }
           this.updateMember(data)
+          this.$router.push({name: 'profile', params: {userPK: this.newCredentials.id}})
         }
       }
     },
@@ -226,9 +227,6 @@ export default {
   created() {
     this.now_year = new Date().getFullYear();
   },
-  updated() {
-    console.log(this.passwordConfirm)
-  }
 }
 </script>
 

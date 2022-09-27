@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
   .recommendImg {
-    background: url(@/assets/recommendPage.jpeg) no-repeat center;
+    background: url(@/assets/recommendPage.png) no-repeat center;
     position: relative;
     height: 80vh;
   }

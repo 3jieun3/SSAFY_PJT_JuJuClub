@@ -33,7 +33,7 @@ public class DrinkController {
     DrinkService drinkService;
     @Autowired
     FoodService foodService;
-    @Autowired
+
 
 
     @ApiOperation(value = "전체 술 정보", notes = "전체 술에 대한 정보를 반환한다.")

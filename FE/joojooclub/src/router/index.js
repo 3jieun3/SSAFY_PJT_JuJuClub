@@ -14,6 +14,7 @@ import SignupView from '@/views/SignupView'
 import MemberUpdateView from '@/views/MemberUpdateView'
 import LoginView from '@/views/LoginView'
 import SignOutView from '@/views/SignOutView'
+import ChangePasswordView from '@/views/ChangePasswordView'
 import store from '@/store'  // 추후 주석 해제 필요(로그인 접근 제한)
 
 Vue.use(VueRouter)
@@ -88,6 +89,11 @@ const routes = [
     path: '/signout',
     name: 'signout',
     component: SignOutView
+  },
+  {
+    path: '/member/change/password',
+    name: 'changePw',
+    component: ChangePasswordView
   },
   // {
   //   path: '/404',

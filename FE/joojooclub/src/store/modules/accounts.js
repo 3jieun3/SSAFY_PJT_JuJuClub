@@ -273,8 +273,7 @@ export default {
           dispatch('fetchCurrentUser')
           router.push({ name: 'login'})
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           alert('회원가입에 실패했습니다')
         })
     },
@@ -301,7 +300,7 @@ export default {
       if (getters.isLoggedIn){
         dispatch('removeToken')
         commit('SET_CURRENT_USER', {})
-        // router.push({ name: 'main' })
+        router.push({ name: 'main' })
       } else {
         alert('로그인이 필요한 페이지입니다')
         router.push({ name: 'login' })
@@ -346,7 +345,6 @@ export default {
         }).then((res) => {
           commit('SET_CURRENT_USER', res.data)
           alert('회원정보가 수정되었습니다')
-          router.push({ name: 'main' })
         }).catch((err) => {
           // 토큰이 잘못된 경우
           if (err.response.status === 401) {
@@ -421,6 +419,17 @@ export default {
     //     name: 'feed',
     //   })
     // },
+
+    fetchCommentPage({ commit, getters }, { currentPage, firstPage, lastPage }) {
+      const commentPage = {
+        totalPage: Math.ceil(getters.commentsCount / 3),
+        currentPage: currentPage,
+        firstPage: firstPage,
+        lastPage: lastPage,
+        // pageList: Range(firstPage, lastPage),
+      }
+      commit('SET_COMMENT_PAGE', commentPage)
+    },
 
     goPage({ commit }, page) {
       commit('GO_PAGE', page)

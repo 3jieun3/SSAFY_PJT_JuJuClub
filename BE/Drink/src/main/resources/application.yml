@@ -21,14 +21,13 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
 #  h2:
 #    console:
 #      enabled: true
@@ -38,7 +37,15 @@ spring:
 logging:
   level:
     org.hibernate.sql: debug
-
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAUBFKRXNYJ266HFAM
+      secret-key: 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
+    s3:
+      bucket= ssafyd106
+    region:
+      static: ap-northeast-2
 ---
 
 server:
@@ -64,7 +71,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
@@ -81,3 +88,12 @@ spring:
 logging:
   level:
     org.hibernate.sql: debug
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAUBFKRXNYJ266HFAM
+      secret-key: 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
+    s3:
+        bucket= ssafyd106
+    region:
+      static: ap-northeast-2

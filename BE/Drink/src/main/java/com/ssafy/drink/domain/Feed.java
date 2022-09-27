@@ -39,5 +39,8 @@ public class Feed {
 
     private String customTags;
 
+    @Column(length = 1024)
+    private String imageUrl;
+
 
 }

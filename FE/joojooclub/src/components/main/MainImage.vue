@@ -52,7 +52,7 @@ export default {
   }
 
   .background-wrap {
-    background: url(@/assets/mainImage.jpg) no-repeat center;
+    background: url(@/assets/mainImage.png) no-repeat center;
     position: relative;
     height: 80vh;
     }

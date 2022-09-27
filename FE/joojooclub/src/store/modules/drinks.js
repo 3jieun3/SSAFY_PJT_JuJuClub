@@ -1,5 +1,6 @@
 import router from "@/router"
-// import { _ } from "core-js"
+import axios from "axios"
+import joojooclub from "@/api/joojooclub"
 
 export default {
   namespaced: true,
@@ -630,7 +631,6 @@ export default {
     filteringDrinks: [],
     setFilteringDrinks: [],
     paging:{
-        totalPage: 25,
         currentPage: 1,
     },
     drink: []
@@ -649,10 +649,10 @@ export default {
       return state.isCards
     },
     totalPage: (state) => {
-      if (state.paging.totalPage%12 === 0) {
-        return parseInt(state.paging.totalPage) / 12
+      if (state.setFilteringDrinks.length%12 === 0) {
+        return parseInt(state.setFilteringDrinks.length) / 12
       } else {
-        return parseInt(state.paging.totalPage / 12) + 1
+        return parseInt(state.setFilteringDrinks.length / 12) + 1
       }
     },
     showPage: (state) => {
@@ -661,6 +661,7 @@ export default {
     },
   },
   mutations: {
+    // 태그 검색 로직
     TAG_SEARCH(state) {
       state.filteringDrinks = []
       state.setFilteringDrinks = []
@@ -710,6 +711,7 @@ export default {
         }
       }
     },
+    // 맞춤 추천 로직
     CHOOSE_ANSWER(state, answerStr) {
       const ques = state.questionEtc
       ques.choose.push(answerStr)
@@ -720,6 +722,7 @@ export default {
         ques.choose = []
       }
     },
+    // 기본 태그 체크 여부 확인 로직
     BASIC_TAG_CLICKED(state, [tagOrder, tag]) {
       // 태그 타입 확인
       if ( tagOrder === 0) {
@@ -793,6 +796,7 @@ export default {
         state.bodyTagList[idx].isClicked = !state.bodyTagList[idx].isClicked
       }
     },
+    // 커스텀 태그 체크 여부 확인 로직
     CUSTOM_TAG_CLICKED(state, [tagOrder, idx, tag]) {
       if (tagOrder === 6) {
         if (tag.isClicked) {
@@ -811,6 +815,9 @@ export default {
     CHANGE_LIST(state) {
       state.isCards = false
     },
+    // GO_DETAIL_PAGE(state, idx) {
+    //   router.push('recommend/' + idx)
+    // },
     GO_PREV_PAGE(state) {
       // 현재 페이지가 1보다 크다면 눌렀을 때 이전 페이지로
       if (state.paging.currentPage > 1) {
@@ -829,6 +836,30 @@ export default {
       // 현재 페이지를 누른 버튼의 번호로 변경
       state.paging.currentPage = pageNum
       window.scrollTo({top:1000, behavior:"smooth"})
+    },
+    // async GET_DRINKS(state) {
+    //   try {
+    //     const res = await axios.get(joojooclub.drinks.info())
+    //     console.log('get drinks!')
+    //     console.log(res.data)
+    //     state.drinks = res.data.drinks
+    //   } catch(err) {
+    //     console.log(err)
+    //   }
+    GET_DRINKS(state) {
+      axios({
+        url: joojooclub.drinks.info(),
+        method: 'get',
+      })
+        .then((res) => {
+          state.drinks = res.data.drinks
+          console.log(state.drinks)
+          state.setFilteringDrinks = state.drinks
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('get drinks failed!')
+        })
     }
   },
   actions: {
@@ -847,6 +878,9 @@ export default {
     changeList({ commit }) {
       commit('CHANGE_LIST')
     },
+    goDetailPage(idx) {
+      router.push('drinks/' + idx)
+    },
     goPrevPage({ commit }) {
       commit('GO_PREV_PAGE')
     },
@@ -858,6 +892,9 @@ export default {
     },
     tagSearch({ commit }) {
       commit('TAG_SEARCH')
+    },
+    getDrinks({ commit }) {
+      commit('GET_DRINKS')
     }
   }
 }

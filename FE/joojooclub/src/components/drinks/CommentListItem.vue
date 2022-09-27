@@ -3,12 +3,12 @@
     <div class="comment-box">
       <p class="info-row">
         <span>
-          <strong>{{ comment.drinkName }}</strong>
+          <strong>{{ comment.drink.drinkName }}</strong>
           <span>{{ comment.score }}</span>
         </span>
-        <small class="date">{{ comment.createdAt.getFullYear() + '.' + comment.createdAt.getMonth() + '.' + comment.createdAt.getDate() }}</small>
+        <small class="date">{{ comment.createdAt.substring(0, 10).replaceAll('-', '.') }}</small>
       </p>
-      <p class="comment-row">{{ comment.content }}</p>
+      <p class="comment-row">{{ comment.review }}</p>
       <button class="btn">삭제</button>
     </div>
     <hr>

@@ -124,7 +124,7 @@ public class MemberController {
 
 
     @ApiOperation(value = "비밀번호 일치 확인", notes = "DB 내 회원의 비밀번호와 입력한 비밀번호의 일치 여부를 확인한다", response = String.class)
-    @GetMapping("/checkpw")
+    @PostMapping("/checkpw")
     public ResponseEntity<String> pwCheck(@RequestBody @ApiParam(value = "필요한 정보(password)", required = true) Map<String, String> password, HttpServletRequest request) {
 
         Long memberIndex = (Long) request.getAttribute("memberIndex");

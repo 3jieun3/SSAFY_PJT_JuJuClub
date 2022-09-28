@@ -29,4 +29,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
             nativeQuery = true
     )
     Long getTodayTotalReviewCount(@Param("today") String today);
+
+    @Query(value = "select drinkIndex from Review where age >= :startAge and age <= :endAge group by drinkIndex", nativeQuery = true)
+    List<Long> findDrinkIndexByAge(@Param("startAge") int startAge,@Param("endAge") int endAge);
+
+    @Query(value = "select drinkIndex from Review where gender = :gender group by drinkIndex",nativeQuery = true)
+    List<Long> findBydrinkIndexGender(@Param("gender") char gender);
+
+
 }

@@ -244,8 +244,9 @@ export default {
       state.currentUser.reviews = state.dummy
       state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
-    // SET_PROFILE: ( state, profile ) => state.profile = profile,
+    // // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
+    SET_FEED: ( state, feed ) => state.feed = feed,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page

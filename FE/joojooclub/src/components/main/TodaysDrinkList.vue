@@ -8,29 +8,39 @@
         </div>
       </div>
     </div>
-    <div class="todayItems row">
+    <!-- <div class="todayItems row">
       <todays-drink-list-item
       class="today my-5 align-items-center"
       v-for="todayDrink in todayDrinks"
       :key="todayDrink.drink"
       :todayDrink="todayDrink">
       </todays-drink-list-item>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import TodaysDrinkListItem from './TodaysDrinkListItem';
-import { mapState } from 'vuex'
+// import TodaysDrinkListItem from './TodaysDrinkListItem';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name : 'TodaysDrinkList',
-  components: {
-    TodaysDrinkListItem,
+  // components: {
+  //   TodaysDrinkListItem,
+  // },
+  props: {
+    weather: String,
   },
   computed: {
-    ...mapState('drinks',['todayDrinks'])
-  }
+    ...mapGetters('drinks', ['todayDrinks'])
+  },
+  methods: {
+    ...mapActions('drinks', ['getTodayWeekDrink', 'getTodayWeatherDrink']),
+  },
+  created() {
+    this.getTodayWeekDrink()
+    this.getTodayWeatherDrink(this.weather)
+  },
 }
 </script>
 

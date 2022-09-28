@@ -16,24 +16,26 @@ export default {
       pageList: []
     },
     showReviews: [],
-    todayDrinks: [
-      {
-        todayDrinkIndex: 0,
-        ment: '비 오는 날에는 막걸리 한 잔 어때요?',
-        drink: '국순당 쌀 막걸리',
-        info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-        drinkImage: 'https://thumb.mt.co.kr/06/2021/11/2021111911385598861_1.jpg',
-        tags: ['탁주', '인기', '과일']
-      },
-      {
-        drinkIndex: 1,
-        ment: '9월 25일 일요일, 30%의 사람들이 이 술을 선택했습니다',
-        drink: '소주',
-        info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-        drinkImage: 'https://dimg.donga.com/ugc/CDB/WEEKLY/Article/60/62/80/93/606280930c4bd2738de6.jpg',
-        tags: ['증류주', '혼술', '인기']
-      },
-    ],
+    // todayDrinks: {},
+    todayDrinks: {},
+    // todayDrinks: [
+    //   {
+    //     todayDrinkIndex: 0,
+    //     ment: '비 오는 날에는 막걸리 한 잔 어때요?',
+    //     drink: '국순당 쌀 막걸리',
+    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
+    //     drinkImage: 'https://thumb.mt.co.kr/06/2021/11/2021111911385598861_1.jpg',
+    //     tags: ['탁주', '인기', '과일']
+    //   },
+    //   {
+    //     drinkIndex: 1,
+    //     ment: '9월 25일 일요일, 30%의 사람들이 이 술을 선택했습니다',
+    //     drink: '소주',
+    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
+    //     drinkImage: 'https://dimg.donga.com/ugc/CDB/WEEKLY/Article/60/62/80/93/606280930c4bd2738de6.jpg',
+    //     tags: ['증류주', '혼술', '인기']
+    //   },
+    // ],
     questions: [
       {
         questionIndex: 0,
@@ -314,6 +316,7 @@ export default {
     },
     getShowPage: (state) => state.paging.pageShow,
     showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
+    todayDrinks: (state) => state.todayDrinks,
   },
   mutations: {
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
@@ -549,7 +552,13 @@ export default {
           console.log(err)
           console.log('get drinks failed!')
         })
-    }
+    },
+    GET_TODAY_WEEK_DRINK(state, data) {
+      state.todayDrinks['week'] = data
+    },
+    GET_TODAY_WEATHER_DRINK(state, data) {
+      state.todayDrinks['weather'] = data
+    },
   },
   actions: {
     fetchDrink({ dispatch, commit }, drinkIndex) {
@@ -631,6 +640,30 @@ export default {
     // },
     getDrinks({ commit }) {
       commit('GET_DRINKS')
-    }
+    },
+
+    getTodayWeekDrink({ commit }) {
+      axios({
+        url: joojooclub.drinks.todayWeekDrink(),
+        method: 'get',
+      }).then((res) => {
+        commit('GET_TODAY_WEEK_DRINK', res.data)
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+
+    getTodayWeatherDrink({ commit }, weather){
+      axios({
+        url: joojooclub.drinks.todayWeatherDrink(weather),
+        method: 'get',
+      }).then((res) => {
+        commit('GET_TODAY_WEATHER_DRINK', res.data)
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
   }
 }

@@ -6,6 +6,7 @@ const INFO = "info/"
 const MEMBER = 'member/'
 const FEED = 'feed/'
 const REVIEW = 'review/'
+const MAIN = 'main/'
 
 export default {
   accounts: {
@@ -22,6 +23,8 @@ export default {
     drinkInfo: (drinkIndex) => HOST + INFO + `${drinkIndex}/`,  // 술 상세 정보 GET
     drinkNames: () => HOST + INFO + `drink/`,                   // 술 이름 리스트 GET
     review: () => HOST + REVIEW,                                // 술 리뷰 (등록, POST), (삭제, DELETE)
+    todayWeekDrink: () => HOST + MAIN + 'day/', // 오늘의 술(요일별) GET
+    todayWeatherDrink: (weather) => HOST + MAIN + `weather/${weather}/`, // 오늘의 술(날씨별) GET
   },
   feed: {
     info: (feedIndex) => HOST + FEED + `${feedIndex}/`          // 피드 정보 GET

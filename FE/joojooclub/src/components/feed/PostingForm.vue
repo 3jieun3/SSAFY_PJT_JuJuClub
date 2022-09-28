@@ -45,22 +45,21 @@ export default {
 				title: this.feed.title,
 				content: this.feed.content,
 				customTags: this.feed.customTags,
+				imageUrl: this.feed.imageUrl,
 			}
 		}
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
 		onSubmit() {
-			if (this.action === 'post') {
+			if (this.action === 'create') {
 				const payload = {
-					drinkIndex: 1,
-					feed: this.newFeed,
+					...this.newFeed,
 				}
 				this.createFeed(payload)
 			} else if (this.action === 'edit') {
 				const payload = {
-					feedIndex: this.$route.params.feedPK,
-					...this.newFeed
+					...this.newFeed,
 				}
 				this.updateFeed(payload)
 			}

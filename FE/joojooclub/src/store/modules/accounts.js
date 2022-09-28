@@ -366,11 +366,11 @@ export default {
 
     signout({ dispatch, getters, commit }){
       if (getters.isLoggedIn) {
-      axios({
-        url: joojooclub.accounts.info(),
-        method: 'delete',
-        headers: getters.authHeader,
-      })
+        axios({
+          url: joojooclub.accounts.info(),
+          method: 'delete',
+          headers: getters.authHeader,
+        })
         .then(() => {
           dispatch('removeToken')
           commit('SET_CURRENT_USER', {})
@@ -395,46 +395,64 @@ export default {
       }
     },
 
-    fetchFeed({ commit, getters }, feedIndex) {
-      axios({
-        url: joojooclub.feed.info(feedIndex),
-        method: 'get',
-        headers: getters.authHeader
-      })
-      .then(res => commit('SET_FEED', res.data))
-      .catch(err => console.err(err.response))
-    },
-    
-    createFeed({ commit, getters }, { drinkIndex, feed }) {
-      // axios({
-      //   url: joojooclub.feed.info(feed),
-      //   method: 'post',
-      //   headers: getters.authHeader,
-      //   data: feed
-      // }).then((res) => {
-      //   commit('SET_FEED', res.data)
-      //   router.push({
-      //     name: 'profile',
-      //     params: { userPK: getters.feed.memberIndex }
-      //   })       
-      // }).catch((err) => {
-      //   console.log(err.response)
-      //   router.push({
-      //     name: 'profile',
-      //     params: { userPK: getters.feed.memberIndex }
-      //   })
-      // })
-      commit('SET_FEED', feed)
-      router.push({ name: 'feed' })
-    },
-
-
-    // updateFeed({ commit }, { feedIndex, feed }) {
-    //   commit('SET_FEED', feed)
-    //   router.push({
-    //     name: 'feed',
+    // fetchFeed({ commit, getters }, feedIndex) {
+    //   axios({
+    //     url: joojooclub.feed.info(feedIndex),
+    //     method: 'get',
     //   })
+    //   .then((res) => {
+    //     commit('SET_FEED', res.data)
+    //   })
+    //   .catch(err => console.err(err.response))
     // },
+    
+    createFeed({ getters }, { drinkIndex, payload }) {
+      if (getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'post',
+          headers: getters.authHeader,
+          data: { drinkIndex, ...payload },
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+      }
+    },
+
+    updateFeed({ getters }, { feedIndex, payload }) {
+      if(getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'put',
+          headers: getters.authHeader,
+          data: { feedIndex, ...payload },
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+      }
+    },
 
     goPage({ commit }, page) {
       commit('GO_PAGE', page)

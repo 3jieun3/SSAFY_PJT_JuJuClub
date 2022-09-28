@@ -24,6 +24,8 @@ export default {
     review: () => HOST + REVIEW,                                // 술 리뷰 (등록, POST), (삭제, DELETE)
   },
   feed: {
-    info: (feedIndex) => HOST + FEED + `${feedIndex}/`          // 피드 정보 GET
+    infos: () => HOST + FEED,                                   // 베스트 피드 + 피드 전체 정보 GET
+    info: (feedIndex) => HOST + FEED + `${feedIndex}/`,         // 피드 상세 정보 GET
+    valid: () => HOST + FEED + 'valid/',                        // 피드 (등록, POST), (수정, PUT), (삭제, DELETE)
   },
 }

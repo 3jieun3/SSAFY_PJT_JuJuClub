@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar :currentUser="currentUser" :todayDrinks="todayDrinks"></nav-bar>
-    <div v-if="show">{{ todayDrinks }}</div>
+    <div v-if="drinkList">{{ drinkList }}</div>
     <router-view />
     <footer-com></footer-com>
   </div>
@@ -38,10 +38,9 @@ export default {
       await this.fetchCurrentUser()
       await this.getWeatherInfo()
       await this.getInfo(this.todayDrinks)
-      await function () {
-        setTimeout(this.getInfo(this.todayDrinks), 100);
-      }
-      console.log(this.todayDrinks)
+      // await function () {
+      //   setTimeout(this.getInfo(this.todayDrinks), 100);
+      // }
     } catch {
       console.log("error")
     }

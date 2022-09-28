@@ -3,6 +3,7 @@ import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
 
+
 export default {
   namespaced: true,
   state: {
@@ -166,124 +167,7 @@ export default {
         isClicked: false
       },
     ],
-    customTagList: [
-      {
-        tagName: '과일',
-        isClicked: false
-      },
-      {
-        tagName: '밤',
-        isClicked: false
-      },
-      {
-        tagName: '땅콩',
-        isClicked: false
-      },
-      {
-        tagName: '꽃향',
-        isClicked: false
-      },
-      {
-        tagName: '인삼',
-        isClicked: false
-      },
-      {
-        tagName: '송이향',
-        isClicked: false
-      },
-      {
-        tagName: '오크향',
-        isClicked: false
-      },
-      {
-        tagName: '온더락',
-        isClicked: false
-      },
-      {
-        tagName: '하이볼',
-        isClicked: false
-      },
-      {
-        tagName: '반주',
-        isClicked: false
-      },
-      {
-        tagName: '축하주',
-        isClicked: false
-      },
-      {
-        tagName: '홈술',
-        isClicked: false
-      },
-      {
-        tagName: '혼술',
-        isClicked: false
-      },
-      {
-        tagName: '대통령상',
-        isClicked: false
-      },
-      {
-        tagName: '선물',
-        isClicked: false
-      },
-      {
-        tagName: '가정용',
-        isClicked: false
-      },
-      {
-        tagName: '파티용',
-        isClicked: false
-      },
-      {
-        tagName: '명절',
-        isClicked: false
-      },
-      {
-        tagName: '연말',
-        isClicked: false
-      },
-      {
-        tagName: '생일',
-        isClicked: false
-      },
-      {
-        tagName: '여행',
-        isClicked: false
-      },
-      {
-        tagName: '가성비',
-        isClicked: false
-      },
-      {
-        tagName: '수제',
-        isClicked: false
-      },
-      {
-        tagName: '부드러움',
-        isClicked: false
-      },
-      {
-        tagName: '청량',
-        isClicked: false
-      },
-      {
-        tagName: '상큼',
-        isClicked: false
-      },
-      {
-        tagName: '깔끔',
-        isClicked: false
-      },
-      {
-        tagName: '고소함',
-        isClicked: false
-      },
-      {
-        tagName: '드라이',
-        isClicked: false
-      },
-    ],
+    customTagList: [],
     choosedTagList: [],
     drinks: [],
     filteringDrinks: [],
@@ -305,6 +189,12 @@ export default {
     getQuestion: (state) => state.questions,
     getCustomClicked: state => idx => state.tagList.customTagClicked[idx].isClicked,
     getIsCards: (state) => state.isCards,
+    getTypeTagList: (state) => state.typeTagList,
+    getPercentTagList: (state) => state.percentTagList,
+    getAcidTagList: (state) => state.acidTagList,
+    getSweetTagList: (state) => state.sweetTagList,
+    getFruitTagList: (state) => state.fruitTagList,
+    getBodyTagList: (state) => state.bodyTagList,
     totalPage: (state) => {
       if (state.setFilteringDrinks.length%12 === 0) {
         return parseInt(state.setFilteringDrinks.length) / 12
@@ -316,6 +206,9 @@ export default {
     showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
   },
   mutations: {
+    SET_DRINKS: (state, res) => state.drinks = res,
+    SET_CUSTOM_TAGS: (state, res) => state.customTagList = res,
+    UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_REVIEWS(state, reviews){ 
       state.reviews = reviews
@@ -433,6 +326,8 @@ export default {
           state.choosedTagList.splice(nameIdx, 1)
         }
         else {
+          state.acidTagList.forEach(element => element.isClicked = false)
+        state.choosedTagList = _.without(state.choosedTagList, '있음', '없음')
           state.choosedTagList.push(tag.tagName)
         }
         const idx = state.acidTagList.indexOf(tag)
@@ -444,6 +339,8 @@ export default {
           state.choosedTagList.splice(nameIdx, 1)
         }
         else {
+          state.sweetTagList.forEach(element => element.isClicked = false)
+          state.choosedTagList = _.without(state.choosedTagList, '달달함', '달지 않음')
           state.choosedTagList.push(tag.tagName)
         }
         const idx = state.sweetTagList.indexOf(tag)
@@ -497,59 +394,38 @@ export default {
     // GO_DETAIL_PAGE(state, idx) {
     //   router.push('recommend/' + idx)
     // },
-    GO_PREV_PAGE(state) {
+    GO_FIRST_PAGE(state) {
       // 현재 페이지가 1보다 크다면 눌렀을 때 이전 페이지로
-      if (state.paging.currentPage > 1) {
-      state.paging.currentPage -= 1
+      // if (state.paging.currentPage > 1) {
+      state.paging.currentPage = 1
       // 스크롤 올라감
       window.scrollTo({top:1000, behavior:"smooth"})
-      }
+      // }
     },
-    GO_NEXT_PAGE(state) {
+    GO_LAST_PAGE(state) {
       // 현재 페이지가 마지막 페이지보다 작을 경우 눌렀을 때 다음 페이지
-      if (state.paging.currentPage < state.paging.totalPage/12)
-      state.paging.currentPage += 1
+      // if (state.paging.currentPage < state.paging.pageList.length)
+      state.paging.currentPage = state.paging.pageList.length
       window.scrollTo({top:1000, behavior:"smooth"})
     },
     GO_SPEC_PAGE(state, pageNum) {
       // 현재 페이지를 누른 버튼의 번호로 변경
       state.paging.currentPage = pageNum
-      console.log(pageNum,state.paging.pageList , state.paging.pageList[0], state.paging.pageList.length)
-      let fromPage = (pageNum < 3) ? 1 : state.paging.currentPage - 2
-      state.paging.pageShow = _.range(fromPage, fromPage+5).filter(n => _.inRange(n, state.paging.pageList[0], state.paging.pageList.length+1))
       window.scrollTo({top:1000, behavior:"smooth"})
     },
-    // async GET_DRINKS(state) {
-    //   try {
-    //     const res = await axios.get(joojooclub.drinks.info())
-    //     console.log('get drinks!')
-    //     console.log(res.data)
-    //     state.drinks = res.data.drinks
-    //   } catch(err) {
-    //     console.log(err)
-    //   }
-    GET_DRINKS(state) {
-      axios({
-        url: joojooclub.drinks.info(),
-        method: 'get',
-      })
-        .then((res) => {
-          state.drinks = res.data.drinks
-          console.log(state.drinks)
-          state.setFilteringDrinks = state.drinks
-          // 페이지 계산
-          if (state.setFilteringDrinks.length%12 == 0) {
-            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12))
-          }
-          else {
-            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12)+1)
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('get drinks failed!')
-        })
-    }
+    UPDATE_PAGE_SHOW(state, pageNum) {
+      let fromPage = (pageNum < 3) ? 1 : state.paging.currentPage - 2
+      state.paging.pageShow = _.range(fromPage, fromPage+5).filter(n => _.inRange(n, state.paging.pageList[0], state.paging.pageList.length+1))
+    },
+    // 전체 페이지 계산
+    UPDATE_PAGE_LIST(state) {
+      if (state.setFilteringDrinks.length%12 == 0) {
+        state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12))
+      }
+      else {
+        state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12)+1)
+      }
+    },
   },
   actions: {
     fetchDrink({ dispatch, commit }, drinkIndex) {
@@ -611,26 +487,48 @@ export default {
     changeList({ commit }) {
       commit('CHANGE_LIST')
     },
-    goDetailPage(idx) {
-      router.push('drinks/' + idx)
+    goFirstPage({ commit }, pageNum) {
+      commit('GO_FIRST_PAGE')
+      commit('UPDATE_PAGE_SHOW', pageNum)
     },
-    goPrevPage({ commit }) {
-      commit('GO_PREV_PAGE')
-    },
-    goNextPage({ commit }) {
-      commit('GO_NEXT_PAGE')
+    goLastPage({ commit }, pageNum) {
+      commit('GO_LAST_PAGE')
+      commit('UPDATE_PAGE_SHOW', pageNum)
     },
     goSpecPage({ commit }, pageNum) {
       commit('GO_SPEC_PAGE', pageNum)
+      commit('UPDATE_PAGE_SHOW', pageNum)
     },
-    tagSearch({ commit }) {
+    tagSearch({ commit }, pageNum) {
       commit('TAG_SEARCH')
+      commit('UPDATE_PAGE_LIST')
+      commit('GO_FIRST_PAGE')
+      commit('UPDATE_PAGE_SHOW', pageNum)
     },
-    // tagClickedReset() {
-    //   commit('TAG_CLICKED_RESET')
-    // },
     getDrinks({ commit }) {
-      commit('GET_DRINKS')
+      axios({
+        url: joojooclub.drinks.info(),
+        method: 'get',
+      })
+        .then((res) => {
+          commit('SET_DRINKS', res.data.drinks)
+          commit('UPDATE_SET_FILTERING_DRINKS', res.data.drinks)
+          commit('UPDATE_PAGE_LIST')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('get drinks failed!')
+        })
+    },
+    getCustomTags({ commit }) {
+      axios({
+        url: joojooclub.drinks.drinkTag(),
+        method: 'get',
+      })
+        .then((res) => {
+          console.log(res.data.taglist)
+          commit('SET_CUSTOM_TAGS', res.data.taglist)
+        })
     }
   }
 }

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import router from '@/router'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'DrinkCardItem',
@@ -27,7 +28,10 @@ export default {
     ...mapState('drinks', ['typeTagList'])
   },
   methods: {
-    ...mapActions('drinks', ['goDetailPage'])
+    ...mapActions('drinks', ['goDetailPage']),
+    goDetailPage(idx) {
+      router.push({ name: 'drink', params: { drinkPK : idx } })
+    }
   }
 }
 </script>
@@ -41,6 +45,14 @@ export default {
     width: 100%;
     height: 20vw;
     object-fit: contain;
+  }
+
+  @media (max-width: 450px) {
+    .card img {
+      width: 100%;
+      height: 30vw;
+      object-fit: contain;
+    }
   }
 
   .card-title {

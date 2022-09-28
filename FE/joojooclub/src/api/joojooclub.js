@@ -18,7 +18,8 @@ export default {
     // logout: () => HOST + MEMBER + 'logout/',  // fe에서 jwt token 폐기
   },
   drinks: {
-    info: () => HOST + INFO,                                    // 술 전체 정보 GET
+    info: () => HOST + INFO,
+    drinkTag: () => HOST + INFO + 'tag',                                    // 술 전체 정보 GET
     drinkInfo: (drinkIndex) => HOST + INFO + `${drinkIndex}/`,  // 술 상세 정보 GET
     drinkNames: () => HOST + INFO + `drink/`,                   // 술 이름 리스트 GET
     review: () => HOST + REVIEW,                                // 술 리뷰 (등록, POST), (삭제, DELETE)

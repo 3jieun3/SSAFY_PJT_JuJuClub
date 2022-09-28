@@ -22,10 +22,11 @@ export default {
     DrinkCatalog
   },
   methods: {
-    ...mapActions('drinks', ['getDrinks'])
+    ...mapActions('drinks', ['getDrinks', 'getCustomTags'])
   },
   created() {
     this.getDrinks()
+    this.getCustomTags()
   }
 }
 </script>

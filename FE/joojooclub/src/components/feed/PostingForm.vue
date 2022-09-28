@@ -1,5 +1,5 @@
 <template>
-	<form class="ui form">
+	<form class="ui form" enctype="multipart/form-data">
 		<div class="field">
 			<label for="drinkSearch">전통주명</label>
 			<search-bar></search-bar>
@@ -14,7 +14,10 @@
 		</div>
 		<div class="field">
 			<label for="imageFile">첨부 파일</label>
-			<input type="file" name="image-file" id="imageFile">
+			<div>
+				<input type="file" ref="image" name="image-file" id="imageFile" accept="image/*" @change="uploadImage">
+				<img :src="this.uploadedImageUrl" alt="uploaded feed image" class="preview-image">
+			</div>
 		</div>
 		<div class="field">
 			<label for="tags">태그</label>
@@ -40,30 +43,34 @@ export default {
 	},
 	data() {
 		return {
+			uploadedImageUrl: '',
 			newFeed: {
 				drinkIndex: this.feed.drinkIndex,
 				title: this.feed.title,
 				content: this.feed.content,
 				customTags: this.feed.customTags,
+				imageUrl: this.feed.imageUrl,
 			}
 		}
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
 		onSubmit() {
-			if (this.action === 'post') {
+			console.log(this.newFeed)
+			if (this.action === 'create') {
 				const payload = {
-					drinkIndex: 1,
-					feed: this.newFeed,
+					...this.newFeed,
 				}
 				this.createFeed(payload)
 			} else if (this.action === 'edit') {
 				const payload = {
-					feedIndex: this.$route.params.feedPK,
-					...this.newFeed
+					...this.newFeed,
 				}
 				this.updateFeed(payload)
 			}
+		},
+		uploadImage() {
+			this.uploadedImageUrl = URL.createObjectURL(this.$refs['image'].files[0])
 		}
 	},
 }
@@ -78,5 +85,8 @@ export default {
 .field > label {
 	text-align: end;
 	word-break: keep-all;
+}
+.preview-image {
+	width: 30vw;
 }
 </style>

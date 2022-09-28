@@ -3,12 +3,11 @@
     <div class="background-wrap">
       <div class="content">
         <div id="welcomeMent" class="animationTarget">
-          <p>한국 전통의 맛을</p>
-          <p>경험해보세요</p>
+          <p class="m-0">한국 전통의 맛을 경험해보세요</p>
         </div>
-        <button class="btn btn-warning mx-5"
+        <button class="main-btn btn btn-warning mx-3 mx-md-5"
         @click="goRecommend">전통주 맞춤추천</button>
-        <button class="btn btn-warning mx-5"
+        <button class="main-btn btn btn-warning mx-3 mx-md-5"
         @click="goDrinks">전통주 검색하기</button>
       </div>
     </div>
@@ -26,8 +25,8 @@ export default {
       anime({
         targets: '.animationTarget',
         opacity: ['0', '1'],
-        translateY: '-150px',
-        duration: 5000
+        translateY: ('-10vw', '-50px'),
+        duration: 5000,
       })
     },
     goRecommend() {
@@ -44,25 +43,35 @@ export default {
 </script>
 
 <style scoped>
-
-  #welcomeMent {
-    color: white;
-    font-size: 45px;
-    width: auto;
-  }
-
   .background-wrap {
-    background: url(@/assets/mainImage.jpg) no-repeat center;
+    background-image: url("@/assets/mainImage.png");
+    background-size: cover;
     position: relative;
-    height: 80vh;
-    }
-
+    height: min(80vh, 500px);
+  }
   .content {
     height: 30px;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    justify-content: center;
+    /* justify-content: center; */
+  }
+  #welcomeMent {
+    color: white;
+    font-size: 3rem;
+    width: auto;
+  }
+  @media (max-width: 600px) {
+    .background-wrap {
+      height: 300px;
+    }
+    #welcomeMent {
+      font-size: 1.6rem;
+    }
+  }
+  .main-btn {
+    font-size: min(2vw, 1rem);
+    opacity: 0.8;
   }
 </style>

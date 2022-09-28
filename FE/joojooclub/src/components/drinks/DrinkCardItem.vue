@@ -1,24 +1,38 @@
 <template>
   <div>
-    <div class="card" style="width: 18rem;">
-      <img :src="drink.drinkImg" class="card-img-top" alt="drinkCard">
+    <div class="card"
+    @click="goDetailPage(drink.drink.drinkIndex)">
+      <img :src="drink.drink.imageUrl" class="card-img-top" alt="drinkCard">
       <div class="card-body">
-      <h5 class="card-title">{{ drink.drinkName }}</h5>
-      <p class="card-text">{{ drink.drinkType }} | {{ drink.drinkPercent }}</p>
-      <button class="drinkTag btn btn-sm btn-warning"
-      v-for="(tag, index) in drink.tags"
-      :key="index"> #{{ tag }}</button>
+        <h5 class="card-title">{{ drink.drink.drinkName }}</h5>
+        <p class="card-text">{{ typeTagList[drink.drink.drinkType.drinkTypeIndex-1].tagName }} | {{ Math.floor((drink.drink.abv)*100) }}%</p>
+        <div class="tags d-flex justify-content-around">
+          <button class="drinkTag btn btn-sm btn-warning text-nowrap"
+          v-for="(tag, index) in drink.tags"
+          :key="index"> #{{ tag }}</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import router from '@/router'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'DrinkCardItem',
   props: {
     drink: Object
   },
+  computed: {
+    ...mapState('drinks', ['typeTagList'])
+  },
+  methods: {
+    ...mapActions('drinks', ['goDetailPage']),
+    goDetailPage(idx) {
+      router.push({ name: 'drink', params: { drinkPK : idx } })
+    }
+  }
 }
 </script>
 
@@ -31,6 +45,14 @@ export default {
     width: 100%;
     height: 20vw;
     object-fit: contain;
+  }
+
+  @media (max-width: 450px) {
+    .card img {
+      width: 100%;
+      height: 30vw;
+      object-fit: contain;
+    }
   }
 
   .card-title {

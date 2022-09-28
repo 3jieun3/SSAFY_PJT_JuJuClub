@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
-		<img :src="require(`@/assets/feed/${food.name}.jpg`)" class="card-img-top" alt="food image">
-		<h5>{{ food.name }}</h5>
+		<img :src="food.imageUrl" class="card-img-top" alt="food image">
+		<h5>{{ food.foodName }}</h5>
 	</div>
 </template>
 

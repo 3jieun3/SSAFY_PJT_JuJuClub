@@ -4,12 +4,14 @@
     <custom-tag-list></custom-tag-list>
     <hr>
     <div class="searchBtn">
-      <button class="btn btn-warning justify-content-end">조회하기</button>
+      <button class="btn btn-warning justify-content-end"
+      @click="tagSearch(1)">조회하기</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import BasicTagList from './BasicTagList.vue'
 import CustomTagList from './CustomTagList.vue'
 
@@ -18,6 +20,9 @@ export default {
   components: {
     BasicTagList,
     CustomTagList,
+  },
+  methods: {
+    ...mapActions('drinks', ['tagSearch'])
   }
 }
 </script>
@@ -36,4 +41,11 @@ export default {
     justify-content: start;
     margin-top: 20px;
   }
+
+  @media (max-width: 850px) {
+    .container {
+      padding: 3rem;
+    }
+  }
+
 </style>

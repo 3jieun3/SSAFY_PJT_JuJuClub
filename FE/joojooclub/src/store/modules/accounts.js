@@ -14,14 +14,15 @@ export default {
     // profile: {},
     // signup, login할 때 오류 메세지
     authError: null,
-    // 개인 피드 상세
-    feed: {},
     // 후기 pagination
-    currentPage: 1,
-    pageList: [],
-    pageReviews: [],
+    reviewPaging: {
+      currentPage: 1,
+      totalPage: 0,
+      pageList: [1, 2, 3],
+    },
+    showReviews: [],
     // dummy
-    reviews: [
+    dummy: [
       {
         reviewIndex: 1,
         score: 5,
@@ -231,25 +232,34 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
-    feed: state => state.feed,
-    currentPage: state => state.currentPage,
-    pageList: state => state.pageList,
-    pageReviews: state => state.pageReviews,
+    reviews: state => state.currentUser.reviews,
+    reviewPaging: state => state.reviewPaging,
+    pageList: state => state.reviewPaging.pageList,
+    showReviews: state => state.showReviews,
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
-    SET_CURRENT_USER: ( state, user ) => state.currentUser = user,
+    SET_CURRENT_USER: ( state, user ) => { 
+      state.currentUser = user
+      state.currentUser.reviews = state.dummy
+      state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
+    },
     // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
-    SET_FEED: ( state, feed ) => state.feed = feed,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
-      state.currentPage = page
+      state.reviewPaging.currentPage = page
       // pagination nav에 보여줄 page list 변경
       let fromPage = (page - 1 === 0) ? 1 : page - 1
-      state.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, Math.ceil(state.reviews.length / 3) + 1))
-      state.pageReviews = state.reviews.slice((page - 1) * 3, page * 3)
+      state.reviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.reviewPaging.totalPage + 1))
+      console.log(state.reviewPaging.pageList)
+      // page 에서 보여줄 review list 변경
+      state.showReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
     },
+    // SET_REVIEWS(state, reviews) {
+    //   state.reviews = reviews
+    //   state.reviewPaging.totalPage = Math.ceil(reviews.length / 3)
+    // },
   },
   actions: {
     saveToken({ commit }, token) {
@@ -394,17 +404,6 @@ export default {
         })
       }
     },
-
-    // fetchFeed({ commit, getters }, feedIndex) {
-    //   axios({
-    //     url: joojooclub.feed.info(feedIndex),
-    //     method: 'get',
-    //   })
-    //   .then((res) => {
-    //     commit('SET_FEED', res.data)
-    //   })
-    //   .catch(err => console.err(err.response))
-    // },
     
     createFeed({ getters }, { drinkIndex, payload }) {
       if (getters.isLoggedIn) {

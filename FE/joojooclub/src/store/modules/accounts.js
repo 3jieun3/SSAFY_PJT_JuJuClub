@@ -246,7 +246,6 @@ export default {
     },
     // // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
-    SET_FEED: ( state, feed ) => state.feed = feed,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page
@@ -403,81 +402,6 @@ export default {
           }
         })
       }
-    },
-    
-    createFeed({ getters }, { drinkIndex, payload }) {
-      if (getters.isLoggedIn) {
-        axios({
-          url: joojooclub.feed.valid(),
-          method: 'post',
-          headers: getters.authHeader,
-          data: { drinkIndex, ...payload },
-        })
-        .then(() => {
-          router.push({
-            name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
-          })
-        })
-        .catch((err) => {
-          console.log(err.response)
-          router.push({
-            name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
-          })
-        })
-      }
-    },
-
-    updateFeed({ getters }, { feedIndex, payload }) {
-      if(getters.isLoggedIn) {
-        axios({
-          url: joojooclub.feed.valid(),
-          method: 'put',
-          headers: getters.authHeader,
-          data: { feedIndex, ...payload },
-        })
-        .then(() => {
-          router.push({
-            name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
-          })
-        })
-        .catch((err) => {
-          console.log(err.response)
-          router.push({
-            name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
-          })
-        })
-      }
-    },
-
-    deleteFeed({ getters }, feedIndex) {
-      if(getters.isLoggedIn) {
-        if(confirm('피드를 삭제하시겠습니까?')){
-          axios({
-            url: joojooclub.feed.valid(),
-            method: 'delete',
-            headers: getters.authHeader,
-            data: { feedIndex },
-          })
-          .then(() => {
-            alert('정상적으로 삭제되었습니다.')
-            router.push({
-              name: 'profile',
-              params: { userPK: getters.currentUser.memberIndex }
-            })
-          })
-          .catch((err) => {
-            console.log(err.response)
-            router.push({
-              name: 'profile',
-              params: { userPK: getters.currentUser.memberIndex }
-            })
-          })
-        }
-      }  
     },
 
     goPage({ commit }, page) {

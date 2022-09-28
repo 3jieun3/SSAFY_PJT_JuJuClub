@@ -1,8 +1,15 @@
+import router from '@/router'
+import axios from 'axios'
+import joojooclub from '@/api/joojooclub'
+
 export default {
   namespaced: true,
   
   state: {
-    bestFeeds: [
+    feed: {},
+    bestFeeds: [],
+    feeds: [],
+    bestdummy: [
       {
         feedId: 1,
         memberId: 1,
@@ -34,7 +41,7 @@ export default {
         imageUrl: 'ryan3.jpg'
       },
     ],
-    feeds: [
+    dummy: [
       {
         feedId: 4,
         memberId: 1,
@@ -159,11 +166,134 @@ export default {
   },
 
   getters: {
+    feed: state => state.feed,
+    feeds: state => state.feeds,
+    bestFeeds: state => state.bestFeeds,
   },
 
   mutations: {
+    SET_FEED: (state, feed) => state.feed = feed,
+    SET_FEEDS: (state, feeds) => state.feeds = feeds,
+    SET_BEST_FEEDS: (state, bestFeeds) => state.bestFeeds = bestFeeds,
   },
 
   actions: {
+    fetchFeed({ commit }, feedIndex) {
+      axios({
+        url: joojooclub.feed.info(feedIndex),
+        method: 'get',
+      })
+      .then((res) => {
+        commit('SET_FEED', res.data)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
+    },
+    
+    fetchAllFeeds({ commit }) {
+      axios({
+        url: joojooclub.feed.info(),
+        method: 'get',
+      })
+      .then((res) => {
+        commit('SET_FEEDS', res.data.feeds)
+        commit('SET_BEST_FEEDS', res.data.bestFeeds)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
+    },
+
+    createFeed({ getters }, feed) {
+      if (getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'post',
+          headers: getters.authHeader,
+          data: feed,
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+      }
+    },
+
+    updateFeed({ getters }, { feedIndex, feed }) {
+      if(getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'put',
+          headers: getters.authHeader,
+          data: { feedIndex, ...feed },
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+      }
+    },
+
+    deleteFeed({ getters }, feedIndex) {
+      if(getters.isLoggedIn) {
+        if(confirm('피드를 삭제하시겠습니까?')){
+          axios({
+            url: joojooclub.feed.valid(),
+            method: 'delete',
+            headers: getters.authHeader,
+            data: { feedIndex },
+          })
+          .then(() => {
+            alert('정상적으로 삭제되었습니다.')
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+          .catch((err) => {
+            console.log(err.response)
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+        }
+      }  
+    },
+
+    likeFeed({ getters }, feedIndex) {
+      if(getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.like(),
+          method: 'post',
+          headers: getters.authHeader,
+          data: { feedIndex },
+        })
+        .then(() => {
+          console.log('좋아요')
+        })
+      }
+    },
+
+
   }
 }

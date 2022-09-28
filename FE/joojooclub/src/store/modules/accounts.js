@@ -244,7 +244,7 @@ export default {
       state.currentUser.reviews = state.dummy
       state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
-    // SET_PROFILE: ( state, profile ) => state.profile = profile,
+    // // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
@@ -390,6 +390,12 @@ export default {
           // 토큰이 잘못된 경우
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })

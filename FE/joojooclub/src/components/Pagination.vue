@@ -29,14 +29,13 @@ export default {
 		currentPage: Number,
 	},
 	computed: {
-		...mapGetters(['pageList'])
+		...mapGetters(['pageList']),
+		...mapGetters('drinks', ['pageList']),
 	},
 	methods: {
-		...mapActions(['goPage'])
+		...mapActions(['goPage']),
+		...mapActions('drinks', ['goPage']),
 	},
-	created() {
-		this.goPage(1)
-	}
 }
 </script>
 

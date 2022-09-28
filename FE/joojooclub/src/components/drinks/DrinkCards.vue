@@ -8,16 +8,6 @@
         :drink="drink"></drink-card-item>
       </div>
     </div>
-    <div class="pagenationWrap d-flex justify-content-center">
-      <ul class="pagination">
-        <li class="page-item"><a @click="goPrevPage()" class="page-link">Previous</a></li>
-        <li class="page-item"
-        :class="{'active': paging.currentPage === index+1}"
-        v-for="(n, index) in totalPage"
-        :key="index"><a @click="goSpecPage(index+1)" class="page-link">{{ index+1 }}</a></li>
-        <li class="page-item"><a @click="goNextPage()" class="page-link">Next</a></li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -41,25 +31,5 @@ export default {
 <style scoped>
   .cardItems {
     margin-bottom: 20px;
-  }
-
-  .page-item {
-    border: none;
-    background-color: bisque;
-  }
-
-  .page-item.active > .page-link {
-    background-color: bisque;
-    color: black;
-  }
-
-  .pagination {
-    margin-top: 50px;
-  }
-
-  .page-link {
-    border: none;
-    color: black;
-    font-weight: bold;
   }
 </style>

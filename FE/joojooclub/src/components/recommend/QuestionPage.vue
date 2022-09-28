@@ -49,8 +49,13 @@ export default {
     padding-bottom: 50px;
   }
 
+  .question {
+    padding-bottom: 50px;
+  }
+
   .ansButton {
     justify-content: space-evenly;
+    padding-top: 50px;
     padding-top: 50px;
   }
 

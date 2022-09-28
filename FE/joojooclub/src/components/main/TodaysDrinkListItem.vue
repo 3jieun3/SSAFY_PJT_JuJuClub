@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="justify-content-between"
+    data-aos="fade-up"
+    data-aos-anchor-placement="bottom-bottom"
     :class="{'todayRight mx-5' : todayDrink.drinkIndex, 'todayLeft mx-5' : !todayDrink.drinkIndex}">
       <div class="img-wrap col col-xs-12 col-sm-3">
         <img class="drinkImg" :src="todayDrink.drinkImage" alt="">
@@ -19,11 +21,17 @@
 </template>
 
 <script>
+import AOS from 'aos';
+import "aos/dist/aos.css";
+
 export default {
   name: 'TodaysDrinkListItem',
   props: {
     todayDrink: Object,
   },
+  created() {
+    AOS.init();
+  }
 }
 </script>
 

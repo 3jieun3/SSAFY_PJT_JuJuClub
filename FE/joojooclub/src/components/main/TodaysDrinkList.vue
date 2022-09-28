@@ -3,7 +3,8 @@
     <div class="justify-content-center align-items-center">
       <div class="wrapToday">
         <div class="content">
-          <h1>오늘의 술</h1>
+          <h1 class="mt-5">오늘의 술</h1>
+          <h3>이런 술은 어떤가요?</h3>
         </div>
       </div>
     </div>
@@ -34,7 +35,6 @@ export default {
 </script>
 
 <style>
-
   .wrapToday {
     height: 50px;
     display: flex;

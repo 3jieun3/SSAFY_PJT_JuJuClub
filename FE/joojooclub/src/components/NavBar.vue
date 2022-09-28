@@ -92,13 +92,13 @@ export default {
   font-size: min(4vw, 1.1rem);
 }
 .colorbtn {
-  font-size: min(4vw, 1rem);
+  font-size: min(2vw, 1rem);
   padding: min(0.8vw, 4px) min(1.6vw, 1rem);
   margin: 5px;
   color: black;
 }
 .colorbtn2 {
-  font-size: min(4vw, 1rem);
+  font-size: min(2vw, 1rem);
   padding: min(0.8vw, 4px) min(1.6vw, 1rem);
   margin: 5px;
 }

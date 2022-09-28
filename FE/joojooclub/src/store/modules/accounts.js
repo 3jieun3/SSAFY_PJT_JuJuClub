@@ -400,6 +400,12 @@ export default {
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })
           }
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
         })
       }
     },

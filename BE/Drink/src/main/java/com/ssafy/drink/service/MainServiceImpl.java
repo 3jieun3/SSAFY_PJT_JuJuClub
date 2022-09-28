@@ -71,6 +71,7 @@ public class MainServiceImpl implements MainService{
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("drink", drink);
+        map.put("weather", weather.getWeatherStatus());
 
         return map;
     }

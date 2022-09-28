@@ -3,10 +3,12 @@ package com.ssafy.drink.service;
 import com.ssafy.drink.controller.MainController;
 import com.ssafy.drink.domain.Drink;
 import com.ssafy.drink.domain.DrinkType;
+import com.ssafy.drink.domain.TagDrink;
 import com.ssafy.drink.domain.Weather;
 import com.ssafy.drink.mapping.ResponseTodayDrink;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.ReviewRepository;
+import com.ssafy.drink.repository.TagDrinkRepository;
 import com.ssafy.drink.repository.WeatherRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,9 @@ public class MainServiceImpl implements MainService{
     @Autowired
     WeatherRepository weatherRepository;
 
+    @Autowired
+    TagDrinkRepository tagDrinkRepository;
+
     @Override
     public Map<String, Object> todayDrink() {
 
@@ -44,11 +49,18 @@ public class MainServiceImpl implements MainService{
 
         Drink drink = drinkRepository.findById(responseTodayDrink.get(0).getDrinkIndex()).orElseThrow(RuntimeException::new);
 
+        List<String> tags = new ArrayList<>();
+
+        List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+        for(int j = 0; j < tagList.size(); j++) {
+            tags.add(tagList.get(j).getTag().getTagName());
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("drink", drink);
         map.put("weekday", responseTodayDrink.get(0).getWeekday());
         int percent = (int) ((double)responseTodayDrink.get(0).getCount() / (double)todayTotalReviewCount * 100);
         map.put("percent", percent);
+        map.put("tag", tags);
 
         return map;
     }
@@ -69,9 +81,17 @@ public class MainServiceImpl implements MainService{
         int number = rand.nextInt(drinks.size()); // 랜덤 숫자
         Drink drink = drinks.get(number);
 
+        List<String> tags = new ArrayList<>();
+
+        List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+        for(int j = 0; j < tagList.size(); j++) {
+            tags.add(tagList.get(j).getTag().getTagName());
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("drink", drink);
         map.put("weather", weather.getWeatherStatus());
+        map.put("tag", tags);
 
         return map;
     }

@@ -31,5 +31,7 @@ export default {
     infos: () => HOST + FEED,                                   // 베스트 피드 + 피드 전체 정보 GET
     info: (feedIndex) => HOST + FEED + `${feedIndex}/`,         // 피드 상세 정보 GET
     valid: () => HOST + FEED + 'valid/',                        // 피드 (등록, POST), (수정, PUT), (삭제, DELETE)
+    like: () => HOST + FEED + 'valid/like/',                    // 피드 좋아요 & 좋아요 취소 POST
+    likeInfo: (feedIndex) => HOST + FEED + 'like/' + `${feedIndex}/`, // 피드 좋아요한 멤버 리스트 GET
   },
 }

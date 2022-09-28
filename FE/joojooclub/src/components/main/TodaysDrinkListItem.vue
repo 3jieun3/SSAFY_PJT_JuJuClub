@@ -5,12 +5,12 @@
     data-aos-anchor-placement="bottom-bottom"
     :class="{'todayRight mx-5' : todayDrink.drinkIndex, 'todayLeft mx-5' : !todayDrink.drinkIndex}">
       <div class="img-wrap col col-xs-12 col-sm-3">
-        <img class="drinkImg" :src="todayDrink.drinkImage" alt="">
+        <img class="drinkImg" :src="todayDrink.drink.imageUrl" alt="">
       </div>
       <div class="drinkInfo mx-5 col col-xs-12 col-sm-7">
-        <p class="todayMent">{{ todayDrink.ment }}</p>
-        <p class="todayDrinkName">{{ todayDrink.drink }}</p>
-        <p class="todayDrinkInfo">{{ todayDrink.info }}</p>
+        <p class="todayMent">비오는 날 추천하는 막걸리</p>
+        <p class="todayDrinkName">{{ todayDrink.drink.drinkName }}</p>
+        <p class="todayDrinkInfo">{{ todayDrink.drink.description }}</p>
         <p class="todayTags">
           <span v-for="(tag, index) in todayDrink.tags"
           :key="index">#{{ tag }} </span>
@@ -31,6 +31,7 @@ export default {
   },
   created() {
     AOS.init();
+    console.log(this.todayDrink)
   }
 }
 </script>

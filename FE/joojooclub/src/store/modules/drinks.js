@@ -2,6 +2,7 @@ import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
+import config from '@/api_key.js'
 
 export default {
   namespaced: true,
@@ -16,7 +17,7 @@ export default {
       pageList: []
     },
     showReviews: [],
-    // todayDrinks: {},
+    // todayDrinks: [],
     todayDrinks: {},
     // todayDrinks: [
     //   {
@@ -296,6 +297,7 @@ export default {
       pageShow: [1, 2, 3, 4, 5],
     },
     isCards: true,
+    weatherInfo: {},
   },
   getters: {
     drink: state => state.drink,
@@ -317,6 +319,7 @@ export default {
     getShowPage: (state) => state.paging.pageShow,
     showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
     todayDrinks: (state) => state.todayDrinks,
+    weatherInfo: (state) => state.weatherInfo,
   },
   mutations: {
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
@@ -559,6 +562,9 @@ export default {
     GET_TODAY_WEATHER_DRINK(state, data) {
       state.todayDrinks['weather'] = data
     },
+    GET_WEATHER_INFO(state, data) {
+      state.weatherInfo = data
+    }
   },
   actions: {
     fetchDrink({ dispatch, commit }, drinkIndex) {
@@ -642,25 +648,68 @@ export default {
       commit('GET_DRINKS')
     },
 
-    getTodayWeekDrink({ commit }) {
-      axios({
+    async getWeatherInfo({ commit, dispatch, getters }) {
+      function getAPI() {
+        const API_KEY = config.VUE_APP_WEATHER_API
+        const info = {
+          latitude: null, // 경도 ex) 36.1071
+          longitude: null,  // 위도 ex) 128.408
+          country: '',  // 국가 ex) KR
+          location: '', // 지역 ex) Gumi
+          humidity: null, // ex) 66
+          temparature: null, // ex) 17.88
+          weather: null,  // ex) clouds
+          weather_description: '', // ex) overcast cloud
+        }
+  
+        function onGeoOk(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+          fetch(url).then((res) => res.json()).then((data) => {
+            info.latitude = data.coord.lat;
+            info.longitude = data.coord.lon;
+            info.country = data.sys.country;
+            info.location = data.name;
+            info.humidity = data.main.humidity;
+            info.temparature = data.main.temp;
+            info.weather = data.weather[0].main;
+            info.weather_description = data.weather[0].description;
+          });
+        }
+        function onGeoError() {
+          alert("Can't find you. No weather for you")
+        }
+        navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
+        commit('GET_WEATHER_INFO', info)
+      }
+      try {
+        getAPI()
+        await dispatch('getTodayWeekDrink')
+        await dispatch('getTodayWeatherDrink', getters.weatherInfo.weather)
+        console.log(getters.todayDrinks)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getTodayWeekDrink({ commit }) {
+      await axios({
         url: joojooclub.drinks.todayWeekDrink(),
         method: 'get',
       }).then((res) => {
         commit('GET_TODAY_WEEK_DRINK', res.data)
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       })
     },
 
-    getTodayWeatherDrink({ commit }, weather){
-      axios({
-        url: joojooclub.drinks.todayWeatherDrink(weather),
+    async getTodayWeatherDrink({ commit }, data){
+      await axios({
+        url: joojooclub.drinks.todayWeatherDrink(data),
         method: 'get',
       }).then((res) => {
         commit('GET_TODAY_WEATHER_DRINK', res.data)
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       })

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <nav-bar :currentUser="currentUser"></nav-bar>
-    <router-view/>
+    <nav-bar :currentUser="currentUser" :todayDrinks="todayDrinks"></nav-bar>
+    <div v-if="show">{{ todayDrinks }}</div>
+    <router-view />
     <footer-com></footer-com>
   </div>
 </template>
@@ -14,17 +15,39 @@ import FooterCom from './components/FooterCom.vue'
 export default {
   name: 'App',
   components: { NavBar, FooterCom },
+  data() {
+    return {
+      drinkList: {},
+      show: false,
+    }
+  },
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['currentUser']),
+    ...mapGetters('drinks', ['todayDrinks',]),
   },
   methods: {
-  ...mapActions(['fetchCurrentUser',])
+    ...mapActions(['fetchCurrentUser',]), // accounts.js
+    ...mapActions('drinks', ['getWeatherInfo']),  // drinks.js
+    async getInfo(data) {
+      this.drinkList = data
+      this.show = true
+    },
   },
-  created() {
-    this.fetchCurrentUser()
+  async created () {
+    try {
+      await this.fetchCurrentUser()
+      await this.getWeatherInfo()
+      await this.getInfo(this.todayDrinks)
+      await function () {
+        setTimeout(this.getInfo(this.todayDrinks), 100);
+      }
+      console.log(this.todayDrinks)
+    } catch {
+      console.log("error")
+    }
   },
   updated() {
-    // this.fetchCurrentUser()
+    
   }
 }
 </script>

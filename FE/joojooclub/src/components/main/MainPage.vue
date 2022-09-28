@@ -1,20 +1,20 @@
 <template>
   <div>
     <main-image></main-image>
-    <div class="d-flex flex-column align-items-start p-5">
+    <!-- <div class="d-flex flex-column align-items-start p-5">
       <div>{{ nowDate }} {{ nowWeekday }} {{ weatherInfo.country }}, {{ weatherInfo.location }}</div>
       <div class="d-flex justify-content-between">
         <div class="me-5">습도: {{ weatherInfo.humidity }} %</div>
         <div>온도: {{ weatherInfo.temparature }} ℃</div>
       </div>
       <div>오늘 날씨: {{ weatherInfo.weather }} / {{ weatherInfo.weather_description }}</div>
-    </div>
-    <todays-drink-list v-if="weatherInfo.weather" :weather="weatherInfo.weather"></todays-drink-list>
+    </div> -->
+    <todays-drink-list :todayDrinks="todayDrinks" :todayDrinkList="todayDrinkList"></todays-drink-list>
   </div>
 </template>
 
 <script>
-// import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import MainImage from './MainImage.vue';
 import TodaysDrinkList from './TodaysDrinkList.vue';
 
@@ -26,19 +26,18 @@ export default {
     TodaysDrinkList,
   },
   props: {
-    // latitude, longitude, country, location
-    // humidity, temparataure, weather, weather_description
-    weatherInfo: Object,
+    todayDrinks: Object
   },
   data() {
     return {
       nowTime: null,
       nowDate: null,
       nowWeekday: null,
+      todayDrinkList: {},
     }
   },
   methods: {
-    // ...mapActions(['getTodayWeekDrink']),
+    ...mapActions('drinks', ['getTodayWeekDrink', 'getTodayWeatherDrink',]),
     setDate(){
       const hour =new Date().getHours() < 10? "0" + new Date().getHours(): new Date().getHours();
       const minute =new Date().getMinutes() < 10? "0" + new Date().getMinutes(): new Date().getMinutes();
@@ -57,8 +56,8 @@ export default {
     },
   },
   created() {
-    this.nowTimes();
     this.init();
+    this.nowTimes();
     this.nowDate = new Date().toLocaleDateString('ko-KR', {
       year: 'numeric',
       month: 'long',
@@ -67,7 +66,7 @@ export default {
     this.nowWeekday = new Date().toLocaleDateString('ko-KR', {
         weekday: 'long',
     })
-  },
+},
   updated() {
     this.init();
     this.nowTimes();

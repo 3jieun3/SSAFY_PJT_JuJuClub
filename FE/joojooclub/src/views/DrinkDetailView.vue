@@ -5,11 +5,11 @@
 			<drink-detail :drink="drink"></drink-detail>
 		</div>
 		<div class="detail-body">
-			<food-list :foods="foods"></food-list>
+			<food-list :foods="drink.foods"></food-list>
 			<h4>후기</h4>
 			<hr>
-			<comment-form></comment-form>
-			<comment-list :comments="comments"></comment-list>
+			<comment-form v-if="isLoggedIn"></comment-form>
+			<comment-list :reviews="reviews"></comment-list>
 		</div>
 	</div>
 </template>
@@ -19,7 +19,7 @@ import DrinkDetail from '@/components/drinks/DrinkDetail'
 import FoodList from '@/components/drinks/FoodList'
 import CommentForm from '@/components/drinks/CommentForm'
 import CommentList from '@/components/drinks/CommentList'
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	name: 'DrinkDetailView',
@@ -29,14 +29,16 @@ export default {
 		CommentForm,
 		CommentList,
 	},
-	data() {
-		return {
-			drinkPK: this.$route.params.drinkPK,
-		}
+	methods: {
+		...mapActions('drinks', ['fetchDrink'])
 	},
 	computed: {
-		...mapState('drinks', ['drink', 'foods', 'comments']),
-		}
+		...mapGetters(['isLoggedIn']),
+		...mapGetters('drinks', ['drink', 'reviews']),
+	},
+	created() {
+		this.fetchDrink(this.$route.params.drinkPK)
+	},
 }
 </script>
 

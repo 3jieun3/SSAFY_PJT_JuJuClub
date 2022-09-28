@@ -1,10 +1,21 @@
 import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
+import _ from 'lodash'
 
 export default {
   namespaced: true,
   state: {
+    // drink detail 정보
+    drink: {},
+    reviews: [],
+    // drink detail reviews pagination
+    reviewPaging: {
+      currentPage: 1,
+      totalPage: 0,
+      pageList: []
+    },
+    showReviews: [],
     todayDrinks: [
       {
         todayDrinkIndex: 0,
@@ -62,7 +73,7 @@ export default {
       },
       {
         tagIndex: 2,
-        tagName: '약주 / 청주',
+        tagName: '약주, 청주',
         isClicked: false
       },
       {
@@ -77,7 +88,7 @@ export default {
       },
       {
         tagIndex: 5,
-        tagName: '기타 주류',
+        tagName: '리큐르, 기타주류',
         isClicked: false
       },
     ],
@@ -280,24 +291,20 @@ export default {
     paging:{
       currentPage: 1,
       pageList: [],
-      pageShow: [],
+      pageShow: [1, 2, 3, 4, 5],
     },
-    drink: [],
     isCards: true,
   },
   getters: {
-    getFilteringDrinks: (state) => {
-      return state.filteringDrinks
-    },
-    getQuestion: (state) => {
-      return state.questions
-    },
-    getCustomClicked: state => idx => {
-      return state.tagList.customTagClicked[idx].isClicked
-    },
-    getIsCards: (state) => {
-      return state.isCards
-    },
+    drink: state => state.drink,
+    reviews: state => state.reviews,
+    reviewPaging: state => state.reviewPaging,
+    pageList: state => state.reviewPaging.pageList,
+    showReviews: state => state.showReviews,
+    getFilteringDrinks: (state) => state.filteringDrinks,
+    getQuestion: (state) => state.questions,
+    getCustomClicked: state => idx => state.tagList.customTagClicked[idx].isClicked,
+    getIsCards: (state) => state.isCards,
     totalPage: (state) => {
       if (state.setFilteringDrinks.length%12 === 0) {
         return parseInt(state.setFilteringDrinks.length) / 12
@@ -305,60 +312,79 @@ export default {
         return parseInt(state.setFilteringDrinks.length / 12) + 1
       }
     },
-    showPage: (state) => {
-      const a = state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12)
-      return a
-    },
+    getShowPage: (state) => state.paging.pageShow,
+    showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
   },
   mutations: {
+    SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
+    SET_REVIEWS(state, reviews){ 
+      state.reviews = reviews
+      state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
+    },
+    CREATE_REVIEW:(state, review) => state.reviews.unshift(review),
+    DELETE_REVIEW:(state, reviewIndex) => state.reviews.splice(state.reviews.indexOf(reviewIndex), 1), 
+    GO_PAGE(state, page) {
+      // 현재 페이지를 선택된 페이지로 변경
+      state.reviewPaging.currentPage = page
+      // pagination nav에 보여줄 page list 변경
+      let fromPage = (page - 1 === 0) ? 1 : page - 1
+      state.reviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.reviewPaging.totalPage + 1))
+      // page 에서 보여줄 review list 변경
+      state.showReviews = state.reviews.slice((page - 1) * 5, page * 5)
+    },
     // 태그 검색 로직
     TAG_SEARCH(state) {
-      state.filteringDrinks = []
-      state.setFilteringDrinks = []
-      for (let i=0; i < state.choosedTagList.length; i++) {
-        let choosedTag = state.choosedTagList[i]
-        if (choosedTag == '탁주' || choosedTag == '약주 / 청주' || choosedTag == '과실주' || choosedTag == '증류주' || choosedTag == '기타 주류') {
-          state.filteringDrinks.push(...state.drinks.filter(drink => drink.type.drinkType === choosedTag))
-        }
-        else if (choosedTag == '8% 이하' || choosedTag == '35% 이상') {
-          if (choosedTag == '8% 이하') {
-            state.filteringDrinks.push(...state.drinks.filter(drink => parseInt(drink.abv.split('%')[0]) <= parseInt(choosedTag.split('%')[0])))
+      if(state.choosedTagList.length) {
+        state.filteringDrinks = []
+        state.setFilteringDrinks = []
+        for (let i=0; i < state.choosedTagList.length; i++) {
+          let choosedTag = state.choosedTagList[i]
+          if (choosedTag == '탁주' || choosedTag == '약주, 청주' || choosedTag == '과실주' || choosedTag == '증류주' || choosedTag == '리큐르, 기타주류') {
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.drinkType.drinkType === choosedTag))
+          }
+          else if (choosedTag == '8% 이하' || choosedTag == '35% 이상') {
+            if (choosedTag == '8% 이하') {
+              state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.abv*100 <= parseInt(choosedTag.split('%')[0])))
+            }
+            else {
+              state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.abv*100 >= parseInt(choosedTag.split('%')[0])))
+            }
+          }
+          else if (choosedTag == '9 - 15%' || choosedTag == '16 - 25%' || choosedTag == '26 - 34%') {
+            const little = parseInt(choosedTag.split(' ')[0])
+            const large = parseInt(choosedTag.split(' ')[2].substr(0, 2))
+            state.filteringDrinks.push(...state.drinks.filter(drink => little <= drink.drink.abv*100 && drink.drink.abv*100 <= large))
+          }
+          else if (choosedTag == '있음' || choosedTag == '없음') {
+            if (choosedTag == '있음') {
+              state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes('산미')))
+            }
+            else {
+              state.filteringDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('산미')))
+            }
+          }
+          else if (choosedTag == '달달함' || choosedTag == '달지 않음') {
+            if (choosedTag == '달달함') {
+              state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes('달달함')))
+            }
+            else {
+              state.filteringDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('달달함')))
+            }
           }
           else {
-            state.filteringDrinks.push(...state.drinks.filter(drink => parseInt(drink.abv.split('%')[0]) >= parseInt(choosedTag.split('%')[0])))
+            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes(choosedTag)))
           }
         }
-        else if (choosedTag == '9 - 15%' || choosedTag == '16 - 25%' || choosedTag == '26 - 34%') {
-          const little = parseInt(choosedTag.split(' ')[0])
-          const large = parseInt(choosedTag.split(' ')[2].substr(0, 2))
-          state.filteringDrinks.push(...state.drinks.filter(drink => little <= parseInt(drink.abv.split('%')[0]) && parseInt(drink.abv.split('%')[0]) <= large))
-        }
-        else if (choosedTag == '있음' || choosedTag == '없음') {
-          if (choosedTag == '있음') {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == '산미')))
+        for (let k=0; k < state.filteringDrinks.length; k++) {
+          const Idx = state.drinks.indexOf(state.filteringDrinks[k])
+          if (state.setFilteringDrinks.every(drink => drink.drink.drinkIndex != Idx)) {
+            console.log(Idx)
+            state.setFilteringDrinks.push(state.filteringDrinks[k])
           }
-          else {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.every(tag => tag.tagName != '산미')))
-          }
-        }
-        else if (choosedTag == '달달함' || choosedTag == '달지 않음') {
-          if (choosedTag == '달달함') {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == '달달함')))
-          }
-          else {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.every(tag => tag.tagName != '달달함')))
-          }
-        }
-        else {
-          state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.some(tag => tag.tagName == choosedTag)))
         }
       }
-      for (let k=0; k < state.filteringDrinks.length; k++) {
-        const Idx = state.drinks.indexOf(state.filteringDrinks[k])
-        if (state.setFilteringDrinks.every(drink => drink.index != Idx)) {
-          console.log(Idx)
-          state.setFilteringDrinks.push(state.filteringDrinks[k])
-        }
+      else {
+        state.setFilteringDrinks = state.drinks
       }
     },
     // 맞춤 추천 로직
@@ -458,6 +484,9 @@ export default {
         state.customTagList[idx].isClicked = !state.customTagList[idx].isClicked
       }
     },
+    // TAG_CLICKED_RESET(state) {
+      
+    // },
     // 카드, 리스트 컴포넌트 변경
     CHANGE_CARDS(state) {
       state.isCards = true
@@ -485,6 +514,9 @@ export default {
     GO_SPEC_PAGE(state, pageNum) {
       // 현재 페이지를 누른 버튼의 번호로 변경
       state.paging.currentPage = pageNum
+      console.log(pageNum,state.paging.pageList , state.paging.pageList[0], state.paging.pageList.length)
+      let fromPage = (pageNum < 3) ? 1 : state.paging.currentPage - 2
+      state.paging.pageShow = _.range(fromPage, fromPage+5).filter(n => _.inRange(n, state.paging.pageList[0], state.paging.pageList.length+1))
       window.scrollTo({top:1000, behavior:"smooth"})
     },
     // async GET_DRINKS(state) {
@@ -505,6 +537,13 @@ export default {
           state.drinks = res.data.drinks
           console.log(state.drinks)
           state.setFilteringDrinks = state.drinks
+          // 페이지 계산
+          if (state.setFilteringDrinks.length%12 == 0) {
+            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12))
+          }
+          else {
+            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12)+1)
+          }
         })
         .catch((err) => {
           console.log(err)
@@ -513,6 +552,50 @@ export default {
     }
   },
   actions: {
+    fetchDrink({ dispatch, commit }, drinkIndex) {
+      axios({
+        url: joojooclub.drinks.drinkInfo(drinkIndex),
+        method: 'get',
+      }).then((res) => {
+        commit('SET_DRINK', [res.data.drink, res.data.tags, res.data.foods])
+        dispatch('fetchReviews', res.data.reviews)
+        dispatch('goPage', 1)
+      }).catch((err) => {
+        console.log(err.response)
+        router.push({ name: 'drinks' })
+      })
+    },
+    fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
+    goPage({ commit }, page) { commit('GO_PAGE', page) },
+    createReview({ commit, getters }, {drinkIndex, score, review}) {
+      axios({
+        url: joojooclub.drinks.review(),
+        method: 'post',
+        headers: getters.authHeader,
+        data: { drinkIndex, score, review },
+      }).then(() => {
+        // review 등록 응답으로 등록된 review 정보 달라하기
+        commit('CREATE_REVIEW', drinkIndex)
+        router.push({ name: 'drink', params: { drinkPK: drinkIndex } })
+      }).catch((err) => {
+        console.log(err.response)
+        router.push({ name: 'drink', params: { drinkPK: drinkIndex }})
+      })
+    },
+    deleteReview({ commit, getters }, reviewIndex) {
+      if (confirm('후기를 삭제하시겠습니까?')) {
+        axios({
+          url: joojooclub.drinks.review(),
+          method: 'delete',
+          headers: getters.authHeader,
+          data: { reviewIndex },
+        }).then(() => {
+          commit('DELETE_REVIEW', reviewIndex)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+      }
+    },
     chooseAnswer({ commit }, answerStr) {
       commit('CHOOSE_ANSWER', answerStr)
     },
@@ -543,6 +626,9 @@ export default {
     tagSearch({ commit }) {
       commit('TAG_SEARCH')
     },
+    // tagClickedReset() {
+    //   commit('TAG_CLICKED_RESET')
+    // },
     getDrinks({ commit }) {
       commit('GET_DRINKS')
     }

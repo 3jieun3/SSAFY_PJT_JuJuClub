@@ -5,6 +5,7 @@ import com.ssafy.drink.dto.ResponseDrinkTag;
 import com.ssafy.drink.dto.SelectedTags;
 import com.ssafy.drink.service.DrinkService;
 import com.ssafy.drink.service.FoodService;
+import com.ssafy.drink.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,6 +35,8 @@ public class DrinkController {
     DrinkService drinkService;
     @Autowired
     FoodService foodService;
+    @Autowired
+    TagService tagService;
 
 
 
@@ -73,6 +76,13 @@ public class DrinkController {
         logger.info("SelectedTags : {}", selectedTags);
         Map<String, Object> map = drinkService.searchByTags(selectedTags);
 
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "술 태그 리스트", notes = "태그 이름 및 isClicked 속성을 갖는 객체 리스트를 반환한다.")
+    @GetMapping("/tag")
+    public ResponseEntity<Map<String, Object>> retrieveTags() {
+        Map<String, Object> map = tagService.retrieveTags();
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

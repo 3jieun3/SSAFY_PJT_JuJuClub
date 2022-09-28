@@ -137,21 +137,16 @@ public class DrinkServiceImpl implements DrinkService{
             drinkTags = result;
         }
         // 도수 ===============================================================================================
-        if(selectedTags.getAbv() != null) {
-            String selectedAbv = selectedTags.getAbv();
-            int start = 0; int end = 100;
-            if(selectedAbv.contains("이하")) {
-                end = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("%")).trim());
-            } else if(selectedAbv.contains("-")) {
-                start = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("-")).trim());
-                end = Integer.parseInt(selectedAbv.substring(selectedAbv.lastIndexOf("-") + 1, selectedAbv.lastIndexOf("%")).trim());
-            } else if(selectedAbv.contains("이상")) {
-                start = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("%")).trim());
-            }
+        if(selectedTags.getStartAbv() != 0 && selectedTags.getEndAbv() != 0) {
+            double start = 0; double end = 0;
+
+            start = selectedTags.getStartAbv();
+            end = selectedTags.getEndAbv();
 
             List<ResponseDrinkTag> result = new ArrayList<>();
             for(int i = 0; i < drinkTags.size(); i++) {
                 double abv = drinkTags.get(i).getDrink().getAbv() * 100;
+                System.out.println(drinkTags.get(i).getDrink().getAbv() * 100);
 
                 if(start <= abv && abv < end) {
                     result.add(drinkTags.get(i));
@@ -187,7 +182,7 @@ public class DrinkServiceImpl implements DrinkService{
 
         Collections.sort(searchTags);
         List<TagCount> tagCountList = new ArrayList<>();
-        if(searchTags != null) {
+        if(!searchTags.isEmpty()) {
             List<ResponseDrinkTag> result = new ArrayList<>();
             for(int i = 0; i < drinkTags.size(); i++) {
                 if(drinkTags.get(i).getTags().size() == 0) continue; // 태그가 없는 술은 태그 검색에서 제외
@@ -208,14 +203,11 @@ public class DrinkServiceImpl implements DrinkService{
             }
             drinkTags = result;
         }
-
-
         Map<String, Object> map = new HashMap<>();
         map.put("drinks", drinkTags);
         return map;
     }
 
-//
     private static class TagCount {
         int drinkIndex;
         int count;

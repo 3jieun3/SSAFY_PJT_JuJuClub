@@ -48,7 +48,12 @@ public class FeedServiceImpl implements FeedService{
         Member member = memberRepository.findById(memberIndex).orElseThrow(RuntimeException::new);
         logger.info("피드를 작성한 멤버 정보 : {}", member);
 
-        String imgUrl = s3UploadService.upload(registFeed.getImgFile());
+        String imgUrl = null;
+        if(registFeed.getImgFile() == null) {
+            imgUrl = null;
+        } else {
+            imgUrl = s3UploadService.upload(registFeed.getImgFile());
+        }
 
         Feed feed = Feed.builder()
                 .drink(drink)

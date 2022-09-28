@@ -5,7 +5,7 @@ const HOST = "http://j7d106.p.ssafy.io/api/"
 const INFO = "info/"
 const MEMBER = 'member/'
 const FEED = 'feed/'
-// const REVIEW = 'review/'
+const REVIEW = 'review/'
 
 export default {
   accounts: {
@@ -18,9 +18,12 @@ export default {
     // logout: () => HOST + MEMBER + 'logout/',  // fe에서 jwt token 폐기
   },
   drinks: {
-    info: () => HOST + INFO
+    info: () => HOST + INFO,                                    // 술 전체 정보 GET
+    drinkInfo: (drinkIndex) => HOST + INFO + `${drinkIndex}/`,  // 술 상세 정보 GET
+    drinkNames: () => HOST + INFO + `drink/`,                   // 술 이름 리스트 GET
+    review: () => HOST + REVIEW,                                // 술 리뷰 (등록, POST), (삭제, DELETE)
   },
   feed: {
-    info: (feedIndex) => HOST + FEED + `${feedIndex}/` // 피드 정보 GET
+    info: (feedIndex) => HOST + FEED + `${feedIndex}/`          // 피드 정보 GET
   },
 }

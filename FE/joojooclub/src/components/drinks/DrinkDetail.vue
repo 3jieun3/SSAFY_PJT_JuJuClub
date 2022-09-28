@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<div class="card-image image-fluid">
-			<img :src="require(`@/assets/makgeoli.jpeg`)" alt="drink image">
+			<img :src="drink.imageUrl" alt="drink image">
 		</div>
 		<div class="card-body">
 			<h5 class="card-title">{{ drink.drinkName }}</h5>
@@ -31,6 +31,7 @@ export default {
 }
 .card-image {
 	flex: 1 1 0;
+	width: 20rem;
 }
 .card-body {
 	text-align: start;
@@ -38,6 +39,5 @@ export default {
 }
 img {
 	object-fit: cover;
-	width: 20rem;
 }
 </style>

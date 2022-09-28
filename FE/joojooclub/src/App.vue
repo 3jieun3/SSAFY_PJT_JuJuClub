@@ -1,35 +1,52 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Main</router-link> |
-      <router-link to="/recommend">Recommend</router-link> |
-      <router-link to="/drinks">Drinks</router-link> |
-      <router-link :to="{ name: 'feed' }">Feed</router-link> |
-      <router-link :to="{ name: 'profile', params: { userPK: 1 } }">My Profile</router-link> | 
-      <router-link to="/signup">Sign Up</router-link> | 
-      <router-link to="/login">Login</router-link> | 
-      <router-link to="/member/update">회원정보 수정</router-link> | 
-      <a href="" @click="logout">로그아웃</a> | 
-      <router-link to="/signout">회원탈퇴</router-link> | 
-      <router-link :to="{ name: 'drink', params: { drinkPK: 1 } }">Drink Detail</router-link>
-    </nav>
-    <router-view/>
+    <nav-bar :currentUser="currentUser" :todayDrinks="todayDrinks"></nav-bar>
+    <div v-if="drinkList">{{ drinkList }}</div>
+    <router-view />
+    <footer-com></footer-com>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import NavBar from '@/components/NavBar.vue'
+import FooterCom from './components/FooterCom.vue'
 
 export default {
   name: 'App',
-  methods: {
-  ...mapActions(['logout', 'fetchCurrentUser', 'signout'])
+  components: { NavBar, FooterCom },
+  data() {
+    return {
+      drinkList: null,
+      show: false,
+    }
   },
-  created() {
-    this.fetchCurrentUser()
+  computed: {
+    ...mapGetters(['currentUser']),
+    ...mapGetters('drinks', ['todayDrinks',]),
+  },
+  methods: {
+    ...mapActions(['fetchCurrentUser',]), // accounts.js
+    ...mapActions('drinks', ['getWeatherInfo']),  // drinks.js
+    async getInfo(data) {
+      this.drinkList = data
+      this.show = true
+    },
+  },
+  async created () {
+    try {
+      await this.fetchCurrentUser()
+      await this.getWeatherInfo()
+      await this.getInfo(this.todayDrinks)
+      // await function () {
+      //   setTimeout(this.getInfo(this.todayDrinks), 100);
+      // }
+    } catch {
+      console.log("error")
+    }
   },
   updated() {
-    this.fetchCurrentUser()
+    
   }
 }
 </script>

@@ -19,8 +19,6 @@ export default {
 	props: {
 		foods: Array,
 	},
-
-	
 }
 </script>
 

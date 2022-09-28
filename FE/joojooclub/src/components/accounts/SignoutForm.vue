@@ -18,6 +18,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import axios from 'axios'
+import joojooclub from '@/api/joojooclub'
 
 export default {
   name: 'SignoutForm',
@@ -26,7 +28,6 @@ export default {
   },
   data() {
     return {
-      origin_pw: this.currentUser.member.password,
       password: '',
       pwError: false,
       pwConfirmError: false,
@@ -40,10 +41,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isCurrentUser'])
+    ...mapGetters(['isCurrentUser', 'authHeader'])
   },
   methods: {
-    ...mapActions(['signout', 'logout']),
+    ...mapActions(['signout', 'logout', ]),
     // 공백 처리
     isBlank(val) {
       if (val === undefined) return true
@@ -56,15 +57,29 @@ export default {
       if (this.isBlank(this.password)){
         this.pwError = true
       } else {this.pwError = false}
-      if (this.password === this.origin_pw){
+      if (!this.pwError) {
+        const pw = {password: this.password}
+        this.checkPassword(pw)
+      }
+    },
+    checkPassword(password) {
+      axios({
+        url: joojooclub.accounts.checkpw(),
+        method: 'post',
+        data: password,
+        headers: this.authHeader,
+      }).then(() => {
         this.pwConfirmError = false
-      } else {this.pwConfirmError = true}
-      if (!this.pwError & !this.pwConfirmError) {
         if (window.confirm("정말 탈퇴하시겠습니까?")) {
           this.signout()
         }
-      }
-    }
+      }).catch((err) => {
+        if (err.response.data === 'mismatch') {
+          this.pwConfirmError = true
+          alert("비밀번호가 일치하지 않습니다.")
+        }
+      })
+    },
   },
 }
 </script>

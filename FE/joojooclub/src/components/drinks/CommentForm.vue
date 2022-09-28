@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div><rating v-model="star" type="massive star"/></div>
-		<div class="comment-form">
-			<textarea name="" id="" rows="5"></textarea>
+		<div class="review-form">
+			<textarea rows="5"></textarea>
 			<button type="submit" class="btn btn-light ">작성</button>
 		</div>
 	</div>
@@ -25,12 +25,12 @@ export default {
 </script>
 
 <style>
-.comment-form {
+.review-form {
 	display: grid;
 	gap: 1rem;
 	grid-template-columns: auto 10%;
 }
-.comment-form > button {
+.review-form > button {
 	margin: 0;
 }
 </style>

@@ -35,11 +35,5 @@ export default {
 </script>
 
 <style>  
-  .todayRight {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    margin-top: 100px;
-  }
 
 </style>

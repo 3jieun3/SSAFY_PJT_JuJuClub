@@ -2,7 +2,9 @@ import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
-
+// import config from '@/api_key.js'
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 export default {
   namespaced: true,
@@ -17,24 +19,26 @@ export default {
       pageList: []
     },
     showReviews: [],
-    todayDrinks: [
-      {
-        todayDrinkIndex: 0,
-        ment: '비 오는 날에는 막걸리 한 잔 어때요?',
-        drink: '국순당 쌀 막걸리',
-        info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-        drinkImage: 'https://thumb.mt.co.kr/06/2021/11/2021111911385598861_1.jpg',
-        tags: ['탁주', '인기', '과일']
-      },
-      {
-        drinkIndex: 1,
-        ment: '9월 25일 일요일, 30%의 사람들이 이 술을 선택했습니다',
-        drink: '소주',
-        info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-        drinkImage: 'https://dimg.donga.com/ugc/CDB/WEEKLY/Article/60/62/80/93/606280930c4bd2738de6.jpg',
-        tags: ['증류주', '혼술', '인기']
-      },
-    ],
+    // todayDrinks: [],
+    todayDrinks: {},
+    // todayDrinks: [
+    //   {
+    //     todayDrinkIndex: 0,
+    //     ment: '비 오는 날에는 막걸리 한 잔 어때요?',
+    //     drink: '국순당 쌀 막걸리',
+    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
+    //     drinkImage: 'https://thumb.mt.co.kr/06/2021/11/2021111911385598861_1.jpg',
+    //     tags: ['탁주', '인기', '과일']
+    //   },
+    //   {
+    //     drinkIndex: 1,
+    //     ment: '9월 25일 일요일, 30%의 사람들이 이 술을 선택했습니다',
+    //     drink: '소주',
+    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
+    //     drinkImage: 'https://dimg.donga.com/ugc/CDB/WEEKLY/Article/60/62/80/93/606280930c4bd2738de6.jpg',
+    //     tags: ['증류주', '혼술', '인기']
+    //   },
+    // ],
     questions: [
       {
         questionIndex: 0,
@@ -178,6 +182,7 @@ export default {
       pageShow: [1, 2, 3, 4, 5],
     },
     isCards: true,
+    weatherInfo: {},
   },
   getters: {
     drink: state => state.drink,
@@ -204,6 +209,8 @@ export default {
     },
     getShowPage: (state) => state.paging.pageShow,
     showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
+    todayDrinks: (state) => state.todayDrinks,
+    weatherInfo: (state) => state.weatherInfo,
   },
   mutations: {
     SET_DRINKS: (state, res) => state.drinks = res,
@@ -417,6 +424,37 @@ export default {
       let fromPage = (pageNum < 3) ? 1 : state.paging.currentPage - 2
       state.paging.pageShow = _.range(fromPage, fromPage+5).filter(n => _.inRange(n, state.paging.pageList[0], state.paging.pageList.length+1))
     },
+    GET_DRINKS(state) {
+      axios({
+        url: joojooclub.drinks.info(),
+        method: 'get',
+      })
+        .then((res) => {
+          state.drinks = res.data.drinks
+          console.log(state.drinks)
+          state.setFilteringDrinks = state.drinks
+          // 페이지 계산
+          if (state.setFilteringDrinks.length%12 == 0) {
+            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12))
+          }
+          else {
+            state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12)+1)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('get drinks failed!')
+        })
+    },
+    GET_TODAY_WEEK_DRINK(state, data) {
+      state.todayDrinks['week'] = data
+    },
+    GET_TODAY_WEATHER_DRINK(state, data) {
+      state.todayDrinks['weather'] = data
+    },
+    GET_WEATHER_INFO(state, data) {
+      state.weatherInfo = data
+    },
     // 전체 페이지 계산
     UPDATE_PAGE_LIST(state) {
       if (state.setFilteringDrinks.length%12 == 0) {
@@ -520,6 +558,73 @@ export default {
           console.log('get drinks failed!')
         })
     },
+
+    async getWeatherInfo({ commit, dispatch, getters }) {
+      function getAPI() {
+        // const API_KEY = config.VUE_APP_WEATHER_API
+        const API_KEY = process.env.VUE_APP_WEATHER_API
+        const info = {
+          latitude: null, // 경도 ex) 36.1071
+          longitude: null,  // 위도 ex) 128.408
+          country: '',  // 국가 ex) KR
+          location: '', // 지역 ex) Gumi
+          humidity: null, // ex) 66
+          temparature: null, // ex) 17.88
+          weather: null,  // ex) clouds
+          weather_description: '', // ex) overcast cloud
+        }
+  
+        function onGeoOk(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+          fetch(url).then((res) => res.json()).then((data) => {
+            info.latitude = data.coord.lat;
+            info.longitude = data.coord.lon;
+            info.country = data.sys.country;
+            info.location = data.name;
+            info.humidity = data.main.humidity;
+            info.temparature = data.main.temp;
+            info.weather = data.weather[0].main;
+            info.weather_description = data.weather[0].description;
+          });
+        }
+        function onGeoError() {
+          alert("Can't find you. No weather for you")
+        }
+        navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
+        commit('GET_WEATHER_INFO', info)
+      }
+      try {
+        getAPI()
+        await dispatch('getTodayWeekDrink')
+        await dispatch('getTodayWeatherDrink', getters.weatherInfo.weather)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async getTodayWeekDrink({ commit }) {
+      await axios({
+        url: joojooclub.drinks.todayWeekDrink(),
+        method: 'get',
+      }).then((res) => {
+        commit('GET_TODAY_WEEK_DRINK', res.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+
+    async getTodayWeatherDrink({ commit }, data){
+      await axios({
+        url: joojooclub.drinks.todayWeatherDrink(data),
+        method: 'get',
+      }).then((res) => {
+        commit('GET_TODAY_WEATHER_DRINK', res.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
     getCustomTags({ commit }) {
       axios({
         url: joojooclub.drinks.drinkTag(),
@@ -530,5 +635,5 @@ export default {
           commit('SET_CUSTOM_TAGS', res.data.taglist)
         })
     }
-  }
+  },
 }

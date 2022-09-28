@@ -13,7 +13,8 @@ import java.util.List;
 @Builder
 public class SelectedTags {
     private Long drinkType;
-    private String abv;
+    private int startAbv;
+    private int endAbv;
     private String acidity;
     private String sweetness;
     private String fruit;

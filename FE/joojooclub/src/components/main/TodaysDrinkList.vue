@@ -1,55 +1,40 @@
 <template>
   <div class="container mt-5">
     <div class="justify-content-center align-items-center">
-      <div class="wrapToday">
-        <div class="content">
-          <h1>오늘의 술</h1>
+      <div>
+        <div class="">
+          <h1 class="mt-5">오늘의 술</h1>
+          <h3>이런 술은 어떤가요?</h3>
         </div>
       </div>
     </div>
-    <div class="todayItems row">
+    <!-- <div v-if="todayDrinks" class="todayItems row">
       <todays-drink-list-item
       class="today my-5 align-items-center"
       v-for="todayDrink in todayDrinks"
-      :key="todayDrink.drink"
+      :key="todayDrink.drink.drinkIndex"
       :todayDrink="todayDrink">
       </todays-drink-list-item>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import TodaysDrinkListItem from './TodaysDrinkListItem';
-import { mapState } from 'vuex'
+// import TodaysDrinkListItem from './TodaysDrinkListItem';
 
 export default {
   name : 'TodaysDrinkList',
   components: {
-    TodaysDrinkListItem,
+    // TodaysDrinkListItem,
   },
-  computed: {
-    ...mapState('drinks',['todayDrinks'])
-  }
+  props: {
+    weather: String,
+    todayDrinks: Object,
+  },
 }
 </script>
 
-<style>
-
-  .wrapToday {
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  
-  .todayLeft {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-top: 100px;
-  }
-  
+<style>  
   .todayRight {
     display: flex;
     flex-direction: row-reverse;

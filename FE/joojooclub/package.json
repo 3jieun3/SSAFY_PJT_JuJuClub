@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "aos": "^2.3.4",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "dotenv": "^16.0.2",
     "lodash": "^4.17.21",
     "package.json": "^2.0.1",
     "v-rating": "^1.1.2",

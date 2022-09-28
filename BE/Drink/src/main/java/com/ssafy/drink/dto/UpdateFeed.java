@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,5 +17,6 @@ public class UpdateFeed {
     private String content;
     private Long drinkIndex;
     private String customTags;
+    private MultipartFile imgFile;
 
 }

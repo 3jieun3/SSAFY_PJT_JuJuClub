@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.swing.BakedArrayList;
 
-import javax.xml.ws.Response;
 import java.util.*;
 
 @Service
@@ -206,7 +204,6 @@ public class DrinkServiceImpl implements DrinkService{
             }
             Collections.sort(tagCountList, new MyComparator()); // 선택 태그들 중 가장 많은 태그를 갖고 있는 술 내림차순 정렬
             for(int i = 0; i < tagCountList.size(); i++) {
-                System.out.println(tagCountList.get(i).count);
                 result.add(drinkTags.get(tagCountList.get(i).drinkIndex));
             }
             drinkTags = result;

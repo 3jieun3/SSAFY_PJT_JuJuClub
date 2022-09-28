@@ -1,14 +1,9 @@
 package com.ssafy.drink.service;
 
-import com.ssafy.drink.domain.*;
+import com.ssafy.drink.interceptor.repository.*;
 import com.ssafy.drink.repository.*;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
-
-import java.util.List;
 
 
 @SpringBootTest

@@ -5,8 +5,7 @@
     <hr>
     <div class="searchBtn">
       <button class="btn btn-warning justify-content-end"
-      @click="tagSearch">조회하기</button>
-      <button class="resetBtn btn btn-white">초기화</button>
+      @click="tagSearch(1)">조회하기</button>
     </div>
   </div>
 </template>
@@ -43,9 +42,10 @@ export default {
     margin-top: 20px;
   }
 
-  .searchBtn {
-    display: flex;
-    justify-content: start;
-    margin-top: 20px;
+  @media (max-width: 850px) {
+    .container {
+      padding: 3rem;
+    }
   }
+
 </style>

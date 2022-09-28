@@ -11,12 +11,12 @@
     <component :is="getIsCards ? 'DrinkCards' : 'DrinkList'"></component>
     <div class="pagenationWrap d-flex justify-content-center">
       <ul class="pagination">
-        <li class="page-item"><a @click="goPrevPage()" class="page-link">Previous</a></li>
+        <li class="page-item"><a @click="goFirstPage(1)" class="page-link">«</a></li>
         <li class="page-item"
         :class="{'active': paging.currentPage === n}"
         v-for="(n, index) in paging.pageShow"
         :key="index"><a @click="goSpecPage(n)" class="page-link">{{ n }}</a></li>
-        <li class="page-item"><a @click="goNextPage()" class="page-link">Next</a></li>
+        <li class="page-item"><a @click="goLastPage(paging.pageList.length)" class="page-link">»</a></li>
       </ul>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
     ...mapGetters('drinks', ['getIsCards']),
   },
   methods: {
-    ...mapActions('drinks', ['changeCards', 'changeList', 'goPrevPage', 'goNextPage', 'goSpecPage'])
+    ...mapActions('drinks', ['changeCards', 'changeList', 'goFirstPage', 'goLastPage', 'goSpecPage'])
   }
 }
 </script>

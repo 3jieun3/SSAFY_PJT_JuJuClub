@@ -14,14 +14,15 @@ export default {
     // profile: {},
     // signup, login할 때 오류 메세지
     authError: null,
-    // 개인 피드 상세
-    feed: {},
     // 후기 pagination
-    currentPage: 1,
-    pageList: [],
-    pageReviews: [],
+    reviewPaging: {
+      currentPage: 1,
+      totalPage: 0,
+      pageList: [],
+    },
+    showReviews: [],
     // dummy
-    reviews: [
+    dummy: [
       {
         reviewIndex: 1,
         score: 5,
@@ -231,25 +232,33 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
-    feed: state => state.feed,
-    currentPage: state => state.currentPage,
-    pageList: state => state.pageList,
-    pageReviews: state => state.pageReviews,
+    reviews: state => state.currentUser.reviews,
+    reviewPaging: state => state.reviewPaging,
+    pageList: state => state.reviewPaging.pageList,
+    showReviews: state => state.showReviews,
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
-    SET_CURRENT_USER: ( state, user ) => state.currentUser = user,
-    // SET_PROFILE: ( state, profile ) => state.profile = profile,
+    SET_CURRENT_USER: ( state, user ) => { 
+      state.currentUser = user
+      state.currentUser.reviews = state.dummy
+      state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
+    },
+    // // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
-    SET_FEED: ( state, feed ) => state.feed = feed,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
-      state.currentPage = page
+      state.reviewPaging.currentPage = page
       // pagination nav에 보여줄 page list 변경
       let fromPage = (page - 1 === 0) ? 1 : page - 1
-      state.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, Math.ceil(state.reviews.length / 3) + 1))
-      state.pageReviews = state.reviews.slice((page - 1) * 3, page * 3)
+      state.reviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.reviewPaging.totalPage + 1))
+      // page 에서 보여줄 review list 변경
+      state.showReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
     },
+    // SET_REVIEWS(state, reviews) {
+    //   state.reviews = reviews
+    //   state.reviewPaging.totalPage = Math.ceil(reviews.length / 3)
+    // },
   },
   actions: {
     saveToken({ commit }, token) {
@@ -366,11 +375,11 @@ export default {
 
     signout({ dispatch, getters, commit }){
       if (getters.isLoggedIn) {
-      axios({
-        url: joojooclub.accounts.info(),
-        method: 'delete',
-        headers: getters.authHeader,
-      })
+        axios({
+          url: joojooclub.accounts.info(),
+          method: 'delete',
+          headers: getters.authHeader,
+        })
         .then(() => {
           dispatch('removeToken')
           commit('SET_CURRENT_USER', {})
@@ -391,35 +400,90 @@ export default {
             commit('SET_CURRENT_USER', {})
             router.push({ name: 'login' })
           }
+          if (err.response.status === 500) {
+            alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
+            dispatch('removeToken')
+            commit('SET_CURRENT_USER', {})
+            router.push({ name: 'login' })
+          }
+        })
+      }
+    },
+    
+    createFeed({ getters }, { drinkIndex, payload }) {
+      if (getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'post',
+          headers: getters.authHeader,
+          data: { drinkIndex, ...payload },
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
         })
       }
     },
 
-    fetchFeed({ commit, getters }, feedIndex) {
-      axios({
-        url: joojooclub.feed.info(feedIndex),
-        method: 'get',
-        headers: getters.authHeader
-      })
-      .then(res => commit('SET_FEED', res.data))
-      .catch(err => console.err(err.response))
-    },
-    
-    createFeed({ commit, /* getters */ }, feed) {
-      commit('SET_FEED', feed)
-      router.push({
-        name: 'feed',
-        // name: 'profile',
-        // params: { userPK: getters.feed.memberIndex }
-      })
+    updateFeed({ getters }, { feedIndex, payload }) {
+      if(getters.isLoggedIn) {
+        axios({
+          url: joojooclub.feed.valid(),
+          method: 'put',
+          headers: getters.authHeader,
+          data: { feedIndex, ...payload },
+        })
+        .then(() => {
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          router.push({
+            name: 'profile',
+            params: { userPK: getters.currentUser.memberIndex }
+          })
+        })
+      }
     },
 
-    // updateFeed({ commit }, { feedIndex, feed }) {
-    //   commit('SET_FEED', feed)
-    //   router.push({
-    //     name: 'feed',
-    //   })
-    // },
+    deleteFeed({ getters }, feedIndex) {
+      if(getters.isLoggedIn) {
+        if(confirm('피드를 삭제하시겠습니까?')){
+          axios({
+            url: joojooclub.feed.valid(),
+            method: 'delete',
+            headers: getters.authHeader,
+            data: { feedIndex },
+          })
+          .then(() => {
+            alert('정상적으로 삭제되었습니다.')
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+          .catch((err) => {
+            console.log(err.response)
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+        }
+      }  
+    },
 
     goPage({ commit }, page) {
       commit('GO_PAGE', page)

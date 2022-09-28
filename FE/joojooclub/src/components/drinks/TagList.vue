@@ -6,6 +6,7 @@
     <div class="searchBtn">
       <button class="btn btn-warning justify-content-end"
       @click="tagSearch">조회하기</button>
+      <button class="resetBtn btn btn-white">초기화</button>
     </div>
   </div>
 </template>
@@ -34,6 +35,12 @@ export default {
     /* color: bisque; */
     padding: 2vw;
     border-radius: 1rem;
+  }
+
+  .searchBtn {
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
   }
 
   .searchBtn {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card"
-    @click="goDetailPage(drink.drink.drinkIndex)" style="width: 19rem;">
+    @click="goDetailPage(drink.drink.drinkIndex)">
       <img :src="drink.drink.imageUrl" class="card-img-top" alt="drinkCard">
       <div class="card-body">
         <h5 class="card-title">{{ drink.drink.drinkName }}</h5>

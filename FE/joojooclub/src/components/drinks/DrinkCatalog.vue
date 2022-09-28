@@ -9,11 +9,21 @@
       </button>
     </div>
     <component :is="getIsCards ? 'DrinkCards' : 'DrinkList'"></component>
+    <div class="pagenationWrap d-flex justify-content-center">
+      <ul class="pagination">
+        <li class="page-item"><a @click="goPrevPage()" class="page-link">Previous</a></li>
+        <li class="page-item"
+        :class="{'active': paging.currentPage === n}"
+        v-for="(n, index) in paging.pageShow"
+        :key="index"><a @click="goSpecPage(n)" class="page-link">{{ n }}</a></li>
+        <li class="page-item"><a @click="goNextPage()" class="page-link">Next</a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import DrinkCards from './DrinkCards.vue';
 import DrinkList from './DrinkList.vue';
 
@@ -24,10 +34,11 @@ export default {
     DrinkList
   },
   computed: {
-    ...mapGetters('drinks', ['getIsCards'])
+    ...mapState('drinks', ['paging']),
+    ...mapGetters('drinks', ['getIsCards']),
   },
   methods: {
-    ...mapActions('drinks', ['changeCards', 'changeList'])
+    ...mapActions('drinks', ['changeCards', 'changeList', 'goPrevPage', 'goNextPage', 'goSpecPage'])
   }
 }
 </script>
@@ -47,6 +58,26 @@ export default {
 
   .changeToListBtn {
     margin: 0px;
+  }
+
+  .page-item {
+    border: none;
+    background-color: bisque;
+  }
+
+  .page-item.active > .page-link {
+    background-color: bisque;
+    color: black;
+  }
+
+  .pagination {
+    margin-top: 50px;
+  }
+
+  .page-link {
+    border: none;
+    color: black;
+    font-weight: bold;
   }
 
 </style>

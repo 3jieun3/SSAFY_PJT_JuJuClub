@@ -34,7 +34,7 @@ export default {
   .recommendImg {
     background: url(@/assets/recommendPage.png) no-repeat center;
     position: relative;
-    height: 80vh;
+    height: 80vh; 
   }
 
   .que {
@@ -49,8 +49,13 @@ export default {
     padding-bottom: 50px;
   }
 
+  .question {
+    padding-bottom: 50px;
+  }
+
   .ansButton {
     justify-content: space-evenly;
+    padding-top: 50px;
     padding-top: 50px;
   }
 

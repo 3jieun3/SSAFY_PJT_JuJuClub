@@ -316,6 +316,7 @@ export default {
           headers: getters.authHeader,
         }).then((res) => {
           commit('SET_CURRENT_USER', res.data)
+          dispatch('goPage', 1)
         }).catch((err) => {
           // 토큰이 잘못된 경우
           if (err.response.status === 401) {
@@ -434,17 +435,6 @@ export default {
     //     name: 'feed',
     //   })
     // },
-
-    fetchCommentPage({ commit, getters }, { currentPage, firstPage, lastPage }) {
-      const commentPage = {
-        totalPage: Math.ceil(getters.commentsCount / 3),
-        currentPage: currentPage,
-        firstPage: firstPage,
-        lastPage: lastPage,
-        // pageList: Range(firstPage, lastPage),
-      }
-      commit('SET_COMMENT_PAGE', commentPage)
-    },
 
     goPage({ commit }, page) {
       commit('GO_PAGE', page)

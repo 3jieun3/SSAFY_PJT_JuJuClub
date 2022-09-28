@@ -2,8 +2,9 @@ import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
-import config from '@/api_key.js'
-
+// import config from '@/api_key.js'
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 export default {
   namespaced: true,
@@ -560,7 +561,8 @@ export default {
 
     async getWeatherInfo({ commit, dispatch, getters }) {
       function getAPI() {
-        const API_KEY = config.VUE_APP_WEATHER_API
+        // const API_KEY = config.VUE_APP_WEATHER_API
+        const API_KEY = process.env.VUE_APP_WEATHER_API
         const info = {
           latitude: null, // 경도 ex) 36.1071
           longitude: null,  // 위도 ex) 128.408
@@ -597,7 +599,6 @@ export default {
         getAPI()
         await dispatch('getTodayWeekDrink')
         await dispatch('getTodayWeatherDrink', getters.weatherInfo.weather)
-        console.log(getters.todayDrinks)
       } catch (err) {
         console.log(err)
       }
@@ -634,5 +635,5 @@ export default {
           commit('SET_CUSTOM_TAGS', res.data.taglist)
         })
     }
-  }
+  },
 }

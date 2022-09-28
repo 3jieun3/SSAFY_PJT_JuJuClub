@@ -7,7 +7,6 @@
 		<div class="detail-body">
 			<food-list :foods="drink.foods"></food-list>
 			<h4>후기</h4>
-			<hr>
 			<comment-form v-if="isLoggedIn"></comment-form>
 			<comment-list :reviews="reviews"></comment-list>
 		</div>

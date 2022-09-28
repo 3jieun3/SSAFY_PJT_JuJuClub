@@ -562,7 +562,8 @@ export default {
     async getWeatherInfo({ commit, dispatch, getters }) {
       function getAPI() {
         // const API_KEY = config.VUE_APP_WEATHER_API
-        const API_KEY = process.env.VUE_APP_WEATHER_API
+        // const API_KEY = process.env.VUE_APP_WEATHER_API
+        const API_KEY = "eac7b9bb3823ad04ab6f2efb18ae20db"
         const info = {
           latitude: null, // 경도 ex) 36.1071
           longitude: null,  // 위도 ex) 128.408

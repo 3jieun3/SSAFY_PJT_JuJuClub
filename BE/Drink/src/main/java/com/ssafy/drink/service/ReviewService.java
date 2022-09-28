@@ -11,5 +11,5 @@ public interface ReviewService {
 
     boolean deleteReview(Long deleteReview);
 
-    Map<String, Object> todayDrink();
+
 }

@@ -1,10 +1,8 @@
 package com.ssafy.drink.service;
 
-import com.ssafy.drink.domain.Drink;
-import com.ssafy.drink.domain.Food;
-import com.ssafy.drink.domain.FoodDrinkType;
-import com.ssafy.drink.domain.TagDrink;
+import com.ssafy.drink.domain.*;
 import com.ssafy.drink.dto.ResponseDrinkTag;
+import com.ssafy.drink.dto.SelectedTags;
 import com.ssafy.drink.mapping.ReviewMapping;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.FoodDrinkTypeRepository;
@@ -14,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.swing.BakedArrayList;
 
 import java.util.*;
 
@@ -109,5 +106,132 @@ public class DrinkServiceImpl implements DrinkService{
         return drinkNameList;
     }
 
+    @Override
+    public Map<String, Object> searchByTags(SelectedTags selectedTags) {
+        List<Drink> drinks = drinkRepository.findAll();
+        List<ResponseDrinkTag> drinkTags = new ArrayList<>();
+        List<String> searchTags = new ArrayList<>();
 
+
+        for(int i = 0; i < drinks.size(); i++) {
+            Drink drink = drinks.get(i);
+            List<String> tags = new ArrayList<>();
+
+            List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+            for(int j = 0; j < tagList.size(); j++) {
+                tags.add(tagList.get(j).getTag().getTagName());
+                Collections.sort(tags);
+            }
+            drinkTags.add(new ResponseDrinkTag(drink, tags));
+        }
+
+        // 주종 ===============================================================================================
+        if(selectedTags.getDrinkType() != null) { // drinkType 일치 검색
+            List<ResponseDrinkTag> result = new ArrayList<>();
+            for(int i = 0; i < drinkTags.size(); i++) {
+                Long drinkType = drinkTags.get(i).getDrink().getDrinkType().getDrinkTypeIndex();
+                if(drinkType == selectedTags.getDrinkType()) {
+                    result.add(drinkTags.get(i));
+                }
+            }
+            drinkTags = result;
+        }
+        // 도수 ===============================================================================================
+        if(selectedTags.getAbv() != null) {
+            String selectedAbv = selectedTags.getAbv();
+            int start = 0; int end = 100;
+            if(selectedAbv.contains("이하")) {
+                end = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("%")).trim());
+            } else if(selectedAbv.contains("-")) {
+                start = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("-")).trim());
+                end = Integer.parseInt(selectedAbv.substring(selectedAbv.lastIndexOf("-") + 1, selectedAbv.lastIndexOf("%")).trim());
+            } else if(selectedAbv.contains("이상")) {
+                start = Integer.parseInt(selectedAbv.substring(0, selectedAbv.lastIndexOf("%")).trim());
+            }
+
+            List<ResponseDrinkTag> result = new ArrayList<>();
+            for(int i = 0; i < drinkTags.size(); i++) {
+                double abv = drinkTags.get(i).getDrink().getAbv() * 100;
+
+                if(start <= abv && abv < end) {
+                    result.add(drinkTags.get(i));
+                }
+            }
+            drinkTags = result;
+        }
+        // 산미 ===============================================================================================
+        if(selectedTags.getAcidity() != null) {
+            if(selectedTags.getAcidity().equals("yes")) { // 산미 있음
+                searchTags.add("산미");
+            }
+        }
+        // 당도 ===============================================================================================
+        if(selectedTags.getSweetness() != null) {
+            if(selectedTags.getSweetness().equals("yes")) { // 당도 있음
+                searchTags.add("달달함");
+            }
+        }
+        // 과일 ===============================================================================================
+        if(selectedTags.getFruit() != null) {
+            searchTags.add(selectedTags.getFruit());
+        }
+        // 바디감 ===============================================================================================
+        if(selectedTags.getBody() != null) {
+            searchTags.add(selectedTags.getBody());
+        }
+
+        // 리뷰기반태그 ===============================================================================================
+        if(selectedTags.getTags() != null) {
+            searchTags.addAll(selectedTags.getTags());
+        }
+
+        Collections.sort(searchTags);
+        List<TagCount> tagCountList = new ArrayList<>();
+        if(searchTags != null) {
+            List<ResponseDrinkTag> result = new ArrayList<>();
+            for(int i = 0; i < drinkTags.size(); i++) {
+                if(drinkTags.get(i).getTags().size() == 0) continue; // 태그가 없는 술은 태그 검색에서 제외
+
+                int count = 0;
+                for(int j = 0; j < searchTags.size(); j++) {
+                    if(drinkTags.get(i).getTags().contains(searchTags.get(j))) {
+                        count++;
+                    }
+                }
+                if(count != 0) {
+                    tagCountList.add(new TagCount(i, count));
+                }
+            }
+            Collections.sort(tagCountList, new MyComparator()); // 선택 태그들 중 가장 많은 태그를 갖고 있는 술 내림차순 정렬
+            for(int i = 0; i < tagCountList.size(); i++) {
+                result.add(drinkTags.get(tagCountList.get(i).drinkIndex));
+            }
+            drinkTags = result;
+        }
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("drinks", drinkTags);
+        return map;
+    }
+
+//
+    private static class TagCount {
+        int drinkIndex;
+        int count;
+
+        public TagCount(int drinkIndex, int count) {
+            this.drinkIndex = drinkIndex;
+            this.count = count;
+        }
+
+    }
+
+    private static class MyComparator implements Comparator<TagCount> {
+
+        @Override
+        public int compare(TagCount o1, TagCount o2) {
+            return -(o1.count - o2.count);
+        }
+    }
 }

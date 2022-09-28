@@ -3,9 +3,7 @@ package com.ssafy.drink.controller;
 import com.ssafy.drink.domain.Feed;
 import com.ssafy.drink.dto.RegistFeed;
 import com.ssafy.drink.dto.UpdateFeed;
-import com.ssafy.drink.service.FeedService;
-import com.ssafy.drink.service.LikeFeedService;
-import com.ssafy.drink.service.LikeService;
+import com.ssafy.drink.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,7 @@ public class FeedController {
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview(@RequestBody  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags)",required = true) RegistFeed registFeed, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> registReview(@RequestBody  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) RegistFeed registFeed, HttpServletRequest request) throws IOException {
         logger.debug("피드 등록 API 호출 : {}", registFeed);
 
         // Token에서 memberIndex를 추출
@@ -64,15 +63,14 @@ public class FeedController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> retrieveFeedList() {
         logger.info("피드 전체보기 API 호출");
-        List<Feed> feeds = feedService.retrieveFeedList();
-        Map<String, Object> map = new HashMap<>();
-        map.put("feeds", feeds);
+        Map<String, Object>  map = feedService.retrieveFeedList();
+
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @ApiOperation(value = "피드 수정", notes = "feedIndex, title, content, drinkIndex, customTags를 받아 피드를 수정한다.")
     @PutMapping("valid")
-    public ResponseEntity<String> updateFeed(@RequestBody @ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed) {
+    public ResponseEntity<String> updateFeed(@RequestBody @ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed) throws IOException {
         logger.info("피드 수정 API 호출 : {}", updateFeed);
         if(feedService.updateFeed(updateFeed)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

@@ -1,6 +1,6 @@
 <template>
 	<div class="posting-body">
-		<posting-form :feed="feed" :action="post"></posting-form>
+		<posting-form :feed="feed" :action="`create`"></posting-form>
 	</div>
 </template>
 
@@ -15,11 +15,11 @@ export default {
 	data() {
 		return {
 			feed: {
-				feedIndex: null,
 				drinkIndex: null,
 				title: '',
 				content: '',
 				customTags: '',
+				imageUrl: '',
 			}
 		}
 	},

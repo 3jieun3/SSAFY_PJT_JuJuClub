@@ -20,9 +20,8 @@ export default {
 	},
 	methods: {
 		searchDrink() {
-			this.drinkName = ''	// drinkName 초기화
 		},
-	}
+	},
 }
 </script>
 

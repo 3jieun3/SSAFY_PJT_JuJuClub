@@ -30,12 +30,12 @@ export default {
 	},
 	computed: {
 		...mapGetters(['pageList']),
-		...mapGetters('drinks', ['pageList']),
 	},
 	methods: {
 		...mapActions(['goPage']),
-		...mapActions('drinks', ['goPage']),
 	},
+	created() {
+	}
 }
 </script>
 

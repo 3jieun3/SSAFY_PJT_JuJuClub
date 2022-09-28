@@ -13,7 +13,7 @@
 
 <script>
 import CommentListItem from '@/components/drinks/CommentListItem'
-import PaginationNav from '@/components/Pagination'
+import PaginationNav from '@/components/drinks/Pagination'
 import { mapGetters } from 'vuex'
 
 export default {

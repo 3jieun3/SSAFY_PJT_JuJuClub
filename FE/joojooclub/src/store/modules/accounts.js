@@ -18,7 +18,7 @@ export default {
     reviewPaging: {
       currentPage: 1,
       totalPage: 0,
-      pageList: [1, 2, 3],
+      pageList: [],
     },
     showReviews: [],
     // dummy
@@ -252,7 +252,6 @@ export default {
       // pagination nav에 보여줄 page list 변경
       let fromPage = (page - 1 === 0) ? 1 : page - 1
       state.reviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.reviewPaging.totalPage + 1))
-      console.log(state.reviewPaging.pageList)
       // page 에서 보여줄 review list 변경
       state.showReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
     },

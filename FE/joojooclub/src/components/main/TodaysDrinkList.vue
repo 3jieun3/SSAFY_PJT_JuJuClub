@@ -8,28 +8,28 @@
         </div>
       </div>
     </div>
-    <!-- <div v-if="todayDrinks" class="todayItems row">
+    <div v-if="drinkList" class="todayItems row">
       <todays-drink-list-item
       class="today my-5 align-items-center"
-      v-for="todayDrink in todayDrinks"
+      v-for="todayDrink in drinkList"
       :key="todayDrink.drink.drinkIndex"
       :todayDrink="todayDrink">
       </todays-drink-list-item>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// import TodaysDrinkListItem from './TodaysDrinkListItem';
+import TodaysDrinkListItem from './TodaysDrinkListItem';
 
 export default {
   name : 'TodaysDrinkList',
   components: {
-    // TodaysDrinkListItem,
+    TodaysDrinkListItem,
   },
   props: {
     weather: String,
-    todayDrinks: Object,
+    drinkList: Object,
   },
 }
 </script>

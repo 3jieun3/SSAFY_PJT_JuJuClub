@@ -4,7 +4,7 @@
       <h4>주종</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(typeTag, index) in typeTagList"
+        v-for="(typeTag, index) in getTypeTagList"
         :key="index"
         @click="basicTagClicked([0, typeTag])"
         :class="{'selected' : typeTag.isClicked}">{{ typeTag.tagName }}</button>
@@ -15,7 +15,7 @@
       <h4>도수</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(percentTag, index) in percentTagList"
+        v-for="(percentTag, index) in getPercentTagList"
         :key="index"
         @click="basicTagClicked([1, percentTag])"
         :class="{'selected' : percentTag.isClicked}">{{ percentTag.tagName }}</button>
@@ -26,7 +26,7 @@
       <h4>산미</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(acidTag, index) in acidTagList"
+        v-for="(acidTag, index) in getAcidTagList"
         :key="index"
         @click="basicTagClicked([2, acidTag])"
         :class="{'selected' : acidTag.isClicked}">{{ acidTag.tagName }}</button>
@@ -37,7 +37,7 @@
       <h4>당도</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(sweetTag, index) in sweetTagList"
+        v-for="(sweetTag, index) in getSweetTagList"
         :key="index"
         @click="basicTagClicked([3, sweetTag])"
         :class="{'selected' : sweetTag.isClicked}">{{ sweetTag.tagName }}</button>
@@ -48,7 +48,7 @@
       <h4>과일</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(fruitTag, index) in fruitTagList"
+        v-for="(fruitTag, index) in getFruitTagList"
         :key="index"
         @click="basicTagClicked([4, fruitTag])"
         :class="{'selected' : fruitTag.isClicked}">{{ fruitTag.tagName }}</button>
@@ -59,7 +59,7 @@
       <h4>바디감</h4>
       <div>
         <button class="btn btn-light"
-        v-for="(bodyTag, index) in bodyTagList"
+        v-for="(bodyTag, index) in getBodyTagList"
         :key="index"
         @click="basicTagClicked([5, bodyTag])"
         :class="{'selected' : bodyTag.isClicked}">{{ bodyTag.tagName }}</button>
@@ -70,12 +70,12 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
 
   name: 'BasicTagList',
   computed: {
-    ...mapState('drinks', ['typeTagList', 'percentTagList', 'acidTagList', 'sweetTagList', 'fruitTagList', 'bodyTagList'])
+    ...mapGetters('drinks', ['getTypeTagList', 'getPercentTagList', 'getAcidTagList', 'getSweetTagList', 'getFruitTagList', 'getBodyTagList'])
   },
   methods: {
     ...mapActions('drinks', ['basicTagClicked'])
@@ -83,9 +83,10 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
   button {
     margin: 10px;
+    font-size: min(4vw, 1rem);
   }
 
   h4 {
@@ -95,5 +96,9 @@ export default {
 
   .basicTag {
     margin-bottom: 20px;
+  }
+
+  .selected {
+    background-color: bisque;
   }
 </style>

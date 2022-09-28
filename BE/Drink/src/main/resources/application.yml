@@ -1,6 +1,9 @@
 server:
   servlet:
     context-path: /api
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
   port: 8888
 spring:
   config:
@@ -55,6 +58,9 @@ cloud:
 server:
   servlet:
     context-path: /api
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
   port: 8889
 spring:
   config:

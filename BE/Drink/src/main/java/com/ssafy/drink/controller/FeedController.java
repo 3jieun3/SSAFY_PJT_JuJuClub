@@ -2,6 +2,7 @@ package com.ssafy.drink.controller;
 
 import com.ssafy.drink.domain.Feed;
 import com.ssafy.drink.dto.RegistFeed;
+import com.ssafy.drink.dto.RegistNoFile;
 import com.ssafy.drink.dto.UpdateFeed;
 import com.ssafy.drink.service.*;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -42,7 +44,14 @@ public class FeedController {
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview(@RequestBody  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) RegistFeed registFeed, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Map<String, String>> registReview( @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) RegistFeed registFeed ,  HttpServletRequest request) throws IOException {
+//        RegistFeed registFeed = RegistFeed.builder()
+//                .content(registNoFile.getContent())
+//                .customTags(registNoFile.getCustomTags())
+//                .drinkIndex(registNoFile.getDrinkIndex())
+//                .title(registNoFile.getTitle())
+//                .imgFile(file)
+//                .build();
         logger.debug("피드 등록 API 호출 : {}", registFeed);
 
         // Token에서 memberIndex를 추출

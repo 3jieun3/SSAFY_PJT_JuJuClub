@@ -17,7 +17,7 @@ export default {
   components: { NavBar, FooterCom },
   data() {
     return {
-      drinkList: {},
+      drinkList: null,
       show: false,
     }
   },

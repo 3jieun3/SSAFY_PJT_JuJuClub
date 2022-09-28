@@ -6,7 +6,7 @@
 
 <script>
 import MainPage from '@/components/main/MainPage.vue';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'MainView',
@@ -16,22 +16,19 @@ export default {
   },
   data() {
     return {
-      // weatherInfo: {
-      //   latitude: null, // 경도 ex) 36.1071
-      //   longitude: null,  // 위도 ex) 128.408
-      //   country: '',  // 국가 ex) KR
-      //   location: '', // 지역 ex) Gumi
-      //   humidity: null, // ex) 66
-      //   temparature: null, // ex) 17.88
-      //   weather: null,  // ex) clouds
-      //   weather_description: '', // ex) overcast cloud
-      // },
+      drinkList: {},
+      show: false,
     }
   },
   computed: {
-    ...mapGetters('drinks', ['todayDrinks'])
+    ...mapGetters('drinks', ['todayDrinks',]),
   },
   methods: {
+    ...mapActions('drinks', ['getWeatherInfo']),  // drinks.js
+    async getInfo(data) {
+      this.drinkList = data
+      this.show = true
+    },
     // onGeoOk(position) {
     //   const lat = position.coords.latitude;
     //   const lon = position.coords.longitude;
@@ -51,8 +48,16 @@ export default {
     //   alert("Can't find you. No weather for you")
     // }
   },
-  created() {
-    // navigator.geolocation.getCurrentPosition(this.onGeoOk, this.onGeoError)
+  async created () {
+    try {
+      await this.getWeatherInfo()
+      await this.getInfo(this.todayDrinks)
+      // await function () {
+      //   setTimeout(this.getInfo(this.todayDrinks), 100);
+      // }
+    } catch {
+      console.log("error")
+    }
   },
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
 	<div class="comment-list">
 		<hr>
-		<comment-list-item v-for="(review, index) in pageReviews" :key="index" :review="review"></comment-list-item>
-		<pagination-nav :currentPage="currentPage"></pagination-nav>
+		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review"></comment-list-item>
+		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
 	</div>
 </template>
 
 <script>
 import CommentListItem from '@/components/drinks/CommentListItem'
-import PaginationNav from '@/components/Pagination'
+import PaginationNav from '@/components/accounts/Pagination'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -21,7 +21,7 @@ export default {
 		currentUser: Object,
 	},
 	computed: {
-    ...mapGetters(['currentPage', 'pageReviews']),
+    ...mapGetters(['reviewPaging', 'showReviews']),
 	},
 	methods: {
 	},

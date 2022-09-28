@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ResponseTag {
     private String tagName;
-    private Boolean isClikced;
+    private Boolean isClicked;
 }

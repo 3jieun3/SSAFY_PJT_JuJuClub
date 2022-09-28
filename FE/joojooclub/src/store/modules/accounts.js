@@ -453,6 +453,33 @@ export default {
       }
     },
 
+    deleteFeed({ getters }, feedIndex) {
+      if(getters.isLoggedIn) {
+        if(confirm('피드를 삭제하시겠습니까?')){
+          axios({
+            url: joojooclub.feed.valid(),
+            method: 'delete',
+            headers: getters.authHeader,
+            data: { feedIndex },
+          })
+          .then(() => {
+            alert('정상적으로 삭제되었습니다.')
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+          .catch((err) => {
+            console.log(err.response)
+            router.push({
+              name: 'profile',
+              params: { userPK: getters.currentUser.memberIndex }
+            })
+          })
+        }
+      }  
+    },
+
     goPage({ commit }, page) {
       commit('GO_PAGE', page)
     },

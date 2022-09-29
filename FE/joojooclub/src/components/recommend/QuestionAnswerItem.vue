@@ -1,5 +1,5 @@
 <template>
-  <button @click="chooseAnswer(answer)" class="btn btn-warning col-2 mx-5">
+  <button @click="pushAnswer(answer)" class="btn btn-warning mx-5">
   {{ answer }}
   </button>
 </template>
@@ -13,7 +13,7 @@ export default {
     answer: String
   },
   methods: {
-    ...mapActions('drinks', ['chooseAnswer'])
+    ...mapActions('drinks', ['pushAnswer'])
   }
 }
 </script>
@@ -21,5 +21,6 @@ export default {
 <style scoped>
   button {
     width: auto;
+    margin-bottom: 5vh;
   }
 </style>

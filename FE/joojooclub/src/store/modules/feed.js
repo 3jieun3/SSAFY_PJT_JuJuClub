@@ -1,7 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 export default {
   namespaced: true,
@@ -166,17 +166,19 @@ export default {
 
   actions: {
     fetchFeed({ commit }, feedIndex) {
+      console.log(feedIndex)
       axios({
         url: joojooclub.feed.info(feedIndex),
         method: 'get',
       })
       .then((res) => {
-        const feed = {
-          ...(_.omit(res.data.feed, ['drink', 'member'])),
-          drink: { ...(_.pick(res.data.feed.drink, ['drinkIndex', 'drinkName'])) },
-          member: { ..._(_.pick(res.data.feed.member, ['memberIndex', 'id'])) },
-        }
-        commit('SET_FEED', feed)
+        // const feed = {
+        //   ...(_.omit(res.data.feed, ['drink', 'member'])),
+        //   drink: { ...(_.pick(res.data.feed.drink, ['drinkIndex', 'drinkName'])) },
+        //   member: { ..._(_.pick(res.data.feed.member, ['memberIndex', 'id'])) },
+        // }
+        // commit('SET_FEED', feed)
+        commit('SET_FEED', res.data.feed)
       })
       .catch((err) => {
         console.log(err.response)
@@ -197,8 +199,9 @@ export default {
       })
     },
 
-    createFeed({ getters }, feed) {
-      if (getters.isLoggedIn) {
+    createFeed({ getters }, feed) {   // 수정 필요함
+      if (confirm('등록하시겠습니까?')) {
+        console.log(feed)
         axios({
           url: joojooclub.feed.valid(),
           method: 'post',
@@ -206,6 +209,7 @@ export default {
           data: feed,
         })
         .then(() => {
+          alert('피드가 등록되었습니다.')
           router.push({
             name: 'profile',
             params: { userPK: getters.currentUser.memberIndex }
@@ -222,7 +226,7 @@ export default {
     },
 
     updateFeed({ getters }, { feedIndex, feed }) {
-      if(getters.isLoggedIn) {
+      if(confirm('수정하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),
           method: 'put',
@@ -230,16 +234,17 @@ export default {
           data: { feedIndex, ...feed },
         })
         .then(() => {
+          alert('피드가 수정되었습니다.')
           router.push({
             name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
+            params: { userPK: getters.feed.member.memberIndex }
           })
         })
         .catch((err) => {
           console.log(err.response)
           router.push({
             name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
+            params: { userPK: getters.feed.member.memberIndex }
           })
         })
       }
@@ -255,7 +260,7 @@ export default {
             data: { feedIndex },
           })
           .then(() => {
-            alert('정상적으로 삭제되었습니다.')
+            alert('피드가 정상적으로 삭제되었습니다.')
             router.push({
               name: 'profile',
               params: { userPK: getters.currentUser.memberIndex }

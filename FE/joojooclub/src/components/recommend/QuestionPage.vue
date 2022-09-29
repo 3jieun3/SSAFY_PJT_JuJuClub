@@ -4,7 +4,7 @@
       <div class="question">
         <h1 class="col" id="question">{{ getQuestion[questionEtc.questionCount].question }}</h1>
       </div>
-      <div class="ansButton col row row-cols-1 row-cols-sm-3 row-cols-md-5">
+      <div class="ansButton row row-cols-1 row-cols-sm-3 row-cols-md-6">
         <question-answer-item
         v-for="answer in getQuestion[questionEtc.questionCount].answers"
         :key="answer"
@@ -24,8 +24,8 @@ export default {
   },
   name: 'QuestionPage',
   computed: {
-    ...mapState('drinks', ['questions','questionEtc']),
-    ...mapGetters('drinks', ['getQuestion'])
+    ...mapState('drinks', ['questionEtc']),
+    ...mapGetters('drinks', ['getQuestion', 'getQuestionEtc'])
   },
 }
 </script>
@@ -57,6 +57,7 @@ export default {
     justify-content: space-evenly;
     padding-top: 50px;
     padding-top: 50px;
+    width: 100%;
   }
 
   #question {

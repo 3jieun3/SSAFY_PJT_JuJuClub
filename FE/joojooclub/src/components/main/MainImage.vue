@@ -47,7 +47,7 @@ export default {
     background-image: url("@/assets/mainImage.png");
     background-size: cover;
     position: relative;
-    height: min(80vh, 500px);
+    height: min(80vh, 600px);
   }
   .content {
     height: 30px;

@@ -25,9 +25,11 @@ export default {
 	},
 	methods: {
 		...mapActions('feed', ['fetchAllFeeds']),
+		...mapActions('drinks', ['fetchDrinkNames'])
 	},
 	created() {
 		this.fetchAllFeeds()
+		this.fetchDrinkNames()
 	},
 }
 </script>

@@ -11,6 +11,7 @@ export default {
   state: {
     // drink detail 정보
     drink: {},
+    drinkNames: [],
     reviews: [],
     // drink detail reviews pagination
     reviewPaging: {
@@ -187,6 +188,7 @@ export default {
   },
   getters: {
     drink: state => state.drink,
+    drinkNames: state => state.drinkNames,
     reviews: state => state.reviews,
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
@@ -227,6 +229,7 @@ export default {
     },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
+    SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
     SET_REVIEWS(state, reviews){ 
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
@@ -488,6 +491,16 @@ export default {
       }).catch((err) => {
         console.log(err.response)
         router.push({ name: 'drinks' })
+      })
+    },
+    fetchDrinkNames({ commit }) {
+      axios({
+        url: joojooclub.drinks.drinkNames(),
+        method: 'get',
+      }).then((res) => {
+        commit('SET_DRINK_NAMES', res.data.drinkNameList)
+      }).catch((err) => {
+        console.log(err.response)
       })
     },
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },

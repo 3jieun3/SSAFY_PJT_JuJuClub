@@ -1,6 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
+import accounts from '@/store/modules/accounts'
 // import _ from 'lodash'
 
 export default {
@@ -199,7 +200,7 @@ export default {
       })
     },
 
-    createFeed({ getters }, feed) {   // 수정 필요함
+    createFeed({ getters }, feed) {
       if (confirm('등록하시겠습니까?')) {
         console.log(feed)
         axios({
@@ -290,7 +291,8 @@ export default {
         })
       }
     },
-
-
-  }
+  },
+  modules: {
+    accounts,
+  },
 }

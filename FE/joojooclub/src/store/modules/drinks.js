@@ -57,8 +57,8 @@ export default {
       },
       {
         questionIndex: 3,
-        question: '단맛을 선호하는 정도는?',
-        answers: ['0', '1', '2', '3', '4', '5']
+        question: '선호하는 당도는?',
+        answers: ['달달함', '달지 않음']
       },
       {
         questionIndex: 4,
@@ -70,6 +70,7 @@ export default {
       questionCount: 0,
       choose: [],
     },
+    recommendDrinks: [],
     typeTagList: [
       {
         tagIndex: 1,
@@ -190,16 +191,24 @@ export default {
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
     showReviews: state => state.showReviews,
-    getFilteringDrinks: (state) => state.filteringDrinks,
-    getQuestion: (state) => state.questions,
+    getFilteringDrinks: state => state.filteringDrinks,
+    getQuestion: state => state.questions,
+    getQuestionEtc: state => state.questionEtc,
+    getQuestionCount: state => state.questionEtc.questionCount,
+    getChooseAnswer: state => state.questionEtc.choose,
+    getRecommendDrinks: state => state.recommendDrinks,
     getCustomClicked: state => idx => state.tagList.customTagClicked[idx].isClicked,
-    getIsCards: (state) => state.isCards,
-    getTypeTagList: (state) => state.typeTagList,
-    getPercentTagList: (state) => state.percentTagList,
-    getAcidTagList: (state) => state.acidTagList,
-    getSweetTagList: (state) => state.sweetTagList,
-    getFruitTagList: (state) => state.fruitTagList,
-    getBodyTagList: (state) => state.bodyTagList,
+    getIsCards: state => state.isCards,
+    getTypeTagList: state => state.typeTagList,
+    getPercentTagList: state => state.percentTagList,
+    getAcidTagList: state => state.acidTagList,
+    getSweetTagList: state => state.sweetTagList,
+    getFruitTagList: state => state.fruitTagList,
+    getBodyTagList: state => state.bodyTagList,
+    getShowPage: state => state.paging.pageShow,
+    showPage: state => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
+    todayDrinks: state => state.todayDrinks,
+    weatherInfo: state => state.weatherInfo,
     totalPage: (state) => {
       if (state.setFilteringDrinks.length%12 === 0) {
         return parseInt(state.setFilteringDrinks.length) / 12
@@ -207,14 +216,15 @@ export default {
         return parseInt(state.setFilteringDrinks.length / 12) + 1
       }
     },
-    getShowPage: (state) => state.paging.pageShow,
-    showPage: (state) => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
-    todayDrinks: (state) => state.todayDrinks,
-    weatherInfo: (state) => state.weatherInfo,
   },
   mutations: {
     SET_DRINKS: (state, res) => state.drinks = res,
     SET_CUSTOM_TAGS: (state, res) => state.customTagList = res,
+    SET_RECOMMEND_DRINKS: (state, res) => {
+      state.recommendDrinks = res
+      state.questionEtc.questionCount = 0
+      state.questionEtc.choose = []
+    },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_REVIEWS(state, reviews){ 
@@ -288,15 +298,16 @@ export default {
       }
     },
     // 맞춤 추천 로직
-    CHOOSE_ANSWER(state, answerStr) {
+    PUSH_ANSWER(state, answerStr) {
       const ques = state.questionEtc
+      if (answerStr == '달달함' || answerStr == '그렇다') {
+        answerStr = 1
+      }
+      else if (answerStr == '달지 않음' || answerStr == '아니다') {
+        answerStr = 0
+      }
       ques.choose.push(answerStr)
       ques.questionCount += 1
-      if (ques.questionCount == 5) {
-        router.push({ name: 'recommendResult' })
-        ques.questionCount = 0
-        ques.choose = []
-      }
     },
     // 기본 태그 체크 여부 확인 로직
     BASIC_TAG_CLICKED(state, [tagOrder, tag]) {
@@ -510,8 +521,31 @@ export default {
         })
       }
     },
-    chooseAnswer({ commit }, answerStr) {
-      commit('CHOOSE_ANSWER', answerStr)
+    pushAnswer({ commit, dispatch, getters }, answerStr) {
+      commit('PUSH_ANSWER', answerStr)
+      if (getters.getQuestionCount == 5) {
+        dispatch('getRecommendDrinks')
+        router.push({ name: 'recommendResult' })
+      }
+    },
+    getRecommendDrinks({ commit, getters }) {
+      axios({
+        url: joojooclub.drinks.recommend(),
+        method: 'post',
+        data: {
+          "startAge" : parseInt(getters.getChooseAnswer[0].split(' ')[0]),
+          "endAge" : parseInt(getters.getChooseAnswer[0].split(' ')[2]),
+          "gender" : getters.getChooseAnswer[1],
+          "startAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[0].replace('도', '')),
+          "endAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[2].replace('도', '')),
+          "tag" : parseInt(getters.getChooseAnswer[3]),
+          "Fruit" : parseInt(getters.getChooseAnswer[4]),
+        }
+      })
+        .then((res) => {
+          console.log(res.data)
+          commit('SET_RECOMMEND_DRINKS', res.data)
+        })
     },
     basicTagClicked({ commit }, [tagOrder, tag]) {
       commit('BASIC_TAG_CLICKED', [tagOrder, tag])

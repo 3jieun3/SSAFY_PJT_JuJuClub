@@ -1,12 +1,12 @@
 <template>
 	<div class="posting-body">
-		<posting-form :feed="feed" :action="edit"></posting-form>
+		<posting-form :feed="feed" action="update"></posting-form>
 	</div>
 </template>
 
 <script>
 import PostingForm from '@/components/feed/PostingForm'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	name: 'PostingEditView',
@@ -14,14 +14,14 @@ export default {
 		PostingForm,
 	},
 	computed: {
-		...mapGetters(['feed']),
+		...mapGetters('feed', ['feed']),
 	},
 	methods: {
-		// ...mapActions(['fetchFeed'])
+		...mapActions('feed', ['fetchFeed'])
 	},
-	// created() {
-	// 	this.fetchFeed(this.$route.params.feedPK)
-	// }
+	created() {
+		this.fetchFeed(this.$route.params.feedPK)
+	},
 }
 </script>
 

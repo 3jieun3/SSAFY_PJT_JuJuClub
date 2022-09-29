@@ -1,13 +1,13 @@
 <template>
   <div>
     <main-image></main-image>
-    <div class="d-flex flex-column align-items-start p-5">
-      <div>{{ nowDate }} {{ nowWeekday }} {{ weatherInfo.country }}, {{ weatherInfo.location }}</div>
-      <div class="d-flex justify-content-between">
-        <div class="me-5">습도: {{ weatherInfo.humidity }} %</div>
-        <div>온도: {{ weatherInfo.temparature }} ℃</div>
+    <div class="weather-forecast d-flex flex-column align-items-start px-5 pt-4">
+      <i class="weather-text fa-solid fa-location-dot mb-1"> {{ weatherInfo.location }}</i>
+      <div class="d-flex justify-content-between mb-1">
+        <i class="weather-text fa-solid fa-droplet humidity"> {{ weatherInfo.humidity }}%</i>
+        <i class="weather-text fa-solid fa-temperature-three-quarters"> {{ weatherInfo.temparature }}℃</i>
       </div>
-      <div>오늘 날씨: {{ weatherInfo.weather }} / {{ weatherInfo.weather_description }}</div>
+      <div class="weather-text fa">{{ weatherInfo.weather }}, {{ weatherInfo.weather_description }}</div>
     </div>
     <todays-drink-list :drinkList="drinkList"></todays-drink-list>
   </div>
@@ -31,6 +31,15 @@ export default {
       nowDate: null,
       nowWeekday: null,
       drinkList: null,
+      weatherType: {
+        'Clouds': ['Clouds'],
+        'Clear': ['Clear'],
+        'Atmosphere': ['Mist', 'Smoke', 'Haze', 'Dust', 'Fog', 'Sand', 'Dust', 'Ash', 'Squall', 'Tornado'],
+        'Snow': ['Snow'],
+        'Rain': ['Rain'],
+        'Drizzle': ['Drizzle'],
+        'Thunderstorm': ['Thunderstorm'],
+      }
     }
   },
   computed: {
@@ -82,3 +91,24 @@ export default {
   }
 }
 </script>
+
+<style>
+.whole-page {
+  position: relative;
+}
+
+.weather-forecast {
+  position: absolute;
+  font-size: min(1.5vw, 1rem);
+}
+
+.humidity {
+  margin-right: 15px;
+}
+
+@media (min-width: 600px) {
+  .humidity {
+    margin-right: 40px;
+  }
+}
+</style>

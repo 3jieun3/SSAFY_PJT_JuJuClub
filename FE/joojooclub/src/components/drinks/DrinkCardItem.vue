@@ -77,8 +77,4 @@ export default {
     z-index: 0;
     overflow: hidden;
   }
-
-  :hover.card-img {
-    cursor: pointer;
-  }
 </style>

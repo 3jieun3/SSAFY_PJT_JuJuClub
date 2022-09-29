@@ -24,7 +24,7 @@ export default {
 <style scoped>
 
   button {
-    font-size: min(4vw, 1rem);
+    font-size: min(3vw, 1rem);
   }
 
   .selected {

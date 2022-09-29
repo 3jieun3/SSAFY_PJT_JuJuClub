@@ -1,15 +1,16 @@
 <template>
 	<div>
-		<div><rating v-model="star" type="massive star"/></div>
+		<div><rating v-model.number="score" type="massive star"/></div>
 		<div class="review-form">
-			<textarea rows="5"></textarea>
-			<button type="submit" class="btn btn-light ">작성</button>
+			<textarea v-model="review" rows="5"></textarea>
+			<button type="submit" class="btn btn-light" @click.prevent="onSubmit()">작성</button>
 		</div>
 	</div>
 </template>
 
 <script>
 import Rating from "v-rating";
+import { mapActions } from 'vuex';
 
 export default {
 	name: "CommentForm",
@@ -18,7 +19,20 @@ export default {
 	},
 	data() {
 		return {
-			star: 0,
+			score: 0,
+			review: '',
+		}
+	},
+	methods: {
+		...mapActions('drinks', ['createReview']),
+		onSubmit(){
+			const payload = {
+				drinkIndex: this.$route.params.drinkPK,
+				score: this.score,
+				review: this.review,
+			}
+			this.review = ''
+			this.createReview(payload)
 		}
 	},
 }

@@ -14,12 +14,12 @@ export default {
     // signup, login할 때 오류 메세지
     authError: null,
     // 후기 pagination
-    reviewPaging: {
+    myReviewPaging: {
       currentPage: 1,
       totalPage: 0,
       pageList: [],
     },
-    showReviews: [],
+    myShowReviews: [],
     // dummy
     dummyReviews: [
       {
@@ -317,34 +317,30 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
-    reviews: state => state.currentUser.reviews,
-    reviewPaging: state => state.reviewPaging,
-    pageList: state => state.reviewPaging.pageList,
-    showReviews: state => state.showReviews,
+    myReviews: state => state.currentUser.reviews,
+    myReviewPaging: state => state.myReviewPaging,
+    myPageList: state => state.myReviewPaging.pageList,
+    myShowReviews: state => state.myShowReviews,
   },
   mutations: {
     SET_TOKEN: ( state, token ) => state.token = token,
     SET_CURRENT_USER: ( state, user ) => { 
       state.currentUser = user
-      state.currentUser.reviews = state.dummyReviews  //
-      state.currentUser.feeds.push(...state.dummyFeeds)      //
-      state.currentUser.likeFeeds.push(...state.dummyFeeds)  //
-      state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
+      state.currentUser.reviews.push(...state.dummyReviews)    // 더미
+      state.currentUser.feeds.push(...state.dummyFeeds)       // 더미
+      state.currentUser.likeFeeds.push(...state.dummyFeeds)   // 더미
+      state.myReviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
-      state.reviewPaging.currentPage = page
+      state.myReviewPaging.currentPage = page
       // pagination nav에 보여줄 page list 변경
       let fromPage = (page - 1 === 0) ? 1 : page - 1
-      state.reviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.reviewPaging.totalPage + 1))
+      state.myReviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.myReviewPaging.totalPage + 1))
       // page 에서 보여줄 review list 변경
-      state.showReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
+      state.myShowReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
     },
-    // SET_REVIEWS(state, reviews) {
-    //   state.reviews = reviews
-    //   state.reviewPaging.totalPage = Math.ceil(reviews.length / 3)
-    // },
   },
   actions: {
     saveToken({ commit }, token) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="this-container">
     <basic-tag-list></basic-tag-list>
     <custom-tag-list></custom-tag-list>
     <hr>
@@ -28,12 +28,16 @@ export default {
 </script>
 
 <style scoped>
-  .container {
-    margin-top: 100px;
+  .this-container {
+    margin: 100px 41px 0 41px;
     border: 4px solid lightcoral;
     /* color: bisque; */
-    padding: 2vw;
+    padding: 20.84px;
     border-radius: 1rem;
+  }
+
+  .btn {
+    font-size: min(2vw, 1rem);
   }
 
   .searchBtn {
@@ -42,9 +46,12 @@ export default {
     margin-top: 20px;
   }
 
-  @media (max-width: 850px) {
-    .container {
-      padding: 3rem;
+  @media (max-width: 700px) {
+    .this-container {
+      border: 4px solid lightcoral;
+      border-radius: 1rem;
+      margin: 50px 10px 0 10px;
+      padding: 10px;
     }
   }
 

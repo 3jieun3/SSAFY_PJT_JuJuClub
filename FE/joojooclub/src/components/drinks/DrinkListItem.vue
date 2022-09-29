@@ -20,6 +20,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import router from '@/router'
+
 export default {
   name: 'DrinkListItem',
   props: {
@@ -29,7 +31,10 @@ export default {
     ...mapState('drinks', ['typeTagList'])
   },
   methods: {
-    ...mapActions('drinks', ['goDetailPage'])
+    ...mapActions('drinks', ['goDetailPage']),
+    goDetailPage(idx) {
+      router.push({ name: 'drink', params: { drinkPK : idx } })
+    }
   }
 }
 </script>

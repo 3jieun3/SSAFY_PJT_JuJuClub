@@ -38,9 +38,6 @@ export default {
 			router.push({ name: 'update' })
 		},
 	},
-	created() {
-		console.log(this.currentUser)
-	},
 }
 </script>
 

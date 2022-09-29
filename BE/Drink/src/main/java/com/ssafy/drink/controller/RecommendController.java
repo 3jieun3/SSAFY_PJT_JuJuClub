@@ -65,8 +65,11 @@ public class RecommendController {
         for (int i=0 ; i < 3 ; i++){
             CountTagDrink countTagDrink = pq.poll();
             DrinkRecommend drinkRecommend = new DrinkRecommend();
-            drinkRecommend.setDrink(recommendService.findByDrinkIndex3(countTagDrink.getDrinkIndex()));
+            Drink drink =  recommendService.findByDrinkIndex3(countTagDrink.getDrinkIndex());
+            List<String> tagList = recommendService.findByTagList(drink);
+            drinkRecommend.setDrink(drink);
             drinkRecommend.setCount(countTagDrink.getCount());
+            drinkRecommend.setTags(tagList);
             high3.add(drinkRecommend);
 
         }

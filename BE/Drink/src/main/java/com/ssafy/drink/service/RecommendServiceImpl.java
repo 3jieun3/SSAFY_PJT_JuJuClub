@@ -1,6 +1,7 @@
 package com.ssafy.drink.service;
 
 import com.ssafy.drink.domain.Drink;
+import com.ssafy.drink.domain.TagDrink;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.ReviewRepository;
 import com.ssafy.drink.repository.TagDrinkRepository;
@@ -90,5 +91,19 @@ public class RecommendServiceImpl implements RecommendService{
     public Drink findByDrinkIndex3(Long drinkIndex){
         return drinkRepository.findById(drinkIndex).orElseThrow(RuntimeException::new);
     }
+
+    @Override
+    public List<String> findByTagList(Drink drink)
+    {
+        List<String> tags = new ArrayList<>();
+
+        List<TagDrink> tagList = tagDrinkRepository.findByDrink(drink);
+        for(int j = 0; j < tagList.size(); j++) {
+            tags.add(tagList.get(j).getTag().getTagName());
+        }
+        return tags;
+    }
+
+
 
 }

@@ -1,14 +1,15 @@
 <template>
   <div>
     <main-image></main-image>
-    <div class="weather-forecast d-flex flex-column align-items-start px-5 pt-4">
+    <!-- 날씨 표시 -->
+    <!-- <div class="weather-forecast d-flex flex-column align-items-start px-5 pt-4">
       <i class="weather-text fa-solid fa-location-dot mb-1"> {{ weatherInfo.location }}</i>
       <div class="d-flex justify-content-between mb-1">
         <i class="weather-text fa-solid fa-droplet humidity"> {{ weatherInfo.humidity }}%</i>
         <i class="weather-text fa-solid fa-temperature-three-quarters"> {{ weatherInfo.temparature }}℃</i>
       </div>
       <div class="weather-text fa">{{ weatherInfo.weather }}, {{ weatherInfo.weather_description }}</div>
-    </div>
+    </div> -->
     <todays-drink-list :drinkList="drinkList"></todays-drink-list>
   </div>
 </template>

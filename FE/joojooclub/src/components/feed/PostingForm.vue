@@ -54,6 +54,7 @@ export default {
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
+		...mapActions('drinks', ['fetchDrinkNames']),
 		onSubmit() {
 			if (this.action === 'create') {
 				const payload = {
@@ -73,6 +74,9 @@ export default {
 		uploadImage() {
 			this.newFeed.imageUrl = URL.createObjectURL(this.$refs['image'].files[0])
 		}
+	},
+	created() {
+		this.fetchDrinkNames()
 	},
 }
 </script>

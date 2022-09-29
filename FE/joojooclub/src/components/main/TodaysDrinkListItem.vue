@@ -1,20 +1,51 @@
 <template>
   <div>
-    <div class="justify-content-between"
-    data-aos="fade-up"
-    data-aos-anchor-placement="bottom-bottom"
-    :class="{'todayRight mx-5' : todayDrink.drinkIndex, 'todayLeft mx-5' : !todayDrink.drinkIndex}">
-      <div class="img-wrap col col-xs-12 col-sm-3">
-        <img class="drinkImg" :src="todayDrink.drink.imageUrl" alt="">
+    <!-- 요일별 추천 -->
+    <div v-if="todayDrink.weekday" class="todayLeft d-flex flex-column justify-content-start align-items-center flex-md-row mx-5 align-items-md-start"
+    data-aos="fade-right"
+    data-aos-duration="1500"
+    >
+      <div class="img-wrap me-md-5">
+        <img @click="goDetail" class="drinkImg" :src="imageUrl" alt="">
       </div>
-      <div class="drinkInfo mx-5 col col-xs-12 col-sm-7">
-        <p class="todayMent">비오는 날 추천하는 막걸리</p>
-        <p class="todayDrinkName">{{ todayDrink.drink.drinkName }}</p>
-        <p class="todayDrinkInfo">{{ todayDrink.drink.description }}</p>
-        <p class="todayTags">
-          <span v-for="(tag, index) in todayDrink.tags"
-          :key="index">#{{ tag }} </span>
-        </p>
+      <div class="drinkInfo">
+        <div class="mb-1 mb-md-4">
+          <span class="todayMent">{{ nowDay }} {{ todayDrink.weekday }}, </span>
+          <span class="todayMent percentage">{{ percent }}</span>
+          <span class="todayMent">%의 사람들이 이 술을 선택했습니다</span>
+        </div>
+        <div class="todayDrinkTitle mb-3 mb-md-4">
+          <span class="todayDrinkName">{{ drinkName }} | </span>
+          <span class="todayDrinkType">{{ drinkType }} ({{ abv }}%)</span>
+        </div>
+        <div class="todayDrinkInfo mb-3 mb-md-4">{{ description }}</div>
+        <div class="todayTags">
+          <span v-for="tag in tagList"
+          :key="tag.index">#{{ tag }} </span>
+        </div>
+      </div>
+    </div>
+    <!-- 날씨별 추천 -->
+    <div v-if="todayDrink.weather" class="todayRight d-flex flex-column align-items-center flex-md-row-reverse mx-5 align-items-md-start"
+    data-aos="fade-left"
+    data-aos-duration="1500"
+    >
+      <div class="img-wrap ms-md-5">
+        <img @click="goDetail" class="drinkImg" :src="imageUrl" alt="">
+      </div>
+      <div class="drinkInfo">
+        <div class="mb-1 mb-md-4">
+          <span class="todayMent">오늘같이 {{ weatherType[todayDrink.weather] }} 날 추천하는 {{ drinkType }}</span>
+        </div>
+        <div class="todayDrinkTitle mb-3 mb-md-4">
+          <span class="todayDrinkName">{{ drinkName }} | </span>
+          <span class="todayDrinkType">{{ drinkType }} ({{ abv }}%)</span>
+        </div>
+        <div class="todayDrinkInfo mb-3 mb-md-4">{{ description }}</div>
+        <div class="todayTags">
+          <span v-for="tag in tagList"
+          :key="tag.index">#{{ tag }} </span>
+        </div>
       </div>
     </div>
   </div>
@@ -29,44 +60,122 @@ export default {
   props: {
     todayDrink: Object,
   },
+  data() {
+    return {
+      weatherType: {
+        "Thunderstorm": "천둥치는", 
+        "Drizzle": "이슬비가 내리는",
+        "Rain": "비가 오는",
+        "Snow": "눈이 오는",
+        "Atmosphere": "안개 낀",
+        "Clear": "맑은",
+        "Clouds": "구름 낀",
+      },
+      nowDay: '',
+      drinkName: this.todayDrink.drink.drinkName,
+      drinkIndex: this.todayDrink.drink.drinkIndex,
+      drinkType: this.todayDrink.drink.drinkType.drinkType,
+      description: this.todayDrink.drink.description,
+      imageUrl: this.todayDrink.drink.imageUrl,
+      percent: this.todayDrink?.percent,
+      abv: (this.todayDrink.drink.abv * 100).toFixed(2),
+      tagList: this.todayDrink.tag,
+    }
+  },
+  methods: {
+    goDetail() {
+      this.$router.push({name: 'drink', params: {drinkPK: this.drinkIndex}})
+    },
+    counterFn() {
+      let id0 = setInterval(
+        function() {
+          this.count += 1
+          if (this.count > this.todayDrink?.percent) {
+            clearInterval(id0)
+          } else {
+            this.value = this.count
+          }
+        }
+        , 100)
+    },
+
+  },
   created() {
     AOS.init();
-    console.log(this.todayDrink)
-  }
+    this.nowDay = new Date().toLocaleDateString('ko-KR', {
+      month: 'long',
+      day: 'numeric',
+    })
+  },
 }
 </script>
 
 <style scoped>
-
-  .img-wrap {
-    width: 30vh;
+  .todayLeft {
+    margin-top: 50px;
   }
-
-  .drinkImg {
-    width: 100%;
-    margin: 0px 20px 0px 20px;
-    object-fit: cover;
-  }
-
-  .drinkInfo {
-    padding-left: 80px;
-    text-align: left;
-    font-weight: bold;
-    font-size: x-large;
+  
+  .todayRight {
+    margin-top: 30px;
     margin-bottom: 50px;
   }
 
+  .drinkImg {
+    max-height: 250px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    object-fit: cover;
+  }
+  
+  @media (min-width: 700px) {
+    .drinkImg {
+      max-height: 300px;
+      margin-bottom: 0px;
+    }
+    .todayRight {
+      margin-top: 100px;
+    }
+  }
+  @media (min-width: 1000px) {
+    .drinkImg {
+      max-height: 400px;
+    }
+  }
+  :hover.drinkImg {
+    cursor: pointer;
+  }
+
+  .drinkInfo {
+    /* padding-left: 80px; */
+    text-align: left;
+    font-weight: bold;
+    font-size: x-large;
+  }
+
   .todayMent {
+    margin-top: 50px;
     color: red;
+    font-size: min(4vw, 1.5rem);
+  }
+  
+  .todayDrinkName {
+    font-size: min(4vw, 1.5rem);
+  }
+
+  .todayDrinkType {
+    font-size: min(3vw, 1.2rem);
   }
 
   .todayDrinkInfo {
-    font-size: smaller;
+    /* font-size: smaller; */
+    font-size: min(1.5vw, 1rem);
     font-weight: 400 !important;
   }
 
   .todayTags {
-    font-size: smaller;
+    font-weight: 400 !important;
+    font-size: min(3vw, 1.2rem);
   }
 
 </style>

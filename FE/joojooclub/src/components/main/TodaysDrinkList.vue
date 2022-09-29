@@ -1,10 +1,10 @@
 <template>
-  <div class="container mt-5">
+  <div class="container todayDrinkList">
     <div class="justify-content-center align-items-center">
       <div>
         <div class="">
-          <h1 class="mt-5">오늘의 술</h1>
-          <h3>이런 술은 어떤가요?</h3>
+          <h1 class="recommendTitle mt-5">오늘의 술</h1>
+          <div class="recommendComment">이런 술은 어떤가요? 색다른 술을 경험해보세요.</div>
         </div>
       </div>
     </div>
@@ -34,12 +34,19 @@ export default {
 }
 </script>
 
-<style>  
-  .todayRight {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    margin-top: 100px;
+<style>
+.todayDrinkList {
+  margin-top: 100px;
+}
+.recommendTitle {
+  font-size: min(5vw, 2rem);
+}
+.recommendComment {
+  font-size: min(3.5vw, 1.5rem);
+}
+@media (min-width: 700px) {
+  .recommendComment {
+    margin-bottom: 50px;
   }
-
+}
 </style>

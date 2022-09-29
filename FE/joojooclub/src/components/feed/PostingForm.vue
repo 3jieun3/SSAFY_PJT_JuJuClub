@@ -1,30 +1,30 @@
 <template>
-	<form class="ui form" enctype="multipart/form-data">
+	<form class="ui form" enctype="multipart/form-data" @submit.prevent="onSubmit">
 		<div class="field">
 			<label for="drinkSearch">전통주명</label>
 			<search-bar></search-bar>
 		</div>
 		<div class="field">
 			<label for="title">제목</label>
-			<input v-model="newFeed.title" type="text" name="title" id="title" placeholder="제목을 입력하세요.">
+			<input v-model.trim="newFeed.title" type="text" name="title" id="title" placeholder="제목을 입력하세요.">
 		</div>
 		<div class="field">
 			<label for="content">내용</label>
-			<textarea v-model="newFeed.content" name="content" id="content" placeholder="내용을 입력하세요."></textarea>
+			<textarea v-model.trim="newFeed.content" name="content" id="content" placeholder="내용을 입력하세요."></textarea>
 		</div>
 		<div class="field">
 			<label for="imageFile">첨부 파일</label>
 			<div>
 				<input type="file" ref="image" name="image-file" id="imageFile" accept="image/*" @change="uploadImage">
-				<img :src="this.uploadedImageUrl" alt="uploaded feed image" class="preview-image">
+				<img :src="newFeed.imageUrl" alt="uploaded feed image" class="preview-image">
 			</div>
 		</div>
 		<div class="field">
 			<label for="tags">태그</label>
-			<input v-model="newFeed.customTags" type="text" name="tags" id="tags" placeholder="태그를 입력하세요.">
+			<input v-model.trim="newFeed.customTags" type="text" name="tags" id="tags" placeholder="태그를 입력하세요.">
 		</div>
 		<button class="ui button">뒤로</button>
-		<button class="ui button" @click.prevent="onSubmit">작성</button>
+		<button class="ui button" @click.prevent="onSubmit">저장</button>
 	</form>
 </template>
 
@@ -43,9 +43,8 @@ export default {
 	},
 	data() {
 		return {
-			uploadedImageUrl: '',
 			newFeed: {
-				drinkIndex: this.feed.drinkIndex,
+				drinkIndex: this.feed.drink.drinkIndex,
 				title: this.feed.title,
 				content: this.feed.content,
 				customTags: this.feed.customTags,
@@ -56,21 +55,23 @@ export default {
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
 		onSubmit() {
-			console.log(this.newFeed)
 			if (this.action === 'create') {
 				const payload = {
 					...this.newFeed,
+					drinkIndex: 5,
+					imageUrl: this.uploadedImageUrl,
 				}
 				this.createFeed(payload)
-			} else if (this.action === 'edit') {
+			} else if (this.action === 'update') {
 				const payload = {
 					...this.newFeed,
+					feedIndex: this.feed.feedIndex
 				}
 				this.updateFeed(payload)
 			}
 		},
 		uploadImage() {
-			this.uploadedImageUrl = URL.createObjectURL(this.$refs['image'].files[0])
+			this.newFeed.imageUrl = URL.createObjectURL(this.$refs['image'].files[0])
 		}
 	},
 }

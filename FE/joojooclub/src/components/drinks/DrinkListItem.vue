@@ -8,9 +8,11 @@
           <h4 class="drinkName col-12">{{ drink.drink.drinkName }}</h4>
           <p class="smallInfo">{{ typeTagList[drink.drink.drinkType.drinkTypeIndex-1].tagName }} | {{ Math.floor((drink.drink.abv)*100) }}%</p>
           <div class="truncate">{{ drink.drink.description }}</div>
-          <button class="drinkTag btn btn-sm btn-warning"
-          v-for="(tag, index) in drink.tags"
-          :key="index"> #{{ tag }}</button>
+          <div class="tagBox">
+            <button class="drinkTag btn btn-sm btn-warning"
+            v-for="(tag, index) in drink.tags"
+            :key="index"> #{{ tag }}</button>
+          </div>
         </div>
       </div>
     </li>
@@ -47,7 +49,11 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     -webkit-line-clamp: 3;
-    margin-bottom: min(1vw, 10px);
+    
+  }
+
+  .tagBox {
+    margin-top: min(1vw, 10px);
   }
   
   .img-fluid {

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h3>상세 정보</h3>
+		<h2>상세 정보</h2>
 		<div class="detail-header">
 			<drink-detail :drink="drink"></drink-detail>
 		</div>

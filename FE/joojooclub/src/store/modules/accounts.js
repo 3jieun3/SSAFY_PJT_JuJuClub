@@ -391,11 +391,12 @@ export default {
         })
     },
 
-    logout({ dispatch, getters, commit }) {
+    logout({ dispatch, getters }) {
       if (getters.isLoggedIn){
         dispatch('removeToken')
-        commit('SET_CURRENT_USER', {})
-        router.push({ name: 'main' })
+        // commit('SET_CURRENT_USER', {})
+        // 현재 페이지가 main이 아니면 로그아웃 이후 main 페이지로 이동
+        if(router.currentRoute.fullPath !== '/') router.push('/')
       } else {
         alert('로그인이 필요한 페이지입니다')
         router.push({ name: 'login' })

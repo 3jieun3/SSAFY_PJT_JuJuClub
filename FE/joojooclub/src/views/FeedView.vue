@@ -14,6 +14,7 @@
 import SearchBar from '@/components/feed/SearchBar'
 import BestFeedList from '@/components/feed/BestFeedList'
 import FeedList from '@/components/feed/FeedList'
+import { mapActions } from 'vuex'
 
 export default {
 	name: 'FeedView',
@@ -21,7 +22,13 @@ export default {
 		SearchBar,
 		BestFeedList,
 		FeedList,
-	}
+	},
+	methods: {
+		...mapActions('feed', ['fetchAllFeeds']),
+	},
+	created() {
+		this.fetchAllFeeds()
+	},
 }
 </script>
 

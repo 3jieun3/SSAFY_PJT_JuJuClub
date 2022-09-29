@@ -2,7 +2,7 @@ import router from '@/router'
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
 import accounts from '@/store/modules/accounts'
-// import _ from 'lodash'
+import _ from 'lodash'
 
 export default {
   namespaced: true,
@@ -155,8 +155,11 @@ export default {
 
   getters: {
     feed: state => state.feed,
+    isFeed: state => !_.isEmpty(state.feed),
     feeds: state => state.feeds,
     bestFeeds: state => state.bestFeeds,
+    isFeeds: state => !_.isEmpty(state.feeds)
+    // isFeeds: state => !_.isEmpty(state.feeds) && !_.isEmpty(state.bestfeeds)
   },
 
   mutations: {
@@ -173,12 +176,6 @@ export default {
         method: 'get',
       })
       .then((res) => {
-        // const feed = {
-        //   ...(_.omit(res.data.feed, ['drink', 'member'])),
-        //   drink: { ...(_.pick(res.data.feed.drink, ['drinkIndex', 'drinkName'])) },
-        //   member: { ..._(_.pick(res.data.feed.member, ['memberIndex', 'id'])) },
-        // }
-        // commit('SET_FEED', feed)
         commit('SET_FEED', res.data.feed)
       })
       .catch((err) => {
@@ -200,39 +197,45 @@ export default {
       })
     },
 
-    createFeed({ getters }, feed) {
-      if (confirm('등록하시겠습니까?')) {
-        console.log(feed)
+    createFeed({ getters }, formdata) {
+      if (confirm('등록하시겠습니까?')) { 
         axios({
           url: joojooclub.feed.valid(),
           method: 'post',
-          headers: getters.authHeader,
-          data: feed,
+          headers: {
+            ...getters.authHeader,
+            'Content-Type': 'multipart/form-data',
+          },
+          data: formdata,
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res)
           alert('피드가 등록되었습니다.')
           router.push({
             name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
+            params: { userPK: getters.currentUser.member.memberIndex }
           })
         })
         .catch((err) => {
           console.log(err.response)
           router.push({
             name: 'profile',
-            params: { userPK: getters.currentUser.memberIndex }
+            params: { userPK: getters.currentUser.member.memberIndex }
           })
         })
       }
     },
 
-    updateFeed({ getters }, { feedIndex, feed }) {
+    updateFeed({ getters }, feed) {
       if(confirm('수정하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),
           method: 'put',
-          headers: getters.authHeader,
-          data: { feedIndex, ...feed },
+          headers: {
+            ...getters.authHeader,
+            'Content-Type': 'multipart/form-data',
+          },
+          data: feed,
         })
         .then(() => {
           alert('피드가 수정되었습니다.')
@@ -264,14 +267,14 @@ export default {
             alert('피드가 정상적으로 삭제되었습니다.')
             router.push({
               name: 'profile',
-              params: { userPK: getters.currentUser.memberIndex }
+              params: { userPK: getters.currentUser.member.memberIndex }
             })
           })
           .catch((err) => {
             console.log(err.response)
             router.push({
               name: 'profile',
-              params: { userPK: getters.currentUser.memberIndex }
+              params: { userPK: getters.currentUser.member.memberIndex }
             })
           })
         }

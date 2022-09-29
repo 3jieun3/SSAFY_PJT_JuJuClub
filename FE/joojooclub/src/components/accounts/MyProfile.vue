@@ -2,7 +2,7 @@
 	<div class="profile-box">
 		<div class="summary-box">
 			<div>
-				<span>💜</span>
+				<img src="@/assets/avatar.jpg" style="width: 3rem;">
 				<span>{{ memberId }}</span>
 			</div>
 			<div>
@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .profile-box {
 	display: grid;
 	row-gap: 1rem;

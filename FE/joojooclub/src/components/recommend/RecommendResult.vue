@@ -3,7 +3,7 @@
     <div class="row align-items-center mt-5">
       <h3 class="recommendTitle mb-5">당신에게 어울리는 술은</h3>
       <carousel-3d width="300" height="600" class="carousel3D">
-        <slide v-for="(result, index) in getRecommendDrinks"
+        <slide v-for="(result, index) in recommendDrinks"
           :index="index"
           :key="index">
           <img class="slideImg" :src="result.drink.imageUrl" alt="recommendImg">
@@ -24,7 +24,7 @@
 
 <script>
 import { Carousel3d, Slide } from 'vue-carousel-3d';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import router from '@/router';
 
 export default {
@@ -33,13 +33,31 @@ export default {
     Carousel3d,
     Slide,
   },
+  data() {
+    return {
+      recommendDrinks: {
+        "drink": null,
+        "count": null,
+        "tags": null,
+      },
+    }
+  },
   computed: {
     ...mapGetters('drinks', ['getRecommendDrinks'])
   },
   methods: {
+    ...mapActions('drinks', ['clearRecommend', 'clearChoose']),
     goDetailPage(idx) {
       router.push({ name: 'drink', params: { drinkPK : idx } })
+    },
+    getRecommendDrink(data) {
+      this.recommendDrinks = data
+      console.log(data)
     }
+  },
+  created() {
+    this.clearChoose()
+    setTimeout(() => this.getRecommendDrink(this.getRecommendDrinks), 3500)
   }
 }
 

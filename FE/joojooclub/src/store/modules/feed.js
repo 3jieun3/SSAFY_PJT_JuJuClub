@@ -1,6 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import joojooclub from '@/api/joojooclub'
+import _ from 'lodash'
 
 export default {
   namespaced: true,
@@ -17,7 +18,7 @@ export default {
         likeCount: 3333,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/200/300',
         member: {
           memberIndex: 1,
           id: 'ssafy'
@@ -170,7 +171,12 @@ export default {
         method: 'get',
       })
       .then((res) => {
-        commit('SET_FEED', res.data)
+        const feed = {
+          ...(_.omit(res.data.feed, ['drink', 'member'])),
+          drink: { ...(_.pick(res.data.feed.drink, ['drinkIndex', 'drinkName'])) },
+          member: { ..._(_.pick(res.data.feed.member, ['memberIndex', 'id'])) },
+        }
+        commit('SET_FEED', feed)
       })
       .catch((err) => {
         console.log(err.response)

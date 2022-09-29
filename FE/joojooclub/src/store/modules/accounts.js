@@ -229,7 +229,7 @@ export default {
         likeCount: 555,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/200/300',
         member: {
           memberIndex: 1,
           id: 'ssafy'
@@ -246,7 +246,7 @@ export default {
         likeCount: 99,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/600/500',
         member: {
           memberIndex: 1,
           id: 'ssafy'
@@ -263,7 +263,7 @@ export default {
         likeCount: 3333,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/400/600',
         member: {
           memberIndex: 1,
           id: 'ssafy'
@@ -280,7 +280,7 @@ export default {
         likeCount: 3333,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/600/900',
         member: {
           memberIndex: 1,
           id: 'ssafy'
@@ -297,9 +297,9 @@ export default {
         likeCount: 3333,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'ryan1.jpg',
+        imageUrl: 'https://picsum.photos/600',
         member: {
-          memberIndex: 2,
+          memberIndex: 1,
           id: 'ssafy2'
         },
         drink: {

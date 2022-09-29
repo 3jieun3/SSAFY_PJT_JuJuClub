@@ -2,7 +2,7 @@
 	<div class="feed-list">
 		<h4>좋아요한 피드</h4>
 		<div class="horiz-scroll-box">
-			<feed-list-item v-for="feed in likedFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
+			<feed-list-item v-for="feed in likeFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 		</div>
 	</div>
 </template>
@@ -21,7 +21,7 @@ export default {
 	},
 	data() {
 		return {
-			likedFeeds: this.currentUser.likeFeeds,
+			likeFeeds: this.currentUser.likeFeeds,
 		}
 	},
 	created() {

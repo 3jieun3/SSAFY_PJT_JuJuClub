@@ -86,16 +86,26 @@ export default {
 <style scoped>
   button {
     margin: 10px;
-    font-size: min(4vw, 1rem);
+    /* font-size: min(4vw, 1rem); */
+    font-size: min(3vw, 1rem);
   }
-
   h4 {
     margin-top: 15px !important;
     margin-right: 10px;
   }
 
+  @media (max-width: 700px) {
+    button {
+      margin: 5px;
+      padding: 4px 8px;
+    }
+    h4 {
+      font-size: min(4vw, 1rem);
+    }
+  }
+
   .basicTag {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .selected {

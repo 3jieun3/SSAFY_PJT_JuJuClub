@@ -2,8 +2,7 @@ import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
-
-
+import accounts from '@/store/modules/accounts'
 // import config from '@/api_key.js'
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -13,6 +12,7 @@ export default {
   state: {
     // drink detail 정보
     drink: {},
+    drinkNames: [],
     reviews: [],
     // drink detail reviews pagination
     reviewPaging: {
@@ -188,6 +188,7 @@ export default {
   },
   getters: {
     drink: state => state.drink,
+    drinkNames: state => state.drinkNames,
     reviews: state => state.reviews,
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
@@ -226,12 +227,13 @@ export default {
     CLEAR_QUESTION_COUNT: (state) => state.questionEtc.questionCount = 0,
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
+    SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
     SET_REVIEWS(state, reviews){ 
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
     },
-    CREATE_REVIEW:(state, review) => state.reviews.unshift(review),
-    DELETE_REVIEW:(state, reviewIndex) => state.reviews.splice(state.reviews.indexOf(reviewIndex), 1), 
+    //CREATE_REVIEW:(state, review) => state.reviews.unshift(review),
+    //DELETE_REVIEW:(state, reviewIndex) => state.reviews.splice(state.reviews.indexOf(reviewIndex), 1), 
     GO_PAGE(state, page) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page
@@ -486,31 +488,41 @@ export default {
         method: 'get',
       }).then((res) => {
         commit('SET_DRINK', [res.data.drink, res.data.tags, res.data.foods])
-        dispatch('fetchReviews', res.data.reviews)
+        dispatch('fetchReviews', res.data.reviews.reverse())
         dispatch('goPage', 1)
       }).catch((err) => {
         console.log(err.response)
         router.push({ name: 'drinks' })
       })
     },
+    fetchDrinkNames({ commit }) {
+      axios({
+        url: joojooclub.drinks.drinkNames(),
+        method: 'get',
+      }).then((res) => {
+        commit('SET_DRINK_NAMES', res.data.drinkNameList)
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    },
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
     goPage({ commit }, page) { commit('GO_PAGE', page) },
-    createReview({ commit, getters }, {drinkIndex, score, review}) {
+    createReview({ getters }, review) {
       axios({
         url: joojooclub.drinks.review(),
         method: 'post',
         headers: getters.authHeader,
-        data: { drinkIndex, score, review },
+        data: review,
       }).then(() => {
-        // review 등록 응답으로 등록된 review 정보 달라하기
-        commit('CREATE_REVIEW', drinkIndex)
-        router.push({ name: 'drink', params: { drinkPK: drinkIndex } })
+        // console.log(router.currentRoute.fullPath, `/drinks/${review.drinkIndex}`)
+        // router.push({ name: 'drinks' }) // 리다이렉트 이슈
+        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`/drinks/${review.drinkIndex}`)
       }).catch((err) => {
         console.log(err.response)
-        router.push({ name: 'drink', params: { drinkPK: drinkIndex }})
+        router.push({ name: 'drinks', params: { drinkPK: review.drinkIndex }})
       })
     },
-    deleteReview({ commit, getters }, reviewIndex) {
+    deleteReview({ getters }, reviewIndex) {
       if (confirm('후기를 삭제하시겠습니까?')) {
         axios({
           url: joojooclub.drinks.review(),
@@ -518,7 +530,7 @@ export default {
           headers: getters.authHeader,
           data: { reviewIndex },
         }).then(() => {
-          commit('DELETE_REVIEW', reviewIndex)
+          router.push({ name: 'drinks' })   // 리다이렉트 이슈
         }).catch((err) => {
           console.log(err.response)
         })

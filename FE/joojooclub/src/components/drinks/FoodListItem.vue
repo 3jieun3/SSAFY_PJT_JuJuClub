@@ -21,5 +21,6 @@ img {
 }
 h5 {
 	margin: 0.5rem;
+	font-size: min(2vw, 1.1rem);
 }
 </style>

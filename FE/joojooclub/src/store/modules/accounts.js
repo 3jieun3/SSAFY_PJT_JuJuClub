@@ -11,7 +11,6 @@ export default {
     token: localStorage.getItem('token') || '',
     // dj_rest_auth accounts/user/
     currentUser: {},
-    // profile: {},
     // signup, login할 때 오류 메세지
     authError: null,
     // 후기 pagination
@@ -22,7 +21,7 @@ export default {
     },
     showReviews: [],
     // dummy
-    dummy: [
+    dummyReviews: [
       {
         reviewIndex: 1,
         score: 5,
@@ -222,13 +221,99 @@ export default {
         },
       },
     ],
+    dummyFeeds: [
+      {
+        feedIndex: 1,
+        title: '피드 1',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        likeCount: 555,
+        createdAt: '2022-03-03T11:10:07',
+        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
+        imageUrl: 'ryan1.jpg',
+        member: {
+          memberIndex: 1,
+          id: 'ssafy'
+        },
+        drink: {
+          drinkIndex: 5,
+          drinkName: 'G12 골디락스'
+        },
+      },
+      {
+        feedIndex: 2,
+        title: '피드 2',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        likeCount: 99,
+        createdAt: '2022-03-03T11:10:07',
+        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
+        imageUrl: 'ryan1.jpg',
+        member: {
+          memberIndex: 1,
+          id: 'ssafy'
+        },
+        drink: {
+          drinkIndex: 5,
+          drinkName: 'G12 골디락스'
+        },
+      },
+      {
+        feedIndex: 3,
+        title: '피드 3',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        likeCount: 3333,
+        createdAt: '2022-03-03T11:10:07',
+        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
+        imageUrl: 'ryan1.jpg',
+        member: {
+          memberIndex: 1,
+          id: 'ssafy'
+        },
+        drink: {
+          drinkIndex: 5,
+          drinkName: 'G12 골디락스'
+        },
+      },
+      {
+        feedIndex: 4,
+        title: '피드 4',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        likeCount: 3333,
+        createdAt: '2022-03-03T11:10:07',
+        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
+        imageUrl: 'ryan1.jpg',
+        member: {
+          memberIndex: 1,
+          id: 'ssafy'
+        },
+        drink: {
+          drinkIndex: 5,
+          drinkName: 'G12 골디락스'
+        },
+      },
+      {
+        feedIndex: 5,
+        title: '피드 5',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        likeCount: 3333,
+        createdAt: '2022-03-03T11:10:07',
+        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
+        imageUrl: 'ryan1.jpg',
+        member: {
+          memberIndex: 2,
+          id: 'ssafy2'
+        },
+        drink: {
+          drinkIndex: 5,
+          drinkName: 'G12 골디락스'
+        },
+      },
+    ],
   },
   getters: {
     // 로그인 했니?: state에 token값이 있으면 (true) 로그인 한 것
     isLoggedIn: state => !!state.token,
     token: state => state.token,
     currentUser: state => state.currentUser,
-    // profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
@@ -241,10 +326,11 @@ export default {
     SET_TOKEN: ( state, token ) => state.token = token,
     SET_CURRENT_USER: ( state, user ) => { 
       state.currentUser = user
-      state.currentUser.reviews = state.dummy
+      state.currentUser.reviews = state.dummyReviews  //
+      state.currentUser.feeds = state.dummyFeeds      //
+      state.currentUser.likeFeeds = state.dummyFeeds  //
       state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
-    // // SET_PROFILE: ( state, profile ) => state.profile = profile,
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
     GO_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경

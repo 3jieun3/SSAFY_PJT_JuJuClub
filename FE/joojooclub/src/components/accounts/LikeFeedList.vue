@@ -9,7 +9,6 @@
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
-// import { mapState } from 'vuex'
 
 export default {
 	name: "LikeFeedList",

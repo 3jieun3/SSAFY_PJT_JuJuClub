@@ -327,8 +327,8 @@ export default {
     SET_CURRENT_USER: ( state, user ) => { 
       state.currentUser = user
       state.currentUser.reviews = state.dummyReviews  //
-      state.currentUser.feeds = state.dummyFeeds      //
-      state.currentUser.likeFeeds = state.dummyFeeds  //
+      state.currentUser.feeds.push(...state.dummyFeeds)      //
+      state.currentUser.likeFeeds.push(...state.dummyFeeds)  //
       state.reviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,

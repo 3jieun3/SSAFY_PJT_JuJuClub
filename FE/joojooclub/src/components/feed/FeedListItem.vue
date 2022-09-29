@@ -1,7 +1,8 @@
 <template>
 	<div class="feed-item col">
 		<div class="card">
-			<img :src="feed.imageUrl" class="card-img-top" alt="Feed Image">
+			<img v-if="feed.imageUrl" :src="feed.imageUrl" class="card-img-top" alt="Feed Image">
+			<img v-else src="https://dummyimage.com/600x600&text=NO+FEED+IMAGE!" class="card-img-top" alt="Feed Image">
 			<div class="card-body">
 				<h4 class="card-title">{{ feed.title }}</h4>
 				<span>{{ feed.likeCount }}</span>

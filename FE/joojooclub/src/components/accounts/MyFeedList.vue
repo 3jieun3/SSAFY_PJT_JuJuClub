@@ -23,9 +23,6 @@ export default {
       feeds: this.currentUser.feeds,
     }
 	},
-	computed: {
-		// ...mapState('accounts', ['feeds']),
-	},
 }
 </script>
 

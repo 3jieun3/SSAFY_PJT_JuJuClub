@@ -1,12 +1,8 @@
 <template>
-	<!-- <div class="review-list">
-		<hr>
-		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review"></comment-list-item>
-		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
-	</div> -->
-	<div class="ui comments">
+	<div class="ui comments comment-list">
 		<hr>
 		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
+		<hr>
 		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
 	</div>
 </template>
@@ -32,6 +28,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.comment-list {
+	max-width: 100%;
+}
 
 </style>

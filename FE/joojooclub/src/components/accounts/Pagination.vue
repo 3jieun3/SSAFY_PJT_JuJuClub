@@ -49,10 +49,10 @@ export default {
 .pagination li a.page-link{
 	color: #909090;
 	background-color: transparent;
-	font-size: 1.2rem;
-	line-height: 35px;
-	height: 45px;
-	width: 40px;
+	font-size: 1rem;
+	line-height: 2rem;
+	height: 2.5rem;
+	width: 2rem;
 	margin: 0 3px;
 	border: none;
 	border-radius: 0;

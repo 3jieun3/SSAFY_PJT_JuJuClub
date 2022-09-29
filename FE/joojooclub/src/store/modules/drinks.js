@@ -72,7 +72,6 @@ export default {
       questionCount: 0,
       choose: [],
     },
-    recommendDrinks: [],
     typeTagList: [
       {
         tagIndex: 1,
@@ -199,7 +198,6 @@ export default {
     getQuestionEtc: state => state.questionEtc,
     getQuestionCount: state => state.questionEtc.questionCount,
     getChooseAnswer: state => state.questionEtc.choose,
-    getRecommendDrinks: state => state.recommendDrinks,
     getCustomClicked: state => idx => state.tagList.customTagClicked[idx].isClicked,
     getIsCards: state => state.isCards,
     getTypeTagList: state => state.typeTagList,
@@ -223,11 +221,10 @@ export default {
   mutations: {
     SET_DRINKS: (state, res) => state.drinks = res,
     SET_CUSTOM_TAGS: (state, res) => state.customTagList = res,
-    SET_RECOMMEND_DRINKS: (state, res) => {
-      state.recommendDrinks = res
-      state.questionEtc.questionCount = 0
-      state.questionEtc.choose = []
-    },
+    
+    CLEAR_RECOMMEND: (state) => state.recommendDrinks = [],
+    CLEAR_CHOOSE: (state) => state.questionEtc.choose = [],
+    CLEAR_QUESTION_COUNT: (state) => state.questionEtc.questionCount = 0,
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
@@ -299,6 +296,7 @@ export default {
       }
       else {
         state.setFilteringDrinks = state.drinks
+        state.choosedTagList = []
       }
     },
     // 맞춤 추천 로직
@@ -309,6 +307,9 @@ export default {
       }
       else if (answerStr == '달지 않음' || answerStr == '아니다') {
         answerStr = 0
+      }
+      else if (answerStr == '41도 이상') {
+        answerStr = '41 - 100'
       }
       ques.choose.push(answerStr)
       ques.questionCount += 1
@@ -535,31 +536,22 @@ export default {
         })
       }
     },
-    pushAnswer({ commit, dispatch, getters }, answerStr) {
-      commit('PUSH_ANSWER', answerStr)
+    async pushAnswer({ commit, dispatch, getters }, answerStr) {
+      await commit('PUSH_ANSWER', answerStr)
       if (getters.getQuestionCount == 5) {
-        dispatch('getRecommendDrinks')
-        router.push({ name: 'recommendResult' })
+        await commit('CLEAR_QUESTION_COUNT')
+        await dispatch('getRecommendDrinks')
+        await dispatch('clearRecommend')
+        await router.push({ name: 'recommendResult' })
+
       }
     },
-    getRecommendDrinks({ commit, getters }) {
-      axios({
-        url: joojooclub.drinks.recommend(),
-        method: 'post',
-        data: {
-          "startAge" : parseInt(getters.getChooseAnswer[0].split(' ')[0]),
-          "endAge" : parseInt(getters.getChooseAnswer[0].split(' ')[2]),
-          "gender" : getters.getChooseAnswer[1],
-          "startAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[0].replace('도', '')),
-          "endAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[2].replace('도', '')),
-          "tag" : parseInt(getters.getChooseAnswer[3]),
-          "Fruit" : parseInt(getters.getChooseAnswer[4]),
-        }
-      })
-        .then((res) => {
-          console.log(res.data)
-          commit('SET_RECOMMEND_DRINKS', res.data)
-        })
+    
+    clearRecommend({ commit }) {
+      commit('CLEAR_RECOMMEND')
+    },
+    clearChoose({ commit }) {
+      commit('CLEAR_CHOOSE')
     },
     basicTagClicked({ commit }, [tagOrder, tag]) {
       commit('BASIC_TAG_CLICKED', [tagOrder, tag])
@@ -686,6 +678,43 @@ export default {
     }
   },
   modules: {
-    accounts,
-  },
+    recommend: {
+      state: {
+        recommendDrinks: [],
+      },
+      getters: {
+        getRecommendDrinks: state => state.recommendDrinks,
+      },
+      mutations: {
+        SET_RECOMMEND_DRINKS: (state, res) => {
+          console.log(res)
+          state.recommendDrinks = res
+          console.log(state.recommendDrinks)
+          state.questionEtc.questionCount = 0
+          state.questionEtc.choose = []
+        },
+      },
+      actions: {
+        getRecommendDrinks({ commit, getters }) {
+          axios({
+            url: joojooclub.drinks.recommend(),
+            method: 'post',
+            data: {
+              "startAge" : parseInt(getters.getChooseAnswer[0].split(' ')[0]),
+              "endAge" : parseInt(getters.getChooseAnswer[0].split(' ')[2]),
+              "gender" : getters.getChooseAnswer[1],
+              "startAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[0].replace('도', '')),
+              "endAbv" : parseInt(getters.getChooseAnswer[2].split(' ')[2].replace('도', '')),
+              "tag" : parseInt(getters.getChooseAnswer[3]),
+              "Fruit" : parseInt(getters.getChooseAnswer[4]),
+            }
+          })
+            .then((res) => {
+              console.log(res.data)
+              commit('SET_RECOMMEND_DRINKS', res.data)
+            })
+        },
+      }
+    }
+  }
 }

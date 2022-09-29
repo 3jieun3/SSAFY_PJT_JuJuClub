@@ -19,7 +19,7 @@ export default {
 	methods: {
 		...mapActions('feed', ['fetchFeed'])
 	},
-	created() {
+	mounted() {
 		this.fetchFeed(this.$route.params.feedPK)
 	},
 }

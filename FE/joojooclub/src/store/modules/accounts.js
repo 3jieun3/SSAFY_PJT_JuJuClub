@@ -332,7 +332,7 @@ export default {
       state.myReviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
     },
     SET_AUTH_ERROR: ( state, error ) => state.authError = error,
-    GO_PAGE( state, page ) {
+    GO_MY_PAGE( state, page ) {
       // 현재 페이지를 선택된 페이지로 변경
       state.myReviewPaging.currentPage = page
       // pagination nav에 보여줄 page list 변경
@@ -408,7 +408,7 @@ export default {
           headers: getters.authHeader,
         }).then((res) => {
           commit('SET_CURRENT_USER', res.data)
-          dispatch('goPage', 1)
+          dispatch('goMyPage', 1)
         }).catch((err) => {
           // 토큰이 잘못된 경우
           if (err.response.status === 401) {
@@ -487,8 +487,8 @@ export default {
       }
     },
 
-    goPage({ commit }, page) {
-      commit('GO_PAGE', page)
+    goMyPage({ commit }, page) {
+      commit('GO_MY_PAGE', page)
     },
   }
 }

@@ -15,7 +15,7 @@ export default {
 	data() {
 		return {
 			feed: {
-				drinkIndex: null,
+				drinkIndex: 0,
 				title: '',
 				content: '',
 				customTags: '',

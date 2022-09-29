@@ -1,9 +1,9 @@
 <template>
 	<div class="ui comments comment-list">
 		<hr>
-		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
+		<comment-list-item v-for="review in myShowReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
 		<hr>
-		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
+		<pagination-nav :currentPage="myReviewPaging.currentPage"></pagination-nav>
 	</div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
 		currentUser: Object,
 	},
 	computed: {
-    ...mapGetters(['reviewPaging', 'showReviews']),
+    ...mapGetters(['myReviewPaging', 'myShowReviews']),
 	},
 	methods: {
 	},

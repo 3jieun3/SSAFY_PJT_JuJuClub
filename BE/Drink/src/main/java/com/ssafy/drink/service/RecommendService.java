@@ -14,4 +14,5 @@ public interface RecommendService {
     public List<Drink> findDrinkByTag();
     public List<Drink> findDrinkByTags();
     public Drink findByDrinkIndex3(Long drinkIndex);
+    public List<String> findByTagList(Drink drink);
 }

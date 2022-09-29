@@ -1,7 +1,7 @@
 const HOST = "https://j7d106.p.ssafy.io/api/"
 
 // const MAIN = "main/"
-// const RECOMMEND = "recommend/"
+const RECOMMEND = "recommend/"
 const INFO = "info/"
 const MEMBER = 'member/'
 const FEED = 'feed/'
@@ -23,6 +23,7 @@ export default {
     drinkTag: () => HOST + INFO + 'tag',                                    // 술 전체 정보 GET
     drinkInfo: (drinkIndex) => HOST + INFO + `${drinkIndex}/`,  // 술 상세 정보 GET
     drinkNames: () => HOST + INFO + `drink/`,                   // 술 이름 리스트 GET
+    recommend: () => HOST + RECOMMEND,                          // 맞춤 추천 리스트 POST
     review: () => HOST + REVIEW,                                // 술 리뷰 (등록, POST), (삭제, DELETE)
     todayWeekDrink: () => HOST + MAIN + 'day/', // 오늘의 술(요일별) GET
     todayWeatherDrink: (weather) => HOST + MAIN + `weather/${weather}/`, // 오늘의 술(날씨별) GET

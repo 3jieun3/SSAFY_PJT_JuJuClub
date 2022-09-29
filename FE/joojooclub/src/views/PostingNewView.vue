@@ -1,6 +1,6 @@
 <template>
 	<div class="posting-body">
-		<posting-form :feed="feed" :action="`create`"></posting-form>
+		<posting-form :feed="feed" action="create"></posting-form>
 	</div>
 </template>
 

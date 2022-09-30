@@ -65,6 +65,10 @@ export default {
 
 <style scoped>
 
+  * {
+    font-family: 'NanumBarunGothic';
+  }
+
   .carousel-3d-slide {
       border: none;
       text-align: center;
@@ -85,6 +89,7 @@ export default {
   }
 
   .recommendTitle {
+    font-family: 'GongGothicMedium';
     font-weight: bold;
   }
 

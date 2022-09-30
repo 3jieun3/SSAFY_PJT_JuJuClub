@@ -17,7 +17,7 @@
             <li class="nav-item mt-2">
               <router-link to="/" class="active nav-common ps-2 ps-md-5 pe-2" aria-current="page">Main</router-link>
             </li>
-            <li class="nav-item mt-2">
+            <li class="nav-item mt-2" @click="[clearQuestionCount(), clearChoose()]">
               <router-link to="/recommend" class="nav-common px-2">Recommend</router-link>
             </li>
             <li class="nav-item mt-2">
@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     ...mapActions(['logout', 'signout']),
+    ...mapActions('drinks', ['clearQuestionCount', 'clearChoose'])
   },
   created() {
     // console.log(this.currentUser)

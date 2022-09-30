@@ -24,8 +24,7 @@
 			<label for="tags">태그</label>
 			<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그를 입력하세요.">
 		</div>
-		<!-- 뒤로 가기 함수 추가하기 -->
-		<button class="ui button">뒤로</button>
+		<button class="ui button" @click="$router.back()">뒤로</button>
 		<button class="ui button" @click.prevent="onSubmit">저장</button>
 	</form>
 </template>

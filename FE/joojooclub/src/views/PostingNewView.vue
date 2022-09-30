@@ -22,7 +22,7 @@ export default {
 				title: '',
 				content: '',
 				customTags: '',
-				imageUrl: '',
+				imgFile: '',
 			}
 		}
 	},

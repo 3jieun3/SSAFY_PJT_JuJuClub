@@ -24,4 +24,6 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
     //test
     List<Feed> findByDrink(Drink drink);
+
+
 }

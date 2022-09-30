@@ -1,6 +1,6 @@
 <template>
 	<div class="posting-body">
-		<posting-form :feed="feed" action="update"></posting-form>
+		<posting-form v-if="isFeed" :feed="feed" action="update"></posting-form>
 	</div>
 </template>
 
@@ -14,12 +14,12 @@ export default {
 		PostingForm,
 	},
 	computed: {
-		...mapGetters('feed', ['feed']),
+		...mapGetters('feed', ['feed', 'isFeed']),
 	},
 	methods: {
 		...mapActions('feed', ['fetchFeed'])
 	},
-	mounted() {
+	created() {
 		this.fetchFeed(this.$route.params.feedPK)
 	},
 }

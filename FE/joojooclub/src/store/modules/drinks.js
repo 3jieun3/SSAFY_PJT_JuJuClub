@@ -2,7 +2,6 @@ import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
 import _ from 'lodash'
-import accounts from '@/store/modules/accounts'
 // import config from '@/api_key.js'
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -185,10 +184,12 @@ export default {
     },
     isCards: true,
     weatherInfo: {},
+    searchedDrink: {},
   },
   getters: {
     drink: state => state.drink,
     drinkNames: state => state.drinkNames,
+    searchedDrink: state => state.searchedDrink,
     reviews: state => state.reviews,
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
@@ -228,12 +229,11 @@ export default {
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
+    SEARCH_DRINK_INDEX: (state, drinkName) => state.searchedDrink = { drinkIndex: state.drinkNames.indexOf(drinkName) + 1, drinkName: drinkName },
     SET_REVIEWS(state, reviews){ 
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
     },
-    //CREATE_REVIEW:(state, review) => state.reviews.unshift(review),
-    //DELETE_REVIEW:(state, reviewIndex) => state.reviews.splice(state.reviews.indexOf(reviewIndex), 1), 
     GO_PAGE(state, page) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page
@@ -507,6 +507,7 @@ export default {
     },
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
     goPage({ commit }, page) { commit('GO_PAGE', page) },
+    searchDrinkIndex({ commit }, drinkName) { commit('SEARCH_DRINK_INDEX', drinkName)},
     createReview({ getters }, review) {
       axios({
         url: joojooclub.drinks.review(),

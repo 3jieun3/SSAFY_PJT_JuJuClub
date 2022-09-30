@@ -1,6 +1,7 @@
 import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
+import accounts from '@/store/modules/accounts'
 import _ from 'lodash'
 // import config from '@/api_key.js'
 // import dotenv from 'dotenv';
@@ -515,8 +516,9 @@ export default {
         headers: getters.authHeader,
         data: review,
       }).then(() => {
+        // window.reload
         // console.log(router.currentRoute.fullPath, `/drinks/${review.drinkIndex}`)
-        // router.push({ name: 'drinks' }) // 리다이렉트 이슈
+        router.push({ name: 'drinks' }) // 리다이렉트 이슈
         // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`/drinks/${review.drinkIndex}`)
       }).catch((err) => {
         console.log(err.response)
@@ -679,6 +681,7 @@ export default {
     }
   },
   modules: {
+    accounts,
     recommend: {
       state: {
         recommendDrinks: [],

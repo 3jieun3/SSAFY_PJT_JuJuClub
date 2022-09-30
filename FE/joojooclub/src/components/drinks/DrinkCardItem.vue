@@ -36,6 +36,11 @@ export default {
 </script>
 
 <style scoped>
+
+  * {
+  font-family: 'NanumBarunGothic';
+  }
+
   .card {
     height: 100%;
   }

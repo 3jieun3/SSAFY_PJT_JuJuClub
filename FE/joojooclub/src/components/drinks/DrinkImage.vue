@@ -1,7 +1,7 @@
 <template>
   <div class="drinkImg">
     <div class="mainText">
-      <h2>전통주 찾기</h2>
+      <h2 class="text">전통주 찾기</h2>
     </div>
   </div>
 </template>
@@ -27,5 +27,9 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     justify-content: center;
+  }
+
+  .text {
+    font-family: 'NanumBarunGothic';
   }
 </style>

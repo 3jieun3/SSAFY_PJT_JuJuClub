@@ -19,7 +19,6 @@ export default {
 		PaginationNav
 	},
 	props: {
-		currentUser: Object,
 		reviews: Array,
 	},
 	computed: {

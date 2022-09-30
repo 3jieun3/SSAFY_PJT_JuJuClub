@@ -516,10 +516,10 @@ export default {
         headers: getters.authHeader,
         data: review,
       }).then(() => {
-        // window.reload
+        window.location.reload()
         // console.log(router.currentRoute.fullPath, `/drinks/${review.drinkIndex}`)
-        router.push({ name: 'drinks' }) // 리다이렉트 이슈
-        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`/drinks/${review.drinkIndex}`)
+        // router.push({ name: 'drinks' }) // 리다이렉트 이슈
+        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`drinks/${review.drinkIndex}`)
       }).catch((err) => {
         console.log(err.response)
         router.push({ name: 'drinks', params: { drinkPK: review.drinkIndex }})
@@ -533,7 +533,7 @@ export default {
           headers: getters.authHeader,
           data: { reviewIndex },
         }).then(() => {
-          router.push({ name: 'drinks' })   // 리다이렉트 이슈
+          window.location.reload()   // 리다이렉트 이슈
         }).catch((err) => {
           console.log(err.response)
         })

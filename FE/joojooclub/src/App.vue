@@ -52,6 +52,21 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
+.btn-warning {
+  background-color: rgb(237, 198, 150);
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 10px;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
+}
+
 @font-face {
   font-family: 'NanumBarunGothic';
   font-style: normal;
@@ -71,6 +86,13 @@ nav a.router-link-exact-active {
 @font-face {
   font-family: 'ChosunKm';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunKm.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GongGothicMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

@@ -36,7 +36,7 @@ export default {
 
 <style>
 .todayDrinkList {
-  margin-top: 100px;
+  margin-top: 60px;
 }
 .recommendTitle {
   font-size: min(5vw, 2rem);
@@ -45,8 +45,8 @@ export default {
   font-size: min(3.5vw, 1.5rem);
 }
 @media (min-width: 700px) {
-  .recommendComment {
-    margin-bottom: 50px;
-  }
+  .todayDrinkList {
+  margin-top: 100px;
+}
 }
 </style>

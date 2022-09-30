@@ -17,12 +17,12 @@ export default {
 			feed: {
 				drink: {
 					drinkName: '',
-					drinkIndex: 0,
+					drinkIndex: 4,
 				},
 				title: '',
 				content: '',
 				customTags: '',
-				imgFile: '',
+				imageUrl: '',
 			}
 		}
 	},

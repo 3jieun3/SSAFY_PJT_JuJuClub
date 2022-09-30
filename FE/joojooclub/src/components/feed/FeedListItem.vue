@@ -6,7 +6,7 @@
 			<div class="card-body">
 				<h4 class="card-title">{{ feed.title }}</h4>
 				<span>{{ feed.likeCount }}</span>
-				<i class="fa-solid fa-heart fa-2x"></i>
+				<like-button></like-button>
 				<p class="card-text overflow-auto" v-text="feed.content"></p>
 			</div>
 			<div class="card-footer">
@@ -22,10 +22,14 @@
 </template>
 
 <script>
+import likeButton from '@/components/feed/likeButton'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'FeedListItem',
+	components: {
+		likeButton,
+	},
 	props: {
 		feed: Object,
 	},
@@ -33,7 +37,7 @@ export default {
 		...mapGetters(['currentUser', 'isCurrentUser'])
 	},
 	methods: {
-		...mapActions('feed', ['deleteFeed']),
+		...mapActions('feed', ['deleteFeed', 'likeFeed']),
 	},
 }
 </script>

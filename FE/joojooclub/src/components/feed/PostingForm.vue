@@ -72,9 +72,6 @@ export default {
 			formdata.append('imgFile', this.newFeed.imgFile)
 
 			if (this.action === 'create') {
-				for (let value of formdata.values()) {
-					console.log(value)
-				}
 				this.createFeed(formdata)
 			} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)

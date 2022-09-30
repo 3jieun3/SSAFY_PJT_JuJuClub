@@ -198,7 +198,7 @@ export default {
     },
 
     createFeed({ getters }, formdata) {
-      if (confirm('등록하시겠습니까?')) { 
+      if (confirm('등록하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),
           method: 'post',

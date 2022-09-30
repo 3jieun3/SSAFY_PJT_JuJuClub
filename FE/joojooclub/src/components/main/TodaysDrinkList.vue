@@ -39,9 +39,11 @@ export default {
   margin-top: 60px;
 }
 .recommendTitle {
+  font-family: 'GongGothicMedium';
   font-size: min(5vw, 2rem);
 }
 .recommendComment {
+  font-family: 'NanumBarunGothic';
   font-size: min(3.5vw, 1.5rem);
 }
 @media (min-width: 700px) {

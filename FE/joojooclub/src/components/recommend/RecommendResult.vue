@@ -52,7 +52,7 @@ export default {
     },
     getRecommendDrink(data) {
       this.recommendDrinks = data
-      console.log(data)
+      console.log('ok')
     }
   },
   created() {
@@ -64,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+
+  * {
+    font-family: 'NanumBarunGothic';
+  }
 
   .carousel-3d-slide {
       border: none;
@@ -85,6 +89,7 @@ export default {
   }
 
   .recommendTitle {
+    font-family: 'GongGothicMedium';
     font-weight: bold;
   }
 

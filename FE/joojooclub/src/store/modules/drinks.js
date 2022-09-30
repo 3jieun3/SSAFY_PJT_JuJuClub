@@ -1,6 +1,7 @@
 import router from "@/router"
 import axios from "axios"
 import joojooclub from "@/api/joojooclub"
+import accounts from '@/store/modules/accounts'
 import _ from 'lodash'
 // import config from '@/api_key.js'
 // import dotenv from 'dotenv';
@@ -222,10 +223,12 @@ export default {
   mutations: {
     SET_DRINKS: (state, res) => state.drinks = res,
     SET_CUSTOM_TAGS: (state, res) => state.customTagList = res,
-    
     CLEAR_RECOMMEND: (state) => state.recommendDrinks = [],
     CLEAR_CHOOSE: (state) => state.questionEtc.choose = [],
-    CLEAR_QUESTION_COUNT: (state) => state.questionEtc.questionCount = 0,
+    CLEAR_QUESTION_COUNT(state) {
+      console.log('clear count')
+      state.questionEtc.questionCount = 0
+    },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
@@ -515,9 +518,10 @@ export default {
         headers: getters.authHeader,
         data: review,
       }).then(() => {
+        window.location.reload()
         // console.log(router.currentRoute.fullPath, `/drinks/${review.drinkIndex}`)
         // router.push({ name: 'drinks' }) // 리다이렉트 이슈
-        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`/drinks/${review.drinkIndex}`)
+        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`drinks/${review.drinkIndex}`)
       }).catch((err) => {
         console.log(err.response)
         router.push({ name: 'drinks', params: { drinkPK: review.drinkIndex }})
@@ -531,7 +535,7 @@ export default {
           headers: getters.authHeader,
           data: { reviewIndex },
         }).then(() => {
-          router.push({ name: 'drinks' })   // 리다이렉트 이슈
+          window.location.reload()   // 리다이렉트 이슈
         }).catch((err) => {
           console.log(err.response)
         })
@@ -540,11 +544,9 @@ export default {
     async pushAnswer({ commit, dispatch, getters }, answerStr) {
       await commit('PUSH_ANSWER', answerStr)
       if (getters.getQuestionCount == 5) {
-        await commit('CLEAR_QUESTION_COUNT')
+        await dispatch('clearQuestionCount')
         await dispatch('getRecommendDrinks')
-        await dispatch('clearRecommend')
         await router.push({ name: 'recommendResult' })
-
       }
     },
     
@@ -553,6 +555,9 @@ export default {
     },
     clearChoose({ commit }) {
       commit('CLEAR_CHOOSE')
+    },
+    clearQuestionCount({ commit }) {
+      commit('CLEAR_QUESTION_COUNT')
     },
     basicTagClicked({ commit }, [tagOrder, tag]) {
       commit('BASIC_TAG_CLICKED', [tagOrder, tag])
@@ -679,6 +684,7 @@ export default {
     }
   },
   modules: {
+    accounts,
     recommend: {
       state: {
         recommendDrinks: [],
@@ -688,9 +694,7 @@ export default {
       },
       mutations: {
         SET_RECOMMEND_DRINKS: (state, res) => {
-          console.log(res)
           state.recommendDrinks = res
-          console.log(state.recommendDrinks)
           state.questionEtc.questionCount = 0
           state.questionEtc.choose = []
         },
@@ -711,7 +715,6 @@ export default {
             }
           })
             .then((res) => {
-              console.log(res.data)
               commit('SET_RECOMMEND_DRINKS', res.data)
             })
         },

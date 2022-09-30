@@ -98,6 +98,7 @@ export default {
 </script>
 
 <style scoped>
+
   .todayLeft {
     margin-top: 50px;
   }
@@ -136,26 +137,31 @@ export default {
   }
 
   .todayMent {
+    font-family: 'GongGothicMedium';
     margin-top: 50px;
     color: red;
     font-size: min(4vw, 1.5rem);
   }
   
   .todayDrinkName {
+    font-family: 'NanumBarunGothic';
     font-size: min(4vw, 1.5rem);
   }
 
   .todayDrinkType {
+    font-family: 'NanumBarunGothic';
     font-size: min(3vw, 1.2rem);
   }
 
   .todayDrinkInfo {
+    font-family: 'NanumBarunGothic';
     /* font-size: smaller; */
     font-size: min(1.5vw, 1rem);
     font-weight: 400 !important;
   }
 
   .todayTags {
+    font-family: 'NanumBarunGothic';
     font-weight: 400 !important;
     font-size: min(3vw, 1.2rem);
   }

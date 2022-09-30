@@ -84,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+ * {
+  font-family: 'NanumBarunGothic';
+ }
+
   button {
     margin: 10px;
     /* font-size: min(4vw, 1rem); */

@@ -16,7 +16,7 @@
 		<div class="field">
 			<label for="imageFile">첨부 파일</label>
 			<div>
-				<input type="file" ref="image" id="imageFile" @change="uploadImage">
+				<input type="file" ref="image" id="imageFile" @change="uploadImage($event)">
 				<img v-if="newFeed.imgFile" :src="newFeed.imgFile" alt="uploaded feed image" class="preview-image">
 			</div>
 		</div>
@@ -62,27 +62,25 @@ export default {
 		...mapActions('drinks', ['fetchDrinkNames']),
 		onSubmit() {
 			// form data 선언
-      const formdata = new FormData()
+      let formdata = new FormData()
       // 키값 추가
-			this.drinkIndex = this.searchedDrink.drinkIndex,
-      formdata.append('drinkIndex', this.drinkIndex)
+			this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+      formdata.append('drinkIndex', 4)
 			formdata.append('title', this.newFeed.title)
 			formdata.append('content', this.newFeed.content)
 			formdata.append('customTags', this.newFeed.customTags)
 			formdata.append('imgFile', this.newFeed.imgFile)
 
 			if (this.action === 'create') {
-				for (let value of formdata.values()) {
-					console.log(value)
-				}
 				this.createFeed(formdata)
 			} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)
 				this.updateFeed(formdata)
 			}
 		},
-		uploadImage() {
-			this.newFeed.imgFile = URL.createObjectURL(this.$refs['image'].files[0])
+		uploadImage(event) {
+			this.newFeed.imgFile = event.target.files[0]
+			console.log(this.newFeed.imgFile )
 		}
 	},
 	created() {

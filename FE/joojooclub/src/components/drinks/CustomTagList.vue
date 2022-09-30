@@ -28,8 +28,14 @@ export default {
 </script>
 
 <style scoped>
+
+  * {
+    font-family: 'NanumBarunGothic';
+  }
+
   button {
     margin: 10px;
+    font-size: min(3vw, 1rem);
     font-size: min(3vw, 1rem);
   }
   @media (max-width: 700px) {

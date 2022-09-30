@@ -223,10 +223,12 @@ export default {
   mutations: {
     SET_DRINKS: (state, res) => state.drinks = res,
     SET_CUSTOM_TAGS: (state, res) => state.customTagList = res,
-    
     CLEAR_RECOMMEND: (state) => state.recommendDrinks = [],
     CLEAR_CHOOSE: (state) => state.questionEtc.choose = [],
-    CLEAR_QUESTION_COUNT: (state) => state.questionEtc.questionCount = 0,
+    CLEAR_QUESTION_COUNT(state) {
+      console.log('clear count')
+      state.questionEtc.questionCount = 0
+    },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
     SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
@@ -542,11 +544,9 @@ export default {
     async pushAnswer({ commit, dispatch, getters }, answerStr) {
       await commit('PUSH_ANSWER', answerStr)
       if (getters.getQuestionCount == 5) {
-        await commit('CLEAR_QUESTION_COUNT')
+        await dispatch('clearQuestionCount')
         await dispatch('getRecommendDrinks')
-        await dispatch('clearRecommend')
         await router.push({ name: 'recommendResult' })
-
       }
     },
     
@@ -555,6 +555,9 @@ export default {
     },
     clearChoose({ commit }) {
       commit('CLEAR_CHOOSE')
+    },
+    clearQuestionCount({ commit }) {
+      commit('CLEAR_QUESTION_COUNT')
     },
     basicTagClicked({ commit }, [tagOrder, tag]) {
       commit('BASIC_TAG_CLICKED', [tagOrder, tag])

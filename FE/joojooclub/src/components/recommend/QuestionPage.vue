@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style scoped>
+
+ * {
+  font-family: 'NanumBarunGothic';
+ }
+
   .recommendImg {
     background: url(@/assets/recommendPage.png) no-repeat center;
     position: relative;
@@ -62,5 +67,6 @@ export default {
 
   #question {
     color: white;
+    font-family: 'GongGothicMedium';
   }
 </style>

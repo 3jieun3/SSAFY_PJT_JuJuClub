@@ -49,7 +49,7 @@ public class FeedServiceImpl implements FeedService{
         logger.info("피드를 작성한 멤버 정보 : {}", member);
 
         String imgUrl = null;
-        if(registFeed.getImgFile() == null) {
+        if(registFeed.getImgFile().isEmpty()) {
             imgUrl = null;
         } else {
             imgUrl = s3UploadService.upload(registFeed.getImgFile());

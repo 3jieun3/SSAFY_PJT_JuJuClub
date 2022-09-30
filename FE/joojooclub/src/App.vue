@@ -52,6 +52,21 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
+.btn-warning {
+  background-color: rgb(237, 198, 150);
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 10px;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
+}
+
 @font-face {
   font-family: 'NanumBarunGothic';
   font-style: normal;

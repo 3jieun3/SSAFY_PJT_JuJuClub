@@ -1,5 +1,5 @@
 <template>
-  <button @click="pushAnswer(answer)" class="btn btn-warning mx-5">
+  <button @click="pushAnswer(answer)" class="btn btn-warning">
   {{ answer }}
   </button>
 </template>
@@ -19,8 +19,10 @@ export default {
 </script>
 
 <style scoped>
-  button {
+
+  .btn {
     width: auto;
     margin-bottom: 5vh;
+    margin: 0px 20px 5vh 20px;
   }
 </style>

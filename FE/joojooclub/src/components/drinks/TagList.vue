@@ -37,6 +37,7 @@ export default {
   }
 
   .btn {
+    font-family: 'NanumBarunGothic';
     font-size: min(2vw, 1rem);
   }
 

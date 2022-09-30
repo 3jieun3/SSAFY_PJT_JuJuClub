@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style scoped>
+  
+  * {
+  font-family: 'NanumBarunGothic';
+  }
 
   .footerImg {
     width: 20vh;

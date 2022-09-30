@@ -52,7 +52,7 @@ export default {
     },
     getRecommendDrink(data) {
       this.recommendDrinks = data
-      console.log(data)
+      console.log('ok')
     }
   },
   created() {

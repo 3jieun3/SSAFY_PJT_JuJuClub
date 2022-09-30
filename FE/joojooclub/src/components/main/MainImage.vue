@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+
+  
+
   .background-wrap {
     background-image: url("@/assets/mainImage.png");
     background-size: cover;
@@ -58,6 +61,7 @@ export default {
     /* justify-content: center; */
   }
   #welcomeMent {
+    font-family: ChosunKm;
     color: white;
     font-size: 3rem;
     width: auto;
@@ -71,6 +75,7 @@ export default {
     }
   }
   .main-btn {
+    font-family: 'NanumBarunGothic';
     font-size: min(2vw, 1rem);
     opacity: 0.8;
   }

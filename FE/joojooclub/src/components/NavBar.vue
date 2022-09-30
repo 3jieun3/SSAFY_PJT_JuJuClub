@@ -79,7 +79,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+* {
+  font-family: 'NanumBarunGothic';
+}
+
 :hover.nav-logout  {
   cursor: pointer;
 }

@@ -13,21 +13,24 @@
 				<span>{{ feed.customTags }}</span>
 				<small class="text-muted">{{ feed.createdAt.substring(0, 10).replaceAll('-', '.') }}</small>
 				<router-link :to="{ name: 'feedEdit', params: {feedPK: feed.feedIndex} }">
-					<button class="btn btn-light">수정</button>
+					<button v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)" class="btn btn-light">수정</button>
 				</router-link>
-					<button class="btn btn-light" @click="deleteFeed(feed.feedIndex)">삭제</button>
+					<button v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)" class="btn btn-light" @click="deleteFeed(feed.feedIndex)">삭제</button>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'FeedListItem',
 	props: {
 		feed: Object,
+	},
+	computed: {
+		...mapGetters(['currentUser', 'isCurrentUser'])
 	},
 	methods: {
 		...mapActions('feed', ['deleteFeed']),

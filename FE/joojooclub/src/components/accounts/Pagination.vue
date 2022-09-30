@@ -3,15 +3,15 @@
 		<nav class="pagination-outer">
 			<ul class="pagination">
 				<li class="page-item">
-					<a class="page-link" @click="goPage(currentPage - 1)" v-if="!(currentPage === pageList.at(0))">
+					<a class="page-link" @click="goMyPage(currentPage - 1)" v-if="!(currentPage === myPageList.at(0))">
 						<span>«</span>
 					</a>
 				</li>
-				<li class="page-item" v-for="page in pageList" :key="page" :class="{ 'active': page === currentPage }">
-					<a @click="goPage(page)" class="page-link">{{ page }}</a>
+				<li class="page-item" v-for="page in myPageList" :key="page" :class="{ 'active': page === currentPage }">
+					<a @click="goMyPage(page)" class="page-link">{{ page }}</a>
 				</li>
 				<li class="page-item">
-					<a class="page-link" @click="goPage(currentPage + 1)" v-if="!(currentPage === pageList.at(-1))">
+					<a class="page-link" @click="goMyPage(currentPage + 1)" v-if="!(currentPage === myPageList.at(-1))">
 						<span>»</span>
 					</a>
 				</li>
@@ -29,10 +29,10 @@ export default {
 		currentPage: Number,
 	},
 	computed: {
-		...mapGetters(['pageList']),
+		...mapGetters(['myPageList']),
 	},
 	methods: {
-		...mapActions(['goPage']),
+		...mapActions(['goMyPage']),
 	},
 	created() {
 	}

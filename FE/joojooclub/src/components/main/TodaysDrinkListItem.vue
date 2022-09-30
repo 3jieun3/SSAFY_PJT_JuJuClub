@@ -86,19 +86,6 @@ export default {
     goDetail() {
       this.$router.push({name: 'drink', params: {drinkPK: this.drinkIndex}})
     },
-    counterFn() {
-      let id0 = setInterval(
-        function() {
-          this.count += 1
-          if (this.count > this.todayDrink?.percent) {
-            clearInterval(id0)
-          } else {
-            this.value = this.count
-          }
-        }
-        , 100)
-    },
-
   },
   created() {
     AOS.init();
@@ -124,7 +111,6 @@ export default {
     max-height: 250px;
     margin-bottom: 10px;
     border-radius: 5px;
-    backdrop-filter: blur(5px);
     object-fit: cover;
   }
   
@@ -132,9 +118,6 @@ export default {
     .drinkImg {
       max-height: 300px;
       margin-bottom: 0px;
-    }
-    .todayRight {
-      margin-top: 100px;
     }
   }
   @media (min-width: 1000px) {
@@ -147,7 +130,6 @@ export default {
   }
 
   .drinkInfo {
-    /* padding-left: 80px; */
     text-align: left;
     font-weight: bold;
     font-size: x-large;

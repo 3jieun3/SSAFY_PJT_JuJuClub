@@ -26,7 +26,7 @@
       <div class="text review-row">
         {{ review.review }}
       </div>
-      <button class="btn btn-light" @click="deleteReview(review.reviewIndex)">삭제</button>
+      <button v-if="isCurrentUser && (currentUser.member.memberId === review.memberId)" class="btn btn-light" @click="deleteReview(review.reviewIndex)">삭제</button>
     </div>
   </div>
 </template>
@@ -46,11 +46,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isCurrentUser'])
+    ...mapGetters(['isCurrentUser', 'currentUser'])
   },
   methods: {
     ...mapActions('drinks', ['deleteReview'])
-  }
+  },
 }
 </script>
 

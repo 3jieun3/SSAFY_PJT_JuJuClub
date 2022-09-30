@@ -1,6 +1,6 @@
 <template>
 	<div class="feed-list">
-		<div class="row row-cols-1 row-cols-md-3 g-5">
+		<div v-if="isFeeds" class="row row-cols-1 row-cols-md-3 g-5">
 			<feed-list-item v-for="feed in feeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 		</div>
 	</div>
@@ -8,7 +8,7 @@
 
 <script>
 import FeedListItem from './FeedListItem'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
 	name: 'FeedList',
@@ -16,7 +16,7 @@ export default {
 		FeedListItem,
 	},
 	computed: {
-		...mapState('feed', ['feeds']),
+		...mapGetters('feed', ['feeds', 'isFeeds']),
 	},
 }
 </script>

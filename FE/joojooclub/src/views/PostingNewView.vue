@@ -15,11 +15,14 @@ export default {
 	data() {
 		return {
 			feed: {
-				drinkIndex: null,
+				drink: {
+					drinkName: '',
+					drinkIndex: 0,
+				},
 				title: '',
 				content: '',
 				customTags: '',
-				imageUrl: '',
+				imgFile: '',
 			}
 		}
 	},

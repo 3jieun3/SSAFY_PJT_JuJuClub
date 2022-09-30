@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-center">
       <div class="row cardGrid">
         <drink-card-item class="cardItems col-xl-3 col-lg-4 col-md-6 col-12"
         v-for="(drink, index) in showPage"

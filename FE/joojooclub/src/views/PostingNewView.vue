@@ -15,9 +15,10 @@ export default {
 	data() {
 		return {
 			feed: {
+				feedIndex: null,
 				drink: {
 					drinkName: '',
-					drinkIndex: 4,
+					drinkIndex: null,
 				},
 				title: '',
 				content: '',

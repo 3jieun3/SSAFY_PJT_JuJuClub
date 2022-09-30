@@ -190,7 +190,9 @@ export default {
   getters: {
     drink: state => state.drink,
     drinkNames: state => state.drinkNames,
+    isDrinkNames: state => _.isEmpty(state.isDrinkNames),
     searchedDrink: state => state.searchedDrink,
+    isSearched: state => _.isEmpty(state.searchedDrink),
     reviews: state => state.reviews,
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
@@ -231,8 +233,14 @@ export default {
     },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
-    SET_DRINK_NAMES: (state, drinkNames) => state.drinkNames = drinkNames,
-    SEARCH_DRINK_INDEX: (state, drinkName) => state.searchedDrink = { drinkIndex: state.drinkNames.indexOf(drinkName) + 1, drinkName: drinkName },
+    SET_DRINK_NAMES (state, drinkNames) {
+      const newArray = []
+      for (const [id, name] of drinkNames.entries()) {
+        newArray.push({ drinkName: name, drinkIndex: id + 1 })
+      }
+      state.drinkNames = newArray
+    },
+    SET_SEARCH_DRINK: (state, searchedDrink) => state.searchedDrink = searchedDrink,
     SET_REVIEWS(state, reviews){ 
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
@@ -498,11 +506,12 @@ export default {
         router.push({ name: 'drinks' })
       })
     },
-    fetchDrinkNames({ commit }) {
+    fetchDrinkNames({ getters, commit }) {
       axios({
         url: joojooclub.drinks.drinkNames(),
         method: 'get',
       }).then((res) => {
+        if (getters.isDrinkNames)
         commit('SET_DRINK_NAMES', res.data.drinkNameList)
       }).catch((err) => {
         console.log(err.response)
@@ -510,7 +519,7 @@ export default {
     },
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
     goPage({ commit }, page) { commit('GO_PAGE', page) },
-    searchDrinkIndex({ commit }, drinkName) { commit('SEARCH_DRINK_INDEX', drinkName)},
+    setSearchDrink({ commit }, searchedDrink) { commit('SET_SEARCH_DRINK', searchedDrink)},
     createReview({ getters }, review) {
       axios({
         url: joojooclub.drinks.review(),

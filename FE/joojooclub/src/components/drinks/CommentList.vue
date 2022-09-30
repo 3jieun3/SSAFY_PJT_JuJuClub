@@ -1,7 +1,7 @@
 <template>
 	<div class="ui comments comment-list">
 		<hr>
-		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
+		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment" style="min-height: 50px"></comment-list-item>
 		<hr>
 		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
 	</div>

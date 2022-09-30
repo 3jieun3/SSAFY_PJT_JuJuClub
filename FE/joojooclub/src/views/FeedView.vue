@@ -4,8 +4,8 @@
 			<best-feed-list></best-feed-list>
 		</div>
 		<div class="feed-content">
-			<search-bar></search-bar>
-			<feed-list></feed-list>
+			<search-bar v-if="isDrinkNames" :drinkNames="drinkNames"></search-bar>
+			<feed-list v-if="isFeeds"></feed-list>
 		</div>
 	</div>
 </template>
@@ -14,7 +14,7 @@
 import SearchBar from '@/components/feed/SearchBar'
 import BestFeedList from '@/components/feed/BestFeedList'
 import FeedList from '@/components/feed/FeedList'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'FeedView',
@@ -22,6 +22,10 @@ export default {
 		SearchBar,
 		BestFeedList,
 		FeedList,
+	},
+	computed: {
+		...mapGetters('drinks', ['isDrinkNames', 'drinkNames']),
+		...mapGetters('feed', ['isFeeds'])
 	},
 	methods: {
 		...mapActions('feed', ['fetchAllFeeds']),

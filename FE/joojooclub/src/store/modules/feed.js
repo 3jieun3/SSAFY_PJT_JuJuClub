@@ -204,7 +204,7 @@ export default {
           method: 'post',
           headers: {
             ...getters.authHeader,
-            'Content-Type': 'multipart/form-data',
+            'content-type': 'multipart/form-data',
           },
           data: formdata,
         })
@@ -226,16 +226,17 @@ export default {
       }
     },
 
-    updateFeed({ getters }, feed) {
+    updateFeed({ getters }, formdata) {
+      for (let [k, v] of formdata.entries()) console.log(k, v)
       if(confirm('수정하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),
           method: 'put',
           headers: {
             ...getters.authHeader,
-            'Content-Type': 'multipart/form-data',
+            'content-type': 'multipart/form-data',
           },
-          data: feed,
+          data: formdata,
         })
         .then(() => {
           alert('피드가 수정되었습니다.')

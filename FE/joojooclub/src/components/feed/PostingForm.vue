@@ -16,7 +16,7 @@
 		<div class="field">
 			<label for="imageFile">첨부 파일</label>
 			<div>
-				<input type="file" ref="image" id="imageFile" @change="uploadImage">
+				<input type="file" ref="image" id="imageFile" @change="uploadImage($event)">
 				<img v-if="newFeed.imgFile" :src="newFeed.imgFile" alt="uploaded feed image" class="preview-image">
 			</div>
 		</div>
@@ -24,7 +24,8 @@
 			<label for="tags">태그</label>
 			<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그를 입력하세요.">
 		</div>
-		<button class="ui button" @click="$router.back()">뒤로</button>
+		<!-- 뒤로 가기 함수 추가하기 -->
+		<button class="ui button">뒤로</button>
 		<button class="ui button" @click.prevent="onSubmit">저장</button>
 	</form>
 </template>
@@ -62,10 +63,10 @@ export default {
 		...mapActions('drinks', ['fetchDrinkNames']),
 		onSubmit() {
 			// form data 선언
-      const formdata = new FormData()
+      let formdata = new FormData()
       // 키값 추가
-			this.drinkIndex = this.searchedDrink.drinkIndex,
-      formdata.append('drinkIndex', this.drinkIndex)
+			this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+      formdata.append('drinkIndex', 4)
 			formdata.append('title', this.newFeed.title)
 			formdata.append('content', this.newFeed.content)
 			formdata.append('customTags', this.newFeed.customTags)
@@ -78,8 +79,9 @@ export default {
 				this.updateFeed(formdata)
 			}
 		},
-		uploadImage() {
-			this.newFeed.imgFile = URL.createObjectURL(this.$refs['image'].files[0])
+		uploadImage(event) {
+			this.newFeed.imgFile = event.target.files[0]
+			console.log(this.newFeed.imgFile )
 		}
 	},
 	created() {

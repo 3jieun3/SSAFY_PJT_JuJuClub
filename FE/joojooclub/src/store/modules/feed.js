@@ -199,18 +199,12 @@ export default {
 
     createFeed({ getters }, formdata) {
       if (confirm('등록하시겠습니까?')) {
-        for (let key of formdata.keys()) {
-					console.log(key)
-				}
-				for (let value of formdata.values()) {
-					console.log(value)
-				}
         axios({
           url: joojooclub.feed.valid(),
           method: 'post',
           headers: {
             ...getters.authHeader,
-            'content-type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
           },
           data: formdata,
         })

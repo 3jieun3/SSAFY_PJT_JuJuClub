@@ -691,9 +691,7 @@ export default {
       },
       mutations: {
         SET_RECOMMEND_DRINKS: (state, res) => {
-          console.log(res)
           state.recommendDrinks = res
-          console.log(state.recommendDrinks)
           state.questionEtc.questionCount = 0
           state.questionEtc.choose = []
         },
@@ -714,7 +712,6 @@ export default {
             }
           })
             .then((res) => {
-              console.log(res.data)
               commit('SET_RECOMMEND_DRINKS', res.data)
             })
         },

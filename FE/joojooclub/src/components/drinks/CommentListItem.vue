@@ -15,7 +15,13 @@
     <hr>
   </div> -->
   <div class="m-3">
-    <div class="avatar"><i class="fa-solid fa-star fa-2x"></i></div>
+    <div class="avatar">
+      <span class="fa-layers fa-fw">
+        <i class="fa-solid fa-star fa-2x">
+          <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-8 down-3" style="font-weight:900">5</span>
+        </i>
+      </span>
+    </div>
     <div class="content">
       <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
       <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>

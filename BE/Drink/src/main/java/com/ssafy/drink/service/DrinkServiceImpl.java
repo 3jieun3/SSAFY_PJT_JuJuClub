@@ -58,7 +58,7 @@ public class DrinkServiceImpl implements DrinkService{
 
 
         Drink drink = drinkRepository.findById(drinkIndex).orElseThrow(RuntimeException::new); // 술 상세정보
-        List<ReviewMapping> reviewList = reviewRepository.findByDrink(drink);
+        List<ReviewMapping> reviewList = reviewRepository.findByDrinkOrderByCreatedAtDesc(drink);
         List<FoodDrinkType> foodDrinkList = foodDrinkTypeRepository.findByDrinkType(drink.getDrinkType());
         List<String> tags = new ArrayList<>();
 

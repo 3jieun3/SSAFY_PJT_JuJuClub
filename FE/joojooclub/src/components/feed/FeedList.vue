@@ -1,6 +1,6 @@
 <template>
 	<div class="feed-list">
-		<div v-if="isFeeds" class="row row-cols-1 row-cols-md-3 g-5">
+		<div class="row row-cols-1 row-cols-md-3 g-5">
 			<feed-list-item v-for="feed in feeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 		</div>
 	</div>
@@ -16,7 +16,7 @@ export default {
 		FeedListItem,
 	},
 	computed: {
-		...mapGetters('feed', ['feeds', 'isFeeds']),
+		...mapGetters('feed', ['feeds']),
 	},
 }
 </script>

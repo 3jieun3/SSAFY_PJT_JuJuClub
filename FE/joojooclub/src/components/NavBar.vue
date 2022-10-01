@@ -108,4 +108,18 @@ export default {
   padding: min(0.8vw, 4px) min(1.6vw, 1rem);
   margin: 5px;
 }
+
+.btn-outline-warning {
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 10px;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
+}
 </style>

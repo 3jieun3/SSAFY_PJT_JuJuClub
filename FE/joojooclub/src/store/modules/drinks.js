@@ -228,7 +228,6 @@ export default {
     CLEAR_RECOMMEND: (state) => state.recommendDrinks = [],
     CLEAR_CHOOSE: (state) => state.questionEtc.choose = [],
     CLEAR_QUESTION_COUNT(state) {
-      console.log('clear count')
       state.questionEtc.questionCount = 0
     },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
@@ -703,8 +702,6 @@ export default {
       mutations: {
         SET_RECOMMEND_DRINKS: (state, res) => {
           state.recommendDrinks = res
-          state.questionEtc.questionCount = 0
-          state.questionEtc.choose = []
         },
       },
       actions: {

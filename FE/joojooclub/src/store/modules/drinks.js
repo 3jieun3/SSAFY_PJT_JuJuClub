@@ -703,8 +703,8 @@ export default {
       mutations: {
         SET_RECOMMEND_DRINKS: (state, res) => {
           state.recommendDrinks = res
-          state.questionEtc.questionCount = 0
-          state.questionEtc.choose = []
+          // state.questionEtc.questionCount = 0
+          // state.questionEtc.choose = []
         },
       },
       actions: {

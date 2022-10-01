@@ -3,7 +3,7 @@
     <div class="row align-items-center mt-5">
       <h3 class="recommendTitle mb-5">당신에게 어울리는 술은</h3>
       <carousel-3d width="300" height="600" class="carousel3D">
-        <slide v-for="(result, index) in recommendDrinks"
+        <slide v-for="(result, index) in getRecommendDrinks"
           :index="index"
           :key="index">
           <img class="slideImg" :src="result.drink.imageUrl" alt="recommendImg">
@@ -33,15 +33,15 @@ export default {
     Carousel3d,
     Slide,
   },
-  data() {
-    return {
-      recommendDrinks: {
-        "drink": null,
-        "count": null,
-        "tags": null,
-      },
-    }
-  },
+  // data() {
+  //   return {
+  //     recommendDrinks: {
+  //       "drink": null,
+  //       "count": null,
+  //       "tags": null,
+  //     },
+  //   }
+  // },
   computed: {
     ...mapGetters('drinks', ['getRecommendDrinks'])
   },
@@ -57,7 +57,6 @@ export default {
   },
   created() {
     this.clearChoose()
-    setTimeout(() => this.getRecommendDrink(this.getRecommendDrinks), 3500)
   }
 }
 

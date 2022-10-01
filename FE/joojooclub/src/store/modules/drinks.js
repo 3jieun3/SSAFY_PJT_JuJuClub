@@ -553,9 +553,8 @@ export default {
     async pushAnswer({ commit, dispatch, getters }, answerStr) {
       await commit('PUSH_ANSWER', answerStr)
       if (getters.getQuestionCount == 5) {
-        await dispatch('clearQuestionCount')
         await dispatch('getRecommendDrinks')
-        await router.push({ name: 'recommendResult' })
+        await router.push({ name: 'waitingPage' })
       }
     },
     

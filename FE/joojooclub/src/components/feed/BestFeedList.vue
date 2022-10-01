@@ -1,8 +1,6 @@
 <template>
-	<div class="feed-list">
-		<div class="row row-cols-1 row-cols-md-3 g-5">
-			<feed-list-item v-for="feed in bestFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
-		</div>
+	<div class="ui three stackable cards">
+		<feed-list-item v-for="feed in bestFeeds" :key="feed.id" :feed="feed"></feed-list-item>
 	</div>
 </template>
 
@@ -22,5 +20,4 @@ export default {
 </script>
 
 <style>
-	
 </style>

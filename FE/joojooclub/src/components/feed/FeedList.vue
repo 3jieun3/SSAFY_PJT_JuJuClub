@@ -1,13 +1,11 @@
 <template>
-	<div class="feed-list">
-		<div class="row row-cols-1 row-cols-md-3 g-5">
-			<feed-list-item v-for="feed in feeds" :key="feed.feedId" :feed="feed"></feed-list-item>
-		</div>
+	<div class="ui three stackable cards">
+		<feed-list-item v-for="feed in filteredFeeds" :key="feed.id" :feed="feed"></feed-list-item>
 	</div>
 </template>
 
 <script>
-import FeedListItem from './FeedListItem'
+import FeedListItem from '@/components/feed/FeedListItem'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -17,12 +15,17 @@ export default {
 	},
 	computed: {
 		...mapGetters('feed', ['feeds']),
+		...mapGetters('drinks', ['isSearched', 'searchedDrink']),
+		filteredFeeds() {
+			if (!this.isSearched) {
+				return this.feeds.filter(feed => feed.drink.drinkName === this.searchedDrink.drinkName)
+			} else {
+				return this.feeds
+			}
+		}
 	},
 }
 </script>
 
-<style>
-.feed-list {
-	margin-top: 5vh;
-}
+<style scoped>
 </style>

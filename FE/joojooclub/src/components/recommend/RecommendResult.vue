@@ -14,7 +14,7 @@
               <p class="tag" v-for="(tag, index) in result.tags"
               :key="index">#{{ tag }}</p>
             </div>
-            <a @click="goDetailPage(result.drink.drinkIndex)" href="">자세히 보기</a>
+            <a class="goDetail" @click="goDetailPage(result.drink.drinkIndex)" href="">자세히 보기</a>
           </div>
         </slide>
       </carousel-3d>
@@ -33,15 +33,6 @@ export default {
     Carousel3d,
     Slide,
   },
-  // data() {
-  //   return {
-  //     recommendDrinks: {
-  //       "drink": null,
-  //       "count": null,
-  //       "tags": null,
-  //     },
-  //   }
-  // },
   computed: {
     ...mapGetters('drinks', ['getRecommendDrinks'])
   },
@@ -50,10 +41,6 @@ export default {
     goDetailPage(idx) {
       router.push({ name: 'drink', params: { drinkPK : idx } })
     },
-    getRecommendDrink(data) {
-      this.recommendDrinks = data
-      console.log('ok')
-    }
   },
   created() {
     this.clearChoose()
@@ -90,35 +77,6 @@ export default {
   .recommendTitle {
     font-family: 'GongGothicMedium';
     font-weight: bold;
-  }
-
-  .recommendInfo {
-    color: black;
-    justify-content: center;
-    align-items: end;
-    /* display: none; */
-  }
-
-  .drinkName {
-    font-size: large;
-    font-weight: bold;
-  }
-
-  .drinkType {
-    font-size: smaller;
-    color: gray;
-  }
-
-  .tags {
-    justify-content: center;
-  }
-
-  .tag {
-    margin: 0px 10px 20px 10px;
-  }
-
-  .recommendTitle {
-    font-weight: bold;
     margin-top: 30px;
     margin-bottom: 30px;
     display: flex;
@@ -130,7 +88,6 @@ export default {
     color: black;
     justify-content: center;
     align-items: end;
-    /* display: none; */
   }
 
   .drinkName {
@@ -149,6 +106,11 @@ export default {
 
   .tag {
     margin: 0px 10px 20px 10px;
+  }
+
+  .goDetail {
+    text-decoration: none;
+    color: rgb(212, 165, 108);
   }
 
 </style>

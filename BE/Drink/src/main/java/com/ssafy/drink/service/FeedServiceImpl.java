@@ -86,7 +86,7 @@ public class FeedServiceImpl implements FeedService{
     @Override
     public Map<String, Object>  retrieveFeedList() {
         List<Feed> bestFeeds = feedRepository.selectAllLike3();
-        List<Feed> feeds = feedRepository.findAll();
+        List<Feed> feeds = feedRepository.findAllByOrderByCreatedAtDesc();
 
         Map<String, Object> map = new HashMap<>();
         map.put("bestfeeds", bestFeeds);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <h2 class="titleText">어울리는 술을 찾고 있습니다...</h2>
+      <h2 class="titleText">당신에게 어울리는 술을 찾고 있어요!</h2>
     </div>
     <div class="container d-flex justify-content-center align-items-center">
       <bounce-loader class="" :loading="loading" :color="color" :size="size"></bounce-loader>
@@ -26,7 +26,7 @@ export default {
     }
   },
   created() {
-    setTimeout(() => router.push({ name: 'recommendResult'}), 3500)
+    setTimeout(() => router.push({ name: 'recommendResult'}), 4000)
   }
 }
 </script>

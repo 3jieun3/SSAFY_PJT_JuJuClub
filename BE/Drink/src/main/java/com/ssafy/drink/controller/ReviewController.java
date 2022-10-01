@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "X-AUTH-TOKEN", maxAge = 3600)
 @RequestMapping("/review")
-public class ReviewController {
+public class    ReviewController {
 
     public static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
@@ -32,16 +32,15 @@ public class ReviewController {
 
     @ApiOperation(value = "리뷰 등록", notes = "drinkIndex, score, review 를 받아 리뷰 등록한다.")
     @PostMapping
-    public ResponseEntity<String> registReview(@RequestBody  @ApiParam(value = "필요한 정보(drinkIndex, score, review)",required = true) RegistReview registReview, HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> registReview(@RequestBody  @ApiParam(value = "필요한 정보(drinkIndex, score, review)",required = true) RegistReview registReview, HttpServletRequest request) {
         logger.debug("리뷰 등록 API 호출 : {}", registReview);
 
         // Token에서 MemberIndex를 추출
         Long memberIndex = (Long)request.getAttribute("memberIndex");
         System.out.println("ReviewController memberIndex : " + memberIndex);
-        if(reviewService.registReview(registReview, memberIndex)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<String>(FAIL, HttpStatus.FORBIDDEN);
+        Map<String, Object> map = reviewService.registReview(registReview, memberIndex);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
     @ApiOperation(value = "리뷰 수정", notes = "reviewIndex, score, review를 받아 리뷰를 수정한다.")
     @PutMapping

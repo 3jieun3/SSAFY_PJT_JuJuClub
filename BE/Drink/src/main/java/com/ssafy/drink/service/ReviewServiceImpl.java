@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 
     @Override
-    public boolean registReview(RegistReview registReview, Long memberIndex) {
+    public Map<String, Object> registReview(RegistReview registReview, Long memberIndex) {
 
         Drink drink = drinkRepository.findById(registReview.getDrinkIndex()).orElseThrow(RuntimeException::new);
         logger.info("작성한 리뷰에 해당하는 술 : {}", drink);
@@ -67,13 +67,14 @@ public class ReviewServiceImpl implements ReviewService{
 
         logger.info("작성한 리뷰 전체 정보 : {}", review);
 
-        try {
-            reviewRepository.save(review);
-            reviewRepository.flush();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        Long reviewIndex = reviewRepository.save(review).getReviewIndex();
+        reviewRepository.flush();
+
+        Review returnReview = reviewRepository.findById(reviewIndex).orElseThrow(RuntimeException::new);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("review", returnReview);
+        return map;
     }
 
     @Override

@@ -19,5 +19,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.ui.cards {
+	align-content: center;
+	justify-content: center;
+}
 </style>

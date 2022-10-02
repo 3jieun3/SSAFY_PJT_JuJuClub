@@ -244,6 +244,7 @@ export default {
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
     },
+    ADD_REVIEW: (state, review) => state.reviews.unshift(review),
     GO_PAGE(state, page) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page
@@ -498,7 +499,7 @@ export default {
         method: 'get',
       }).then((res) => {
         commit('SET_DRINK', [res.data.drink, res.data.tags, res.data.foods])
-        dispatch('fetchReviews', res.data.reviews.reverse())
+        dispatch('fetchReviews', res.data.reviews)
         dispatch('goPage', 1)
       }).catch((err) => {
         console.log(err.response)
@@ -519,17 +520,25 @@ export default {
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
     goPage({ commit }, page) { commit('GO_PAGE', page) },
     setSearchDrink({ commit }, searchedDrink) { commit('SET_SEARCH_DRINK', searchedDrink)},
-    createReview({ getters }, review) {
+    createReview({ getters, commit }, review) {
       axios({
         url: joojooclub.drinks.review(),
         method: 'post',
         headers: getters.authHeader,
         data: review,
-      }).then(() => {
-        window.location.reload()
-        // console.log(router.currentRoute.fullPath, `/drinks/${review.drinkIndex}`)
-        // router.push({ name: 'drinks' }) // 리다이렉트 이슈
-        // if(router.currentRoute.fullPath !== `drinks/${review.drinkIndex}`) router.push(`drinks/${review.drinkIndex}`)
+      }).then((res) => {
+        console.log(res.data)
+        const review = {
+          'score': res.data.review.score,
+          'reviewIndex': res.data.review.reviewIndex,
+          'memberId': res.data.review.memberId,
+          'createdAt': res.data.review.createdAt,
+          'drinkIndex': res.data.review.drink.drinkIndex,
+          'review': res.data.review.review
+        }
+        commit('ADD_REVIEW', review)
+        commit('GO_PAGE', 1)
+        // commit('ADD_REVIEW', res.data)
       }).catch((err) => {
         console.log(err.response)
         router.push({ name: 'drinks', params: { drinkPK: review.drinkIndex }})

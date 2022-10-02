@@ -35,6 +35,7 @@ export default {
 <style scoped>
 .fa-heart {
 	color: gray;
+	padding: 0 0.5rem 0 0.3rem;
 }
 .is-liked {
 	color: rgb(196, 6, 22);

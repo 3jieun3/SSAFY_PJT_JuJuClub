@@ -28,4 +28,18 @@ export default {
 </script>
 
 <style scoped>
+.ui.cards {
+	align-content: center;
+	justify-content: center;
+}
+@media (max-width: 767px) {
+	/* .ui.stackable.cards .card.feed-card {
+		height: 55.5vh;
+		margin: 2rem;
+	} */
+	.ui.card > .image, .ui.cards >.card > .image {
+		height: 23rem;
+		background-color: white;
+	}
+}
 </style>

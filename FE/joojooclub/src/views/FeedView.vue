@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+font-family: 'NanumBarunGothic';
+}
 .feed-body {
 	margin: 5vh 5vw;
 }

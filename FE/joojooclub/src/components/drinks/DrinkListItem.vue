@@ -48,8 +48,7 @@ export default {
     word-wrap: break-word;
     text-overflow: ellipsis;
     overflow: hidden;
-    -webkit-line-clamp: 3;
-    
+    -webkit-line-clamp: 3;  
   }
 
   .tagBox {

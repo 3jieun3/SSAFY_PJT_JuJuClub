@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
   .drinkImg {
-    background: url(@/assets/recommendPage.jpeg) no-repeat center;
+    background: url(@/assets/recommendPage.png) no-repeat center;
     background-size: 100%;
     position: relative;
     height: 20vw;

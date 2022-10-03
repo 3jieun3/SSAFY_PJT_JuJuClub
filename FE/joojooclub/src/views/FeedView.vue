@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+font-family: 'NanumBarunGothic';
+}
 .feed-body {
 	margin: 5vh 5vw;
 }
@@ -46,7 +49,7 @@ export default {
 	margin-bottom: 5vh;
 }
 .search-bar {
-	padding: 0 20vw;
+	padding: 0 20vw 5rem 20vw;
 }
 #drinkSearch {
 	border-color: black;

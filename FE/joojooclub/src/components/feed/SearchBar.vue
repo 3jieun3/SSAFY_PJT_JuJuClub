@@ -8,7 +8,7 @@
 		<div class="results"></div> -->
 		<!-- <v-select v-model="selectedDrink" :reduce="(option) => option" :options="drinkNames" @input="setSelected" label="name">
 		</v-select> -->
-		<v-select taggable v-model="selectedDrink" :options="drinkNames" @input="setSelected" label="drinkName">
+		<v-select taggable v-model="selectedDrink" :options="drinkNames" @input="setSelected" label="drinkName" placeholder="전통주명을 검색해보세요.">
 		</v-select>
 	</div>
 </template>

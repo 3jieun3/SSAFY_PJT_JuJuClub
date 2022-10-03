@@ -28,11 +28,12 @@ export default {
           drinkIndex: 5,
           drinkName: 'G12 골디락스'
         },
+        likeMembers: [],
       },
       {
         feedIndex: 2,
         title: '피드 2',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
+        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!! 파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~💜 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!! 파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!! 파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
         likeCount: 3333,
         createdAt: '2022-03-03T11:10:07',
         customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
@@ -45,6 +46,7 @@ export default {
           drinkIndex: 5,
           drinkName: 'G12 골디락스'
         },
+        likeMembers: [],
       },
       {
         feedIndex: 3,
@@ -62,93 +64,7 @@ export default {
           drinkIndex: 5,
           drinkName: 'G12 골디락스'
         },
-      },
-    ],
-    dummy: [
-      {
-        feedIndex: 1,
-        title: '피드 1',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
-        likeCount: 555,
-        createdAt: '2022-03-03T11:10:07',
-        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'https://picsum.photos/600/900',
-        member: {
-          memberIndex: 1,
-          id: 'ssafy'
-        },
-        drink: {
-          drinkIndex: 5,
-          drinkName: 'G12 골디락스'
-        },
-      },
-      {
-        feedIndex: 2,
-        title: '피드 2',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
-        likeCount: 99,
-        createdAt: '2022-03-03T11:10:07',
-        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'https://picsum.photos/600/900',
-        member: {
-          memberIndex: 1,
-          id: 'ssafy'
-        },
-        drink: {
-          drinkIndex: 5,
-          drinkName: 'G12 골디락스'
-        },
-      },
-      {
-        feedIndex: 3,
-        title: '피드 3',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
-        likeCount: 3333,
-        createdAt: '2022-03-03T11:10:07',
-        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'https://picsum.photos/600/900',
-        member: {
-          memberIndex: 1,
-          id: 'ssafy'
-        },
-        drink: {
-          drinkIndex: 5,
-          drinkName: 'G12 골디락스'
-        },
-      },
-      {
-        feedIndex: 4,
-        title: '피드 4',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
-        likeCount: 3333,
-        createdAt: '2022-03-03T11:10:07',
-        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'https://picsum.photos/600/900',
-        member: {
-          memberIndex: 1,
-          id: 'ssafy'
-        },
-        drink: {
-          drinkIndex: 5,
-          drinkName: 'G12 골디락스'
-        },
-      },
-      {
-        feedIndex: 5,
-        title: '피드 5',
-        content: '파전에 막걸리만 먹으라는 법은 없지요! 우중충한 하루의 마무리로 피쉬앤칩스와 막걸리 한잔 드시고 가세요^^~ 감각적인 음악과 맛있는 음식, 놀거리가 있는 곳은? 이태원 모마!!',
-        likeCount: 3333,
-        createdAt: '2022-03-03T11:10:07',
-        customTags: '#막걸리 #피쉬앤칩스 #혼막 #퓨전',
-        imageUrl: 'https://picsum.photos/600/900',
-        member: {
-          memberIndex: 2,
-          id: 'ssafy2'
-        },
-        drink: {
-          drinkIndex: 5,
-          drinkName: 'G12 골디락스'
-        },
+        likeMembers: [],
       },
     ],
   },
@@ -164,13 +80,32 @@ export default {
 
   mutations: {
     SET_FEED: (state, feed) => state.feed = feed,
-    SET_FEEDS: (state, feeds) => state.feeds = feeds,
-    SET_BEST_FEEDS: (state, bestFeeds) => state.bestFeeds = bestFeeds,
+    SET_FEEDS (state, feeds) {
+      feeds.map(feed => feed.likeMembers = []) // 좋아요한 멤버 목록 속성 추가
+      state.feeds = feeds
+    },
+    // SET_BEST_FEEDS: (state, bestFeeds) => state.bestFeeds = bestFeeds,
+    SET_BEST_FEEDS: (state) => state.bestFeeds.push(...state.bestdummy),
+    SET_LIKE_MEMBERS (state, [feedIndex, likeMembers]) {
+      state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers = likeMembers
+      // state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.push(11)
+    },
+    UPDATE_LIKE_MEMBERS (state, [memberIndex, feedIndex]) {
+      const idx = state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.indexOf(memberIndex)
+      if (idx === -1) { // 좋아요 하지않았던 피드 -> 좋아요
+        state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.push(memberIndex)
+        state.feeds.find(feed => feed.feedIndex === feedIndex).likeCount += 1
+        console.log('좋아요', feedIndex)
+      } else {          // 좋아요 했던 피드 -> 좋아요 취소
+        state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.splice(idx, 1)
+        console.log('좋아요 취소', feedIndex)
+        state.feeds.find(feed => feed.feedIndex === feedIndex).likeCount -= 1
+      }
+    }
   },
 
   actions: {
     fetchFeed({ commit }, feedIndex) {
-      console.log(feedIndex)
       axios({
         url: joojooclub.feed.info(feedIndex),
         method: 'get',
@@ -182,7 +117,7 @@ export default {
         console.log(err.response)
       })
     },
-    
+
     fetchAllFeeds({ commit }) {
       axios({
         url: joojooclub.feed.infos(),
@@ -191,6 +126,16 @@ export default {
       .then((res) => {
         commit('SET_FEEDS', res.data.feeds)
         commit('SET_BEST_FEEDS', res.data.bestFeeds)
+      })
+    },
+
+    fetchLikeMembers({ commit }, feedIndex) {
+      axios({
+        url: joojooclub.feed.likeInfo(feedIndex),
+        method: 'get'
+      })
+      .then((res) => {
+        commit('SET_LIKE_MEMBERS', [feedIndex, res.data.likeList])
       })
       .catch((err) => {
         console.log(err.response)
@@ -282,8 +227,8 @@ export default {
       }  
     },
 
-    likeFeed({ getters }, feedIndex) {
-      if(getters.isLoggedIn) {
+    likeFeed({ commit, getters }, feedIndex) {
+      if(getters.isCurrentUser) {
         axios({
           url: joojooclub.feed.like(),
           method: 'post',
@@ -291,7 +236,7 @@ export default {
           data: { feedIndex },
         })
         .then(() => {
-          console.log('좋아요')
+          commit('UPDATE_LIKE_MEMBERS', [getters.currentUser.member.memberIndex, feedIndex])
         })
       }
     },

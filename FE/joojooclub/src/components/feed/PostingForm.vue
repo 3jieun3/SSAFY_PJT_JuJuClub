@@ -33,7 +33,7 @@
 				<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그">
 			</div>
 
-			<button class="ui button" @click="$router.back()">뒤로</button>
+			<button class="ui button" @click="goback">뒤로</button>
 			<button class="ui button" @click.prevent="onSubmit">저장</button>
 		</form>
 	</div>
@@ -51,6 +51,7 @@ export default {
 	props: {
 		feed: Object,
 		action: String,
+		currentUser: Object,
 	},
 	data() {
 		return {
@@ -71,6 +72,7 @@ export default {
 			titleError: false,
 			contentError: false,
 			fileError: false,
+			memberIndex: this?.currentUser?.member?.memberIndex,
 		}
 	},
 	computed: {
@@ -79,6 +81,14 @@ export default {
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
 		...mapActions('drinks', ['fetchDrinkNames']),
+		goback() {
+			this.$router.push({
+				name: 'profile',
+				params: {
+					userPK: this?.memberIndex
+				}
+			})
+		},
 		onSubmit() {
 			// required 확인
 			this.drinkError = this.checkRequired(this.searchedDrink.drinkIndex)
@@ -152,6 +162,7 @@ export default {
 	},
 	created() {
 		this.fetchDrinkNames()
+		console.log(this.currentUser)
 	},
 }
 </script>

@@ -1,8 +1,6 @@
 package com.ssafy.drink.service;
 
-import com.ssafy.drink.controller.MainController;
 import com.ssafy.drink.domain.Drink;
-import com.ssafy.drink.domain.DrinkType;
 import com.ssafy.drink.domain.TagDrink;
 import com.ssafy.drink.domain.Weather;
 import com.ssafy.drink.mapping.ResponseTodayDrink;

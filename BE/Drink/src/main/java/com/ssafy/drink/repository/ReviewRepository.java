@@ -19,6 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<ReviewMapping> findByDrink(Drink drink);
 
+    List<ReviewMapping> findByDrinkOrderByCreatedAtDesc(Drink drink);
     @Query(
             value = "SELECT  drinkIndex, COUNT(*) AS count, weekday FROM Review WHERE weekday = :today  GROUP BY drinkIndex ORDER BY count DESC LIMIT 1",
             nativeQuery = true )

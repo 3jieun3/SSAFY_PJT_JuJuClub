@@ -1,11 +1,12 @@
 <template>
-	<div class="posting-body">
-		<posting-form :feed="feed" action="create"></posting-form>
+	<div class="posting-body" v-if="currentUser">
+		<posting-form :currentUser="currentUser" :feed="feed" action="create"></posting-form>
 	</div>
 </template>
 
 <script>
 import PostingForm from '@/components/feed/PostingForm'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'PostingNewView',
@@ -26,6 +27,12 @@ export default {
 				imgFile: '',
 			}
 		}
+	},
+	computed: {
+		...mapGetters(['currentUser'])
+	},
+	methods: {
+		...mapActions(['fetchCurrentUser'])
 	},
 }
 </script>

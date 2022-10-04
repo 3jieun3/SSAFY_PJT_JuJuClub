@@ -12,7 +12,7 @@
 <script>
 import router from '@/router'
 import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
-   
+
 export default {
   name: 'WaitingPage',
   components: {

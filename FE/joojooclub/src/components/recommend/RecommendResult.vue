@@ -5,7 +5,9 @@
       <carousel-3d width="300" height="600" class="carousel3D">
         <slide v-for="(result, index) in getRecommendDrinks"
           :index="index"
-          :key="index">
+          :key="index"
+          class="carousel-card"
+          >
           <img class="slideImg" :src="result.drink.imageUrl" alt="recommendImg">
           <div class="recommendInfo mt-5">
             <span class="drinkName"> {{ result.drink.drinkName }} </span>
@@ -113,4 +115,7 @@ export default {
     color: rgb(212, 165, 108);
   }
 
+  :hover.carousel-card {
+    cursor: pointer;
+  }
 </style>

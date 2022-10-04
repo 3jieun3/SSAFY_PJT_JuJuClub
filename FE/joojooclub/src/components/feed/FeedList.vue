@@ -6,7 +6,7 @@
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	name: 'FeedList',
@@ -23,6 +23,12 @@ export default {
 				return this.feeds
 			}
 		}
+	},
+	methods: {
+		...mapActions('drinks', ['setSearchDrink']),
+	},
+	created() {
+		this.setSearchDrink({})
 	},
 }
 </script>

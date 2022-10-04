@@ -9,7 +9,7 @@ export default {
   
   state: {
     feed: {},
-    bestFeeds: [],
+    bestfeeds: [],
     feeds: [],
   },
 
@@ -17,9 +17,8 @@ export default {
     feed: state => state.feed,
     isFeed: state => !_.isEmpty(state.feed),
     feeds: state => state.feeds,
-    bestFeeds: state => state.bestFeeds,
-    isFeeds: state => !_.isEmpty(state.feeds)
-    // isFeeds: state => !_.isEmpty(state.feeds) && !_.isEmpty(state.bestfeeds)
+    bestfeeds: state => state.bestfeeds,
+    isFeeds: state => !_.isEmpty(state.feeds),
   },
 
   mutations: {
@@ -28,7 +27,7 @@ export default {
       feeds.map(feed => feed.likeMembers = []) // 좋아요한 멤버 목록 속성 추가
       state.feeds = feeds
     },
-    SET_BEST_FEEDS: (state, bestFeeds) => state.bestFeeds = bestFeeds,
+    SET_BEST_FEEDS: (state, bestfeeds) => state.bestfeeds = bestfeeds,
     SET_LIKE_MEMBERS (state, [feedIndex, likeMembers]) {
       state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers = likeMembers
     },

@@ -2,7 +2,7 @@
   <div class="container">
     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
       <div class="d-flex justify-content-center footerImgWrap col mb-3">
-        <img class="footerImg d-flex align-items-center mb-3 link-dark text-decoration-none bi me-2" src="@/assets/logo_sample2.png" alt="joojooclub">
+        <img class="footerImg d-flex align-items-center mb-3 link-dark text-decoration-none bi" src="@/assets/logo_for_footer.png" alt="joojooclub">
       </div>
 
       <div class="col mb-3">
@@ -40,8 +40,10 @@ export default {
   }
 
   .footerImg {
-    width: 20vh;
-    height: 10vh;
+    min-height: 90px;
+    max-height: 110px;
+    height: 12vh;
+    margin: 0;
   }
 
   .footer {

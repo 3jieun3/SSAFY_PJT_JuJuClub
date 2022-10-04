@@ -211,6 +211,7 @@ export default {
     getFruitTagList: state => state.fruitTagList,
     getBodyTagList: state => state.bodyTagList,
     getShowPage: state => state.paging.pageShow,
+    isChoosedTagList: state => !_.isEmpty(state.choosedTagList), // 
     showPage: state => state.setFilteringDrinks.slice((state.paging.currentPage-1)*12, state.paging.currentPage*12),
     todayDrinks: state => state.todayDrinks,
     weatherInfo: state => state.weatherInfo,
@@ -300,7 +301,6 @@ export default {
         for (let k=0; k < state.filteringDrinks.length; k++) {
           const Idx = state.drinks.indexOf(state.filteringDrinks[k])
           if (state.setFilteringDrinks.every(drink => drink.drink.drinkIndex != Idx)) {
-            console.log(Idx)
             state.setFilteringDrinks.push(state.filteringDrinks[k])
           }
         }
@@ -605,14 +605,15 @@ export default {
       commit('GO_FIRST_PAGE')
       commit('UPDATE_PAGE_SHOW', pageNum)
     },
-    getDrinks({ commit }) {
+    getDrinks({ commit , getters }) {
       axios({
         url: joojooclub.drinks.info(),
         method: 'get',
       })
         .then((res) => {
           commit('SET_DRINKS', res.data.drinks)
-          commit('UPDATE_SET_FILTERING_DRINKS', res.data.drinks)
+          if (!getters.isChoosedTagList)
+            commit('UPDATE_SET_FILTERING_DRINKS', res.data.drinks)
           commit('UPDATE_PAGE_LIST')
         })
         .catch((err) => {
@@ -688,14 +689,14 @@ export default {
         console.log(err)
       })
     },
-    getCustomTags({ commit }) {
+    getCustomTags({ commit, getters }) {
       axios({
         url: joojooclub.drinks.drinkTag(),
         method: 'get',
       })
         .then((res) => {
-          console.log(res.data.taglist)
-          commit('SET_CUSTOM_TAGS', res.data.taglist)
+          if (!getters.isChoosedTagList)
+            commit('SET_CUSTOM_TAGS', res.data.taglist)
         })
     }
   },
@@ -733,6 +734,6 @@ export default {
             })
         },
       }
-    }
+    },
   }
 }

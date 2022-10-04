@@ -104,7 +104,7 @@ export default {
   }
   
   .todayRight {
-    margin-top: 30px;
+    margin-top: 40px;
     margin-bottom: 50px;
   }
 
@@ -119,6 +119,9 @@ export default {
     .drinkImg {
       max-height: 300px;
       margin-bottom: 0px;
+    }
+    .todayRight {
+      margin-top: 90px;
     }
   }
   @media (min-width: 1000px) {

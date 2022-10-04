@@ -5,7 +5,7 @@
 		<form class="ui form" enctype="multipart/form-data">
 			<div class="field" v-if="action === `update`">
 				<label for="drinkSearch">전통주명</label>
-				<input type="text" v-model="drinkName" class="form-control" readonly>
+				<input type="text" v-model="selectedDrinkName" class="form-control" readonly>
 			</div>
 			<div class="field">
 				<label for="title">제목</label>
@@ -79,7 +79,14 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames']),
+		...mapGetters('drinks', ['isSearched', 'searchedDrink', 'isDrinkNames', 'drinkNames']),
+		selectedDrinkName() {
+			if (this.isSearched) {
+				return this.feed.drink.drinkName
+			} else {
+			return this.searchedDrink.drinkName
+			}
+		},
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),

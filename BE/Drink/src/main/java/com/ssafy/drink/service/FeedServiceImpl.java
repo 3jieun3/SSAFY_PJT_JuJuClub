@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class FeedServiceImpl implements FeedService{
     // 피드 등록
     @Override
     @Transactional
-    public Long registFeed(RegistFeed registFeed, Long memberIndex) throws IOException {
+    public Long registFeed(RegistFeed registFeed, Long memberIndex, MultipartFile imgFile) throws IOException {
 
         Drink drink = drinkRepository.findById(registFeed.getDrinkIndex()).orElseThrow(RuntimeException::new);
         logger.info("피드에 등록할 술 정보 : {}", drink);
@@ -49,10 +50,10 @@ public class FeedServiceImpl implements FeedService{
         logger.info("피드를 작성한 멤버 정보 : {}", member);
 
         String imgUrl = null;
-        if(registFeed.getImgFile().isEmpty() || registFeed.getImgFile().getOriginalFilename().isEmpty()) {
+        if(imgFile.isEmpty() || imgFile.getOriginalFilename().isEmpty()) {
             imgUrl = null;
         } else {
-            imgUrl = s3UploadService.upload(registFeed.getImgFile());
+            imgUrl = s3UploadService.upload(imgFile);
         }
 
         Feed feed = Feed.builder()
@@ -97,13 +98,13 @@ public class FeedServiceImpl implements FeedService{
 
     // 피드 수정
     @Override
-    public boolean updateFeed(UpdateFeed updateFeed) throws IOException {
+    public boolean updateFeed(UpdateFeed updateFeed, MultipartFile imgFile) throws IOException {
         Feed feed = feedRepository.findById(updateFeed.getFeedIndex()).orElseThrow(RuntimeException::new);
 
         Drink drink = drinkRepository.findById(updateFeed.getDrinkIndex()).orElseThrow(RuntimeException::new);
         logger.info("피드에서 수정할 술 정보 : {}", drink);
 
-        String imgUrl = s3UploadService.upload(updateFeed.getImgFile());
+        String imgUrl = s3UploadService.upload(imgFile);
 
         feed.setTitle(updateFeed.getTitle());
         feed.setContent(updateFeed.getContent());

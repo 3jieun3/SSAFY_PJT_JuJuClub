@@ -186,6 +186,7 @@ export default {
     isCards: true,
     weatherInfo: {},
     searchedDrink: {},
+    searchDrink: {},
   },
   getters: {
     drink: state => state.drink,
@@ -193,11 +194,14 @@ export default {
     isDrinkNames: state => _.isEmpty(state.isDrinkNames),
     searchedDrink: state => state.searchedDrink,
     isSearched: state => _.isEmpty(state.searchedDrink),
+    searchDrink: state => state.searchDrink,
+    isDrinkSearched: state => !_.isEmpty(state.searchDrink),
     reviews: state => state.reviews,
     reviewPaging: state => state.reviewPaging,
     pageList: state => state.reviewPaging.pageList,
     showReviews: state => state.showReviews,
     getFilteringDrinks: state => state.filteringDrinks,
+    getSetFilteringDrinks: state => state.setFilteringDrinks,
     getQuestion: state => state.questions,
     getQuestionEtc: state => state.questionEtc,
     getQuestionCount: state => state.questionEtc.questionCount,
@@ -230,6 +234,10 @@ export default {
     CLEAR_CHOOSE: (state) => state.questionEtc.choose = [],
     CLEAR_QUESTION_COUNT(state) {
       state.questionEtc.questionCount = 0
+    },
+    CLEAR_SEARCH_DRINK: (state) => state.searchDrink = {},
+    DRINK_SEARCH (state, drinkName) {
+      state.searchDrink = state.drinks.filter(drink => drink.drink.drinkName === drinkName.drinkName)
     },
     UPDATE_SET_FILTERING_DRINKS: (state, res) => state.setFilteringDrinks = res,
     SET_DRINK:(state, [drink, tags, foods]) => state.drink = { ...drink, drinkType: drink.drinkType.drinkType, tags, foods },
@@ -612,9 +620,16 @@ export default {
     },
     tagSearch({ commit }, pageNum) {
       commit('TAG_SEARCH')
+      commit('CLEAR_SEARCH_DRINK')
       commit('UPDATE_PAGE_LIST')
       commit('GO_FIRST_PAGE')
       commit('UPDATE_PAGE_SHOW', pageNum)
+    },
+    drinkSearch({ commit }, drinkName) {
+      commit('DRINK_SEARCH', drinkName)
+    },
+    clearSearchDrink({ commit }) {
+      commit('CLEAR_SEARCH_DRINK')
     },
     getDrinks({ commit , getters }) {
       axios({

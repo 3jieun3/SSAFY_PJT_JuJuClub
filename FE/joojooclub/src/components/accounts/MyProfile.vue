@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import router from '@/router'
 
 export default {
@@ -23,12 +24,11 @@ export default {
 	props: {
 		currentUser: Object,
 	},
-	data() {
-		return {
-			memberId: this.currentUser.member.id,
-			reviewCount: this.currentUser.reviews.length,
-			feedCount: this.currentUser.feeds.length,
-		}
+	computed: {
+		...mapGetters(['myReviews']),
+		memberId() { return this.currentUser.member.id },
+		reviewCount() { return this.myReviews.length },
+		feedCount() { return this.currentUser.feeds.length }
 	},
 	methods: {
 		createFeed() {

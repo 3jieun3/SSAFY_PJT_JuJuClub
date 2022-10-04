@@ -4,7 +4,9 @@
 		<div class="card-header">
 			<div class="right floated meta">{{ createdDate }}</div>
 			<i class="fa-solid fa-bottle-droplet fa-xl mx-2"></i>
-			<strong class="card-dirnk">{{ feed.drink.drinkName }}</strong>
+			<router-link :to="{ name: 'drink', params: { drinkPK: this.feed.drink.drinkIndex } }" class="drink-detail-link">
+				<strong class="card-dirnk">{{ feed.drink.drinkName }}</strong>
+			</router-link>
 		</div>
 		<div class="image">
 			<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image">
@@ -74,6 +76,9 @@ export default {
 </script>
 
 <style scoped>
+.drink-detail-link {
+	color: black;
+}
 .ui.three.cards > .card.feed-card {
 	width: 25rem;
 	height: 100%;

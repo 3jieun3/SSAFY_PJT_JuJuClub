@@ -22,7 +22,7 @@
 			<div class="field">
 				<label for="imageFile">첨부 파일</label>
 				<div>
-					<input type="file" ref="image" id="imageFile" @change="uploadImage($event)">
+					<input type="file" accept="image/*" ref="image" id="imageFile" @change="uploadImage($event)">
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
 				</div>
 			</div>
@@ -94,10 +94,10 @@ export default {
 		},
 		onSubmit() {
 			// required 확인
-			this.drinkError = this.checkRequired(this.searchedDrink.drinkIndex)
-			this.titleError = this.checkRequired(this.newFeed.title)
-			this.contentError = this.checkRequired(this.newFeed.content)
-			this.fileError = this.checkRequiredFile(this.newFeed.imgFile)
+			this.drinkError = this.checkRequiredError(this.searchedDrink.drinkIndex)
+			this.titleError = this.checkRequiredError(this.newFeed.title)
+			this.contentError = this.checkRequiredError(this.newFeed.content)
+			this.fileError = this.checkRequiredError(this.newFeed.imgFile)
 			if (!this.titleError && !this.contentError && !this.fileError) {
 				// form data 선언
 				let formdata = new FormData()
@@ -132,6 +132,17 @@ export default {
 			this.newFeed.previewImgUrl = URL.createObjectURL(this.newFeed.imgFile)
 			console.log(this.newFeed.imgFile)
 		},
+		checkRequiredError(val) {
+			if (val === undefined) return true
+			else if (val === null) return true
+			else if (val === '') return true
+			else return false
+		},
+		checkRequiredFile(val) {
+			if (_.isString(val)) return true	// 이미지 수정 없는 경우
+			else return false
+		},
+
 		// url형식 이미지를 파일 이미지로 만들어주기
 		// url 형태 : https://ssafyd106.s3.ap-northeast-2.amazonaws.com/filename.ext
 		// async convertURLtoFile(url) {
@@ -143,16 +154,7 @@ export default {
 		// 	console.log(new File([data], filename, metadata))
 		// 	return new File([data], filename, metadata)
 		// },
-		checkRequired(val) {
-			if (val === undefined) return true
-			else if (val === null) return true
-			else if (val === '') return true
-			else return false
-		},
-		checkRequiredFile(val) {
-			if (_.isString(val)) return true	// 이미지 수정 없는 경우
-			else return false
-		},
+		
 	},
 	watch: {
 		feed() {

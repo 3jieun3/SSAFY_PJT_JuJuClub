@@ -9,10 +9,11 @@ export default {
   state: {
     // 서버에서 받은 토큰, localStorage에서 가져오기, 없으면 ''
     token: localStorage.getItem('token') || '',
-    // dj_rest_auth accounts/user/
-    currentUser: {},
     // signup, login할 때 오류 메세지
     authError: null,
+    // dj_rest_auth accounts/user/
+    currentUser: {},
+    myReviews: [],
     // 후기 pagination
     myReviewPaging: {
       currentPage: 1,
@@ -29,26 +30,31 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
-    myReviews: state => state.currentUser.reviews,
+    myReviews: state => state.myReviews,
     myReviewPaging: state => state.myReviewPaging,
     myPageList: state => state.myReviewPaging.pageList,
     myShowReviews: state => state.myShowReviews,
   },
   mutations: {
-    SET_TOKEN: ( state, token ) => state.token = token,
-    SET_CURRENT_USER: ( state, user ) => { 
-      state.currentUser = user
-      state.myReviewPaging.totalPage = Math.ceil(state.currentUser.reviews.length / 3)
+    SET_TOKEN: (state, token) => state.token = token,
+    SET_CURRENT_USER: (state, user) => state.currentUser = user,
+    SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SET_MY_REVIEWS (state, reviews) {
+      state.myReviews = reviews
+      state.myReviewPaging.totalPage = Math.ceil(state.myReviews.length / 5)
     },
-    SET_AUTH_ERROR: ( state, error ) => state.authError = error,
-    GO_MY_PAGE( state, page ) {
+    DELETE_MY_REVIEW (state, reviewIndex) {
+      _.remove(state.myReviews, (review) => (review.reviewIndex === reviewIndex))
+      state.myReviewPaging.totalPage = Math.ceil(state.myReviews.length / 5)
+    },
+    GO_MY_PAGE(state, page) {
       // 현재 페이지를 선택된 페이지로 변경
       state.myReviewPaging.currentPage = page
       // pagination nav에 보여줄 page list 변경
       let fromPage = (page - 1 === 0) ? 1 : page - 1
       state.myReviewPaging.pageList = _.range(fromPage, fromPage + 3).filter(n => _.inRange(n, 1, state.myReviewPaging.totalPage + 1))
       // page 에서 보여줄 review list 변경
-      state.myShowReviews = state.currentUser.reviews.slice((page - 1) * 3, page * 3)
+      state.myShowReviews = state.myReviews.slice((page - 1) * 5, page * 5)
     },
   },
   actions: {
@@ -116,7 +122,8 @@ export default {
           method: 'get',
           headers: getters.authHeader,
         }).then((res) => {
-          commit('SET_CURRENT_USER', res.data)
+          commit('SET_CURRENT_USER', _.omit(res.data, 'reviews'))
+          commit('SET_MY_REVIEWS', res.data.reviews)
           dispatch('goMyPage', 1)
         }).catch((err) => {
           // 토큰이 잘못된 경우
@@ -124,6 +131,7 @@ export default {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')
             commit('SET_CURRENT_USER', {})
+            commit('SET_MY_REVIEWS', [])
             router.push({ name: 'login' })
           }
           // 토큰 만료
@@ -194,6 +202,11 @@ export default {
           }
         })
       }
+    },
+
+    deleteMyReview({ getters, commit, dispatch }, reviewIndex) {
+      commit('DELETE_MY_REVIEW', reviewIndex)
+      dispatch('goMyPage', getters.myReviewPaging.currentPage)
     },
 
     goMyPage({ commit }, page) {

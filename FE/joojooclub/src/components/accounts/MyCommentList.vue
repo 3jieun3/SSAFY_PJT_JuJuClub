@@ -24,8 +24,6 @@ export default {
 	computed: {
     ...mapGetters(['myReviewPaging', 'myShowReviews']),
 	},
-	methods: {
-	},
 }
 </script>
 

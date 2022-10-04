@@ -689,13 +689,14 @@ export default {
         console.log(err)
       })
     },
-    getCustomTags({ commit }) {
+    getCustomTags({ commit, getters }) {
       axios({
         url: joojooclub.drinks.drinkTag(),
         method: 'get',
       })
         .then((res) => {
-          commit('SET_CUSTOM_TAGS', res.data.taglist)
+          if (!getters.isChoosedTagList)
+            commit('SET_CUSTOM_TAGS', res.data.taglist)
         })
     }
   },

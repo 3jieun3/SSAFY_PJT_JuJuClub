@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="background-wrap">
+      <video class="video" ref="video" autoplay="autoplay" loop="loop" muted="true">
+        <source src="@/assets/video/main_video_op_60.mp4">
+      </video>
       <div class="content">
         <div id="welcomeMent" class="animationTarget">
           <p class="m-0">한국 전통의 맛을 경험해보세요</p>
         </div>
-        <button class="main-btn btn btn-warning mx-3 mx-md-5"
+        <button class="main-btn btn btn-warning mb-1 mb-sm-0 mx-3 mx-md-4 mx-lg-5"
         @click="goRecommend">전통주 맞춤추천</button>
-        <button class="main-btn btn btn-warning mx-3 mx-md-5"
+        <button class="main-btn btn btn-warning mx-3 mx-md-4 mx-lg-5"
         @click="goDrinks">전통주 검색하기</button>
       </div>
     </div>
@@ -43,18 +46,21 @@ export default {
 </script>
 
 <style scoped>
-
-  
-
   .background-wrap {
-    background-image: url("@/assets/mainImage.png");
     background-size: cover;
+    background-color: black;
     position: relative;
     height: min(80vh, 600px);
   }
+  
+  .video {
+    width: 100%;
+    height: 100%;
+    /* height: min(80vh, 600px); */
+  }
   .content {
     height: 30px;
-    position: relative;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

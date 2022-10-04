@@ -18,9 +18,6 @@ export default {
 		CommentListItem,
 		PaginationNav
 	},
-	props: {
-		reviews: Array,
-	},
 	computed: {
 		...mapGetters('drinks', ['reviewPaging', 'showReviews'])
 	},

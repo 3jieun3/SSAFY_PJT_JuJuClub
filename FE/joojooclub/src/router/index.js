@@ -17,6 +17,7 @@ import SignOutView from '@/views/SignOutView'
 import ChangePasswordView from '@/views/ChangePasswordView'
 import store from '@/store'  // 추후 주석 해제 필요(로그인 접근 제한)
 import WaitingView from '@/views/WaitingView'
+import NotFound404 from '@/views/NotFound404'
 
 Vue.use(VueRouter)
 
@@ -76,11 +77,6 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: LogoutView
-  // },
   {
     path: '/signup',
     name: 'signup',
@@ -101,15 +97,15 @@ const routes = [
     name: 'changePw',
     component: ChangePasswordView
   },
-  // {
-  //   path: '/404',
-  //   name: 'NotFound404',
-  //   component: NotFound404
-  // },
-  // {
-  //   path: '*',
-  //   redirect: '/404'
-  // },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
 ]
 
 

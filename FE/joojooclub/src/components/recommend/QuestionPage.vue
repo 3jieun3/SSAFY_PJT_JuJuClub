@@ -34,7 +34,7 @@ export default {
 
  * {
   font-family: 'NanumBarunGothic';
- }
+  }
 
   .recommendImg {
     background: url(@/assets/recommendPage.png) no-repeat center;
@@ -48,10 +48,6 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     justify-content: center;
-  }
-
-  .question {
-    padding-bottom: 50px;
   }
 
   .question {

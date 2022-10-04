@@ -2,14 +2,14 @@
 	<div>
 		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames" class="search-form"></search-bar>
 		<span v-if="drinkError" class="sub-error">* 전통주명을 검색해주세요</span>
-		<form class="ui form">
+		<form class="ui form" enctype="multipart/form-data">
 			<div class="field" v-if="action === `update`">
 				<label for="drinkSearch">전통주명</label>
 				<input type="text" v-model="drinkName" class="form-control" readonly>
 			</div>
 			<div class="field">
 				<label for="title">제목</label>
-				<input v-model.trim="newFeed.title" type="text" id="title" placeholder="제목" class="form-control">
+				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목" class="form-control">
 			</div>
 			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요</span>
 			
@@ -26,14 +26,15 @@
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
 				</div>
 			</div>
-			<span v-if="fileError" class="sub-error">* 피드 이미지를 선택해주세요</span>
+			<span v-if="(action === `create`) && fileError" class="sub-error">* 피드 이미지를 선택해주세요</span>
+			<span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span>
 
 			<div class="field">
 				<label for="tags">태그</label>
 				<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그">
 			</div>
 
-			<button class="ui button" @click="$router.back()">뒤로</button>
+			<button class="ui button" @click="goback">뒤로</button>
 			<button class="ui button" @click.prevent="onSubmit">저장</button>
 		</form>
 	</div>
@@ -42,6 +43,7 @@
 <script>
 import SearchBar from '@/components/feed/SearchBar'
 import { mapActions, mapGetters } from 'vuex'
+import _ from 'lodash'
 
 export default {
 	name: 'PostingForm',
@@ -51,6 +53,7 @@ export default {
 	props: {
 		feed: Object,
 		action: String,
+		currentUser: Object,
 	},
 	data() {
 		return {
@@ -66,37 +69,55 @@ export default {
 				previewImgUrl: this.feed.imageUrl
 			},
 			// previewImgUrl: this.feed.imageUrl,
-			// required 메시지
+
+			// required warning message
 			drinkError: false,
 			titleError: false,
 			contentError: false,
 			fileError: false,
+			memberIndex: this?.currentUser?.member?.memberIndex,
 		}
 	},
 	computed: {
-		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames'])
+		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames']),
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
 		...mapActions('drinks', ['fetchDrinkNames']),
+		goback() {
+			this.$router.push({
+				name: 'profile',
+				params: {
+					userPK: this?.memberIndex
+				}
+			})
+		},
 		onSubmit() {
 			// required 확인
 			this.drinkError = this.checkRequired(this.searchedDrink.drinkIndex)
 			this.titleError = this.checkRequired(this.newFeed.title)
 			this.contentError = this.checkRequired(this.newFeed.content)
-			this.fileError = this.checkRequired(this.newFeed.imgFile)
+			this.fileError = this.checkRequiredFile(this.newFeed.imgFile)
 			if (!this.titleError && !this.contentError && !this.fileError) {
 				// form data 선언
 				let formdata = new FormData()
 				// 키값 추가
-				this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
-				formdata.append('drinkIndex', this.newFeed.drinkIndex)
-				formdata.append('title', this.newFeed.title)
-				formdata.append('content', this.newFeed.content)
-				formdata.append('customTags', this.newFeed.customTags)
+				const registFeed = {
+					'title': this.newFeed.title,
+					'content': this.newFeed.content,
+					'drinkIndex': this.searchedDrink.drinkIndex,
+					'customTags': this.newFeed.customTags,
+				}
+				//this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+				formdata.append('registFeed', new Blob([JSON.stringify(registFeed)]), {type: 'application/json'})
+				// formdata.append('drinkIndex', this.newFeed.drinkIndex)
+				// formdata.append('title', this.newFeed.title)
+				// formdata.append('content', this.newFeed.content)
+				// formdata.append('customTags', this.newFeed.customTags)
 				formdata.append('imgFile', this.newFeed.imgFile)
 
 				if (this.action === 'create') {
+					console.log(formdata)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)
@@ -113,19 +134,23 @@ export default {
 		},
 		// url형식 이미지를 파일 이미지로 만들어주기
 		// url 형태 : https://ssafyd106.s3.ap-northeast-2.amazonaws.com/filename.ext
-		async convertURLtoFile(url) {
-			const response = await fetch(url)
-			const data = await response.blob()
-			const filename = url.split("/").pop()
-			const ext = url.split(".").pop()
-			const metadata = { type: `image/${ext}` }
-			console.log(new File([data], filename, metadata))
-			return new File([data], filename, metadata)
-		},
+		// async convertURLtoFile(url) {
+		// 	const response = await fetch(url)
+		// 	const data = await response.blob()
+		// 	const filename = url.split("/").pop()
+		// 	const ext = url.split(".").pop()
+		// 	const metadata = { type: `image/${ext}` }
+		// 	console.log(new File([data], filename, metadata))
+		// 	return new File([data], filename, metadata)
+		// },
 		checkRequired(val) {
 			if (val === undefined) return true
 			else if (val === null) return true
 			else if (val === '') return true
+			else return false
+		},
+		checkRequiredFile(val) {
+			if (_.isString(val)) return true	// 이미지 수정 없는 경우
 			else return false
 		},
 	},

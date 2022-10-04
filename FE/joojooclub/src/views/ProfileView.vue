@@ -7,8 +7,8 @@
 			<div class="mypage-content">
 				<h4>내가 쓴 후기</h4>
 				<my-comment-list :currentUser="currentUser"></my-comment-list>
-				<my-feed-list :currentUser="currentUser"></my-feed-list>
-				<like-feed-list :currentUser="currentUser"></like-feed-list>
+				<my-feed-list v-if="isFeeds" :currentUser="currentUser"></my-feed-list>
+				<like-feed-list v-if="isFeeds" :currentUser="currentUser"></like-feed-list>
 			</div>
 		</div>
 	</div>
@@ -32,12 +32,17 @@ export default {
 	computed: {
 		// isCurrentUser: rednering 전 변수 undefined 문제 해결 위해 사용
 		...mapGetters(['currentUser', 'isCurrentUser']),
+		...mapGetters('feed', ['isFeeds']),
 	},
 	methods: {
-    ...mapActions(['fetchCurrentUser'])
+		...mapActions(['fetchCurrentUser', 'goMyPage']),
+		...mapActions('feed', ['fetchAllFeeds']),
+		
   },
 	created() {
 		this.fetchCurrentUser()
+		this.goMyPage(1)
+		this.fetchAllFeeds()
 	},
 	updated() {
 		// this.fetchCurrentUser()

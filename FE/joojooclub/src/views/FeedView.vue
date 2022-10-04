@@ -1,7 +1,7 @@
 <template>
 	<div class="feed-body">
 		<div class="feed-header">
-			<best-feed-list></best-feed-list>
+			<best-feed-list v-if="isFeeds"></best-feed-list>
 		</div>
 		<div class="feed-content">
 			<search-bar v-if="isDrinkNames" :drinkNames="drinkNames"></search-bar>
@@ -25,11 +25,11 @@ export default {
 	},
 	computed: {
 		...mapGetters('drinks', ['isDrinkNames', 'drinkNames']),
-		...mapGetters('feed', ['isFeeds'])
+		...mapGetters('feed', ['isFeeds', 'bestFeeds']),
 	},
 	methods: {
+		...mapActions('drinks', ['fetchDrinkNames']),
 		...mapActions('feed', ['fetchAllFeeds']),
-		...mapActions('drinks', ['fetchDrinkNames'])
 	},
 	created() {
 		this.fetchAllFeeds()

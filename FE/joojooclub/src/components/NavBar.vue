@@ -5,7 +5,7 @@
         <!-- 로고 -->
         <div class="order-1 order-md-0 ms-5 ms-md-0">
           <router-link to="/" class="navbar-brand m-0" aria-current="page">
-            <img class="logo" src="../../public/image/logo_sample1.png" alt="Logo">
+            <img class="logo" src="@/assets/logo_for_header.png" alt="Logo">
           </router-link>
         </div>
         <!-- 햄버거: 공통 페이지 -->
@@ -71,12 +71,6 @@ export default {
     ...mapActions(['logout', 'signout']),
     ...mapActions('drinks', ['clearQuestionCount', 'clearChoose'])
   },
-  created() {
-    // console.log(this.currentUser)
-    // console.log(this.isLoggedIn)
-  },
-  updated() {
-  }
 }
 </script>
 
@@ -94,6 +88,15 @@ export default {
   min-width: 35px;
   max-width: 50px;
 }
+
+:hover.nav-common {
+  color: rgb(233, 187, 131);
+}
+
+a.router-link-exact-active {
+  color: rgb(233, 187, 131);
+}
+
 .nav-common {
   font-size: min(4vw, 1.1rem);
 }

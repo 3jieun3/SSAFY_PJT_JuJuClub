@@ -41,7 +41,6 @@ export default {
   },
 	created() {
 		this.fetchCurrentUser()
-		this.goMyPage(1)
 		this.fetchAllFeeds()
 	},
 	updated() {

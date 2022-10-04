@@ -17,7 +17,7 @@
       <div class="text review-row">
         {{ review.review }}
       </div>
-      <button v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="btn btn-light" @click="deleteReview(review.reviewIndex)">삭제</button>
+      <button v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="btn btn-light" @click="onDeleteReview">삭제</button>
     </div>
   </div>
 </template>
@@ -33,15 +33,28 @@ export default {
   data() {
     return {
       currentRoute: window.location.pathname.toString(),
-      encodedId: this.review.memberId?.substring(0, 4).padEnd(this.review.memberId.length, '*'),
-			createdDate: this.review.createdAt.substring(0, 10).replaceAll('-', '.'),
     }
   },
   computed: {
-    ...mapGetters(['isCurrentUser', 'currentUser'])
+    ...mapGetters(['isCurrentUser', 'currentUser']),
+    encodedId() {
+      return this.review.memberId?.substring(0, 4).padEnd(this.review.memberId.length, '*')
+    },
+    createdDate() {
+      return this.review.createdAt.substring(0, 10).replaceAll('-', '.')
+    },
   },
   methods: {
-    ...mapActions('drinks', ['deleteReview'])
+    ...mapActions(['deleteMyReview']),
+    ...mapActions('drinks', ['deleteReview']),
+    onDeleteReview() {
+      if (this.currentRoute.startsWith('/drinks')) {  // 디테일 페이지에서의 후기 삭제
+        this.deleteReview(this.review.reviewIndex)
+      } else {  // 프로필 페이지에서의 후기 삭제
+        this.deleteMyReview(this.review.reviewIndex)
+        this.deleteReview(this.review.reviewIndex)
+      }
+    },
   },
 }
 </script>

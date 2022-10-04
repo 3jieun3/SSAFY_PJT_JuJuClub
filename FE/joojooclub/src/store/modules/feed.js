@@ -83,7 +83,7 @@ export default {
       })
     },
 
-    createFeed({ getters }, formdata) {
+    createFeed({ getters, dispatch }, formdata) {
       if (confirm('등록하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),
@@ -97,6 +97,7 @@ export default {
         .then((res) => {
           console.log(res)
           alert('피드가 등록되었습니다.')
+          dispatch('fetchCurrentUser')
           router.push({
             name: 'profile',
             params: { userPK: getters.currentUser.member.memberIndex }
@@ -112,7 +113,7 @@ export default {
       }
     },
 
-    updateFeed({ getters }, formdata) {
+    updateFeed({ getters, dispatch }, formdata) {
       for (let [k, v] of formdata.entries()) console.log(k, v)
       if(confirm('수정하시겠습니까?')) {
         axios({
@@ -126,6 +127,7 @@ export default {
         })
         .then(() => {
           alert('피드가 수정되었습니다.')
+          dispatch('fetchCurrentUser')
           router.push({
             name: 'profile',
             params: { userPK: getters.feed.member.memberIndex }
@@ -141,7 +143,7 @@ export default {
       }
     },
 
-    deleteFeed({ getters }, feedIndex) {
+    deleteFeed({ getters, dispatch }, feedIndex) {
       if(getters.isLoggedIn) {
         if(confirm('피드를 삭제하시겠습니까?')){
           axios({
@@ -152,6 +154,7 @@ export default {
           })
           .then(() => {
             alert('피드가 정상적으로 삭제되었습니다.')
+            dispatch('fetchCurrentUser')
             router.push({
               name: 'profile',
               params: { userPK: getters.currentUser.member.memberIndex }

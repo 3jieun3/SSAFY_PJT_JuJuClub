@@ -44,7 +44,7 @@ public class FeedController {
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview(RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestParam(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
+    public ResponseEntity<Map<String, String>> registReview(RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestPart(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
 //        RegistFeed registFeed = RegistFeed.builder()
 //                .content(registNoFile.getContent())
 //                .customTags(registNoFile.getCustomTags())

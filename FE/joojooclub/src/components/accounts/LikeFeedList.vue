@@ -2,15 +2,17 @@
 	<div class="feed-list">
 		<h4>좋아요한 피드</h4>
 		<div class="container">
-			<div class="horiz-scroll">
+			<div v-if="likeFeeds" class="horiz-scroll">
 				<feed-list-item v-for="feed in likeFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 			</div>
+			<h3 v-else>"좋아요한 피드가 없어요..</h3>
 		</div>
 	</div>
 </template>
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
+import { mapGetters } from 'vuex'
 
 export default {
 	name: "LikeFeedList",
@@ -20,12 +22,15 @@ export default {
 	props: {
 		currentUser: Object,
 	},
-	data() {
-		return {
-			likeFeeds: this.currentUser.likeFeeds,
-		}
-	},
-	created() {
+	computed: {
+		...mapGetters('feed', ['feeds']),
+		likeFeeds() {
+			const feedIndexes = []
+			for (const likeFeed of this.currentUser.likeFeeds) {
+				feedIndexes.push(likeFeed.feed.feedIndex)
+			}
+			return this.feeds.filter(feed => feedIndexes.includes(feed.feedIndex))
+		},
 	},
 }
 </script>

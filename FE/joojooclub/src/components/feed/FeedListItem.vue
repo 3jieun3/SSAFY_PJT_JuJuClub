@@ -54,7 +54,6 @@ export default {
 	},
 	computed: {
 		...mapGetters(['currentUser', 'isCurrentUser']),
-		// ...mapGetters('feed', ['feeds'])
 	},
 	methods: {
 		...mapActions('feed', ['deleteFeed', 'fetchLikeMembers']),
@@ -68,9 +67,9 @@ export default {
 	created() {
 		this.fetchLikeMembers(this.feed.feedIndex)
 	},
-	// updated() {
-	// 	this.fetchLikeMembers(this.feed.feedIndex)
-	// }
+	updated() {
+		this.fetchLikeMembers(this.feed.feedIndex)
+	}
 }
 </script>
 

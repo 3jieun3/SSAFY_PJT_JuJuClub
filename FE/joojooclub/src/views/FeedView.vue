@@ -28,8 +28,8 @@ export default {
 		...mapGetters('feed', ['isFeeds'])
 	},
 	methods: {
+		...mapActions('drinks', ['fetchDrinkNames']),
 		...mapActions('feed', ['fetchAllFeeds']),
-		...mapActions('drinks', ['fetchDrinkNames'])
 	},
 	created() {
 		this.fetchAllFeeds()

@@ -16,6 +16,6 @@ public class RegistFeed {
     private String content;
     private Long drinkIndex;
     private String customTags;
-//    private MultipartFile imgFile;
+    private MultipartFile imgFile;
 
 }

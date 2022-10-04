@@ -300,7 +300,6 @@ export default {
         for (let k=0; k < state.filteringDrinks.length; k++) {
           const Idx = state.drinks.indexOf(state.filteringDrinks[k])
           if (state.setFilteringDrinks.every(drink => drink.drink.drinkIndex != Idx)) {
-            console.log(Idx)
             state.setFilteringDrinks.push(state.filteringDrinks[k])
           }
         }
@@ -694,7 +693,6 @@ export default {
         method: 'get',
       })
         .then((res) => {
-          console.log(res.data.taglist)
           commit('SET_CUSTOM_TAGS', res.data.taglist)
         })
     }
@@ -733,6 +731,6 @@ export default {
             })
         },
       }
-    }
+    },
   }
 }

@@ -26,7 +26,8 @@
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
 				</div>
 			</div>
-			<span v-if="fileError" class="sub-error">* 피드 이미지를 선택해주세요</span>
+			<span v-if="(action === `create`) && fileError" class="sub-error">* 피드 이미지를 선택해주세요</span>
+			<span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span>
 
 			<div class="field">
 				<label for="tags">태그</label>
@@ -42,6 +43,7 @@
 <script>
 import SearchBar from '@/components/feed/SearchBar'
 import { mapActions, mapGetters } from 'vuex'
+import _ from 'lodash'
 
 export default {
 	name: 'PostingForm',
@@ -67,7 +69,8 @@ export default {
 				previewImgUrl: this.feed.imageUrl
 			},
 			// previewImgUrl: this.feed.imageUrl,
-			// required 메시지
+
+			// required warning message
 			drinkError: false,
 			titleError: false,
 			contentError: false,
@@ -94,7 +97,7 @@ export default {
 			this.drinkError = this.checkRequired(this.searchedDrink.drinkIndex)
 			this.titleError = this.checkRequired(this.newFeed.title)
 			this.contentError = this.checkRequired(this.newFeed.content)
-			this.fileError = this.checkRequired(this.newFeed.imgFile)
+			this.fileError = this.checkRequiredFile(this.newFeed.imgFile)
 			if (!this.titleError && !this.contentError && !this.fileError) {
 				// form data 선언
 				let formdata = new FormData()
@@ -123,19 +126,23 @@ export default {
 		},
 		// url형식 이미지를 파일 이미지로 만들어주기
 		// url 형태 : https://ssafyd106.s3.ap-northeast-2.amazonaws.com/filename.ext
-		async convertURLtoFile(url) {
-			const response = await fetch(url)
-			const data = await response.blob()
-			const filename = url.split("/").pop()
-			const ext = url.split(".").pop()
-			const metadata = { type: `image/${ext}` }
-			console.log(new File([data], filename, metadata))
-			return new File([data], filename, metadata)
-		},
+		// async convertURLtoFile(url) {
+		// 	const response = await fetch(url)
+		// 	const data = await response.blob()
+		// 	const filename = url.split("/").pop()
+		// 	const ext = url.split(".").pop()
+		// 	const metadata = { type: `image/${ext}` }
+		// 	console.log(new File([data], filename, metadata))
+		// 	return new File([data], filename, metadata)
+		// },
 		checkRequired(val) {
 			if (val === undefined) return true
 			else if (val === null) return true
 			else if (val === '') return true
+			else return false
+		},
+		checkRequiredFile(val) {
+			if (_.isString(val)) return true	// 이미지 수정 없는 경우
 			else return false
 		},
 	},

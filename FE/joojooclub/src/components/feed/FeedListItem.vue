@@ -9,11 +9,11 @@
 		<div class="image">
 			<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image">
 			<!-- <img v-else :src="feed.drink.imageUrl" class="feed-img" alt="Feed Image"> -->
-			<img v-else :src="require(`@/assets/logo_sample1.png`)">
+			<img v-else :src="require(`@/assets/logo_for_header.png`)">
 			<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
 				<div class="darkness"></div>
 				<i class="btn fa-solid fa-pen-to-square fa-xl" @click="editFeed"></i>
-				<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(this.feed.feedIndex)"></i>
+				<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(feed.feedIndex)"></i>
 			</div>
 		</div>
 		<div class="card-body overflow-auto">

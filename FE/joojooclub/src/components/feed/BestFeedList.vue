@@ -6,7 +6,7 @@
 
 <script>
 import FeedListItem from './FeedListItem'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
 	name: 'BestFeedList',
@@ -14,7 +14,14 @@ export default {
 		FeedListItem,
 	},
 	computed: {
-		...mapState('feed', ['bestFeeds'])
+		...mapGetters('feed', ['feeds', 'bestfeeds']),
+		bestFeeds() {
+			const feedIndexes = []
+			for (const feed of this.bestfeeds) {
+				feedIndexes.push(feed.feedIndex)
+			}
+			return this.feeds.filter(feed => feedIndexes.includes(feed.feedIndex))
+		},
 	},
 }
 </script>

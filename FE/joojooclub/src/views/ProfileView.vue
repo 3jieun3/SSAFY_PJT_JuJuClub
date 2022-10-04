@@ -35,16 +35,17 @@ export default {
 		...mapGetters('feed', ['isFeeds']),
 	},
 	methods: {
-		...mapActions(['fetchCurrentUser']),
+		...mapActions(['fetchCurrentUser', 'goMyPage']),
 		...mapActions('feed', ['fetchAllFeeds']),
 		
   },
 	created() {
 		this.fetchCurrentUser()
+		this.goMyPage(1)
 		this.fetchAllFeeds()
 	},
 	updated() {
-		this.fetchCurrentUser()
+		// this.fetchCurrentUser()
 	}
 }
 </script>

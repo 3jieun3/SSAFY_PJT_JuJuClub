@@ -2,14 +2,14 @@
 	<div>
 		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames" class="search-form"></search-bar>
 		<span v-if="drinkError" class="sub-error">* 전통주명을 검색해주세요</span>
-		<form class="ui form">
+		<form class="ui form" enctype="multipart/form-data">
 			<div class="field" v-if="action === `update`">
 				<label for="drinkSearch">전통주명</label>
 				<input type="text" v-model="drinkName" class="form-control" readonly>
 			</div>
 			<div class="field">
 				<label for="title">제목</label>
-				<input v-model.trim="newFeed.title" type="text" id="title" placeholder="제목" class="form-control">
+				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목" class="form-control">
 			</div>
 			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요</span>
 			
@@ -80,9 +80,6 @@ export default {
 	},
 	computed: {
 		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames']),
-		// selectedDrinkName() {
-		// 	if 
-		// }
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
@@ -105,14 +102,22 @@ export default {
 				// form data 선언
 				let formdata = new FormData()
 				// 키값 추가
-				this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
-				formdata.append('drinkIndex', this.newFeed.drinkIndex)
-				formdata.append('title', this.newFeed.title)
-				formdata.append('content', this.newFeed.content)
-				formdata.append('customTags', this.newFeed.customTags)
+				const registFeed = {
+					'title': this.newFeed.title,
+					'content': this.newFeed.content,
+					'drinkIndex': this.searchedDrink.drinkIndex,
+					'customTags': this.newFeed.customTags,
+				}
+				//this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+				formdata.append('registFeed', new Blob([JSON.stringify(registFeed)]), {type: 'application/json'})
+				// formdata.append('drinkIndex', this.newFeed.drinkIndex)
+				// formdata.append('title', this.newFeed.title)
+				// formdata.append('content', this.newFeed.content)
+				// formdata.append('customTags', this.newFeed.customTags)
 				formdata.append('imgFile', this.newFeed.imgFile)
 
 				if (this.action === 'create') {
+					console.log(formdata)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)

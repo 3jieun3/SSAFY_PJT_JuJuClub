@@ -2,6 +2,7 @@ package com.ssafy.drink.interceptor;
 
 import com.ssafy.drink.jwt.AuthorizationExtractor;
 import com.ssafy.drink.jwt.JwtToken;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -9,6 +10,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Enumeration;
 
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
@@ -29,8 +34,34 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
 
+
+        System.out.println("request header확인용");
+//        try {
+//            String line = "";
+//            StringBuilder stringBuilder = new StringBuilder();
+//            InputStream inputStream = request.getInputStream();
+//            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+//            while ((line = br.readLine()) != null){
+//                stringBuilder.append(line);
+//            }
+//            String bodyJson = "";
+//            bodyJson = stringBuilder.toString();
+//            System.out.println(bodyJson);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+
+
+        Enumeration eHeader = request.getHeaderNames();
+        while (eHeader.hasMoreElements()){
+            String req_Name = (String)eHeader.nextElement();
+            String req_Val = request.getHeader(req_Name);
+            System.out.println("reqName : "+req_Name+"  |  reqVal : "+req_Val);
+        }
+
+
         String token = authorizationExtractor.extract(request, "Bearer");
-        System.out.println("결과" + token);
 
         if (StringUtils.hasLength(token)){
             System.out.println("성공");

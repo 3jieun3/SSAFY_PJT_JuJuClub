@@ -43,8 +43,8 @@ public class FeedController {
     LikeFeedService likeFeedService;
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
-    @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview(@RequestPart RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestPart(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
+    @PostMapping(value = "/valid",consumes = {"multipart/form-data"})
+    public ResponseEntity<Map<String, String>> registReview(@RequestPart String title,@RequestPart String content,@RequestPart String drinkIndex,@RequestPart String customTags,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestPart(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
 //        RegistFeed registFeed = RegistFeed.builder()
 //                .content(registNoFile.getContent())
 //                .customTags(registNoFile.getCustomTags())
@@ -52,6 +52,12 @@ public class FeedController {
 //                .title(registNoFile.getTitle())
 //                .imgFile(file)
 //                .build();
+        RegistFeed registFeed = new RegistFeed();
+        registFeed.setContent(content);
+        registFeed.setCustomTags(customTags);
+        registFeed.setTitle(title);
+        System.out.println("drinkIndex check"+drinkIndex);
+        registFeed.setDrinkIndex(Long.parseLong(drinkIndex));
         logger.debug("피드 등록 API 호출 : {}", registFeed);
 
         // Token에서 memberIndex를 추출

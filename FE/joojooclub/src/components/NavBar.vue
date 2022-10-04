@@ -94,6 +94,15 @@ export default {
   min-width: 35px;
   max-width: 50px;
 }
+
+:hover.nav-common {
+  color: rgb(233, 187, 131);
+}
+
+a.router-link-exact-active {
+  color: rgb(233, 187, 131);
+}
+
 .nav-common {
   font-size: min(4vw, 1.1rem);
 }

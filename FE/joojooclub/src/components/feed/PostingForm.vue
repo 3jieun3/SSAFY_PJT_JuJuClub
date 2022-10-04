@@ -3,9 +3,9 @@
 		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames" class="search-form"></search-bar>
 		<span v-if="drinkError" class="sub-error">* 전통주명을 검색해주세요</span>
 		<form class="ui form" enctype="multipart/form-data">
-			<div class="field" v-if="action === `update`">
+			<div class="field">
 				<label for="drinkSearch">전통주명</label>
-				<input type="text" v-model="drinkName" class="form-control" readonly>
+				<input type="text" v-model="selectedDrinkName" class="form-control" readonly>
 			</div>
 			<div class="field">
 				<label for="title">제목</label>
@@ -26,7 +26,7 @@
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
 				</div>
 			</div>
-			<span v-if="(action === `create`) && fileError" class="sub-error">* 피드 이미지를 선택해주세요</span>
+			<!-- <span v-if="(action === `create`) && fileError" class="sub-error">* 피드 이미지를 선택해주세요</span> -->
 			<span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span>
 
 			<div class="field">
@@ -79,7 +79,15 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames']),
+		...mapGetters('drinks', ['isSearched', 'searchedDrink', 'isDrinkNames', 'drinkNames']),
+		selectedDrinkName() {
+			if (this.isSearched) { return this.feed.drink.drinkName }
+			else { return this.searchedDrink.drinkName }
+		},
+		// isdrinkError() {
+		// 	if (!this.isSearched) { return false }
+		// 	else { return true }
+		// },
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
@@ -97,27 +105,19 @@ export default {
 			this.drinkError = this.checkRequiredError(this.searchedDrink.drinkIndex)
 			this.titleError = this.checkRequiredError(this.newFeed.title)
 			this.contentError = this.checkRequiredError(this.newFeed.content)
-			this.fileError = this.checkRequiredError(this.newFeed.imgFile)
-			if (!this.titleError && !this.contentError && !this.fileError) {
+			// this.fileError = this.checkRequiredError(this.newFeed.imgFile)
+			if (!this.drinkError && !this.titleError && !this.contentError) {
 				// form data 선언
 				let formdata = new FormData()
 				// 키값 추가
-				const registFeed = {
-					'title': this.newFeed.title,
-					'content': this.newFeed.content,
-					'drinkIndex': this.searchedDrink.drinkIndex,
-					'customTags': this.newFeed.customTags,
-				}
-				//this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
-				formdata.append('registFeed', new Blob([JSON.stringify(registFeed)]), {type: 'application/json'})
-				// formdata.append('drinkIndex', this.newFeed.drinkIndex)
-				// formdata.append('title', this.newFeed.title)
-				// formdata.append('content', this.newFeed.content)
-				// formdata.append('customTags', this.newFeed.customTags)
+				this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+				formdata.append('drinkIndex', this.newFeed.drinkIndex)
+				formdata.append('title', this.newFeed.title)
+				formdata.append('content', this.newFeed.content)
+				formdata.append('customTags', this.newFeed.customTags)
 				formdata.append('imgFile', this.newFeed.imgFile)
 
 				if (this.action === 'create') {
-					console.log(formdata)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)
@@ -142,25 +142,11 @@ export default {
 			if (_.isString(val)) return true	// 이미지 수정 없는 경우
 			else return false
 		},
-
-		// url형식 이미지를 파일 이미지로 만들어주기
-		// url 형태 : https://ssafyd106.s3.ap-northeast-2.amazonaws.com/filename.ext
-		// async convertURLtoFile(url) {
-		// 	const response = await fetch(url)
-		// 	const data = await response.blob()
-		// 	const filename = url.split("/").pop()
-		// 	const ext = url.split(".").pop()
-		// 	const metadata = { type: `image/${ext}` }
-		// 	console.log(new File([data], filename, metadata))
-		// 	return new File([data], filename, metadata)
-		// },
-		
 	},
 	watch: {
 		feed() {
 			this.newFeed = this.feed
 		},
-		
 		title(val) {
 			if (val.length >= 1) this.titleError = false
 		},

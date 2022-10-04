@@ -24,7 +24,7 @@ export default {
 	},
 	created() {
 		this.fetchFeed(this.$route.params.feedPK)
-		this.setSearchDrink({ drinkIndex: this.$route.params.feedPK, drinkName: this?.feed?.drink?.drinkName })
+		this.setSearchDrink({})
 	},
 }
 </script>

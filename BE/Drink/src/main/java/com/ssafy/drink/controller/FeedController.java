@@ -44,7 +44,7 @@ public class FeedController {
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview(RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestPart(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
+    public ResponseEntity<Map<String, String>> registReview(@RequestPart RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestPart(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
 //        RegistFeed registFeed = RegistFeed.builder()
 //                .content(registNoFile.getContent())
 //                .customTags(registNoFile.getCustomTags())
@@ -57,6 +57,7 @@ public class FeedController {
         // Token에서 memberIndex를 추출
         Long memberIndex = (Long)request.getAttribute("memberIndex");
         logger.info("FeedService Post memberIndex : {}", memberIndex);
+        System.out.println("이미지파일정보"+imgFile);
 
         // 피드 등록 후 생성된 feedIndex
         Long feedIndex = feedService.registFeed(registFeed, memberIndex, imgFile);

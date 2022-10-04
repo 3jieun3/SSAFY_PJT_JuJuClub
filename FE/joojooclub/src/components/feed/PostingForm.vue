@@ -110,14 +110,22 @@ export default {
 				// form data 선언
 				let formdata = new FormData()
 				// 키값 추가
-				this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
-				formdata.append('drinkIndex', this.newFeed.drinkIndex)
-				formdata.append('title', this.newFeed.title)
-				formdata.append('content', this.newFeed.content)
-				formdata.append('customTags', this.newFeed.customTags)
+				const registFeed = {
+					'title': this.newFeed.title,
+					'content': this.newFeed.content,
+					'drinkIndex': this.searchedDrink.drinkIndex,
+					'customTags': this.newFeed.customTags,
+				}
+				//this.newFeed.drinkIndex = this.searchedDrink.drinkIndex,
+				formdata.append('registFeed', new Blob([JSON.stringify(registFeed)]), {type: 'application/json'})
+				// formdata.append('drinkIndex', this.newFeed.drinkIndex)
+				// formdata.append('title', this.newFeed.title)
+				// formdata.append('content', this.newFeed.content)
+				// formdata.append('customTags', this.newFeed.customTags)
 				formdata.append('imgFile', this.newFeed.imgFile)
 
 				if (this.action === 'create') {
+					console.log(formdata)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)

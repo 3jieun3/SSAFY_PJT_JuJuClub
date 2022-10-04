@@ -3,7 +3,7 @@
 		<h4>내가 쓴 피드</h4>
 		<div class="container">
 			<div class="horiz-scroll">
-				<feed-list-item v-for="feed in feeds" :key="feed.feedId" :feed="feed"></feed-list-item>
+				<feed-list-item v-for="feed in myFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 			</div>
 		</div>
 	</div>
@@ -11,6 +11,7 @@
 
 <script>
 import FeedListItem from '@/components/feed/FeedListItem'
+import { mapGetters } from 'vuex'
 
 export default {
 	name: "MyFeedList",
@@ -20,10 +21,15 @@ export default {
 	props: {
 		currentUser: Object,
 	},
-	data() {
-		return {
-      feeds: this.currentUser.feeds,
-    }
+	computed: {
+		...mapGetters('feed', ['feeds']),
+		myFeeds() {
+			const feedIndexes = []
+			for (const feed of this.currentUser.feeds) {
+				feedIndexes.push(feed.feedIndex)
+			}
+			return this.feeds.filter(feed => feedIndexes.includes(feed.feedIndex))
+		},
 	},
 }
 </script>

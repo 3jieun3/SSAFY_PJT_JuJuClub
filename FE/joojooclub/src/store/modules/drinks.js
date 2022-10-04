@@ -250,7 +250,7 @@ export default {
       state.reviewPaging.totalPage = Math.ceil(state.reviews.length / 5)
     },
     DELETE_REVIEW (state, reviewIndex) {
-      state.reviews.splice(reviewIndex, 1)
+      _.remove(state.reviews, (review) => (review.reviewIndex === reviewIndex))
       state.reviewPaging.totalPage = Math.ceil(state.reviews.length / 5)
     },
     GO_PAGE(state, page) {

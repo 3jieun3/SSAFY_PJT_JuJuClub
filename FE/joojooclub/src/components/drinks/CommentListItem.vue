@@ -33,12 +33,16 @@ export default {
   data() {
     return {
       currentRoute: window.location.pathname.toString(),
-      encodedId: this.review.memberId?.substring(0, 4).padEnd(this.review.memberId.length, '*'),
-			createdDate: this.review.createdAt.substring(0, 10).replaceAll('-', '.'),
     }
   },
   computed: {
-    ...mapGetters(['isCurrentUser', 'currentUser'])
+    ...mapGetters(['isCurrentUser', 'currentUser']),
+    encodedId() {
+      return this.review.memberId?.substring(0, 4).padEnd(this.review.memberId.length, '*')
+    },
+    createdDate() {
+      return this.review.createdAt.substring(0, 10).replaceAll('-', '.')
+    },
   },
   methods: {
     ...mapActions('drinks', ['deleteReview'])

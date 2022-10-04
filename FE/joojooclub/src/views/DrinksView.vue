@@ -2,7 +2,7 @@
   <div>
     <drink-image></drink-image>
     <tag-list></tag-list>
-    <drink-catalog></drink-catalog>
+    <drink-catalog v-if="isDrinkNames" :drinkNames="drinkNames"></drink-catalog>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import DrinkImage from '@/components/drinks/DrinkImage.vue'
 import TagList from '@/components/drinks/TagList.vue'
 import DrinkCatalog from '@/components/drinks/DrinkCatalog.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 
 export default {
@@ -21,12 +21,17 @@ export default {
     TagList,
     DrinkCatalog
   },
+  computed: {
+		...mapGetters('drinks', ['isDrinkNames', 'drinkNames']),
+  },
   methods: {
-    ...mapActions('drinks', ['getDrinks', 'getCustomTags'])
+    ...mapActions('drinks', ['getDrinks', 'getCustomTags']),
+		...mapActions('drinks', ['fetchDrinkNames']),
   },
   created() {
     this.getDrinks()
     this.getCustomTags()
+		this.fetchDrinkNames()
   }
 }
 </script>

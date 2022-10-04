@@ -245,7 +245,14 @@ export default {
       state.reviews = reviews
       state.reviewPaging.totalPage = Math.ceil(reviews.length / 5)
     },
-    ADD_REVIEW: (state, review) => state.reviews.unshift(review),
+    ADD_REVIEW (state, review) {
+      state.reviews.unshift(review)
+      state.reviewPaging.totalPage = Math.ceil(state.reviews.length / 5)
+    },
+    DELETE_REVIEW (state, reviewIndex) {
+      state.reviews.splice(reviewIndex, 1)
+      state.reviewPaging.totalPage = Math.ceil(state.reviews.length / 5)
+    },
     GO_PAGE(state, page) {
       // 현재 페이지를 선택된 페이지로 변경
       state.reviewPaging.currentPage = page
@@ -506,6 +513,7 @@ export default {
         router.push({ name: 'drinks' })
       })
     },
+
     fetchDrinkNames({ getters, commit }) {
       axios({
         url: joojooclub.drinks.drinkNames(),
@@ -517,9 +525,13 @@ export default {
         console.log(err.response)
       })
     },
+
     fetchReviews({ commit }, reviews) { commit('SET_REVIEWS', reviews) },
+
     goPage({ commit }, page) { commit('GO_PAGE', page) },
-    setSearchDrink({ commit }, searchedDrink) { commit('SET_SEARCH_DRINK', searchedDrink)},
+
+    setSearchDrink({ commit }, searchedDrink) { commit('SET_SEARCH_DRINK', searchedDrink) },
+
     createReview({ getters, commit }, review) {
       axios({
         url: joojooclub.drinks.review(),
@@ -538,13 +550,11 @@ export default {
         }
         commit('ADD_REVIEW', review)
         commit('GO_PAGE', 1)
-        // commit('ADD_REVIEW', res.data)
       }).catch((err) => {
         console.log(err.response)
-        router.push({ name: 'drinks', params: { drinkPK: review.drinkIndex }})
       })
     },
-    deleteReview({ getters }, reviewIndex) {
+    deleteReview({ commit, getters }, reviewIndex) {
       if (confirm('후기를 삭제하시겠습니까?')) {
         axios({
           url: joojooclub.drinks.review(),
@@ -552,7 +562,8 @@ export default {
           headers: getters.authHeader,
           data: { reviewIndex },
         }).then(() => {
-          window.location.reload()   // 리다이렉트 이슈
+          commit('DELETE_REVIEW', reviewIndex)
+          commit('GO_PAGE', 1)
         }).catch((err) => {
           console.log(err.response)
         })

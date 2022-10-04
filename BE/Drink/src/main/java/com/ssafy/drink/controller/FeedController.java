@@ -44,7 +44,7 @@ public class FeedController {
 
     @ApiOperation(value = "피드 등록", notes = "title, content, drinkIndex, customTags를 받아 피드를 등록 후 feedIndex를 반환한다.")
     @PostMapping("/valid")
-    public ResponseEntity<Map<String, String>> registReview( @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) RegistFeed registFeed ,  HttpServletRequest request) throws IOException {
+    public ResponseEntity<Map<String, String>> registReview(RegistFeed registFeed,  @ApiParam(value = "필요한 정보(title, content, drinkIndex, customTags, imgFile)",required = true) @RequestParam(value = "imgFile", required = false)  MultipartFile imgFile,  HttpServletRequest request) throws IOException {
 //        RegistFeed registFeed = RegistFeed.builder()
 //                .content(registNoFile.getContent())
 //                .customTags(registNoFile.getCustomTags())
@@ -59,7 +59,7 @@ public class FeedController {
         logger.info("FeedService Post memberIndex : {}", memberIndex);
 
         // 피드 등록 후 생성된 feedIndex
-        Long feedIndex = feedService.registFeed(registFeed, memberIndex);
+        Long feedIndex = feedService.registFeed(registFeed, memberIndex, imgFile);
 
         Map<String, String> map = new HashMap<>();
         map.put("message", SUCCESS);
@@ -79,9 +79,9 @@ public class FeedController {
 
     @ApiOperation(value = "피드 수정", notes = "feedIndex, title, content, drinkIndex, customTags를 받아 피드를 수정한다.")
     @PutMapping("valid")
-    public ResponseEntity<String> updateFeed(@ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed) throws IOException {
+    public ResponseEntity<String> updateFeed(@ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed, MultipartFile imgFile) throws IOException {
         logger.info("피드 수정 API 호출 : {}", updateFeed);
-        if(feedService.updateFeed(updateFeed)) {
+        if(feedService.updateFeed(updateFeed, imgFile)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);

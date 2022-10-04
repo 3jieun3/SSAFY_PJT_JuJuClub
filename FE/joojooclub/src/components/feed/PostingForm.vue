@@ -79,7 +79,10 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames'])
+		...mapGetters('drinks', ['searchedDrink', 'isDrinkNames', 'drinkNames']),
+		// selectedDrinkName() {
+		// 	if 
+		// }
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
@@ -169,7 +172,6 @@ export default {
 	},
 	created() {
 		this.fetchDrinkNames()
-		console.log(this.currentUser)
 	},
 }
 </script>

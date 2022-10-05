@@ -146,7 +146,11 @@ export default {
     },
     checkID() {
       if (this.action === "create"){
-        if (this.newCredentials.id !== null) {
+        if (this.newCredentials.id !== null && this.newCredentials.id.length < 8) {
+          this.idError = true
+        }
+        else if (this.newCredentials.id !== null && this.newCredentials.id.length >= 8) {
+          this.idError = false
           axios({
             url: joojooclub.accounts.idCheck(this.newCredentials.id),
             method: 'post',

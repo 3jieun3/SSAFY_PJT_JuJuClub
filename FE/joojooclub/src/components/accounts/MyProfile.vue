@@ -88,13 +88,23 @@ export default {
 	font-size: min(10vw, 150px);
 }
 .level1 {
-	color: #624637;
+	/* color: #624637; */
+  display: block;
+  background: -webkit-linear-gradient(25deg, rgba(120,69,14,1) 0%, rgba(190,155,38,1) 48%, rgba(215,124,20,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .level2 {
-	color: silver;
+	display: block;
+  background: -webkit-linear-gradient(25deg, rgba(112,112,112,1) 0%, rgba(224,224,224,1) 50%, rgba(186,186,186,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .level3 {
-	color: gold;
+	display: block;
+  background: -webkit-linear-gradient(25deg, rgba(255,194,24,1) 0%, rgba(230,205,135,1) 50%, rgba(253,187,45,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .edit-button {

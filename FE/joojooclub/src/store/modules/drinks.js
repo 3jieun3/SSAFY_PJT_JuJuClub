@@ -273,45 +273,52 @@ export default {
     // 태그 검색 로직
     TAG_SEARCH(state) {
       if(state.choosedTagList.length) {
-        state.filteringDrinks = []
+        let customTagDrinks = []
+        state.filteringDrinks = state.drinks
         state.setFilteringDrinks = []
         for (let i=0; i < state.choosedTagList.length; i++) {
           let choosedTag = state.choosedTagList[i]
           if (choosedTag == '탁주' || choosedTag == '약주, 청주' || choosedTag == '과실주' || choosedTag == '증류주' || choosedTag == '리큐르, 기타주류') {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.drinkType.drinkType === choosedTag))
+            state.filteringDrinks = state.filteringDrinks.filter(drink => drink.drink.drinkType.drinkType === choosedTag)
           }
           else if (choosedTag == '8% 이하' || choosedTag == '35% 이상') {
             if (choosedTag == '8% 이하') {
-              state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.abv*100 <= parseInt(choosedTag.split('%')[0])))
+              state.filteringDrinks = state.filteringDrinks.filter(drink => drink.drink.abv*100 <= parseInt(choosedTag.split('%')[0]))
             }
             else {
-              state.filteringDrinks.push(...state.drinks.filter(drink => drink.drink.abv*100 >= parseInt(choosedTag.split('%')[0])))
+              state.filteringDrinks = state.filteringDrinks.filter(drink => drink.drink.abv*100 >= parseInt(choosedTag.split('%')[0]))
             }
           }
           else if (choosedTag == '9 - 15%' || choosedTag == '16 - 25%' || choosedTag == '26 - 34%') {
             const little = parseInt(choosedTag.split(' ')[0])
             const large = parseInt(choosedTag.split(' ')[2].substr(0, 2))
-            state.filteringDrinks.push(...state.drinks.filter(drink => little <= drink.drink.abv*100 && drink.drink.abv*100 <= large))
+            state.filteringDrinks = state.filteringDrinks.filter(drink => little <= drink.drink.abv*100 && drink.drink.abv*100 <= large)
           }
           else if (choosedTag == '있음' || choosedTag == '없음') {
             if (choosedTag == '있음') {
-              state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes('산미')))
+              customTagDrinks.push(...state.drinks.filter(drink => drink.tags.includes('산미')))
             }
             else {
-              state.filteringDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('산미')))
+              customTagDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('산미')))
             }
           }
           else if (choosedTag == '달달함' || choosedTag == '달지 않음') {
             if (choosedTag == '달달함') {
-              state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes('달달함')))
+              customTagDrinks.push(...state.drinks.filter(drink => drink.tags.includes('달달함')))
             }
             else {
-              state.filteringDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('달달함')))
+              customTagDrinks.push(...state.drinks.filter(drink => !drink.tags.includes('달달함')))
             }
           }
           else {
-            state.filteringDrinks.push(...state.drinks.filter(drink => drink.tags.includes(choosedTag)))
+            customTagDrinks.push(...state.drinks.filter(drink => drink.tags.includes(choosedTag)))
           }
+        }
+        if (!_.isEmpty(customTagDrinks)) {
+          let customTagDrinksStr = JSON.stringify(customTagDrinks)
+          state.filteringDrinks = state.filteringDrinks.filter(drink => {
+            return customTagDrinksStr.includes(JSON.stringify(drink))
+          })
         }
         for (let k=0; k < state.filteringDrinks.length; k++) {
           const Idx = state.drinks.indexOf(state.filteringDrinks[k])

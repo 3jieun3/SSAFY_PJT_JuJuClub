@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<drink-image :imageTitle="drink.drinkName"></drink-image>
+		<i class="fa-sharp fa-solid fa-circle-arrow-left fa-2xl" @click="$router.go(-1)"></i>
 		<h2>상세 정보</h2>
 		<div class="detail-header">
 			<drink-detail :drink="drink"></drink-detail>
@@ -32,7 +33,10 @@ export default {
 		CommentList,
 	},
 	methods: {
-		...mapActions('drinks', ['fetchDrink'])
+		...mapActions('drinks', ['fetchDrink']),
+		goBack() {
+			this.router
+		}
 	},
 	computed: {
 		...mapGetters(['isLoggedIn']),
@@ -50,5 +54,14 @@ export default {
 }
 .detail-body {
 	margin: 5vh 5vw;
+}
+
+.fa-sharp {
+	position: fixed;
+	top: 55%;
+	left: 2%;
+	z-index: 10;
+	cursor: pointer;
+	
 }
 </style>

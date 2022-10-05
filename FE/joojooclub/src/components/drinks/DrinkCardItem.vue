@@ -38,7 +38,7 @@ export default {
 <style scoped>
 
   * {
-  font-family: 'NanumBarunGothic';
+  font-family: 'NanumSquareRound';
   }
 
   .card {

@@ -66,6 +66,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
   .catalog {
     margin-top: 80px;
   }

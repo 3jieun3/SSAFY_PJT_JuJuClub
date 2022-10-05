@@ -25,6 +25,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .comment-list {
 	max-width: 100%;
 }

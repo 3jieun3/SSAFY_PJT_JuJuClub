@@ -63,6 +63,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .deleteBtn {
   color: #808080 !important;
   /* background-color: rgb(233, 187, 131); */

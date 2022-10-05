@@ -33,6 +33,6 @@ export default {
   }
 
   .text {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
   }
 </style>

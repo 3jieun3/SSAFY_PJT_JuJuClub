@@ -53,9 +53,9 @@ export default {
 
 <style scoped>
 
-  * {
-    font-family: 'NanumBarunGothic';
-  }
+* {
+	font-family: 'NanumSquareRound';
+}
 
   .carousel-3d-slide {
       border: none;

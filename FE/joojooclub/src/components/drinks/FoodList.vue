@@ -23,6 +23,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .food-list {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

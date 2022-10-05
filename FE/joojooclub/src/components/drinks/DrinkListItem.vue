@@ -42,6 +42,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
   .truncate {
     display: -webkit-box;
     -webkit-box-orient: vertical;

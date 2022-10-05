@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .todayDrinkList {
   margin-top: 60px;
 }
@@ -43,7 +43,7 @@ export default {
   font-size: min(5vw, 2rem);
 }
 .recommendComment {
-  font-family: 'NanumBarunGothic';
+  font-family: 'NanumSquareRound';
   font-size: min(3.5vw, 1.5rem);
 }
 @media (min-width: 700px) {

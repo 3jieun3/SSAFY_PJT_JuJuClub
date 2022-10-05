@@ -78,7 +78,7 @@ public class RecommendController {
 
         Random random = new Random();
         for (int i = 0 ; i < 3 ; i++){
-            int randomCount = random.nextInt(4);
+            int randomCount = random.nextInt(5);
             if (checkList[randomCount]){
                 i--;
             }else{

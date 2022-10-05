@@ -1,6 +1,5 @@
 <template>
 	<div class="feed-list">
-		<h4>좋아요한 피드</h4>
 		<div class="container">
 			<div v-if="likeFeeds" class="horiz-scroll">
 				<feed-list-item v-for="feed in likeFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>

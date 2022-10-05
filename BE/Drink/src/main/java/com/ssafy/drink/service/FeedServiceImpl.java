@@ -105,7 +105,7 @@ public class FeedServiceImpl implements FeedService{
         logger.info("피드에서 수정할 술 정보 : {}", drink);
 
         String imgUrl = "";
-        if (imgFile.isEmpty() && updateFeed.getImgUrl() == null){
+        if ( imgFile == null && updateFeed.getImgUrl() == null){
             imgUrl = null;
         }else if(updateFeed.getImgUrl() == null){
             imgUrl = s3UploadService.upload(imgFile);

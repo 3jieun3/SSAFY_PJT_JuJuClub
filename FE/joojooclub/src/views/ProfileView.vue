@@ -44,7 +44,7 @@ export default {
 		this.fetchAllFeeds()
 	},
 	updated() {
-		// this.fetchCurrentUser()
+		this.fetchCurrentUser()
 	}
 }
 </script>

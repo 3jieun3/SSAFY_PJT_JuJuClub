@@ -62,12 +62,21 @@ public class RecommendController {
         }
 
         List<DrinkRecommend> high3 = new ArrayList<>();
-        for (int i=0 ; i < 5 ; i++){
+        outer : for (int i=0 ; i < 5 ; i++){
             CountTagDrink countTagDrink = pq.poll();
+
+            for (int j = 0; j < high3.size(); j++) {
+                if(countTagDrink.getDrinkIndex().equals(high3.get(j).getDrink().getDrinkIndex())){
+                    i--;
+                    continue outer;
+                }
+            }
+
             DrinkRecommend drinkRecommend = new DrinkRecommend();
             Drink drink =  recommendService.findByDrinkIndex3(countTagDrink.getDrinkIndex());
             List<String> tagList = recommendService.findByTagList(drink);
             drinkRecommend.setDrink(drink);
+
             drinkRecommend.setCount(countTagDrink.getCount());
             drinkRecommend.setTags(tagList);
             high3.add(drinkRecommend);

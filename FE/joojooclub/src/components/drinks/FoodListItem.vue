@@ -15,6 +15,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 img {
 	object-fit: cover;
 	height: 20vw;

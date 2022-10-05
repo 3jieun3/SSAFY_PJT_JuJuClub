@@ -147,24 +147,24 @@ export default {
   }
   
   .todayDrinkName {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     font-size: min(4vw, 1.5rem);
   }
 
   .todayDrinkType {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     font-size: min(3vw, 1.2rem);
   }
 
   .todayDrinkInfo {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     /* font-size: smaller; */
     font-size: min(1.5vw, 1rem);
     font-weight: 400 !important;
   }
 
   .todayTags {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     font-weight: 400 !important;
     font-size: min(3vw, 1.2rem);
   }

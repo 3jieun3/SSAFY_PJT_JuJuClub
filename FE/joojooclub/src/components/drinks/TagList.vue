@@ -37,7 +37,7 @@ export default {
   }
 
   .btn {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     font-size: min(3vw, 1rem);
   }
 

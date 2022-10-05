@@ -25,6 +25,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .card {
 	flex: 1 1 0;
 	flex-direction: row;

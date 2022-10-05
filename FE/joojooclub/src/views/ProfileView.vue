@@ -1,14 +1,14 @@
 <template>
 	<div v-if="isCurrentUser">
 		<div class="mypage-body">
-			<div class="mypage-header">
-				<my-profile :currentUser="currentUser"></my-profile>
-			</div>
-			<div class="mypage-content">
+			<my-profile class="mypage-nav" :currentUser="currentUser"></my-profile>
+			<div class="mypage-section">
 				<h4>내가 쓴 후기</h4>
-				<my-comment-list :currentUser="currentUser"></my-comment-list>
-				<my-feed-list v-if="isFeeds" :currentUser="currentUser"></my-feed-list>
-				<like-feed-list v-if="isFeeds" :currentUser="currentUser"></like-feed-list>
+				<my-comment-list class="mypage-article" :currentUser="currentUser"></my-comment-list>
+				<h4>내가 쓴 피드</h4>
+				<my-feed-list class="mypage-article" v-if="isFeeds" :currentUser="currentUser"></my-feed-list>
+				<h4>좋아요한 피드</h4>
+				<like-feed-list class="mypage-article" v-if="isFeeds" :currentUser="currentUser"></like-feed-list>
 			</div>
 		</div>
 	</div>
@@ -53,13 +53,13 @@ export default {
 .mypage-body {
 	margin: 5vh 5vw;
 }
-.mypage-header {
+.mypage-nav {
 	margin-bottom: 5vh;
 }
-h4 {
+.mypage-section h4 {
 	text-align: start;
 }
-.feed-list {
+/* .mypage-article {
 	margin-top: 5vh;
-}
+} */
 </style>

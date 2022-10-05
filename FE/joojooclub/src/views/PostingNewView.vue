@@ -25,6 +25,7 @@ export default {
 				content: '',
 				customTags: '',
 				imgFile: '',
+				imageUrl: '',
 			}
 		}
 	},

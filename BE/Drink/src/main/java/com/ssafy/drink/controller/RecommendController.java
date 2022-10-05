@@ -83,6 +83,7 @@ public class RecommendController {
                 i--;
             }else{
                 result3.add(high3.get(randomCount));
+                checkList[randomCount] = true;
             }
         }
 

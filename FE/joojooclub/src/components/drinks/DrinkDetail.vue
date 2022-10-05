@@ -38,7 +38,7 @@ export default {
 
 .drink-image {
 	margin: min(2vw, 20px);
-	height: 40vh;
+	height: 35vw;
 	border-radius: 5px;
 	min-height: 200px;
 	max-height: 250px;
@@ -82,7 +82,7 @@ export default {
 }
 @media (min-width: 1000px) {
 	.drink-image {
-		max-height: 500px;
+		max-height: 400px;
 	}
 }
 </style>

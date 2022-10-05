@@ -24,10 +24,10 @@
 				<div>
 					<input type="file" accept="image/*" ref="image" id="imageFile" @change="uploadImage($event)">
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
+					<div class="ui button image-delete-button" @click="onDeleteImage()">업로드 취소</div>
 				</div>
 			</div>
-			<!-- <span v-if="(action === `create`) && fileError" class="sub-error">* 피드 이미지를 선택해주세요</span> -->
-			<span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span>
+			<!-- <span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span> -->
 
 			<div class="field">
 				<label for="tags">태그</label>
@@ -43,7 +43,6 @@
 <script>
 import SearchBar from '@/components/feed/SearchBar'
 import { mapActions, mapGetters } from 'vuex'
-import _ from 'lodash'
 
 export default {
 	name: 'PostingForm',
@@ -57,32 +56,34 @@ export default {
 	},
 	data() {
 		return {
-			drinkName: this.feed.drink.drinkName,
 			newFeed: {
 				feedIndex: this.feed.feedIndex,
 				drinkIndex: this.feed.drink.drinkIndex,
+				drinkName: this.feed.drink.drinkName,
 				title: this.feed.title,
 				content: this.feed.content,
 				customTags: this.feed.customTags,
-				imgFile: this.feed.imageUrl,
-				// 업로드한 이미지 미리보기 : file은 url 로 변환 필요
-				previewImgUrl: this.feed.imageUrl
+				imgFile: this.feed.imgFile ? this.feed.imgFile : '',
+				imgUrl: this.feed.imageUrl ? this.feed.imageUrl : '',
+				previewImgUrl: this.feed.imageUrl	// 업로드한 이미지 미리보기
 			},
-			// previewImgUrl: this.feed.imageUrl,
 
 			// required warning message
 			drinkError: false,
 			titleError: false,
 			contentError: false,
-			fileError: false,
 			memberIndex: this?.currentUser?.member?.memberIndex,
 		}
 	},
 	computed: {
 		...mapGetters('drinks', ['isSearched', 'searchedDrink', 'isDrinkNames', 'drinkNames']),
 		selectedDrinkName() {
-			if (this.isSearched) { return this.feed.drink.drinkName }
-			else { return this.searchedDrink.drinkName }
+			if (this.isSearched) { 
+				this.setSearchDrink({drinkIndex: this.feed.drink.drinkIndex, drinkName: this.feed.drink.drinkName})
+				return this.feed.drink.drinkName
+			} else { 
+				return this.searchedDrink.drinkName
+			}
 		},
 		// isdrinkError() {
 		// 	if (!this.isSearched) { return false }
@@ -91,7 +92,7 @@ export default {
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
-		...mapActions('drinks', ['fetchDrinkNames']),
+		...mapActions('drinks', ['fetchDrinkNames', 'setSearchDrink']),
 		goback() {
 			this.$router.push({
 				name: 'profile',
@@ -105,7 +106,6 @@ export default {
 			this.drinkError = this.checkRequiredError(this.searchedDrink.drinkIndex)
 			this.titleError = this.checkRequiredError(this.newFeed.title)
 			this.contentError = this.checkRequiredError(this.newFeed.content)
-			// this.fileError = this.checkRequiredError(this.newFeed.imgFile)
 			if (!this.drinkError && !this.titleError && !this.contentError) {
 				// form data 선언
 				let formdata = new FormData()
@@ -115,12 +115,16 @@ export default {
 				formdata.append('title', this.newFeed.title)
 				formdata.append('content', this.newFeed.content)
 				formdata.append('customTags', this.newFeed.customTags)
-				formdata.append('imgFile', this.newFeed.imgFile)
 
 				if (this.action === 'create') {
+					for (let [k, v] of formdata.entries()) console.log(k, v)
+					formdata.append('imgFile', this.newFeed.imgFile)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
 					formdata.append('feedIndex', this.feed.feedIndex)
+					formdata.append('imgFile', this.newFeed.imgFile)
+					formdata.append('imgUrl', this.newFeed.imgUrl)
+					for (let [k, v] of formdata.entries()) console.log(k, v)
 					this.updateFeed(formdata)
 				}
 			}
@@ -128,18 +132,21 @@ export default {
 		uploadImage(event) {
 			// 업로드한 이미지 파일 가져오기
 			this.newFeed.imgFile = event.target.files[0]
+			event.target.value = ''
+			// 기존 이미지 url 필드 삭제
+			this.newFeed.imgUrl = ''	
 			// 미리보기를 위한 url 변환
 			this.newFeed.previewImgUrl = URL.createObjectURL(this.newFeed.imgFile)
-			console.log(this.newFeed.imgFile)
+		},
+		onDeleteImage() {		// 업로드한 이미지 삭제
+			this.newFeed.imgFile = ''
+			this.newFeed.imgUrl = ''
+			this.newFeed.previewImgUrl = ''
 		},
 		checkRequiredError(val) {
 			if (val === undefined) return true
 			else if (val === null) return true
 			else if (val === '') return true
-			else return false
-		},
-		checkRequiredFile(val) {
-			if (_.isString(val)) return true	// 이미지 수정 없는 경우
 			else return false
 		},
 	},
@@ -152,11 +159,6 @@ export default {
 		},
 		content(val) {
 			if (val.length >= 1) this.contentError = false
-		},
-		imgFile(val) {
-			if (val !== undefined) this.fileError = false
-			else if (val !== null) this.titleError = false
-			else if (val !== '') this.fileError = false
 		},
 		drinkIndex(val) {
 			if (val > 0) this.drinkError = false
@@ -190,4 +192,7 @@ export default {
 	margin-bottom: 1.5vw;
 	margin-left: 25vw;
 }
+/* .image-delete-button {
+	
+} */
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="drinkImg">
     <div class="mainText">
-      <h2 class="text">전통주 찾기</h2>
+      <h2 class="text">{{ imageTitle }}</h2>
     </div>
   </div>
 </template>
@@ -9,6 +9,9 @@
 <script>
 export default {
   name : 'DrinkImage',
+  props: {
+    imageTitle: String,
+  },
 }
 </script>
 

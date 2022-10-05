@@ -6,18 +6,20 @@
         <span class="rating">{{ review.score }}</span>
       </span>
     </div>
-    <div class="content d-flex flex-wrap">
-      <div class="memberInfo col-12">
-        <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
-        <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>
-        <div class="metadata">
-          <div class="date">{{ createdDate }}</div>
+    <div class="content d-flex flex-column flex-wrap">
+      <div class="d-flex justify-content-between">
+        <div class="memberInfo">
+          <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
+          <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>
+          <div class="metadata">
+            <div class="date">{{ createdDate }}</div>
+          </div>
         </div>
+        <i v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="deleteBtn fa-solid fa-trash" @click="onDeleteReview"></i>
       </div>
-      <div class="text review-row col-12">
+      <div class="text review-row">
         {{ review.review }}
       </div>
-      <i v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="deleteBtn fa-solid fa-trash" @click="onDeleteReview"></i>
     </div>
   </div>
 </template>
@@ -61,13 +63,13 @@ export default {
 
 <style scoped>
 .deleteBtn {
-  color: gray !important;
+  color: #808080 !important;
   /* background-color: rgb(233, 187, 131); */
   font-size: min(1.8vw, 1rem);
-  padding: min(0.4vw, 5.2px) min(1vw, 10.5px);
-  position: absolute;
+  /* padding: min(0.4vw, 5.2px) min(1vw, 10.5px); */
+  /* position: absolute;
   right: 0;
-  top: 0;
+  top: 0; */
   /* bottom: -1rem; */
 }
 :hover.deleteBtn {

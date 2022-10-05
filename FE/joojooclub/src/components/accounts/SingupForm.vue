@@ -49,6 +49,7 @@
           </div>
         </div>
         <button v-if="action==='create'" class="btn btn-warning">가입하기</button>
+        <button v-if="action==='update'" @click="goback" class="backBtn btn me-2">뒤로가기</button>
         <button v-if="action==='update'" class="btn btn-warning">수정하기</button>
       </form>
     </div>
@@ -226,7 +227,15 @@ export default {
         this.signup_f_check = false
         this.newCredentials.gender='m'
       }
-    }
+    },
+    goback() {
+			this.$router.push({
+				name: 'profile',
+				params: {
+					userPK: this.currentUser.member.id
+				}
+			})
+		},
   },
   created() {
     this.now_year = new Date().getFullYear();
@@ -235,6 +244,10 @@ export default {
 </script>
 
 <style>
+.backBtn {
+  border-radius: 10px;
+  background-color: #e0e1e2;
+}
 .signup-box {
   max-width: 500px;
 }

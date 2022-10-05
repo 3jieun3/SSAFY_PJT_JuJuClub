@@ -2,9 +2,11 @@ package com.ssafy.drink.service;
 
 import com.ssafy.drink.domain.*;
 import com.ssafy.drink.dto.RegistFeed;
+import com.ssafy.drink.dto.ResponseFeed;
 import com.ssafy.drink.dto.UpdateFeed;
 import com.ssafy.drink.repository.DrinkRepository;
 import com.ssafy.drink.repository.FeedRepository;
+import com.ssafy.drink.repository.LikeFeedRepository;
 import com.ssafy.drink.repository.MemberRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,8 @@ public class FeedServiceImpl implements FeedService{
     @Autowired
     S3UploadService s3UploadService;
 
+    @Autowired
+    LikeFeedRepository likeFeedRepository;
 
     // 피드 등록
     @Override

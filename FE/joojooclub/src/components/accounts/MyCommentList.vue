@@ -1,10 +1,13 @@
 <template>
-	<div class="ui comments comment-list">
-		<hr>
-		<comment-list-item v-for="review in myShowReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
-		<hr>
-		<pagination-nav :currentPage="myReviewPaging.currentPage"></pagination-nav>
-	</div>
+  <div class="ui comments comment-list">
+    <div v-if="myShowReviews.length">
+      <hr>
+      <comment-list-item v-for="review in myShowReviews" :key="review.id" :review="review" class="comment"></comment-list-item>
+      <hr>
+      <pagination-nav :currentPage="myReviewPaging.currentPage"></pagination-nav>
+    </div>
+    <h3 v-else class="m-2">작성한 후기가 없어요..</h3>
+  </div>
 </template>
 
 <script>

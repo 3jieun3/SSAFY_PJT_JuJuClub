@@ -37,7 +37,7 @@ export default {
 .container {
   max-width: 90rem;
   width: 100%;
-	height: 55.5vh;
+	/* height: 55.5vh; */
   margin: 0 auto;
 }
 .horiz-scroll {

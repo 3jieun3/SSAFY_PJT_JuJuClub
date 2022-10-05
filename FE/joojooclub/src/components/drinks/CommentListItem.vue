@@ -17,7 +17,7 @@
       <div class="text review-row col-12">
         {{ review.review }}
       </div>
-      <button v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="btn btn-light" @click="onDeleteReview">삭제</button>
+      <i v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="deleteBtn fa-solid fa-trash" @click="onDeleteReview"></i>
     </div>
   </div>
 </template>
@@ -60,10 +60,18 @@ export default {
 </script>
 
 <style scoped>
-button {
+.deleteBtn {
+  color: gray !important;
+  /* background-color: rgb(233, 187, 131); */
+  font-size: min(1.8vw, 1rem);
+  padding: min(0.4vw, 5.2px) min(1vw, 10.5px);
   position: absolute;
   right: 0;
-  bottom: -1rem;
+  top: 0;
+  /* bottom: -1rem; */
+}
+:hover.deleteBtn {
+  cursor: pointer;
 }
 
 .fa-solid {

@@ -51,6 +51,7 @@ export default {
     background-color: black;
     position: relative;
     height: min(80vh, 600px);
+    height: 80vh;
   }
   
   .video {
@@ -72,7 +73,7 @@ export default {
     font-size: 3rem;
     width: auto;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     .background-wrap {
       height: 300px;
     }

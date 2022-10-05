@@ -67,10 +67,10 @@ export default {
 		},
 	},
 	created() {
-		this.fetchLikeMembers(this.feed.feedIndex)
+		//this.fetchLikeMembers(this.feed.feedIndex)
 	},
 	updated() {
-		this.fetchLikeMembers(this.feed.feedIndex)
+		//this.fetchLikeMembers(this.feed.feedIndex)
 	}
 }
 </script>

@@ -114,7 +114,6 @@ export default {
     },
 
     updateFeed({ getters, dispatch }, formdata) {
-      for (let [k, v] of formdata.entries()) console.log(k, v)
       if(confirm('수정하시겠습니까?')) {
         axios({
           url: joojooclub.feed.valid(),

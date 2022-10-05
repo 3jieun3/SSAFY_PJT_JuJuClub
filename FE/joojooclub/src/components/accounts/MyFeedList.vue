@@ -1,6 +1,5 @@
 <template>
 	<div class="feed-list">
-		<h4>내가 쓴 피드</h4>
 		<div class="container">
 			<div class="horiz-scroll">
 				<feed-list-item v-for="feed in myFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>

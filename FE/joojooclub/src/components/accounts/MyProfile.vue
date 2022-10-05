@@ -2,20 +2,30 @@
 	<div class="profile-box">
 		<div class="summary-box">
 			<div class="profile-level" id="profile-level">
-				<i v-if="reviewCount <= 50" class="level1 fa-2xl fa-solid fa-medal me-4 me-sm-5"></i>
-				<i v-else-if="reviewCount <= 100" class="level2 fa-2xl fa-solid fa-medal me-4 me-sm-5"></i>
-				<i v-else class="level3 fa-2xl fa-solid fa-medal me-4 me-sm-5"></i>
-				<h1 class="profile-title m-0">{{ memberId }}</h1>
+				<i v-if="reviewCount <= 50" class="level level1 fa-solid fa-medal"></i>
+				<i v-else-if="reviewCount <= 100" class="level level2 fa-solid fa-medal"></i>
+				<i v-else class="level level3 fa-solid fa-medal"></i>
+				<h1 class="profile-title mt-2 mb-0 mx-0">{{ memberId }}</h1>
+				<button class="mt-2 btn edit-button" @click="updateProfile()">정보 편집</button>
 			</div>
-			<div class="profile-info">
-				<div>총 <b>{{ reviewCount }}</b>건의 후기</div>
-				<div>총 <b>{{ feedCount }}</b>건의 피드</div>
-				<button class="main-btn btn btn-warning" @click="createFeed()">
-					<i class="create-icon fa-solid fa-file-pen"></i>
+			<div class="row-flex mt-4 mt-sm-5 mb-3">
+				<div class="col-flex">
+					<h4>{{ reviewCount }}</h4>
+					<div>후기</div>
+				</div>
+				<div class="col-flex">
+					<h4>{{ feedCount }}</h4>
+					<div>피드</div>
+				</div>
+				<div>
+					<button class="main-btn btn p-0" @click="createFeed()">
+					<!-- <i class="create-icon fa-solid fa-file-pen"></i> -->
+					<i class="fa-solid fa-plus"></i>
 				</button>
+				</div>
 			</div>
 		</div>
-		<button class="btn btn-warning" @click="updateProfile()">내 정보 편집</button>
+		
 	</div>
 </template>
 
@@ -47,14 +57,9 @@ export default {
 
 <style scoped>
 .profile-box {
-	display: grid;
-	row-gap: 1rem;
-}
-.summary-box {
 	display: flex;
-	align-items: baseline;
-	flex-flow: row wrap;
-	gap: 1rem;
+	flex-direction: column;
+	justify-content: start;
 }
 
 .profile-info {
@@ -64,21 +69,24 @@ export default {
 	gap: min(2vw, 2rem);
 }
 
-#profile-level {
+.row-flex {
 	display: flex;
-	align-items: center;
-	justify-content: start
+	justify-content: space-around;
+	/* align-items: start; */
+	align-items: start;
+	/* gap: 1rem; */
+}
+.col-flex {
+	display: flex;
+	flex-direction: column;
 }
 
 .profile-title {
 	font-size: min(5vw, 2rem);
 }
-
-.summary-box div:first-child {
-	justify-content: space-around;
-	flex-grow: 1;
+.level {
+	font-size: min(10vw, 150px);
 }
-
 .level1 {
 	color: #624637;
 }
@@ -89,4 +97,7 @@ export default {
 	color: gold;
 }
 
+.edit-button {
+	background-color: #e0e1e2;
+}
 </style>

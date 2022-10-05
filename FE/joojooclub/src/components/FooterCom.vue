@@ -11,13 +11,13 @@
       <div class="footerCenter col mb-5">
         <p class="title">Community</p>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="https://www.notion.so/2-e109b4c80a8d4fddaec3810e9735adb3" class="nav-link p-0 text-muted">NOTION</a></li>
-          <li class="nav-item mb-2"><a href="https://lab.ssafy.com/s07-bigdata-dist-sub2/S07P22D106" class="nav-link p-0 text-muted">GITLAB</a></li>
+          <li class="nav-item mb-2"><div @click="openInNewTab('https://www.notion.so/2-e109b4c80a8d4fddaec3810e9735adb3')" class="nav-link p-0 text-muted open-link">NOTION</div></li>
+          <li class="nav-item mb-2"><div @click="openInNewTab('https://lab.ssafy.com/s07-bigdata-dist-sub2/S07P22D106')" class="nav-link p-0 text-muted open-link">GITLAB</div></li>
         </ul>
       </div>
       <div class="footerCenter col mb-5">
         <p class="title">Developers</p>
-        <p><a class="link" href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">Samsung SW Academy For Youth</a></p>
+        <p class="info open-link" @click="openInNewTab('https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp')">Samsung SW Academy For Youth</p>
         <p class="info">정종일, 김민정, 박지은, 오도석, 최연지</p>
       </div>
       <div class="footerRight col mb-3">
@@ -30,6 +30,12 @@
 <script>
 export default {
   name: 'FooterCom',
+  methods: {
+    openInNewTab(url) {
+      const win = window.open(url, '_blank')
+      win.focus();
+    }
+  },
 }
 </script>
 
@@ -37,6 +43,10 @@ export default {
   
   * {
   font-family: 'NanumBarunGothic';
+  }
+
+  :hover.open-link {
+    cursor: pointer;
   }
 
   .footerImg {

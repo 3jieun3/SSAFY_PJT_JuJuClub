@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="container d-flex align-items-center justify-content-center">
-      <div class="row cardGrid">
+      <div v-if="filteredDrink.length" class="row cardGrid">
         <drink-card-item class="cardItems col-xl-3 col-lg-4 col-md-6 col-12"
         v-for="(drink, index) in filteredDrink"
         :key="index"
         :drink="drink"></drink-card-item>
       </div>
+      <div v-else class="alterMsg">검색 결과가 없습니다.</div>
     </div>
   </div>
 </template>
@@ -52,5 +53,9 @@ export default {
 
   .page-link {
     border: none;
+  }
+
+  .alterMsg {
+    font-weight: bold;
   }
 </style>

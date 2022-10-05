@@ -3,6 +3,7 @@ package com.ssafy.drink.controller;
 import com.ssafy.drink.domain.Feed;
 import com.ssafy.drink.dto.RegistFeed;
 import com.ssafy.drink.dto.RegistNoFile;
+import com.ssafy.drink.dto.ResponseFeed;
 import com.ssafy.drink.dto.UpdateFeed;
 import com.ssafy.drink.service.*;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +83,25 @@ public class FeedController {
         logger.info("피드 전체보기 API 호출");
         Map<String, Object>  map = feedService.retrieveFeedList();
 
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        List<Feed> feeds = (List<Feed>) map.get("feeds");
+        List<ResponseFeed> responseFeeds = new ArrayList<>();
+        for(int i = 0; i < feeds.size(); i++) {
+            List<Long> likeMemberList = likeFeedService.likeMemberList(feeds.get(i).getFeedIndex());
+            responseFeeds.add(new ResponseFeed(feeds.get(i), likeMemberList));
+        }
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("feeds", responseFeeds);
+
+        List<Feed> bestfeeds = (List<Feed>) map.get("bestfeeds");
+        List<ResponseFeed> responseBestFeeds = new ArrayList<>();
+        for(int i = 0; i < bestfeeds.size(); i++) {
+            List<Long> likeMemberList2 = likeFeedService.likeMemberList(bestfeeds.get(i).getFeedIndex());
+            responseBestFeeds.add(new ResponseFeed(bestfeeds.get(i), likeMemberList2));
+        }
+        responseMap.put("bestfeeds", responseBestFeeds);
+
+        return new ResponseEntity<>(responseMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "피드 수정", notes = "feedIndex, title, content, drinkIndex, customTags를 받아 피드를 수정한다.")

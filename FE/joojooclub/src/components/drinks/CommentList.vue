@@ -1,7 +1,10 @@
 <template>
 	<div class="ui comments comment-list">
 		<hr>
-		<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment" style="min-height: 50px"></comment-list-item>
+		<div v-if="showReviews.length">
+			<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment" style="min-height: 50px"></comment-list-item>
+		</div>
+		<div v-else>작성된 후기가 없습니다</div>
 		<hr>
 		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
 	</div>

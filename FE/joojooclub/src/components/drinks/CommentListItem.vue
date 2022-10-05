@@ -2,19 +2,19 @@
   <div class="m-3">
     <div class="avatar">
       <span class="fa-layers fa-fw">
-        <i class="fa-solid fa-star fa-2x">
-          <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-8 down-3" style="font-weight:900">5</span>
-        </i>
+        <i class="fa-solid fa-star fa-2x"></i>
+        <span class="rating">{{ review.score }}</span>
       </span>
     </div>
-    <div class="content">
-      <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
-      <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>
-      <div class="metadata">
-        <div class="date">{{ createdDate }}</div>
-        <div class="rating"><i class="star icon"></i>{{ review.score }}</div>
+    <div class="content d-flex flex-wrap">
+      <div class="memberInfo col-12">
+        <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
+        <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>
+        <div class="metadata">
+          <div class="date">{{ createdDate }}</div>
+        </div>
       </div>
-      <div class="text review-row">
+      <div class="text review-row col-12">
         {{ review.review }}
       </div>
       <button v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="btn btn-light" @click="onDeleteReview">삭제</button>
@@ -65,8 +65,25 @@ button {
   right: 0;
   bottom: -1rem;
 }
+
+.fa-solid {
+  color: rgb(243, 243, 83);
+}
+
+.content {
+  text-align: start;
+}
+
 .text {
   text-align: start;
+}
+
+.rating {
+  font-weight: bold;
+}
+
+.memberInfo {
+  padding-bottom: 0.5rem;
 }
 /* .info-row, .info-row > span:first-child {
   display: flex;

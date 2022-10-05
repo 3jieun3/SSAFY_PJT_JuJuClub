@@ -104,7 +104,15 @@ public class FeedServiceImpl implements FeedService{
         Drink drink = drinkRepository.findById(updateFeed.getDrinkIndex()).orElseThrow(RuntimeException::new);
         logger.info("피드에서 수정할 술 정보 : {}", drink);
 
-        String imgUrl = s3UploadService.upload(imgFile);
+        String imgUrl = "";
+        if (imgFile.isEmpty() && updateFeed.getImgUrl() == null){
+            imgUrl = null;
+        }else if(updateFeed.getImgUrl() == null){
+            imgUrl = s3UploadService.upload(imgFile);
+        }else{
+            imgUrl = updateFeed.getImgUrl();
+        }
+
 
         feed.setTitle(updateFeed.getTitle());
         feed.setContent(updateFeed.getContent());

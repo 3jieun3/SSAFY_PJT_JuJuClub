@@ -1,8 +1,8 @@
 <template>
 	<div v-if="isCurrentUser">
-		<div class="mypage-body">
-			<my-profile class="mypage-nav" :currentUser="currentUser"></my-profile>
-			<div class="mypage-section">
+		<div class="mypage-body row justify-content-between">
+			<my-profile class="mypage-nav col-12 col-sm-3 col-xl-2" :currentUser="currentUser"></my-profile>
+			<div class="mypage-section col-12 col-sm-8 col-xl-9">
 				<h4>내가 쓴 후기</h4>
 				<my-comment-list class="mypage-article" :currentUser="currentUser"></my-comment-list>
 				<h4>내가 쓴 피드</h4>
@@ -51,7 +51,7 @@ export default {
 
 <style>
 .mypage-body {
-	margin: 5vh 5vw;
+	margin: 5vh 3vw;
 }
 .mypage-nav {
 	margin-bottom: 5vh;

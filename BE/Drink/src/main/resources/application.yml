@@ -1,4 +1,13 @@
 server:
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: logs
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      pattern: '%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b %D'
+    basedir: .
   servlet:
     context-path: /api
   port: 8888
@@ -58,6 +67,15 @@ cloud:
 ---
 
 server:
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: logs
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      pattern: '%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b %D'
+    basedir: .
   servlet:
     context-path: /api
   port: 8889

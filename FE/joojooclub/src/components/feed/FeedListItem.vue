@@ -1,5 +1,5 @@
 <template>
-	<div class="ui raised card feed-card h-100">
+	<div class="ui raised card feed-card">
 		<i class=""></i>
 		<div class="card-header">
 			<div class="right floated meta">{{ createdDate }}</div>
@@ -81,8 +81,8 @@ export default {
 }
 .ui.three.cards > .card.feed-card {
 	width: 25rem;
-	height: 100%;
-	margin: 2rem;
+	/* height: 100%; */
+	/* margin: 2rem; */
 }
 @media only screen and (min-width: 771px) {
 .ui.card > .image, .ui.cards >.card > .image {
@@ -91,12 +91,14 @@ export default {
 }
 }
 .ui.card > .image > img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
+	/* position: absolute; */
+	/* top: 0;
+	left: 0; */
+	/* height: 100%; */
+	height: 50vh;
 	width: 100%;
-	padding: 0.3rem;
+	/* object-fit: contain; */
+	/* padding: 0.3rem; */
 	object-fit: cover;
 }
 .card-header {

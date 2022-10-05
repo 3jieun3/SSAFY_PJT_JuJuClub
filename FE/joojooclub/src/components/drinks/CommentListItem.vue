@@ -3,11 +3,11 @@
     <div class="avatar">
       <span class="fa-layers fa-fw">
         <i class="fa-solid fa-star fa-2x"></i>
-          <span class="rating">{{ review.score }}</span>
+        <span class="rating">{{ review.score }}</span>
       </span>
     </div>
     <div class="content d-flex flex-wrap">
-      <div class="col-12">
+      <div class="memberInfo col-12">
         <strong class="author" v-if="currentRoute.startsWith('/drinks')">{{ encodedId }}</strong>
         <strong class="author" v-else-if="isCurrentUser">{{ review.drink.drinkName }}</strong>
         <div class="metadata">
@@ -67,7 +67,7 @@ button {
 }
 
 .fa-solid {
-  color: rgb(236, 236, 67);
+  color: rgb(243, 243, 83);
 }
 
 .content {
@@ -80,6 +80,10 @@ button {
 
 .rating {
   font-weight: bold;
+}
+
+.memberInfo {
+  padding-bottom: 0.5rem;
 }
 /* .info-row, .info-row > span:first-child {
   display: flex;

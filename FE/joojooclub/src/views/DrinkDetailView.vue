@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<drink-image :imageTitle="drink.drinkName"></drink-image>
 		<h2>상세 정보</h2>
 		<div class="detail-header">
 			<drink-detail :drink="drink"></drink-detail>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import DrinkImage from '@/components/drinks/DrinkImage.vue'
 import DrinkDetail from '@/components/drinks/DrinkDetail'
 import FoodList from '@/components/drinks/FoodList'
 import CommentForm from '@/components/drinks/CommentForm'
@@ -23,6 +25,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
 	name: 'DrinkDetailView',
 	components: {
+		DrinkImage,
 		DrinkDetail,
 		FoodList,
 		CommentForm,

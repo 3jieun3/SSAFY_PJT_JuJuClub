@@ -25,12 +25,14 @@ export default {
     SET_FEED: (state, feed) => state.feed = feed,
     SET_FEEDS (state, feeds) {
       // feeds.map(feed => feed.likeMembers = []) // 좋아요한 멤버 목록 속성 추가
+      state.feeds = []
       feeds.map(feed => state.feeds.push({
         ...feed.feed,
         likeMembers: feed.likeMemberIndex,
       }))
     },
     SET_BEST_FEEDS (state, bestfeeds) {
+      state.bestfeeds = []
       bestfeeds.map(feed => state.bestfeeds.push({
         ...feed.feed,
         likeMembers: feed.likeMemberIndex,
@@ -162,17 +164,9 @@ export default {
           .then(() => {
             alert('피드가 정상적으로 삭제되었습니다.')
             dispatch('fetchCurrentUser')
-            router.push({
-              name: 'profile',
-              params: { userPK: getters.currentUser.member.memberIndex }
-            })
           })
           .catch((err) => {
             console.log(err.response)
-            router.push({
-              name: 'profile',
-              params: { userPK: getters.currentUser.member.memberIndex }
-            })
           })
         }
       }  

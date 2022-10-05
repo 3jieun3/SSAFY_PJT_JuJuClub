@@ -1,6 +1,6 @@
 <template>
   <div>
-    <drink-image></drink-image>
+    <drink-image :imageTitle="`전통주찾기`"></drink-image>
     <tag-list></tag-list>
     <drink-catalog v-if="isDrinkNames" :drinkNames="drinkNames"></drink-catalog>
   </div>

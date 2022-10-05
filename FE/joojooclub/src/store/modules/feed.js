@@ -24,10 +24,18 @@ export default {
   mutations: {
     SET_FEED: (state, feed) => state.feed = feed,
     SET_FEEDS (state, feeds) {
-      feeds.map(feed => feed.likeMembers = []) // 좋아요한 멤버 목록 속성 추가
-      state.feeds = feeds
+      // feeds.map(feed => feed.likeMembers = []) // 좋아요한 멤버 목록 속성 추가
+      feeds.map(feed => state.feeds.push({
+        ...feed.feed,
+        likeMembers: feed.likeMemberIndex,
+      }))
     },
-    SET_BEST_FEEDS: (state, bestfeeds) => state.bestfeeds = bestfeeds,
+    SET_BEST_FEEDS (state, bestfeeds) {
+      bestfeeds.map(feed => state.bestfeeds.push({
+        ...feed.feed,
+        likeMembers: feed.likeMemberIndex,
+      }))
+    },
     SET_LIKE_MEMBERS (state, [feedIndex, likeMembers]) {
       state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers = likeMembers
     },

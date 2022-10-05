@@ -27,7 +27,7 @@
 				</span>
 				<h4 class="card-title">{{ feed.title }}</h4>
 			</div>
-			<p class="card-text overflow-auto text-center p-2" v-text="feed.content"></p>
+			<p class="card-text overflow-auto text-center p-2" v-html="content"></p>
 		</div>
 		<div class="card-footer">
 			<div class="ui large transparent left icon input">
@@ -56,6 +56,9 @@ export default {
 	},
 	computed: {
 		...mapGetters(['currentUser', 'isCurrentUser']),
+		content() {
+			return this.feed.content.replaceAll('\n', '<br />')
+		}
 	},
 	methods: {
 		...mapActions('feed', ['deleteFeed', 'fetchLikeMembers']),

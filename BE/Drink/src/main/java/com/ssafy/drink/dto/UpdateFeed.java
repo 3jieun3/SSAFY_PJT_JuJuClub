@@ -17,6 +17,7 @@ public class UpdateFeed {
     private String content;
     private Long drinkIndex;
     private String customTags;
+    private String imgUrl;
 //    private MultipartFile imgFile;
 
 }

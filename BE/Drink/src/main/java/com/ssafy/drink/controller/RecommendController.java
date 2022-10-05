@@ -62,7 +62,7 @@ public class RecommendController {
         }
 
         List<DrinkRecommend> high3 = new ArrayList<>();
-        for (int i=0 ; i < 3 ; i++){
+        for (int i=0 ; i < 5 ; i++){
             CountTagDrink countTagDrink = pq.poll();
             DrinkRecommend drinkRecommend = new DrinkRecommend();
             Drink drink =  recommendService.findByDrinkIndex3(countTagDrink.getDrinkIndex());
@@ -71,10 +71,23 @@ public class RecommendController {
             drinkRecommend.setCount(countTagDrink.getCount());
             drinkRecommend.setTags(tagList);
             high3.add(drinkRecommend);
-
         }
 
-        return new ResponseEntity<>(high3, HttpStatus.OK);
+        List<DrinkRecommend> result3 = new ArrayList<>();
+        boolean[] checkList = new boolean[5];
+
+        Random random = new Random();
+        for (int i = 0 ; i < 3 ; i++){
+            int randomCount = random.nextInt(4);
+            if (checkList[randomCount]){
+                i--;
+            }else{
+                result3.add(high3.get(randomCount));
+            }
+        }
+
+
+        return new ResponseEntity<>(result3, HttpStatus.OK);
     }
 
 }

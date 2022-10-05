@@ -44,6 +44,7 @@ font-family: 'NanumBarunGothic';
 }
 .feed-body {
 	margin: 5vh 5vw;
+	/* margin: 5vh 0; */
 }
 .feed-header {
 	margin-bottom: 5vh;

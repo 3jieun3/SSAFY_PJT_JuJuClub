@@ -45,6 +45,8 @@ public class MemberController {
         //중복 id 검출
         if(!memberService.checkId(id)){ //아이디가 중복되면
             return new ResponseEntity<String>("중복검사"+FAIL, HttpStatus.FORBIDDEN);
+        }else if(id.length()<8){
+            return new ResponseEntity<String>("id글자수"+FAIL, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(SUCCESS,HttpStatus.OK);
     }

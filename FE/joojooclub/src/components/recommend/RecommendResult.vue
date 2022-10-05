@@ -16,7 +16,7 @@
               <p class="tag" v-for="(tag, index) in result.tags"
               :key="index">#{{ tag }}</p>
             </div>
-            <a class="goDetail" @click="goDetailPage(result.drink.drinkIndex)" href="">자세히 보기</a>
+            <span class="goDetail" @click="goDetailPage(result.drink.drinkIndex)" href="">자세히 보기</span>
           </div>
         </slide>
       </carousel-3d>
@@ -61,6 +61,7 @@ export default {
       border: none;
       text-align: center;
       background-color: white;
+      cursor: default !important;
   }
 
   @media (max-width: 400px){
@@ -113,6 +114,7 @@ export default {
   .goDetail {
     text-decoration: none;
     color: rgb(212, 165, 108);
+    cursor: pointer !important;
   }
 
   :hover.carousel-card {

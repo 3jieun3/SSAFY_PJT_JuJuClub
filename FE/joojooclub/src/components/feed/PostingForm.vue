@@ -1,37 +1,43 @@
 <template>
 	<div>
 		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames" class="search-form"></search-bar>
-		<span v-if="drinkError" class="sub-error">* 전통주명을 검색해주세요</span>
 		<form class="ui form" enctype="multipart/form-data">
+
 			<div class="field">
 				<label for="drinkSearch">전통주명</label>
 				<input type="text" v-model="selectedDrinkName" class="form-control" readonly>
 			</div>
+			<span v-if="drinkError" class="sub-error">* 전통주명을 검색해주세요.</span>
+
 			<div class="field">
 				<label for="title">제목</label>
-				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목" class="form-control">
+				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목 (50자 이하)" class="form-control">
 			</div>
-			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요</span>
+			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요.</span>
+			<span v-if="maxTitleError" class="sub-error">* 50자 이내로 입력해주세요. (현재 : {{ newFeed.title.length }}자)</span>
 			
 			<div class="field">
 				<label for="content">내용</label>
-				<textarea v-model.trim="newFeed.content" id="content" placeholder="내용"></textarea>
+				<textarea v-model.trim="newFeed.content" id="content" placeholder="내용 (255자 이하)"></textarea>
 			</div>
-			<span v-if="contentError" class="sub-error">* 내용을 입력해주세요</span>
+			<span v-if="contentError" class="sub-error">* 내용을 입력해주세요.</span>
+			<span v-if="maxContentError" class="sub-error">* 255자 이내로 입력해주세요. (현재 : {{ newFeed.content.length }}자)</span>
 
 			<div class="field">
 				<label for="imageFile">첨부 파일</label>
 				<div>
-					<input type="file" accept="image/*" ref="image" id="imageFile" @change="uploadImage($event)">
+					<div class="d-flex justify-content-between">
+						<input type="file" accept="image/*" ref="image" id="imageFile" @change="uploadImage($event)">
+						<div class="ui button image-delete-button" @click="onDeleteImage()">업로드 취소</div>
+					</div>
 					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
-					<div class="ui button image-delete-button" @click="onDeleteImage()">업로드 취소</div>
 				</div>
 			</div>
-			<!-- <span v-if="(action === `update`) && fileError" class="sub-error">* 피드 이미지를 수정해주세요</span> -->
 
 			<div class="field">
 				<label for="tags">태그</label>
 				<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그">
+				<span v-if="maxTagsError" class="sub-error">* 50자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
 			</div>
 
 			<button class="ui button" @click="goback">뒤로</button>
@@ -67,12 +73,12 @@ export default {
 				imgUrl: this.feed.imageUrl ? this.feed.imageUrl : '',
 				previewImgUrl: this.feed.imageUrl	// 업로드한 이미지 미리보기
 			},
-
-			// required warning message
+			memberIndex: this?.currentUser?.member?.memberIndex,
+			
+			// required error 처리
 			drinkError: false,
 			titleError: false,
 			contentError: false,
-			memberIndex: this?.currentUser?.member?.memberIndex,
 		}
 	},
 	computed: {
@@ -85,10 +91,19 @@ export default {
 				return this.searchedDrink.drinkName
 			}
 		},
-		// isdrinkError() {
-		// 	if (!this.isSearched) { return false }
-		// 	else { return true }
-		// },
+		// validation check
+		maxTitleError() {
+			if (this.newFeed.title.length >= 50) return true
+			else return false
+		},
+		maxContentError() {
+			if (this.newFeed.content.length >= 255) return true
+			else return false
+		},
+		maxTagsError() {
+			if (this.newFeed.customTags.length >= 50) return true
+			else return false
+		},
 	},
 	methods: {
 		...mapActions('feed', ['createFeed','updateFeed']),
@@ -101,12 +116,18 @@ export default {
 				}
 			})
 		},
+		checkRequiredError(val) {
+			if (val === undefined) return true
+			else if (val === null) return true
+			else if (val === '') return true
+			else return false
+		},
 		onSubmit() {
 			// required 확인
 			this.drinkError = this.checkRequiredError(this.searchedDrink.drinkIndex)
 			this.titleError = this.checkRequiredError(this.newFeed.title)
 			this.contentError = this.checkRequiredError(this.newFeed.content)
-			if (!this.drinkError && !this.titleError && !this.contentError) {
+			if (!this.drinkError && !this.titleError && !this.contentError && !this.maxTitleError && !this.maxContentError && !this.maxTagsError) {
 				// form data 선언
 				let formdata = new FormData()
 				// 키값 추가
@@ -117,7 +138,6 @@ export default {
 				formdata.append('customTags', this.newFeed.customTags)
 
 				if (this.action === 'create') {
-					for (let [k, v] of formdata.entries()) console.log(k, v)
 					formdata.append('imgFile', this.newFeed.imgFile)
 					this.createFeed(formdata)
 				} else if (this.action === 'update') {
@@ -132,7 +152,6 @@ export default {
 		uploadImage(event) {
 			// 업로드한 이미지 파일 가져오기
 			this.newFeed.imgFile = event.target.files[0]
-			event.target.value = ''
 			// 기존 이미지 url 필드 삭제
 			this.newFeed.imgUrl = ''	
 			// 미리보기를 위한 url 변환
@@ -142,28 +161,14 @@ export default {
 			this.newFeed.imgFile = ''
 			this.newFeed.imgUrl = ''
 			this.newFeed.previewImgUrl = ''
-		},
-		checkRequiredError(val) {
-			if (val === undefined) return true
-			else if (val === null) return true
-			else if (val === '') return true
-			else return false
+			// 업로드 파일 배열 초기화
+			this.$refs.image.value = ''
 		},
 	},
 	watch: {
 		feed() {
 			this.newFeed = this.feed
 		},
-		title(val) {
-			if (val.length >= 1) this.titleError = false
-		},
-		content(val) {
-			if (val.length >= 1) this.contentError = false
-		},
-		drinkIndex(val) {
-			if (val > 0) this.drinkError = false
-			else if (val !== null) this.drinkError = false
-		}
 	},
 	created() {
 		this.fetchDrinkNames()
@@ -192,7 +197,10 @@ export default {
 	margin-bottom: 1.5vw;
 	margin-left: 25vw;
 }
-/* .image-delete-button {
-	
-} */
+#imageFile {
+	width: 85%;
+}
+.image-delete-button {
+	flex: 0 0 auto;
+}
 </style>

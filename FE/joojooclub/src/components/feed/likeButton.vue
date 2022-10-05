@@ -14,7 +14,6 @@ export default {
 	},
 	data() {
 		return {
-			// isLiked: this.feed.likeMembers.includes(this.currentUser.member.memberIndex),
 			isCliked: false,
 		}
 	},
@@ -23,22 +22,19 @@ export default {
 		isLiked() {
 			if (this.feed.likeMembers.includes(this.currentUser.member.memberIndex)) return true
 			else return false
-		}
+		},
 	},
 	methods: {
 		...mapActions('feed', ['likeFeed']),
 		likeSubmit() {
 			this.likeFeed(this.feed.feedIndex)
-			// this.isLiked = !this.isLiked
-			this.isCliked = !this.isCliked
+			if (this.feed.likeMembers.includes(this.currentUser.member.memberIndex)) {
+				this.isCliked = false
+			} else {
+				this.isCliked = true
+			}
 		}
 	},
-	created() {
-		// console.log("clicked")
-	},
-	updated() {
-		// console.log("clicked")
-	}
 }
 </script>
 

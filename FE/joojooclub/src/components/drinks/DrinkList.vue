@@ -3,7 +3,7 @@
     <hr>
     <div class="list container">
       <drink-list-item
-      v-for="(drink, index) in showPage"
+      v-for="(drink, index) in filteredDrink"
       :key="index"
       :drink="drink"></drink-list-item>
     </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import DrinkListItem from './DrinkListItem.vue';
 
 export default {
@@ -20,11 +20,19 @@ export default {
     DrinkListItem
   },
   computed: {
-    ...mapState('drinks', ['drinks', 'paging']),
-    ...mapGetters('drinks', ['totalPage', 'showPage'])
+    ...mapGetters('drinks', ['showPage', 'isDrinkSearched', 'searchDrink', 'getSetFilteringDrinks']),
+    filteredDrink() {
+      if (this.isDrinkSearched) {
+        return this.getSetFilteringDrinks.filter(drink => drink.drink.drinkName === this.searchDrink[0].drink.drinkName)
+      }
+      else {
+        return this.showPage
+      }
+    }
   },
   methods: {
     ...mapActions('drinks', ['goPrevPage', 'goNextPage', 'goSpecPage'])
+    
   }
 }
 </script>

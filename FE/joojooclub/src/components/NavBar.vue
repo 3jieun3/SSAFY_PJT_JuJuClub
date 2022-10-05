@@ -14,11 +14,8 @@
         </button>
         <div class="collapse navbar-collapse order-3 order-md-1" id="navbarNav">
           <ul class="navbar-nav col justify-content-start align-items-start .d-none .d-md-block .d-lg-none">
-            <li class="nav-item mt-2">
-              <router-link to="/" class="active nav-common ps-2 ps-md-5 pe-2" aria-current="page">Main</router-link>
-            </li>
             <li class="nav-item mt-2" @click="[clearQuestionCount(), clearChoose()]">
-              <router-link to="/recommend" class="nav-common px-2">Recommend</router-link>
+              <router-link to="/recommend" class="nav-common px-2 ps-2 ps-md-5 pe-2">Recommend</router-link>
             </li>
             <li class="nav-item mt-2">
               <router-link to="/drinks" class="nav-common px-2">Drinks</router-link>

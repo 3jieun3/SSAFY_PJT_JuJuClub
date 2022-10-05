@@ -150,9 +150,11 @@ public class FeedController {
 
         Map<String, Object> map = new HashMap<>();
         Feed feed = feedService.retrieveFeed(feedIndex);
+        List<Long> memberIndexList = likeFeedService.likeMemberList(feedIndex);
 
         if(feed != null) {
             map.put("feed", feed);
+            map.put("likeList", memberIndexList);
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
 

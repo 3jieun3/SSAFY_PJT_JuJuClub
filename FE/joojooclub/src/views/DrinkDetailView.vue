@@ -48,7 +48,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .detail-header {
 	margin: 5vh 5vw;
 }

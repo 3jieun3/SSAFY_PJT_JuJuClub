@@ -17,9 +17,7 @@
         </div>
         <i v-if="isCurrentUser && (currentUser.member.id == review.memberId)" class="deleteBtn fa-solid fa-trash" @click="onDeleteReview"></i>
       </div>
-      <div class="text review-row">
-        {{ review.review }}
-      </div>
+      <div class="text review-row" v-html="content"></div>
     </div>
   </div>
 </template>
@@ -45,6 +43,9 @@ export default {
     createdDate() {
       return this.review.createdAt.substring(0, 10).replaceAll('-', '.')
     },
+		content() {
+			return this.review.review.replaceAll('\n', '<br />')
+		}
   },
   methods: {
     ...mapActions(['deleteMyReview']),
@@ -62,6 +63,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .deleteBtn {
   color: #808080 !important;
   /* background-color: rgb(233, 187, 131); */

@@ -68,7 +68,7 @@ export default {
     /* justify-content: center; */
   }
   #welcomeMent {
-    font-family: ChosunKm;
+    font-family: 'ChosunKm';
     color: white;
     font-size: 3rem;
     width: auto;
@@ -82,7 +82,7 @@ export default {
     }
   }
   .main-btn {
-    font-family: 'NanumBarunGothic';
+    font-family: 'NanumSquareRound';
     font-size: min(2vw, 1rem);
     opacity: 0.8;
   }

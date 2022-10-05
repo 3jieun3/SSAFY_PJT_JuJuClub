@@ -91,7 +91,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .commentBtn {
 	background-color: rgb(233, 187, 131);
 }

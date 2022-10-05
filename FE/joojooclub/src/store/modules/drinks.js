@@ -680,7 +680,7 @@ export default {
           });
         }
         function onGeoError() {
-          alert("Can't find you. No weather for you")
+          // alert("Can't find you. No weather for you")
         }
         navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
         commit('GET_WEATHER_INFO', info)

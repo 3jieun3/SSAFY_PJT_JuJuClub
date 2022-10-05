@@ -38,7 +38,7 @@ export default {
 
 .card-image {
 	flex: 1 1 0;
-	width: 20rem;
+	/* width: 20rem; */
 }
 
 .drink-image {

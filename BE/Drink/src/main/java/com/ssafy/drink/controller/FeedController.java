@@ -86,7 +86,15 @@ public class FeedController {
 
     @ApiOperation(value = "피드 수정", notes = "feedIndex, title, content, drinkIndex, customTags를 받아 피드를 수정한다.")
     @PutMapping("valid")
-    public ResponseEntity<String> updateFeed(@ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) UpdateFeed updateFeed, MultipartFile imgFile) throws IOException {
+    public ResponseEntity<String> updateFeed(@RequestPart String title,@RequestPart String content,@RequestPart String drinkIndex,@RequestPart String customTags, @RequestPart String feedIndex, @RequestPart(value = "imgUrl", required = false) String imgUrl, @ApiParam(value = "필요한 정보(feedIndex, title, content, drinkIndex, customTags)",required = true) @RequestPart(value = "imgFile", required = false) MultipartFile imgFile) throws IOException {
+        UpdateFeed updateFeed = new UpdateFeed();
+        updateFeed.setFeedIndex(Long.parseLong(feedIndex));
+        updateFeed.setDrinkIndex(Long.parseLong(drinkIndex));
+        updateFeed.setContent(content);
+        updateFeed.setTitle(title);
+        updateFeed.setCustomTags(customTags);
+        updateFeed.setImgUrl(imgUrl);
+
         logger.info("피드 수정 API 호출 : {}", updateFeed);
         if(feedService.updateFeed(updateFeed, imgFile)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

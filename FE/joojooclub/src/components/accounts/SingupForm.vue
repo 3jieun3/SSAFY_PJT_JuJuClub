@@ -52,7 +52,7 @@
         <button v-if="action==='update'" class="btn btn-warning">수정하기</button>
       </form>
     </div>
-    <div class="container signup-box d-flex justify-content-end mt-1 p-0">
+    <div v-if="action==='update'" class="container signup-box d-flex justify-content-end mt-1 p-0">
       <router-link :to="{ name: 'changePw'}" class="me-4">비밀번호 변경</router-link>
       <router-link to="/signout">회원탈퇴</router-link>
     </div>

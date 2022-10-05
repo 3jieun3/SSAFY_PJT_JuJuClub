@@ -17,7 +17,7 @@
             <li class="nav-item mt-2" @click="[clearQuestionCount(), clearChoose()]">
               <router-link to="/recommend" class="nav-common px-2 ps-2 ps-md-5 pe-2">Recommend</router-link>
             </li>
-            <li class="nav-item mt-2">
+            <li @click="clearSearchDrink()" class="nav-item mt-2">
               <router-link to="/drinks" class="nav-common px-2">Drinks</router-link>
             </li>
             <li class="nav-item my-2">
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['logout', 'signout']),
-    ...mapActions('drinks', ['clearQuestionCount', 'clearChoose'])
+    ...mapActions('drinks', ['clearQuestionCount', 'clearChoose', 'clearSearchDrink'])
   },
 }
 </script>

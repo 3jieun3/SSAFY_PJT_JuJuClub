@@ -38,7 +38,7 @@ export default {
 
   .btn {
     font-family: 'NanumBarunGothic';
-    font-size: min(2vw, 1rem);
+    font-size: min(3vw, 1rem);
   }
 
   .searchBtn {
@@ -50,7 +50,6 @@ export default {
 
   @media (max-width: 700px) {
     .this-container {
-      border: 4px solid lightcoral;
       border-radius: 1rem;
       margin: 50px 10px 0 10px;
       padding: 12px;

@@ -85,8 +85,8 @@ export default {
 
 <style scoped>
  * {
-  font-family: 'NanumBarunGothic';
- }
+    font-family: 'NanumBarunGothic';
+  }
 
   button {
     margin: 10px;

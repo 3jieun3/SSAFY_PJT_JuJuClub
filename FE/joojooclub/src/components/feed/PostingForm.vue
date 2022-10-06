@@ -40,8 +40,8 @@
 				<span v-if="maxTagsError" class="sub-error">* 50자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
 			</div>
 
-			<button class="ui button" @click="goback">뒤로</button>
-			<button class="ui button" @click.prevent="onSubmit">저장</button>
+			<button class="ui button btn btn-warning" @click="goback">뒤로</button>
+			<button class="ui button btn btn-warning" @click.prevent="onSubmit">저장</button>
 		</form>
 	</div>
 </template>

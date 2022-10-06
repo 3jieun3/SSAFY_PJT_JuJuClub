@@ -76,7 +76,6 @@ export default {
 	color: inherit;
 }
 .ui.cards>.card, .ui.cards>.card.feed-card {
-	position: relative;
 	aspect-ratio: 3 / 4.5;
 	width: 23rem;
 	flex-flow: column nowrap;

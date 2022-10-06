@@ -6,7 +6,7 @@
       <hr>
       <pagination-nav :currentPage="myReviewPaging.currentPage"></pagination-nav>
     </div>
-    <h3 v-else class="m-2">작성한 후기가 없어요..</h3>
+    <h3 v-else class="else m-2">작성한 후기가 없어요..</h3>
   </div>
 </template>
 
@@ -34,6 +34,10 @@ export default {
 .comment-list {
 	max-width: 100%;
 	padding-right: 5vw;
+}
+
+.else {
+	font-family: 'NanumSquareRound' !important;
 }
 
 </style>

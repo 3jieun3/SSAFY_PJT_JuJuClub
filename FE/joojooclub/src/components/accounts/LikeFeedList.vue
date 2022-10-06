@@ -4,7 +4,7 @@
 			<div v-if="likeFeeds.length" class="horiz-scroll ui cards">
 				<feed-list-item v-for="feed in likeFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 			</div>
-			<h3 v-else>좋아요한 피드가 없어요..</h3>
+			<h3 class="else" v-else>좋아요한 피드가 없어요..</h3>
 		</div>
 	</div>
 </template>
@@ -65,5 +65,9 @@ export default {
 }
 .card-image {
 	position: relative;
+}
+
+.else {
+	font-family: 'NanumSquareRound' !important;
 }
 </style>

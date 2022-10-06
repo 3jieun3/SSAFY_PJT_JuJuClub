@@ -50,6 +50,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .profile-box {
 	display: flex;
 	flex-direction: column;

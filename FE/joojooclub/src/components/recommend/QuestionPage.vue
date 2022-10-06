@@ -59,7 +59,7 @@ export default {
     justify-content: space-evenly;
     padding-top: 50px;
     padding-top: 50px;
-    width: 100%;
+    width: 70vw;
   }
 
   #question {

@@ -1,4 +1,5 @@
 <template>
+  <!-- <div class="sticky-top" style="background-color: white;"> -->
   <div>
     <nav class="navbar navbar-expand-md">
       <div class="container-fluid">
@@ -72,7 +73,6 @@ export default {
 </script>
 
 <style scoped>
-
 * {
 	font-family: 'NanumSquareRound';
 }

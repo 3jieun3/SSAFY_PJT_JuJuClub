@@ -72,7 +72,7 @@ export default {
       if(this.isBlank(this.credentials.password)){
         this.pwError = true
       } else {this.pwError = false}
-
+      
       // 에러가 없다면 axios 처리
       if (!this.idError & !this.pwError) {
         this.login(this.credentials)
@@ -82,7 +82,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+	font-family: 'NanumSquareRound';
+}
 .sub-error {
   color: red;
 }

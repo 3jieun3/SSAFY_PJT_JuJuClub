@@ -53,9 +53,10 @@ export default {
   scrollbar-width: none;
 }
 .horiz-scroll .card.feed-card {
+	aspect-ratio: 3 / 4.5;
 	width: 23rem;
-	height: 100%;
 	flex: 0 0 auto;
 	margin: 0 0.75rem;
+	flex-flow: column nowrap;
 }
 </style>

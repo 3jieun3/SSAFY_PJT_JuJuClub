@@ -6,9 +6,9 @@
 				<h4>내가 쓴 후기</h4>
 				<my-comment-list class="mypage-article" :currentUser="currentUser"></my-comment-list>
 				<h4>내가 쓴 피드</h4>
-				<my-feed-list class="mypage-article" v-if="isFeeds" :currentUser="currentUser"></my-feed-list>
+				<my-feed-list class="mypage-article me-sm-5" v-if="isFeeds" :currentUser="currentUser"></my-feed-list>
 				<h4>좋아요한 피드</h4>
-				<like-feed-list class="mypage-article" v-if="isFeeds" :currentUser="currentUser"></like-feed-list>
+				<like-feed-list class="mypage-article me-sm-5" v-if="isFeeds" :currentUser="currentUser"></like-feed-list>
 			</div>
 		</div>
 	</div>
@@ -44,12 +44,15 @@ export default {
 		this.fetchAllFeeds()
 	},
 	updated() {
-		this.fetchCurrentUser()
+		// this.fetchCurrentUser()
 	}
 }
 </script>
 
-<style>
+<style scoped>
+* {
+	font-family: 'NanumSquareRound';
+}
 .mypage-body {
 	margin: 5vh 3vw;
 }
@@ -58,5 +61,8 @@ export default {
 }
 .mypage-section > h4 {
 	text-align: start;
+}
+.mypage-article {
+	margin-bottom: 5rem;
 }
 </style>

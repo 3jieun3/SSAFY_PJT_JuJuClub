@@ -70,20 +70,14 @@ export default {
 
 .deleteBtn {
   color: #808080 !important;
-  /* background-color: rgb(233, 187, 131); */
   font-size: min(1.8vw, 1rem);
-  /* padding: min(0.4vw, 5.2px) min(1vw, 10.5px); */
-  /* position: absolute;
-  right: 0;
-  top: 0; */
-  /* bottom: -1rem; */
 }
 :hover.deleteBtn {
   cursor: pointer;
 }
 
 .fa-solid {
-  color: rgb(243, 243, 83);
+  color: rgb(243, 216, 83);
 }
 
 .content {
@@ -101,20 +95,4 @@ export default {
 .memberInfo {
   padding-bottom: 0.5rem;
 }
-/* .info-row, .info-row > span:first-child {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  column-gap: 1rem;
-}
-.review-box {
-  position: relative;
-  text-align: start;
-}
-p {
-  margin-bottom: 0;
-}
-.review-row {
-  padding: 2%;
-} */
 </style>

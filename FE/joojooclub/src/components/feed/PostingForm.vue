@@ -1,5 +1,7 @@
 <template>
-	<div>
+	<div class="posting-box border">
+		<h3 v-if="action === `create`" class="mb-5">피드 작성</h3>
+		<h3 v-if="action === `update`" class="mb-5">피드 수정</h3>
 		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames" class="search-form"></search-bar>
 		<form class="ui form" enctype="multipart/form-data">
 
@@ -25,12 +27,12 @@
 
 			<div class="field">
 				<label for="imageFile">첨부 파일</label>
-				<div>
-					<div class="d-flex justify-content-between">
+				<div class="col">
+					<div class="d-flex col">
 						<input type="file" accept="image/*" ref="image" id="imageFile" @change="uploadImage($event)">
-						<div class="ui button image-delete-button" @click="onDeleteImage()">업로드 취소</div>
+						<div v-if="this.newFeed.previewImgUrl" class="btn colorbtn btn-outline-warning" @click="onDeleteImage()">업로드 취소</div>
 					</div>
-					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image">
+					<img v-if="newFeed.previewImgUrl" :src="newFeed.previewImgUrl" alt="uploaded feed image" class="preview-image p-4" style="width: 50vw; max-width: 30rem; min-width: 220px">
 				</div>
 			</div>
 
@@ -40,8 +42,8 @@
 				<span v-if="maxTagsError" class="sub-error">* 20자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
 			</div>
 
-			<button class="ui button btn btn-warning" @click="goback">뒤로</button>
-			<button class="ui button btn btn-warning" @click.prevent="onSubmit">저장</button>
+			<button class="btn colorbtn2 btn-warning mt-3" @click="goback">뒤로</button>
+			<button class="btn colorbtn2 btn-warning mt-3" @click.prevent="onSubmit">저장</button>
 		</form>
 	</div>
 </template>
@@ -144,7 +146,7 @@ export default {
 					formdata.append('feedIndex', this.feed.feedIndex)
 					formdata.append('imgFile', this.newFeed.imgFile)
 					formdata.append('imgUrl', this.newFeed.imgUrl)
-					for (let [k, v] of formdata.entries()) console.log(k, v)
+					// for (let [k, v] of formdata.entries()) console.log(k, v)
 					this.updateFeed(formdata)
 				}
 			}
@@ -177,6 +179,17 @@ export default {
 </script>
 
 <style scoped>
+* {
+	font-family: 'NanumSquareRound';
+}
+.posting-box {
+	/* margin-left: 10rem; */
+	/* margin-right: 10rem; */
+	padding: 2rem 5vw 2rem 0;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+}
 .ui.form .field {
 	margin-top: 1rem;
 }
@@ -187,20 +200,38 @@ export default {
 }
 .field > label {
 	text-align: end;
-	word-break: keep-all;
-}
-.preview-image {
-	width: 30vw;
+	/* word-break: keep-all; */
 }
 .search-form {
-	width: 50vw;
+	width: 50%;
 	margin-bottom: 1.5vw;
 	margin-left: 25vw;
 }
 #imageFile {
-	width: 85%;
+	flex: 1;
 }
-.image-delete-button {
-	flex: 0 0 auto;
+.colorbtn {
+  font-size: min(2vw, 1rem);
+  padding: min(0.8vw, 4px) min(1.6vw, 1rem);
+  margin: 5px;
+  color: black;
+}
+.colorbtn2 {
+  font-size: min(2vw, 1rem);
+  padding: min(0.8vw, 4px) min(1.6vw, 1rem);
+  margin: 5px;
+}
+.btn-outline-warning {
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 5px;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
 }
 </style>

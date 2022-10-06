@@ -1,7 +1,7 @@
 <template>
 	<div class="feed-list">
 		<div class="container">
-			<div v-if="likeFeeds.length" class="horiz-scroll">
+			<div v-if="likeFeeds.length" class="horiz-scroll ui cards">
 				<feed-list-item v-for="feed in likeFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 			</div>
 			<h3 v-else>좋아요한 피드가 없어요..</h3>
@@ -36,9 +36,13 @@ export default {
 
 <style scoped>
 .container {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
   width: 100%;
 }
-.horiz-scroll {
+.horiz-scroll.ui.cards {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -58,5 +62,8 @@ export default {
 	flex: 0 0 auto;
 	margin: 0 0.75rem;
 	flex-flow: column nowrap;
+}
+.card-image {
+	position: relative;
 }
 </style>

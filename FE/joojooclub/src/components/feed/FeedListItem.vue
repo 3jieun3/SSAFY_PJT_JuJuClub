@@ -1,38 +1,42 @@
 <template>
-	<div class="ui raised card feed-card">
-		<i class=""></i>
+	<div class="ui card feed-card h-100">
 		<div class="card-header">
-			<div class="right floated meta">{{ createdDate }}</div>
-			<i class="fa-solid fa-bottle-droplet fa-xl mx-2"></i>
 			<router-link :to="{ name: 'drink', params: { drinkPK: this.feed.drink.drinkIndex } }" class="drink-detail-link">
 				<strong class="card-dirnk">{{ feed.drink.drinkName }}</strong>
 			</router-link>
 		</div>
-		<div class="image">
-			<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image">
-			<!-- <img v-else :src="feed.drink.imageUrl" class="feed-img" alt="Feed Image"> -->
-			<img v-else :src="require(`@/assets/logo_for_header.png`)">
-			<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
-				<div class="darkness"></div>
-				<i class="btn fa-solid fa-pen-to-square fa-xl" @click="editFeed"></i>
-				<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(feed.feedIndex)"></i>
+
+		<div class="card-body">
+			<div class="card-image">
+				<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image" class="feed-image card-img-top">
+				<!-- <img v-else :src="feed.drink.imageUrl" class="feed-img" alt="Feed Image"> -->
+				<img v-else :src="require(`@/assets/logo_for_header.png`)" class="feed-image card-img-top">
+				<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
+					<div class="darkness"></div>
+					<i class="btn fa-solid fa-pen-to-square fa-xl" @click="editFeed"></i>
+					<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(feed.feedIndex)"></i>
+				</div>
+			</div>
+
+			<div class="card-details container">
+				<div class="row">
+					<h4 class="card-title col-12">{{ feed.title }}</h4>
+				</div>
+				<div class="row">
+					<span class="col-6"><i class="fa fa-calendar fa-xl px-3 mt-4"></i>{{ createdDate }}</span>
+					<span class="card-heart col-6">
+						<like-button v-if="isCurrentUser" :feed="feed" :currentUser="currentUser"></like-button>
+						<button v-else class="btn"><i class="fa-solid fa-heart fa-2x"></i></button>
+						<span>{{ feed.likeCount >= 1000 ? `999+` : feed.likeCount }}</span>
+					</span>
+				</div>
+			
+				<p class="card-text overflow-auto text-center p-2" v-html="content"></p>
 			</div>
 		</div>
-		<div class="card-body overflow-auto">
-			<div class="sticky-header">
-				<span class="card-heart">
-					<span>{{ feed.likeCount >= 1000 ? `999+` : feed.likeCount }}</span>
-					<like-button v-if="isCurrentUser" :feed="feed" :currentUser="currentUser"></like-button>
-					<button v-else class="btn"><i class="fa-solid fa-heart fa-2x"></i></button>
-				</span>
-				<h4 class="card-title">{{ feed.title }}</h4>
-			</div>
-			<p class="card-text overflow-auto text-center p-2" v-html="content"></p>
-		</div>
+
 		<div class="card-footer">
-			<div class="ui large transparent left icon input">
-				<p>{{ feed.customTags }}</p>
-			</div>
+			<strong>{{ feed.customTags }}</strong>
 		</div>
 	</div>
 </template>
@@ -79,57 +83,34 @@ export default {
 </script>
 
 <style scoped>
-.drink-detail-link {
-	color: black;
+.ui.cards>.card, .ui.cards>.card.feed-card {
+	aspect-ratio: 3 / 4;
+	min-width: 22rem;
+	max-width: 36rem;
+	flex-flow: column nowrap;
 }
-.ui.three.cards > .card.feed-card {
-	width: 25rem;
-	/* height: 100%; */
-	/* margin: 2rem; */
+.ui.cards>.card>.card-header, .ui.cards>.card>.card-footer {
+	flex: 0 0 2rem;
 }
-@media only screen and (min-width: 771px) {
-.ui.card > .image, .ui.cards >.card > .image {
-	flex: 0 0 23rem;
-	background-color: white;
+.ui.cards>.card>.card-body {
+	flex: 1 1 0;
 }
+.ui.cards>.card>.card-image {
+	position: relative;
+	/* height: 30rem; */
+	/* aspect-ratio: 4 / 3; */
+	height: calc(100% * 0.6);
+	background-color: rgb(243, 242, 242);
 }
-.ui.card > .image > img {
-	/* position: absolute; */
-	/* top: 0;
-	left: 0; */
-	/* height: 100%; */
-	height: 50vh;
+.ui.cards>.card>.card-image>.feed-image {
 	width: 100%;
-	/* object-fit: contain; */
-	/* padding: 0.3rem; */
 	object-fit: cover;
 }
-.card-header {
-	padding-top: 1rem;
-}
-.card-title {
-	margin-top: 0.2rem;
-	margin-left: 1rem;
-}
-span > .btn {
-	padding: 0 0.5rem 0 0.3rem;
-}
 .card-body {
-	position: relative;
-	flex: 0 0 13rem;
-	padding-top: 0;
+	flex-flow: column wrap;
 }
-.sticky-header {
-	background-color: white;
-	position: sticky;
-	top: 0;
-	height: 2.5rem;
-	padding: 0.4rem 0 0.5rem 0;
-}
-.card-heart {
-	position: absolute;
-	top: 0;
-	right: 0.5rem;
+.card-details > span {
+	margin: 0 4rem;
 }
 .fa-heart {
 	color: rgb(233, 187, 131);
@@ -139,12 +120,12 @@ span > .btn {
   top: 0;
   left: 0;
   width: 100%;
-  height: 23rem;
+  height: 100%;
   background: #000000;
   opacity: 0;
   transition: all .6s linear;
 }
-.image:hover .darkness{
+.card-image:hover .darkness{
   opacity: 0.4;
 }
 .fa-pen-to-square, .fa-trash-can {
@@ -156,12 +137,12 @@ span > .btn {
 	transition: all .4s linear;
 }
 .fa-pen-to-square {
-	left: 33%;
+	left: 37%;
 }
 .fa-trash-can {
-	left: 53%;
+	left: 57%;
 }
-.image:hover .fa-solid {
+.card-image:hover .fa-solid {
   opacity: 1;
 	transform: scale(1);
 }

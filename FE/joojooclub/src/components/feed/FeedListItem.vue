@@ -82,26 +82,16 @@ export default {
 	color: inherit;
 }
 .ui.cards>.card, .ui.cards>.card.feed-card {
-	position: relative;
+	/* position: relative; */
 	aspect-ratio: 3 / 4.5;
 	width: 23rem;
-	/* min-width: 22rem; */
-	/* max-width: 36rem; */
 	flex-flow: column nowrap;
 }
 .ui.cards>.card>.card-header, .ui.cards>.card>.card-footer {
 	flex: 0 0 2rem;
 }
-
-/* .ui.cards>.card>.card-body {
-	flex: 1 1 0;
-} */
-.card-box {
+.card-image {
 	position: relative;
-}
-
-.ui.cards>.card>.card-image {
-	background-color: rgb(243, 242, 242);
 }
 .ui.cards>.card>.card-image>.feed-image {
 	height: 200px;
@@ -116,6 +106,7 @@ export default {
 }
 .fa-heart {
 	color: rgb(233, 187, 131);
+	/* color: rgb(196, 6, 22); */
 }
 .darkness {
   position: absolute;

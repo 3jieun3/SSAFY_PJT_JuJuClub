@@ -21,26 +21,7 @@ export default {
       pageList: []
     },
     showReviews: [],
-    // todayDrinks: [],
     todayDrinks: {},
-    // todayDrinks: [
-    //   {
-    //     todayDrinkIndex: 0,
-    //     ment: '비 오는 날에는 막걸리 한 잔 어때요?',
-    //     drink: '국순당 쌀 막걸리',
-    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-    //     drinkImage: 'https://thumb.mt.co.kr/06/2021/11/2021111911385598861_1.jpg',
-    //     tags: ['탁주', '인기', '과일']
-    //   },
-    //   {
-    //     drinkIndex: 1,
-    //     ment: '9월 25일 일요일, 30%의 사람들이 이 술을 선택했습니다',
-    //     drink: '소주',
-    //     info: '딸기를 듬뿍 넣어 딸기향이 가득한 산뜻한 프리미엄 막걸리로 너무 차갑지 않은 온도로 마시면 더욱 조화롭고 향기로운 맛을 느낄 수 있다.',
-    //     drinkImage: 'https://dimg.donga.com/ugc/CDB/WEEKLY/Article/60/62/80/93/606280930c4bd2738de6.jpg',
-    //     tags: ['증류주', '혼술', '인기']
-    //   },
-    // ],
     questions: [
       {
         questionIndex: 0,
@@ -480,7 +461,6 @@ export default {
       })
         .then((res) => {
           state.drinks = res.data.drinks
-          console.log(state.drinks)
           state.setFilteringDrinks = state.drinks
           // 페이지 계산
           if (state.setFilteringDrinks.length%12 == 0) {
@@ -490,9 +470,7 @@ export default {
             state.paging.pageList = _.range(1, Math.ceil(state.setFilteringDrinks.length/12)+1)
           }
         })
-        .catch((err) => {
-          console.log(err)
-          console.log('get drinks failed!')
+        .catch(() => {
         })
     },
     GET_TODAY_WEEK_DRINK(state, data) {
@@ -523,8 +501,7 @@ export default {
         commit('SET_DRINK', [res.data.drink, res.data.tags, res.data.foods])
         dispatch('fetchReviews', res.data.reviews)
         dispatch('goPage', 1)
-      }).catch((err) => {
-        console.log(err.response)
+      }).catch(() => {
         router.push({ name: 'drinks' })
       })
     },
@@ -536,8 +513,7 @@ export default {
       }).then((res) => {
         if (getters.isDrinkNames)
         commit('SET_DRINK_NAMES', res.data.drinkNameList)
-      }).catch((err) => {
-        console.log(err.response)
+      }).catch(() => {
       })
     },
 
@@ -554,7 +530,6 @@ export default {
         headers: getters.authHeader,
         data: review,
       }).then((res) => {
-        console.log(res.data)
         const review = {
           'score': res.data.review.score,
           'reviewIndex': res.data.review.reviewIndex,
@@ -565,8 +540,8 @@ export default {
         }
         commit('ADD_REVIEW', review)
         commit('GO_PAGE', 1)
-      }).catch((err) => {
-        console.log(err.response)
+      }).catch(() => {
+        router.push('/')
       })
     },
     deleteReview({ commit, getters }, reviewIndex) {
@@ -579,8 +554,8 @@ export default {
         }).then(() => {
           commit('DELETE_REVIEW', reviewIndex)
           commit('GO_PAGE', 1)
-        }).catch((err) => {
-          console.log(err.response)
+        }).catch(() => {
+          router.push('/')
         })
       }
     },
@@ -649,9 +624,7 @@ export default {
             commit('UPDATE_SET_FILTERING_DRINKS', res.data.drinks)
           commit('UPDATE_PAGE_LIST')
         })
-        .catch((err) => {
-          console.log(err)
-          console.log('get drinks failed!')
+        .catch(() => {
         })
     },
 
@@ -707,8 +680,8 @@ export default {
         method: 'get',
       }).then((res) => {
         commit('GET_TODAY_WEEK_DRINK', res.data)
-      }).catch((err) => {
-        console.log(err)
+      }).catch(() => {
+        router.push('/')
       })
     },
 
@@ -718,8 +691,8 @@ export default {
         method: 'get',
       }).then((res) => {
         commit('GET_TODAY_WEATHER_DRINK', res.data)
-      }).catch((err) => {
-        console.log(err)
+      }).catch(() => {
+        router.push('/')
       })
     },
     getCustomTags({ commit, getters }) {

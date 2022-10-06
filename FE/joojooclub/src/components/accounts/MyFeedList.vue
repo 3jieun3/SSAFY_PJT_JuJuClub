@@ -1,7 +1,7 @@
 <template>
 	<div class="feed-list">
 		<div class="container">
-			<div v-if="myFeeds.length" class="horiz-scroll">
+			<div v-if="myFeeds.length" class="horiz-scroll ui cards">
 				<feed-list-item v-for="feed in myFeeds" :key="feed.feedId" :feed="feed"></feed-list-item>
 			</div>
 			<h3 v-else>작성한 피드가 없어요..</h3>
@@ -36,9 +36,13 @@ export default {
 
 <style scoped>
 .container {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
   width: 100%;
 }
-.horiz-scroll {
+.horiz-scroll.ui.cards {
   position: relative;
   display: flex;
   flex-direction: row;

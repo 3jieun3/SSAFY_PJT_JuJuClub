@@ -46,10 +46,8 @@ export default {
       if (idx === -1) { // 좋아요 하지않았던 피드 -> 좋아요
         state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.push(memberIndex)
         state.feeds.find(feed => feed.feedIndex === feedIndex).likeCount += 1
-        console.log('좋아요', feedIndex)
       } else {          // 좋아요 했던 피드 -> 좋아요 취소
         state.feeds.find(feed => feed.feedIndex === feedIndex).likeMembers.splice(idx, 1)
-        console.log('좋아요 취소', feedIndex)
         state.feeds.find(feed => feed.feedIndex === feedIndex).likeCount -= 1
       }
     }
@@ -64,8 +62,7 @@ export default {
       .then((res) => {
         commit('SET_FEED', res.data.feed)
       })
-      .catch((err) => {
-        console.log(err.response)
+      .catch(() => {
       })
     },
 
@@ -88,8 +85,7 @@ export default {
       .then((res) => {
         commit('SET_LIKE_MEMBERS', [feedIndex, res.data.likeList])
       })
-      .catch((err) => {
-        console.log(err.response)
+      .catch(() => {
       })
     },
 
@@ -104,8 +100,7 @@ export default {
           },
           data: formdata,
         })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           alert('피드가 등록되었습니다.')
           dispatch('fetchCurrentUser')
           router.push({
@@ -113,8 +108,7 @@ export default {
             params: { userPK: getters.currentUser.member.memberIndex }
           })
         })
-        .catch((err) => {
-          console.log(err.response)
+        .catch(() => {
           router.push({
             name: 'profile',
             params: { userPK: getters.currentUser.member.memberIndex }
@@ -142,8 +136,7 @@ export default {
             params: { userPK: getters.feed.member.memberIndex }
           })
         })
-        .catch((err) => {
-          console.log(err.response)
+        .catch(() => {
           router.push({
             name: 'profile',
             params: { userPK: getters.feed.member.memberIndex }
@@ -165,8 +158,7 @@ export default {
             alert('피드가 정상적으로 삭제되었습니다.')
             dispatch('fetchCurrentUser')
           })
-          .catch((err) => {
-            console.log(err.response)
+          .catch(() => {
           })
         }
       }  

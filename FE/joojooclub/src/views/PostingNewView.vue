@@ -40,6 +40,6 @@ export default {
 
 <style>
 .posting-body {
-	margin: 5vw 3vh;
+	margin: 5vw 20vh 5vw 5vh;
 }
 </style>

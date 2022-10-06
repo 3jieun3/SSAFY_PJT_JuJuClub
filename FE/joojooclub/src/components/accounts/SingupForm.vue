@@ -243,7 +243,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+	font-family: 'NanumSquareRound';
+}
 .backBtn {
   border-radius: 10px;
   background-color: #e0e1e2;

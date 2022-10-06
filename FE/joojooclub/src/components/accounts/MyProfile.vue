@@ -6,8 +6,8 @@
 				<i v-else-if="reviewCount <= 100" class="level level2 fa-solid fa-medal"></i>
 				<i v-else class="level level3 fa-solid fa-medal"></i>
 				<h1 class="profile-title mt-2 mb-0 mx-0">{{ memberId }}</h1>
-				<button class="mt-2 me-1 me-lg-2 btn edit-button" @click="updateProfile()">정보 편집</button>
-				<button class="mt-2 me-1 main-btn btn create-button" @click="createFeed()">피드 작성</button>
+				<button class="mt-3 me-1 me-lg-2 btn colorbtn btn-outline-warning" @click="updateProfile()">정보 편집</button>
+				<button class="mt-3 me-1 main-btn btn colorbtn2 btn-warning" @click="createFeed()">피드 작성</button>
 			</div>
 			<div class="row-flex mt-4 mt-sm-5 mb-3">
 				<div class="col-flex">
@@ -100,11 +100,44 @@ export default {
   -webkit-text-fill-color: transparent;
 }
 
-.edit-button {
-	background-color: #e0e1e2;
+.colorbtn {
+  font-size: min(2vw, 1rem);
+  padding: min(0.8vw, 4px) min(1.6vw, 1rem);
+  margin: 5px;
+  color: black;
+}
+.colorbtn2 {
+  font-size: min(2vw, 1rem);
+  padding: min(0.8vw, 4px) min(1.6vw, 1rem);
+  margin: 5px;
 }
 
-.create-button {
-	background-color: rgb(237, 198, 150);
+.btn-outline-warning {
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 10px;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
+}
+
+.btn-warning {
+  background-color: rgb(237, 198, 150);
+  color: black;
+  border-color: rgb(237, 198, 150);
+  border-radius: 10px;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+  background-color: rgb(233, 187, 131);
+  color: black;
+  border-color: rgb(233, 187, 131);
 }
 </style>

@@ -9,7 +9,6 @@ export default {
     drink: Object,
   },
   created() {
-    console.log(this.drink)
   }
 }
 </script>

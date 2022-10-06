@@ -25,13 +25,16 @@ export default {
 		},
 	},
 	methods: {
+		...mapActions(['fetchCurrentUser']),
 		...mapActions('feed', ['likeFeed']),
 		likeSubmit() {
 			this.likeFeed(this.feed.feedIndex)
 			if (this.feed.likeMembers.includes(this.currentUser.member.memberIndex)) {
 				this.isCliked = false
+				this.fetchCurrentUser()
 			} else {
 				this.isCliked = true
+				this.fetchCurrentUser()
 			}
 		}
 	},

@@ -33,6 +33,7 @@ export default {
 <style scoped>
 .comment-list {
 	max-width: 100%;
+	padding-right: 5vw;
 }
 
 </style>

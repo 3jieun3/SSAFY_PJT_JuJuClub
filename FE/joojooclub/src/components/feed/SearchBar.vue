@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style scoped>
-	
+* {
+	font-family: 'NanumSquareRound';
+}
 
 </style>

@@ -56,10 +56,7 @@ export default {
 .mypage-nav {
 	margin-bottom: 5vh;
 }
-.mypage-section h4 {
+.mypage-section > h4 {
 	text-align: start;
 }
-/* .mypage-article {
-	margin-top: 5vh;
-} */
 </style>

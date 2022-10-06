@@ -86,6 +86,9 @@ export default {
 * {
 	font-family: 'NanumSquareRound';
 }
+.signup-box {
+  max-width: 500px;
+}
 .sub-error {
   color: red;
 }

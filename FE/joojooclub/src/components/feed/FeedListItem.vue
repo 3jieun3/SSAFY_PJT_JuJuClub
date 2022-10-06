@@ -1,23 +1,22 @@
 <template>
-	<div class="ui card feed-card h-100">
+	<div class="ui card feed-card card-box">
 		<div class="card-header">
 			<router-link :to="{ name: 'drink', params: { drinkPK: this.feed.drink.drinkIndex } }" class="drink-detail-link">
 				<strong class="card-dirnk">{{ feed.drink.drinkName }}</strong>
 			</router-link>
 		</div>
 
-		<div class="card-body">
-			<div class="card-image">
-				<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image" class="feed-image card-img-top">
-				<!-- <img v-else :src="feed.drink.imageUrl" class="feed-img" alt="Feed Image"> -->
-				<img v-else :src="require(`@/assets/logo_for_header.png`)" class="feed-image card-img-top">
-				<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
-					<div class="darkness"></div>
-					<i class="btn fa-solid fa-pen-to-square fa-xl" @click="editFeed"></i>
-					<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(feed.feedIndex)"></i>
-				</div>
+		<div class="card-image">
+			<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image" class="img-fluid feed-image card-img-top">
+			<img v-else :src="require(`@/assets/logo_for_header.png`)" class="img-fluid feed-image card-img-top">
+			<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
+				<div class="darkness"></div>
+				<i class="btn fa-solid fa-pen-to-square fa-xl" @click="editFeed"></i>
+				<i class="btn fa-solid fa-trash-can fa-xl" @click="deleteFeed(feed.feedIndex)"></i>
 			</div>
+		</div>
 
+		<div class="card-body" style="height: 200px">
 			<div class="card-details container">
 				<div class="row">
 					<h4 class="card-title col-12">{{ feed.title }}</h4>
@@ -31,7 +30,9 @@
 					</span>
 				</div>
 			
-				<p class="card-text overflow-auto text-center p-2" v-html="content"></p>
+				<div style="height: 120px" class="overflow-auto">
+					<p class="card-text overflow-auto text-center p-2" v-html="content"></p>
+				</div>
 			</div>
 		</div>
 
@@ -73,38 +74,39 @@ export default {
 			})
 		},
 	},
-	created() {
-		//this.fetchLikeMembers(this.feed.feedIndex)
-	},
-	updated() {
-		//this.fetchLikeMembers(this.feed.feedIndex)
-	}
 }
 </script>
 
 <style scoped>
+.drink-detail-link {
+	color: inherit;
+}
 .ui.cards>.card, .ui.cards>.card.feed-card {
-	aspect-ratio: 3 / 4;
-	min-width: 22rem;
-	max-width: 36rem;
+	position: relative;
+	aspect-ratio: 3 / 4.5;
+	width: 23rem;
+	/* min-width: 22rem; */
+	/* max-width: 36rem; */
 	flex-flow: column nowrap;
 }
 .ui.cards>.card>.card-header, .ui.cards>.card>.card-footer {
 	flex: 0 0 2rem;
 }
-.ui.cards>.card>.card-body {
+
+/* .ui.cards>.card>.card-body {
 	flex: 1 1 0;
-}
-.ui.cards>.card>.card-image {
+} */
+.card-box {
 	position: relative;
-	/* height: 30rem; */
-	/* aspect-ratio: 4 / 3; */
-	height: calc(100% * 0.6);
+}
+
+.ui.cards>.card>.card-image {
 	background-color: rgb(243, 242, 242);
 }
 .ui.cards>.card>.card-image>.feed-image {
-	width: 100%;
-	object-fit: cover;
+	height: 200px;
+	object-fit: contain;
+	background-color: white;
 }
 .card-body {
 	flex-flow: column wrap;

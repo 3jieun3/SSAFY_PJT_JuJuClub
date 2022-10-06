@@ -43,7 +43,7 @@ export default {
 
 <style scoped>
 * {
-font-family: 'NanumBarunGothic';
+	font-family: 'NanumSquareRound';
 }
 .feed-body {
 	margin: 5vh 5vw;

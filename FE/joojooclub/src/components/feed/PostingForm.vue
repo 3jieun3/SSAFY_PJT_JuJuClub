@@ -43,7 +43,7 @@
 				<span v-if="maxTagsError" class="sub-error">* 20자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
 			</div>
 
-			<button class="btn colorbtn2 btn-warning mt-3" @click="goback">뒤로</button>
+			<button class="btn colorbtn2 btn-white mt-3" @click="goback">뒤로</button>
 			<button class="btn colorbtn2 btn-warning mt-3" @click.prevent="onSubmit">저장</button>
 		</form>
 	</div>

@@ -1,5 +1,5 @@
 <template>
-  <button @click="pushAnswer(answer)" class="btn btn-warning">
+  <button @click="pushAnswer(answer)" class="btn btn-warning btn-lg">
   {{ answer }}
   </button>
 </template>

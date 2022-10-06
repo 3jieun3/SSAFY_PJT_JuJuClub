@@ -6,7 +6,7 @@ server:
       suffix: .log
       prefix: access_log
       file-date-format: .yyyy-MM-dd
-      pattern: '%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b %D'
+      pattern: '%t %U %q %s %r %{User-Agent}i %{Referer}i %a %H %h'
     basedir: .
   servlet:
     context-path: /api
@@ -74,7 +74,7 @@ server:
       suffix: .log
       prefix: access_log
       file-date-format: .yyyy-MM-dd
-      pattern: '%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b %D'
+      pattern: '%t %U %q %s %r %{User-Agent}i %{Referer}i %a %H %h'
     basedir: .
   servlet:
     context-path: /api

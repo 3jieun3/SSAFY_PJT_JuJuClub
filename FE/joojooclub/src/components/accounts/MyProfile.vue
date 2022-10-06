@@ -6,7 +6,8 @@
 				<i v-else-if="reviewCount <= 100" class="level level2 fa-solid fa-medal"></i>
 				<i v-else class="level level3 fa-solid fa-medal"></i>
 				<h1 class="profile-title mt-2 mb-0 mx-0">{{ memberId }}</h1>
-				<button class="mt-2 btn edit-button" @click="updateProfile()">정보 편집</button>
+				<button class="mt-2 me-1 me-lg-2 btn edit-button" @click="updateProfile()">정보 편집</button>
+				<button class="mt-2 me-1 main-btn btn create-button" @click="createFeed()">피드 작성</button>
 			</div>
 			<div class="row-flex mt-4 mt-sm-5 mb-3">
 				<div class="col-flex">
@@ -17,15 +18,8 @@
 					<h4>{{ feedCount }}</h4>
 					<div>피드</div>
 				</div>
-				<div>
-					<button class="main-btn btn p-0" @click="createFeed()">
-					<!-- <i class="create-icon fa-solid fa-file-pen"></i> -->
-					<i class="fa-solid fa-plus"></i>
-				</button>
-				</div>
 			</div>
 		</div>
-		
 	</div>
 </template>
 
@@ -72,9 +66,8 @@ export default {
 .row-flex {
 	display: flex;
 	justify-content: space-around;
-	/* align-items: start; */
-	align-items: start;
-	/* gap: 1rem; */
+	align-items: center;
+	/* gap: min(20vw, 3rem); */
 }
 .col-flex {
 	display: flex;
@@ -109,5 +102,9 @@ export default {
 
 .edit-button {
 	background-color: #e0e1e2;
+}
+
+.create-button {
+	background-color: rgb(237, 198, 150);
 }
 </style>

@@ -3,10 +3,8 @@
 		<div class="feed-header">
 			<best-feed-list v-if="isFeeds"></best-feed-list>
 		</div>
-		<div class="feed-content">
-			<search-bar v-if="isDrinkNames" :drinkNames="drinkNames"></search-bar>
-			<feed-list v-if="isFeeds"></feed-list>
-		</div>
+		<search-bar v-if="isDrinkNames" :drinkNames="drinkNames"></search-bar>
+		<feed-list v-if="isFeeds"></feed-list>
 	</div>
 </template>
 
@@ -44,13 +42,10 @@ font-family: 'NanumBarunGothic';
 }
 .feed-body {
 	margin: 5vh 5vw;
-	/* margin: 5vh 0; */
-}
-.feed-header {
-	margin-bottom: 5vh;
 }
 .search-bar {
-	padding: 0 20vw 5rem 20vw;
+	margin: 10vh 0;
+	padding: 0 20vw;
 }
 #drinkSearch {
 	border-color: black;

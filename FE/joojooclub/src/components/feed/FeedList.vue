@@ -1,6 +1,8 @@
 <template>
-	<div class="ui three stackable cards">
-		<feed-list-item v-for="feed in filteredFeeds" :key="feed.id" :feed="feed"></feed-list-item>
+	<div class="d-flex justify-content-center">
+		<div class="ui cards justify-content-evenly row">
+			<feed-list-item v-for="feed in filteredFeeds" :key="feed.id" :feed="feed"></feed-list-item>
+		</div>
 	</div>
 </template>
 
@@ -37,15 +39,38 @@ export default {
 .ui.cards {
 	align-content: center;
 	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr;
 }
-@media (max-width: 767px) {
-	/* .ui.stackable.cards .card.feed-card {
-		height: 55.5vh;
-		margin: 2rem;
-	} */
-	.ui.card > .image, .ui.cards >.card > .image {
-		height: 23rem;
-		background-color: white;
+.ui.cards .card.feed-card {
+	margin: 1rem 14px;
+}
+
+@media (min-width: 768px) {
+	.ui.cards {
+		grid-template-columns: repeat(2, 1fr);
+		/* column-gap: 21px; */
+	}
+	.ui.cards .card.feed-card {
+		margin: 1rem 21px;
+	}
+}
+@media (min-width: 992px) {
+	.ui.cards {
+		grid-template-columns: repeat(2, 1fr);
+		/* column-gap: 21px; */
+	}
+	.ui.cards .card.feed-card {
+		margin: 1rem 21px;
+	}
+}
+@media (min-width: 1200px) {
+	.ui.cards {
+		grid-template-columns: repeat(3, 1fr);
+		/* column-gap: 84px; */
+	}
+	.ui.cards .card.feed-card {
+		margin: 1rem 42px;
 	}
 }
 </style>

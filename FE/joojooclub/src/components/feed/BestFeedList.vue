@@ -1,6 +1,8 @@
 <template>
-	<div class="ui three stackable cards">
-		<feed-list-item v-for="feed in bestFeeds" :key="feed.id" :feed="feed"></feed-list-item>
+	<div class="d-flex justify-content-center my-0 mx-auto">
+		<div class="ui cards">
+			<feed-list-item v-for="feed in bestFeeds" :key="feed.id" :feed="feed" class="mx-3 mx-lg-4 mx-xl-5"></feed-list-item>
+		</div>
 	</div>
 </template>
 
@@ -28,7 +30,39 @@ export default {
 
 <style scoped>
 .ui.cards {
-	align-content: center;
 	justify-content: center;
+	position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+}
+.ui.cards .card.feed-card {
+	width: 23rem;
+	height: 100%;
+	flex: 0 0 auto;
+	margin: 0 0.75rem;
+}
+
+@media (max-width: 1380px) {
+	.ui.cards {
+		justify-content: start;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		padding: 1rem 0;
+		cursor: default;
+		overflow: scroll hidden;
+		scroll-snap-type: x mandatory;
+		scroll-padding: 0px 1.25rem;
+		scrollbar-width: none;
+	}
 }
 </style>

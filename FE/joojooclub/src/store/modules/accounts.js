@@ -102,10 +102,10 @@ export default {
         })
     },
 
-    logout({ dispatch, getters }) {
+    logout({ dispatch, getters, commit }) {
       if (getters.isLoggedIn){
         dispatch('removeToken')
-        // commit('SET_CURRENT_USER', {})
+        commit('SET_CURRENT_USER', null)
         // 현재 페이지가 main이 아니면 로그아웃 이후 main 페이지로 이동
         if(router.currentRoute.fullPath !== '/') router.push('/')
       } else {
@@ -130,7 +130,7 @@ export default {
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             commit('SET_MY_REVIEWS', [])
             router.push({ name: 'login' })
           }
@@ -138,7 +138,7 @@ export default {
           if (err.response.status === 500) {
             alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             router.push({ name: 'login' })
           }
         })
@@ -160,13 +160,13 @@ export default {
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             router.push({ name: 'login' })
           }
           if (err.response.status === 500) {
             alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             router.push({ name: 'login' })
           }
         })
@@ -182,7 +182,7 @@ export default {
         })
         .then(() => {
           dispatch('removeToken')
-          commit('SET_CURRENT_USER', {})
+          commit('SET_CURRENT_USER', null)
           alert('정상적으로 탈퇴되었습니다')
           router.push({ name: 'main' })
         })
@@ -191,13 +191,13 @@ export default {
           if (err.response.status === 401) {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             router.push({ name: 'login' })
           }
           if (err.response.status === 500) {
             alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요.")
             dispatch('removeToken')
-            commit('SET_CURRENT_USER', {})
+            commit('SET_CURRENT_USER', null)
             router.push({ name: 'login' })
           }
         })

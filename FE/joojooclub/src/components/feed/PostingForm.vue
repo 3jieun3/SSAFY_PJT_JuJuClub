@@ -11,10 +11,10 @@
 
 			<div class="field">
 				<label for="title">제목</label>
-				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목 (50자 이하)" class="form-control">
+				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목 (15자 미만)" class="form-control">
 			</div>
 			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요.</span>
-			<span v-if="maxTitleError" class="sub-error">* 50자 이내로 입력해주세요. (현재 : {{ newFeed.title.length }}자)</span>
+			<span v-if="maxTitleError" class="sub-error">* 15자 미만으로 입력해주세요. (현재 : {{ newFeed.title.length }}자)</span>
 			
 			<div class="field">
 				<label for="content">내용</label>
@@ -37,7 +37,7 @@
 			<div class="field">
 				<label for="tags">태그</label>
 				<input v-model.trim="newFeed.customTags" type="text" id="tags" placeholder="태그">
-				<span v-if="maxTagsError" class="sub-error">* 50자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
+				<span v-if="maxTagsError" class="sub-error">* 20자 이내로 입력해주세요. (현재 : {{ newFeed.customTags.length }}자)</span>
 			</div>
 
 			<button class="ui button btn btn-warning" @click="goback">뒤로</button>
@@ -93,7 +93,7 @@ export default {
 		},
 		// validation check
 		maxTitleError() {
-			if (this.newFeed.title.length >= 50) return true
+			if (this.newFeed.title.length >= 15) return true
 			else return false
 		},
 		maxContentError() {
@@ -101,7 +101,7 @@ export default {
 			else return false
 		},
 		maxTagsError() {
-			if (this.newFeed.customTags.length >= 50) return true
+			if (this.newFeed.customTags.length >= 20) return true
 			else return false
 		},
 	},

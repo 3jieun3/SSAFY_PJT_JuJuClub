@@ -17,13 +17,13 @@
 		</div>
 
 		<div class="card-body" style="height: 200px">
-			<div class="card-details">
-				<span class="card-heart">
+			<div class="card-details my-2 d-flex justify-content-between align-items-center">
+				<h3 class="card-title my-0">{{ feed.title }}</h3>
+				<span class="card-heart d-flex justify-content-center align-items-center" style="margin-right: 7px">
 					<span>{{ feed.likeCount >= 1000 ? `999+` : feed.likeCount }}</span>
 					<like-button v-if="isCurrentUser" :feed="feed" :currentUser="currentUser"></like-button>
-					<button v-else class="btn py-0 px-2"><i class="fa-solid fa-heart fa-2x"></i></button>
+					<div v-else class="px-2"><i class="fa-regular fa-heart fa-2x" style="color: red"></i></div>
 				</span>
-					<h3 class="card-title">{{ feed.title }}</h3>
 			</div>
 			<div class="card-text overflow-auto" style="height: 120px">
 				<p class="text-start p-2" v-html="content"></p>
@@ -88,7 +88,7 @@ export default {
 }
 .ui.cards>.card>.card-image>.feed-image {
 	object-fit: contain;
-	background-color: white;
+	background: linear-gradient(200deg, rgba(219,219,219,1) 0%, rgba(235,235,235,1) 50%, rgba(212,205,151,1) 100%);
 }
 .card-body {
 	position: relative;
@@ -99,9 +99,6 @@ export default {
 	float: left;
 	text-align: start;
 	margin: 1rem 0 0.3rem 1rem;
-}
-.card-heart {
-	float: right;
 }
 .card-text {
 	clear: both;
@@ -114,7 +111,6 @@ export default {
 }
 .fa-heart {
 	color: rgb(233, 187, 131);
-	/* color: rgb(196, 6, 22); */
 }
 .darkness {
   position: absolute;

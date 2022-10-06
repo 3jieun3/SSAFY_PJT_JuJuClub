@@ -28,11 +28,16 @@ export default {
 	methods: {
 		...mapActions('drinks', ['fetchDrinkNames']),
 		...mapActions('feed', ['fetchAllFeeds']),
+		...mapActions(['fetchCurrentUser',]),
 	},
 	created() {
 		this.fetchAllFeeds()
 		this.fetchDrinkNames()
+		this.fetchCurrentUser()
 	},
+	updated() {
+		this.fetchCurrentUser()
+	}
 }
 </script>
 

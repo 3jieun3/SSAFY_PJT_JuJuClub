@@ -1,12 +1,16 @@
 <template>
 	<div class="ui comments comment-list">
-		<hr>
 		<div v-if="showReviews.length">
+			<hr>
 			<comment-list-item v-for="review in showReviews" :key="review.id" :review="review" class="comment" style="min-height: 50px"></comment-list-item>
+			<hr>
+			<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
 		</div>
-		<div v-else>작성된 후기가 없습니다</div>
-		<hr>
-		<pagination-nav :currentPage="reviewPaging.currentPage"></pagination-nav>
+		<div v-else>
+			<hr>
+			작성된 후기가 없습니다
+			<hr>
+		</div>
 	</div>
 </template>
 

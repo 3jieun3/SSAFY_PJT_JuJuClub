@@ -11,10 +11,10 @@
 
 			<div class="field">
 				<label for="title">제목</label>
-				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목 (50자 이하)" class="form-control">
+				<input v-model.trim="newFeed.title" type="text" multiple="multiple" id="title" placeholder="제목 (15자 미만)" class="form-control">
 			</div>
 			<span v-if="titleError" class="sub-error">* 제목을 입력해주세요.</span>
-			<span v-if="maxTitleError" class="sub-error">* 15자 이내로 입력해주세요. (현재 : {{ newFeed.title.length }}자)</span>
+			<span v-if="maxTitleError" class="sub-error">* 15자 미만으로 입력해주세요. (현재 : {{ newFeed.title.length }}자)</span>
 			
 			<div class="field">
 				<label for="content">내용</label>

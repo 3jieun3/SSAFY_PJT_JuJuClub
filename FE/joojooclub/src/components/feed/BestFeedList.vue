@@ -41,10 +41,11 @@ export default {
   cursor: default;
 }
 .ui.cards .card.feed-card {
+	aspect-ratio: 3 / 4.5;
 	width: 23rem;
-	height: 100%;
 	flex: 0 0 auto;
 	margin: 0 0.75rem;
+	flex-flow: column nowrap;
 }
 
 @media (max-width: 1380px) {

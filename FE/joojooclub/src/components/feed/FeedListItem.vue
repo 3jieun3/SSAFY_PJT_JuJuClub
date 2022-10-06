@@ -6,7 +6,7 @@
 			</router-link>
 		</div>
 
-		<div class="card-image">
+		<div class="card-image" style="height: 200px">
 			<img v-if="feed.imageUrl" :src="feed.imageUrl" alt="Feed Image" class="img-fluid feed-image card-img-top">
 			<img v-else :src="require(`@/assets/logo_for_header.png`)" class="img-fluid feed-image card-img-top">
 			<div v-if="isCurrentUser && (currentUser.member.memberIndex === feed.member.memberIndex)">
@@ -82,7 +82,6 @@ export default {
 	color: inherit;
 }
 .ui.cards>.card, .ui.cards>.card.feed-card {
-	/* position: relative; */
 	aspect-ratio: 3 / 4.5;
 	width: 23rem;
 	flex-flow: column nowrap;
@@ -94,7 +93,6 @@ export default {
 	position: relative;
 }
 .ui.cards>.card>.card-image>.feed-image {
-	height: 200px;
 	object-fit: contain;
 	background-color: white;
 }

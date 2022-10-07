@@ -29,6 +29,11 @@ export default {
 </script>
 
 <style scoped>
+
+* {
+	font-family: 'NanumSquareRound';
+}
+
 .ui.cards {
 	justify-content: center;
 	position: relative;

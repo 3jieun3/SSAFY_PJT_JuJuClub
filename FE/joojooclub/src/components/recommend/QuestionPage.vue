@@ -2,7 +2,7 @@
   <div class="recommendImg">
     <div class="que row row-cols-1"> 
       <div class="question">
-        <h2 class="col" id="question">{{ getQuestion[questionEtc.questionCount].question }}</h2>
+        <h1 class="col" id="question">{{ getQuestion[questionEtc.questionCount].question }}</h1>
       </div>
       <div class="ansButton row row-cols-1 row-cols-sm-3 row-cols-md-6">
         <question-answer-item
@@ -59,7 +59,7 @@ export default {
     justify-content: space-evenly;
     padding-top: 50px;
     padding-top: 50px;
-    width: 100%;
+    width: 60vw;
   }
 
   #question {

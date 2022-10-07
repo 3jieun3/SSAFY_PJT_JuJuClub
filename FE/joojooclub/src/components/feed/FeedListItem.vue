@@ -99,6 +99,7 @@ export default {
 	float: left;
 	text-align: start;
 	margin: 1rem 0 0.3rem 1rem;
+	font-family: 'NanumSquareRound';
 }
 .card-text {
 	clear: both;

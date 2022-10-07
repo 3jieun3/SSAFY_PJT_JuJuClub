@@ -142,7 +142,7 @@ export default {
   .todayMent {
     font-family: 'GongGothicMedium';
     margin-top: 50px;
-    color: red;
+    color: rgb(199, 0, 0);
     font-size: min(4vw, 1.5rem);
   }
   

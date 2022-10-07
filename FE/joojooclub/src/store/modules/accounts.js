@@ -14,6 +14,7 @@ export default {
     // dj_rest_auth accounts/user/
     currentUser: {},
     myReviews: [],
+    myLikeFeeds: [],
     // 후기 pagination
     myReviewPaging: {
       currentPage: 1,
@@ -30,6 +31,7 @@ export default {
     authError: state => state.authError,
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
+    myLikeFeeds: state => state.likeFeeds,
     myReviews: state => state.myReviews,
     myReviewPaging: state => state.myReviewPaging,
     myPageList: state => state.myReviewPaging.pageList,
@@ -56,6 +58,14 @@ export default {
       // page 에서 보여줄 review list 변경
       state.myShowReviews = state.myReviews.slice((page - 1) * 5, page * 5)
     },
+    UPDATE_MY_LIKE_FEEDS(state, likeFeed) {
+      if (state.currentUser.likeFeeds.includes(likeFeed)) { // 좋아요 했던 피드 -> 좋아요 목록에서 빠짐
+        state.currentUser.likeFeeds.splice(state.currentUser.likeFeeds.indexOf(likeFeed), 1)
+      }
+      else {  // 좋아요 하지 않았던 피드 -> 좋아요 목록에 추가
+        state.currentUser.likeFeeds.unshift(likeFeed)
+      }
+    }
   },
   actions: {
     saveToken({ commit }, token) {
@@ -207,6 +217,10 @@ export default {
     deleteMyReview({ getters, commit, dispatch }, reviewIndex) {
       commit('DELETE_MY_REVIEW', reviewIndex)
       dispatch('goMyPage', getters.myReviewPaging.currentPage)
+    },
+
+    updateMyLikeFeeds({ commit }, likeFeed ) {
+      commit('UPDATE_MY_LIKE_FEEDS', likeFeed)
     },
 
     goMyPage({ commit }, page) {

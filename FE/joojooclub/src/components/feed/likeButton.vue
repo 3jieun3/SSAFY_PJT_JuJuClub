@@ -25,16 +25,19 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(['fetchCurrentUser']),
+		...mapActions(['fetchCurrentUser', 'updateMyLikeFeeds']),
 		...mapActions('feed', ['likeFeed']),
 		likeSubmit() {
 			this.likeFeed(this.feed.feedIndex)
 			if (this.feed.likeMembers.includes(this.currentUser.member.memberIndex)) {
 				this.isCliked = false
-				this.fetchCurrentUser()
 			} else {
 				this.isCliked = true
-				this.fetchCurrentUser()
+			}
+			// 본인 피드 좋아요 혹은 좋아요 취소한 경우
+			if (this.currentUser.memberIndex === this.feed.member.memberIndex) {
+				const likeFeed = this.feeds.find(feed => feed.feedIndex === this.feed.feedIndex)
+				this.updateMyLikeFeeds(likeFeed)
 			}
 		}
 	},

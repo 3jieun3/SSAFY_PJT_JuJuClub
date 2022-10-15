@@ -15,6 +15,7 @@ export default {
 	data() {
 		return {
 			isCliked: false,
+			currentRoute: window.location.pathname.toString(),
 		}
 	},
 	computed: {
@@ -25,16 +26,19 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(['fetchCurrentUser']),
+		...mapActions(['updateMyLikeFeeds']),
 		...mapActions('feed', ['likeFeed']),
 		likeSubmit() {
+			// like post api 및 feeds 의 likemembers 배열 update
 			this.likeFeed(this.feed.feedIndex)
 			if (this.feed.likeMembers.includes(this.currentUser.member.memberIndex)) {
-				this.isCliked = false
-				this.fetchCurrentUser()
+				this.isCliked = false		// 좋아요 취소
 			} else {
-				this.isCliked = true
-				this.fetchCurrentUser()
+				this.isCliked = true		// 새로 좋아요 누름 -> 애니메이션
+			}
+			// 마이페이지에서의 실시간 업데이트를 위한 로직
+			if (this.currentRoute.startsWith('/profile')) {
+				this.updateMyLikeFeeds([this.feed.feedIndex, this.feed])
 			}
 		}
 	},

@@ -55,8 +55,8 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: AKIAUBFKRXNYJ266HFAM
-      secret-key: 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
+      access-key: AKIAUBFKRXNYLUGVTWMO
+      secret-key: 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
     s3:
       bucket: ssafyd106
     region:
@@ -123,8 +123,8 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: AKIAUBFKRXNYJ266HFAM
-      secret-key: 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
+      access-key: AKIAUBFKRXNYLUGVTWMO
+      secret-key: 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
     s3:
         bucket: ssafyd106
     region:

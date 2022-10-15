@@ -14,7 +14,8 @@ export default {
     // dj_rest_auth accounts/user/
     currentUser: {},
     myReviews: [],
-    // 후기 pagination
+    myLikeFeeds: [],
+    // review pagination
     myReviewPaging: {
       currentPage: 1,
       totalPage: 0,
@@ -31,6 +32,8 @@ export default {
     authHeader: state => ({ Authorization: 'Bearer ' + `${state.token}` }),
     isCurrentUser: state => !_.isEmpty(state.currentUser),
     myReviews: state => state.myReviews,
+    myLikeFeeds: state => state.myLikeFeeds,
+    // review pagination
     myReviewPaging: state => state.myReviewPaging,
     myPageList: state => state.myReviewPaging.pageList,
     myShowReviews: state => state.myShowReviews,
@@ -56,6 +59,23 @@ export default {
       // page 에서 보여줄 review list 변경
       state.myShowReviews = state.myReviews.slice((page - 1) * 5, page * 5)
     },
+    UPDATE_MY_LIKE_FEEDS(state, [feedIndex, feed]) {
+      const likeFeed = state.currentUser.likeFeeds.filter(fd => fd.feed.feedIndex === feedIndex)
+      if (likeFeed.length > 0) { // 좋아요 했던 피드 -> 좋아요 목록에서 빠짐
+        state.currentUser.likeFeeds.splice(state.currentUser.likeFeeds.indexOf(likeFeed[0]), 1)
+      } else {  // 좋아요 하지 않았던 피드 -> 좋아요 목록에 추가
+        // currentUser.likeFeeds 객체 형식에 맞게 재정의하여 추가
+        const newLikeFeed = {
+          feed: _.omit(feed, 'likeMembers'),
+          likeFeedIndex: {
+            feedIndex: feedIndex,
+            memberIndex: state.currentUser.member.memberIndex,
+          },
+          member: state.currentUser.member,
+        }
+        state.currentUser.likeFeeds.unshift(newLikeFeed)
+      }
+    }
   },
   actions: {
     saveToken({ commit }, token) {
@@ -131,7 +151,6 @@ export default {
             // 사용자 정보 삭제하고 로그인 페이지로 이동
             dispatch('removeToken')
             commit('SET_CURRENT_USER', null)
-            commit('SET_MY_REVIEWS', [])
             router.push({ name: 'login' })
           }
           // 토큰 만료
@@ -207,6 +226,10 @@ export default {
     deleteMyReview({ getters, commit, dispatch }, reviewIndex) {
       commit('DELETE_MY_REVIEW', reviewIndex)
       dispatch('goMyPage', getters.myReviewPaging.currentPage)
+    },
+
+    updateMyLikeFeeds({ commit }, [feedIndex, feed]) {
+      commit('UPDATE_MY_LIKE_FEEDS', [feedIndex, feed])
     },
 
     goMyPage({ commit }, page) {

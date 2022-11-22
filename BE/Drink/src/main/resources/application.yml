@@ -21,9 +21,9 @@ spring:
       on-profile: production-set1
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j7d106.p.ssafy.io:3306/jujuclub?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: hive
-    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
+    url: 
+    username: 
+    password: 
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -41,11 +41,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#  h2:
-#    console:
-#      enabled: true
-#  datasource:
-#    url: jdbc:h2:mem:test db;MODE=MySQL;DATABASE_TO_UPPER=FALSE;
 
 
 logging:
@@ -55,10 +50,10 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: AKIAUBFKRXNYLUGVTWMO
-      secret-key: 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
+      access-key: 
+      secret-key: 
     s3:
-      bucket: ssafyd106
+      bucket: 
     region:
       static: ap-northeast-2
       auto: false
@@ -89,9 +84,9 @@ spring:
       on-profile: production-set2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j7d106.p.ssafy.io:3306/jujuclub?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: hive
-    password: nh+7&(tUa7p[NYcAae{Sno&LM698=1
+    url: 
+    username: 
+    password: 
   jpa:
     defer-datasource-initialization: true
     show-sql: true
@@ -110,11 +105,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-#  h2:
-#    console:
-#      enabled: true
-#  datasource:
-#    url: jdbc:h2:mem:test db;MODE=MySQL;DATABASE_TO_UPPER=FALSE;
 
 logging:
   level:
@@ -123,10 +113,10 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: AKIAUBFKRXNYLUGVTWMO
-      secret-key: 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
+      access-key: 
+      secret-key: 
     s3:
-        bucket: ssafyd106
+        bucket: 
     region:
       static: ap-northeast-2
       auto: false

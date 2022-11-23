@@ -267,7 +267,7 @@
 
 5. 6주차 (프론트 및 백엔드 에러 처리, 발표 준비, Documentation)
 
-   ![sprint6](README.assets/sprint6.png)
+   ![sprint6](README.assets/sprint6.jpg)
 
 
 
